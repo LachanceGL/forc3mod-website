@@ -115,38 +115,6 @@ h1, h2, h3, h4, h5 {
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent-2); }
 .btn--lg { padding: 16px 32px; font-size: 15px; }
 
-/* ===== Top bar ===== */
-.topbar {
-  background: var(--bg-alt);
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--text-mute);
-}
-.topbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 40px;
-}
-.topbar__meta { display: flex; gap: 28px; }
-.topbar__meta li { display: flex; align-items: center; gap: 6px; }
-.topbar__meta .ico { width: 13px; height: 13px; opacity: .7; }
-.topbar__social { display: flex; gap: 10px; }
-.topbar__social a {
-  width: 26px; height: 26px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: var(--surface);
-  color: var(--text-dim);
-  transition: background .2s, color .2s;
-}
-.topbar__social .ico { width: 13px; height: 13px; }
-.topbar__social a:hover { background: var(--accent); color: #fff; }
-
-@media (max-width: 860px) {
-  .topbar__meta li:first-child { display: none; }
-}
-
 /* ===== Header ===== */
 /* Note: intentionally no backdrop-filter here — it would establish a new
    containing block on .header, which breaks position:fixed on the mobile
