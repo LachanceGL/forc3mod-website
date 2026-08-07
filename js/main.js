@@ -45,17 +45,6 @@
     });
   }
 
-  // ---- Search button placeholder ----
-  const searchBtn = document.getElementById('searchBtn');
-  if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
-      const term = window.prompt('Search FORC3MOD mods:');
-      if (term) {
-        window.location.hash = 'mods';
-      }
-    });
-  }
-
   // ---- Active nav link on scroll ----
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link');
@@ -112,12 +101,41 @@
     });
   };
 
+  // The contact form has no backend, so it hands off to the visitor's own
+  // email client via a mailto: link rather than pretending to submit.
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    setupForm(contactForm, {
-      requireType: true,
-      requiredMessage: 'Please fill in your name, email, and what this is about.',
-      successMessage: (name, email) => `Thanks, ${name}! Your message has been noted — we'll reply at ${email}.`,
+    const note = contactForm.querySelector('.form-note');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = new FormData(contactForm);
+      const name = String(data.get('name') || '').trim();
+      const email = String(data.get('email') || '').trim();
+      const type = String(data.get('type') || '').trim();
+      const message = String(data.get('message') || '').trim();
+
+      if (!name || !email || !type) {
+        note.textContent = 'Please fill in your name, email, and what this is about.';
+        note.style.color = '#ff6b6b';
+        return;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        note.textContent = 'That email address doesn’t look right.';
+        note.style.color = '#ff6b6b';
+        return;
+      }
+
+      const subject = `[FORC3MOD] ${type} from ${name}`;
+      const body = `${message || '(no message)'}\n\nFrom: ${name} (${email})`;
+      const mailto = `mailto:forc3mod@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      note.textContent = 'Opening your email app to send this to forc3mod@gmail.com…';
+      note.style.color = 'var(--accent-2)';
+      window.location.href = mailto;
+      contactForm.reset();
     });
   }
 
