@@ -117,11 +117,11 @@
     counters.forEach((el) => io.observe(el));
   }
 
-  // ---- Contact form (client-side only, no backend wired up) ----
-  const form = document.getElementById('contactForm');
-  const note = document.getElementById('formNote');
+  // ---- Contact / waitlist forms (client-side only, no backend wired up) ----
+  const setupForm = (form, { requireType = false, successVerb = 'noted' } = {}) => {
+    const note = form.querySelector('.form-note');
+    if (!note) return;
 
-  if (form && note) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -130,8 +130,10 @@
       const email = String(data.get('email') || '').trim();
       const type = String(data.get('type') || '').trim();
 
-      if (!name || !email || !type) {
-        note.textContent = 'Please fill in your name, email, and mod type.';
+      if (!name || !email || (requireType && !type)) {
+        note.textContent = requireType
+          ? 'Please fill in your name, email, and mod type.'
+          : 'Please fill in your name and email.';
         note.style.color = '#ff6b6b';
         return;
       }
@@ -144,9 +146,15 @@
       }
 
       // No backend is connected yet — this just confirms receipt client-side.
-      note.textContent = `Thanks, ${name}! Your request has been noted — we'll reply at ${email}.`;
+      note.textContent = `Thanks, ${name}! Your request has been ${successVerb} — we'll reply at ${email}.`;
       note.style.color = 'var(--accent-2)';
       form.reset();
     });
-  }
+  };
+
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) setupForm(contactForm, { requireType: true, successVerb: 'noted' });
+
+  const waitlistForm = document.getElementById('waitlistForm');
+  if (waitlistForm) setupForm(waitlistForm, { requireType: false, successVerb: 'added to the waitlist' });
 })();
