@@ -495,3 +495,59 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 560px) {
   .footer__inner { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   FORC3 Designer page theme — dark charcoal + lime accent,
+   matching the app's own UI (distinct from the site-wide blue
+   brand used on the rest of forc3mod.com).
+   ========================================================= */
+.theme-designer {
+  --bg: #121212;
+  --bg-alt: #161616;
+  --surface: #1c1c1c;
+  --surface-2: #232323;
+  --border: #2c2c2c;
+  --accent: #a3b800;
+  --accent-2: #d4e100;
+  --accent-soft: rgba(212, 225, 0, 0.14);
+}
+/* The header/nav bar keeps the site-wide blue brand untouched, even
+   on this page's otherwise lime-themed content. */
+.theme-designer .header {
+  --bg: #0a0b0e;
+  --bg-alt: #0e1015;
+  --surface: #14161d;
+  --surface-2: #1a1d26;
+  --border: #232634;
+  --accent: #2f6fff;
+  --accent-2: #4fb3ff;
+  --accent-soft: rgba(47, 111, 255, 0.12);
+}
+.theme-designer .header .btn--primary {
+  box-shadow: 0 8px 24px rgba(47, 111, 255, 0.28);
+  color: #fff;
+}
+.theme-designer .header .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4);
+}
+.theme-designer .hero {
+  background: radial-gradient(ellipse at 70% 20%, #141a06 0%, var(--bg) 55%);
+}
+.theme-designer .hero__glow {
+  background: radial-gradient(circle, rgba(212, 225, 0, .22), transparent 70%);
+}
+.theme-designer .btn--primary {
+  box-shadow: 0 8px 24px rgba(212, 225, 0, 0.22);
+  color: #121212;
+}
+.theme-designer .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(212, 225, 0, 0.32);
+}
+.theme-designer .about__card::before {
+  background: radial-gradient(circle at 20% 15%, rgba(212, 225, 0, .18), transparent 55%);
+}
+.theme-designer .card:hover { border-color: rgba(212, 225, 0, .4); }
+.theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
+.theme-designer .cta__glow {
+  background: radial-gradient(circle, rgba(212, 225, 0, .16), transparent 70%);
+}
