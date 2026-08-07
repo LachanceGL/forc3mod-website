@@ -81,6 +81,7 @@ h1, h2, h3, h4, h5 {
 .section__title { font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px; }
 .section__lead { color: var(--text-dim); font-size: 17px; }
 .section__lead.center { margin: 0 auto; }
+.section__cta { text-align: center; margin-top: 40px; }
 
 /* ===== Buttons ===== */
 .btn {
@@ -421,80 +422,6 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 980px) { .cards { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
 
-/* ===== Gallery ===== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 220px;
-  gap: 18px;
-}
-.shot {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: linear-gradient(150deg, var(--h1), var(--h2));
-  border: 1px solid var(--border);
-}
-.shot::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(115deg, rgba(255,255,255,.04) 0 2px, transparent 2px 26px);
-}
-.shot--wide { grid-column: span 2; }
-.shot figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0,0,0,.75), transparent);
-}
-.shot .tag {
-  display: inline-block;
-  font-family: var(--font-head);
-  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--accent-2);
-  margin-bottom: 6px;
-}
-.shot h4 { font-size: 17px; }
-
-@media (max-width: 900px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-  .shot--wide { grid-column: span 2; }
-}
-@media (max-width: 560px) {
-  .gallery { grid-template-columns: 1fr; }
-  .shot--wide { grid-column: span 1; }
-}
-
-/* ===== Stats band ===== */
-.band {
-  background: linear-gradient(135deg, #081a3a, #04070f);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.band__inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 56px 24px;
-  text-align: center;
-}
-.band__item strong {
-  display: block;
-  font-family: var(--font-head);
-  font-size: clamp(28px, 4vw, 40px);
-  color: #fff;
-}
-.band__item span {
-  display: block;
-  margin-top: 6px;
-  color: rgba(255,255,255,.65);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-@media (max-width: 700px) {
-  .band__inner { grid-template-columns: 1fr 1fr; gap: 32px 0; }
-}
-
 /* ===== FAQ ===== */
 .faq {
   display: grid;
@@ -573,6 +500,7 @@ h1, h2, h3, h4, h5 {
 }
 .field { display: flex; }
 .field--full { grid-column: 1 / -1; }
+.cta__form-label { color: var(--text-dim); font-size: 14.5px; }
 .cta__form input,
 .cta__form select,
 .cta__form textarea {

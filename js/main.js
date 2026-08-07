@@ -79,46 +79,8 @@
   window.addEventListener('scroll', setActiveLink, { passive: true });
   setActiveLink();
 
-  // ---- Animated stat counters ----
-  const counters = document.querySelectorAll('[data-count]');
-
-  const formatNumber = (num) => {
-    if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(num % 1000 === 0 ? 0 : 1) + 'k';
-    return String(num);
-  };
-
-  const animateCounter = (el) => {
-    const target = parseInt(el.getAttribute('data-count'), 10) || 0;
-    const duration = 1400;
-    const start = performance.now();
-
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = formatNumber(Math.floor(target * eased));
-      if (progress < 1) requestAnimationFrame(tick);
-      else el.textContent = formatNumber(target);
-    };
-
-    requestAnimationFrame(tick);
-  };
-
-  if ('IntersectionObserver' in window && counters.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-
-    counters.forEach((el) => io.observe(el));
-  }
-
-  // ---- Contact / waitlist forms (client-side only, no backend wired up) ----
-  const setupForm = (form, { requireType = false, successVerb = 'noted' } = {}) => {
+  // ---- Contact / notify forms (client-side only, no backend wired up) ----
+  const setupForm = (form, { requireType = false, requiredMessage, successMessage }) => {
     const note = form.querySelector('.form-note');
     if (!note) return;
 
@@ -131,9 +93,7 @@
       const type = String(data.get('type') || '').trim();
 
       if (!name || !email || (requireType && !type)) {
-        note.textContent = requireType
-          ? 'Please fill in your name, email, and mod type.'
-          : 'Please fill in your name and email.';
+        note.textContent = requiredMessage;
         note.style.color = '#ff6b6b';
         return;
       }
@@ -146,15 +106,27 @@
       }
 
       // No backend is connected yet — this just confirms receipt client-side.
-      note.textContent = `Thanks, ${name}! Your request has been ${successVerb} — we'll reply at ${email}.`;
+      note.textContent = successMessage(name, email);
       note.style.color = 'var(--accent-2)';
       form.reset();
     });
   };
 
   const contactForm = document.getElementById('contactForm');
-  if (contactForm) setupForm(contactForm, { requireType: true, successVerb: 'noted' });
+  if (contactForm) {
+    setupForm(contactForm, {
+      requireType: true,
+      requiredMessage: 'Please fill in your name, email, and what this is about.',
+      successMessage: (name, email) => `Thanks, ${name}! Your message has been noted — we'll reply at ${email}.`,
+    });
+  }
 
   const waitlistForm = document.getElementById('waitlistForm');
-  if (waitlistForm) setupForm(waitlistForm, { requireType: false, successVerb: 'added to the waitlist' });
+  if (waitlistForm) {
+    setupForm(waitlistForm, {
+      requireType: false,
+      requiredMessage: 'Please fill in your name and email.',
+      successMessage: (name) => `Thanks, ${name}! We'll email you the moment FORC3 Designer is live.`,
+    });
+  }
 })();
