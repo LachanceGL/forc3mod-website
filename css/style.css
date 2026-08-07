@@ -11,9 +11,9 @@
   --text: #eef0f4;
   --text-dim: #a6acbb;
   --text-mute: #6b7182;
-  --accent: #ff2e2e;
-  --accent-2: #ff5b3a;
-  --accent-soft: rgba(255, 46, 46, 0.12);
+  --accent: #2f6fff;
+  --accent-2: #4fb3ff;
+  --accent-soft: rgba(47, 111, 255, 0.12);
   --radius: 14px;
   --radius-sm: 8px;
   --shadow: 0 20px 60px rgba(0,0,0,.45);
@@ -104,9 +104,9 @@ h1, h2, h3, h4, h5 {
 .btn--primary {
   background: linear-gradient(135deg, var(--accent-2), var(--accent));
   color: #fff;
-  box-shadow: 0 8px 24px rgba(255, 46, 46, 0.28);
+  box-shadow: 0 8px 24px rgba(47, 111, 255, 0.28);
 }
-.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 46, 46, 0.4); }
+.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4); }
 .btn--ghost {
   background: transparent;
   border-color: var(--border);
@@ -133,19 +133,8 @@ h1, h2, h3, h4, h5 {
   gap: 24px;
 }
 
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo__mark {
-  width: 38px; height: 38px;
-  color: var(--accent);
-}
-.logo__mark svg { width: 100%; height: 100%; }
-.logo__text {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 21px;
-  letter-spacing: 0.05em;
-}
-.logo__accent { color: var(--accent); }
+.logo { display: flex; align-items: center; }
+.logo__img { height: 26px; width: auto; display: block; }
 
 .nav { display: flex; align-items: center; gap: 6px; }
 .nav__link {
@@ -248,7 +237,7 @@ h1, h2, h3, h4, h5 {
   position: relative;
   overflow: hidden;
   padding: 120px 0 80px;
-  background: radial-gradient(ellipse at 70% 20%, #1a0d0f 0%, var(--bg) 55%);
+  background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
 }
 .hero__grid {
   position: absolute; inset: 0;
@@ -261,7 +250,7 @@ h1, h2, h3, h4, h5 {
 .hero__glow {
   position: absolute; top: -200px; right: -160px;
   width: 640px; height: 640px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,46,46,.28), transparent 70%);
+  background: radial-gradient(circle, rgba(47,111,255,.28), transparent 70%);
   filter: blur(10px);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
@@ -296,7 +285,7 @@ h1, h2, h3, h4, h5 {
   z-index: 1;
   pointer-events: none;
 }
-.car-svg { width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(255,46,46,.18)); }
+.car-svg { width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(47,111,255,.18)); }
 
 @media (max-width: 900px) {
   .hero__car { opacity: .35; right: -80px; }
@@ -321,7 +310,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: .08em;
-  color: #1a0303;
+  color: #051029;
 }
 @keyframes scroll-left {
   from { transform: translateX(0); }
@@ -353,7 +342,7 @@ h1, h2, h3, h4, h5 {
 .about__card::before {
   content: "";
   position: absolute; inset: 0;
-  background: radial-gradient(circle at 20% 15%, rgba(255,46,46,.25), transparent 55%);
+  background: radial-gradient(circle at 20% 15%, rgba(47,111,255,.25), transparent 55%);
 }
 .about__card h3 { font-size: 28px; position: relative; }
 .about__card p { color: var(--text-dim); font-size: 14.5px; position: relative; }
@@ -402,10 +391,10 @@ h1, h2, h3, h4, h5 {
   padding: 32px 26px;
   transition: transform .25s ease, border-color .25s ease, background .25s ease;
 }
-.card:hover { transform: translateY(-6px); border-color: rgba(255,46,46,.4); }
+.card:hover { transform: translateY(-6px); border-color: rgba(47,111,255,.4); }
 .card--featured {
   background: linear-gradient(160deg, var(--surface-2), var(--surface));
-  border-color: rgba(255,46,46,.35);
+  border-color: rgba(47,111,255,.35);
   position: relative;
 }
 .card--featured::after {
@@ -478,7 +467,7 @@ h1, h2, h3, h4, h5 {
 
 /* ===== Stats band ===== */
 .band {
-  background: linear-gradient(135deg, #2a0808, #150406);
+  background: linear-gradient(135deg, #081a3a, #04070f);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -570,7 +559,7 @@ h1, h2, h3, h4, h5 {
 .cta__glow {
   position: absolute; top: -120px; left: -100px;
   width: 420px; height: 420px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,46,46,.22), transparent 70%);
+  background: radial-gradient(circle, rgba(47,111,255,.22), transparent 70%);
 }
 .cta__content { position: relative; z-index: 1; align-self: center; }
 .cta__content h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 16px; text-transform: uppercase; }
