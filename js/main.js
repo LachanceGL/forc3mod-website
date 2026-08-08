@@ -68,39 +68,6 @@
   window.addEventListener('scroll', setActiveLink, { passive: true });
   setActiveLink();
 
-  // ---- Contact / notify forms (client-side only, no backend wired up) ----
-  const setupForm = (form, { requireType = false, requiredMessage, successMessage }) => {
-    const note = form.querySelector('.form-note');
-    if (!note) return;
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const data = new FormData(form);
-      const name = String(data.get('name') || '').trim();
-      const email = String(data.get('email') || '').trim();
-      const type = String(data.get('type') || '').trim();
-
-      if (!name || !email || (requireType && !type)) {
-        note.textContent = requiredMessage;
-        note.style.color = '#ff6b6b';
-        return;
-      }
-
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        note.textContent = 'That email address doesn’t look right.';
-        note.style.color = '#ff6b6b';
-        return;
-      }
-
-      // No backend is connected yet — this just confirms receipt client-side.
-      note.textContent = successMessage(name, email);
-      note.style.color = 'var(--accent-2)';
-      form.reset();
-    });
-  };
-
   // The contact form has no backend, so it hands off to the visitor's own
   // email client via a mailto: link rather than pretending to submit.
   const contactForm = document.getElementById('contactForm');
@@ -136,15 +103,6 @@
       note.style.color = 'var(--accent-2)';
       window.location.href = mailto;
       contactForm.reset();
-    });
-  }
-
-  const waitlistForm = document.getElementById('waitlistForm');
-  if (waitlistForm) {
-    setupForm(waitlistForm, {
-      requireType: false,
-      requiredMessage: 'Please fill in your name and email.',
-      successMessage: (name) => `Thanks, ${name}! We'll email you the moment FORC3 Designer is live.`,
     });
   }
 })();
