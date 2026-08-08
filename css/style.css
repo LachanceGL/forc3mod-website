@@ -340,6 +340,8 @@ h1, h2, h3, h4, h5 {
   gap: 64px;
   align-items: center;
 }
+.about--solo { grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; text-align: center; }
+.about--solo .feature-list { text-align: left; }
 .about__media { position: relative; }
 .about__card {
   background: linear-gradient(160deg, var(--surface), var(--surface-2));
