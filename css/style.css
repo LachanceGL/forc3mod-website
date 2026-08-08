@@ -105,7 +105,7 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 12px 22px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5 {
 
 .logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo__stack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.logo__img { height: 36px; width: auto; display: block; flex-shrink: 0; }
+.logo__img { height: 26px; width: auto; display: block; flex-shrink: 0; }
 .logo__tagline {
   font-family: var(--font-head);
   font-weight: 600;
@@ -270,7 +270,7 @@ h1, h2, h3, h4, h5 {
   .header__cta { min-width: 0; justify-content: center; }
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
-  .logo__img { height: 30px; }
+  .logo__img { height: 20px; }
 }
 
 /* Mobile nav overlay. `top` is set inline by JS to match the header's actual
