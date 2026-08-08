@@ -121,11 +121,9 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 8px 24px rgba(88, 101, 242, 0.32);
 }
 .btn--discord:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(88, 101, 242, 0.46); }
-.btn--discord .ico { width: 17px; height: 17px; }
 
 @media (max-width: 640px) {
   .btn--discord span { display: none; }
-  .btn--discord { padding: 13px 16px; }
 }
 
 /* ===== Header ===== */
@@ -193,6 +191,8 @@ h1, h2, h3, h4, h5 {
 .nav__drop a:hover { background: var(--surface-2); color: #fff; }
 
 .header__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
+.header__actions .btn { padding: 9px 16px; font-size: 12.5px; }
+.header__actions .btn .ico { width: 14px; height: 14px; }
 .icon-btn {
   width: 40px; height: 40px;
   flex-shrink: 0;
@@ -217,7 +217,6 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 480px) {
   .header__cta span { display: none; }
-  .header__cta { padding: 13px 16px; }
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
   .logo__img { height: 20px; }
@@ -252,20 +251,6 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
   padding: 120px 0 80px;
   background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
-}
-.hero__grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 46px 46px;
-  mask-image: linear-gradient(to bottom, black, transparent 75%);
-}
-.hero__glow {
-  position: absolute; top: -200px; right: -160px;
-  width: 640px; height: 640px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(47,111,255,.28), transparent 70%);
-  filter: blur(10px);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
 .hero__title {
@@ -414,11 +399,6 @@ h1, h2, h3, h4, h5 {
   gap: 48px;
   overflow: hidden;
 }
-.cta__glow {
-  position: absolute; top: -120px; left: -100px;
-  width: 420px; height: 420px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(47,111,255,.22), transparent 70%);
-}
 .cta__content { position: relative; z-index: 1; align-self: center; }
 .cta__content h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 16px; text-transform: uppercase; }
 .cta__content p { color: var(--text-dim); font-size: 16px; }
@@ -497,9 +477,8 @@ h1, h2, h3, h4, h5 {
   flex-wrap: wrap;
   gap: 10px;
   font-size: 13px;
-  color: var(--text-mute);
+  color: #4b4f5b;
 }
-.footer__links a:hover { color: var(--accent-2); }
 
 @media (max-width: 900px) {
   .footer__inner { grid-template-columns: 1fr 1fr; }
@@ -545,9 +524,6 @@ h1, h2, h3, h4, h5 {
 .theme-designer .hero {
   background: radial-gradient(ellipse at 70% 20%, #141a06 0%, var(--bg) 55%);
 }
-.theme-designer .hero__glow {
-  background: radial-gradient(circle, rgba(212, 225, 0, .22), transparent 70%);
-}
 .theme-designer .btn--primary {
   box-shadow: 0 8px 24px rgba(212, 225, 0, 0.22);
   color: #121212;
@@ -560,9 +536,6 @@ h1, h2, h3, h4, h5 {
 }
 .theme-designer .card:hover { border-color: rgba(212, 225, 0, .4); }
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
-.theme-designer .cta__glow {
-  background: radial-gradient(circle, rgba(212, 225, 0, .16), transparent 70%);
-}
 
 /* =========================================================
    GT3 FORC3 page theme — red accent, matching GT3FORC3.COM's
@@ -590,9 +563,6 @@ h1, h2, h3, h4, h5 {
 .theme-gt3 .hero {
   background: radial-gradient(ellipse at 70% 20%, #1a0d0f 0%, var(--bg) 55%);
 }
-.theme-gt3 .hero__glow {
-  background: radial-gradient(circle, rgba(255, 46, 46, .28), transparent 70%);
-}
 .theme-gt3 .btn--primary {
   box-shadow: 0 8px 24px rgba(255, 46, 46, 0.28);
 }
@@ -611,6 +581,3 @@ h1, h2, h3, h4, h5 {
 }
 .theme-gt3 .card:hover { border-color: rgba(255, 46, 46, .4); }
 .theme-gt3 .card--featured { border-color: rgba(255, 46, 46, .35); }
-.theme-gt3 .cta__glow {
-  background: radial-gradient(circle, rgba(255, 46, 46, .22), transparent 70%);
-}
