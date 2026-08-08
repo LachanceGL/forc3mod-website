@@ -115,8 +115,8 @@ h1, h2, h3, h4, h5 {
 }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent-2); }
 .btn--lg {
-  padding: 14px 28px;
-  font-size: 14.5px;
+  padding: 10px 20px;
+  font-size: 10.5px;
   color: #fff;
   background: var(--accent-soft);
   border: 1px solid transparent;
@@ -132,6 +132,7 @@ h1, h2, h3, h4, h5 {
   transform: translateY(2px);
   box-shadow: none;
 }
+.btn--lg .ico { width: 13px; height: 13px; }
 .btn--discord {
   background: #5865f2;
   color: #fff;
@@ -208,8 +209,8 @@ h1, h2, h3, h4, h5 {
 .nav__drop a:hover { background: var(--surface-2); color: #fff; }
 
 .header__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
-.header__actions .btn { padding: 9px 16px; font-size: 12.5px; }
-.header__actions .btn .ico { width: 14px; height: 14px; }
+.header__actions .btn { padding: 6px 11px; font-size: 9px; border-radius: 7px; }
+.header__actions .btn .ico { width: 10px; height: 10px; }
 .icon-btn {
   width: 40px; height: 40px;
   flex-shrink: 0;
@@ -293,7 +294,7 @@ h1, h2, h3, h4, h5 {
   display: flex;
   color: var(--accent-2);
 }
-.hero__cta-arrow svg { width: 34px; height: 34px; }
+.hero__cta-arrow svg { width: 24px; height: 24px; }
 
 @media (max-width: 640px) {
   .hero { padding-top: 96px; }
