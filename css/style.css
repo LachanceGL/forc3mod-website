@@ -93,12 +93,13 @@ h1, h2, h3, h4, h5 {
   font-size: 14px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 13px 26px;
-  border-radius: 999px;
+  padding: 12px 22px;
+  border-radius: 10px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .btn .ico { width: 16px; height: 16px; }
 .btn--primary {
@@ -113,7 +114,7 @@ h1, h2, h3, h4, h5 {
   color: var(--text);
 }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent-2); }
-.btn--lg { padding: 14px 28px; font-size: 14.5px; border-radius: 10px; }
+.btn--lg { padding: 14px 28px; font-size: 14.5px; }
 .btn--discord {
   background: #5865f2;
   color: #fff;
@@ -145,10 +146,10 @@ h1, h2, h3, h4, h5 {
   gap: 24px;
 }
 
-.logo { display: flex; align-items: center; }
-.logo__img { height: 26px; width: auto; display: block; }
+.logo { display: flex; align-items: center; flex-shrink: 0; }
+.logo__img { height: 26px; width: auto; display: block; flex-shrink: 0; }
 
-.nav { display: flex; align-items: center; gap: 6px; }
+.nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .nav__link {
   position: relative;
   font-family: var(--font-head);
@@ -192,9 +193,10 @@ h1, h2, h3, h4, h5 {
 }
 .nav__drop a:hover { background: var(--surface-2); color: #fff; }
 
-.header__actions { display: flex; align-items: center; gap: 10px; }
+.header__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .icon-btn {
   width: 40px; height: 40px;
+  flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
   background: transparent;
@@ -209,8 +211,6 @@ h1, h2, h3, h4, h5 {
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
-.header__cta { flex-shrink: 0; }
-
 @media (max-width: 1080px) {
   .nav { display: none; }
   .hamburger { display: flex; }
@@ -220,6 +220,8 @@ h1, h2, h3, h4, h5 {
   .header__cta span { display: none; }
   .header__cta { padding: 13px 16px; }
   .header__actions { gap: 8px; }
+  .header__inner { gap: 12px; }
+  .logo__img { height: 20px; }
 }
 
 /* Mobile nav overlay. `top` is set inline by JS to match the header's actual
