@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5 {
   color: var(--text);
 }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent-2); }
-.btn--lg { padding: 16px 32px; font-size: 15px; }
+.btn--lg { padding: 14px 28px; font-size: 14.5px; border-radius: 10px; }
 .btn--discord {
   background: #5865f2;
   color: #fff;
@@ -550,4 +550,48 @@ h1, h2, h3, h4, h5 {
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
 .theme-designer .cta__glow {
   background: radial-gradient(circle, rgba(212, 225, 0, .16), transparent 70%);
+}
+
+/* =========================================================
+   GT3 FORC3 page theme — red accent, matching GT3FORC3.COM's
+   own GT3-class branding (distinct from the site-wide blue
+   brand used on the rest of forc3mod.com).
+   ========================================================= */
+.theme-gt3 {
+  --accent: #ff2e2e;
+  --accent-2: #ff5b3a;
+  --accent-soft: rgba(255, 46, 46, 0.12);
+}
+/* The header/nav bar keeps the site-wide blue brand untouched, even
+   on this page's otherwise red-themed content. */
+.theme-gt3 .header {
+  --accent: #2f6fff;
+  --accent-2: #4fb3ff;
+  --accent-soft: rgba(47, 111, 255, 0.12);
+}
+.theme-gt3 .header .btn--primary {
+  box-shadow: 0 8px 24px rgba(47, 111, 255, 0.28);
+}
+.theme-gt3 .header .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4);
+}
+.theme-gt3 .hero {
+  background: radial-gradient(ellipse at 70% 20%, #1a0d0f 0%, var(--bg) 55%);
+}
+.theme-gt3 .hero__glow {
+  background: radial-gradient(circle, rgba(255, 46, 46, .28), transparent 70%);
+}
+.theme-gt3 .btn--primary {
+  box-shadow: 0 8px 24px rgba(255, 46, 46, 0.28);
+}
+.theme-gt3 .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(255, 46, 46, 0.4);
+}
+.theme-gt3 .about__card::before {
+  background: radial-gradient(circle at 20% 15%, rgba(255, 46, 46, .25), transparent 55%);
+}
+.theme-gt3 .card:hover { border-color: rgba(255, 46, 46, .4); }
+.theme-gt3 .card--featured { border-color: rgba(255, 46, 46, .35); }
+.theme-gt3 .cta__glow {
+  background: radial-gradient(circle, rgba(255, 46, 46, .22), transparent 70%);
 }
