@@ -49,6 +49,28 @@
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link');
 
+  // While the Contact section is in view, the header CTA offers a way
+  // back Home instead of repeating the page's product pitch.
+  const headerCta = document.querySelector('.header__cta');
+  const headerCtaLabel = headerCta ? headerCta.querySelector('span') : null;
+  const headerCtaOriginalHref = headerCta ? headerCta.getAttribute('href') : null;
+  const headerCtaOriginalText = headerCtaLabel ? headerCtaLabel.textContent : null;
+  let headerCtaShowsHome = false;
+
+  const updateHeaderCta = (currentId) => {
+    if (!headerCta || !headerCtaLabel) return;
+    const shouldShowHome = currentId === 'contact';
+    if (shouldShowHome === headerCtaShowsHome) return;
+    headerCtaShowsHome = shouldShowHome;
+    if (shouldShowHome) {
+      headerCta.setAttribute('href', '#top');
+      headerCtaLabel.textContent = 'Home';
+    } else {
+      headerCta.setAttribute('href', headerCtaOriginalHref);
+      headerCtaLabel.textContent = headerCtaOriginalText;
+    }
+  };
+
   const setActiveLink = () => {
     let currentId = '';
     const scrollPos = window.scrollY + 140;
@@ -63,6 +85,8 @@
       const href = link.getAttribute('href') || '';
       link.classList.toggle('is-active', href === `#${currentId}`);
     });
+
+    updateHeaderCta(currentId);
   };
 
   window.addEventListener('scroll', setActiveLink, { passive: true });
