@@ -80,7 +80,6 @@
       const name = String(data.get('name') || '').trim();
       const email = String(data.get('email') || '').trim();
       const type = String(data.get('type') || '').trim();
-      const message = String(data.get('message') || '').trim();
 
       if (!name || !email || !type) {
         note.textContent = 'Please fill in your name, email, and what this is about.';
@@ -96,7 +95,7 @@
       }
 
       const subject = `[FORC3MOD] ${type} from ${name}`;
-      const body = `${message || '(no message)'}\n\nFrom: ${name} (${email})`;
+      const body = `From: ${name} (${email})`;
       const mailto = `mailto:forc3mod@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
       note.textContent = 'Opening your email app to send this to forc3mod@gmail.com…';
