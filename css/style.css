@@ -172,7 +172,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .logo { display: flex; align-items: center; flex-shrink: 0; }
-.logo__stack { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.logo__stack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 .logo__img { height: 26px; width: auto; display: block; flex-shrink: 0; }
 .logo__tagline {
   font-family: var(--font-head);
@@ -229,10 +229,10 @@ h1, h2, h3, h4, h5 {
 
 .header__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
 .header__actions .btn {
-  padding: clamp(11px, 0.75vw, 16px) clamp(20px, 1.5vw, 30px);
-  font-size: clamp(13px, 0.75vw, 16px);
+  padding: 10px 18px;
+  font-size: 13px;
 }
-.header__actions .btn .ico { width: clamp(15px, 1vw, 20px); height: clamp(15px, 1vw, 20px); }
+.header__actions .btn .ico { width: 14px; height: 14px; }
 .icon-btn {
   width: 40px; height: 40px;
   flex-shrink: 0;
