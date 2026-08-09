@@ -719,6 +719,11 @@ h1, h2, h3, h4, h5 {
 .coming-soon__logo { margin-bottom: 4px; }
 .coming-soon__logo .logo__stack { align-items: center; }
 .coming-soon__logo .logo__img { height: 40px; }
+/* Header uses a 26px mark with a 10px tagline (ratio 10/26) — scaled up
+   to this page's 40px mark so "AC EVO DEVELOPMENT" keeps the same
+   proportions relative to the logo instead of just reusing the fixed
+   10px header size. */
+.coming-soon__logo .logo__tagline { font-size: calc(40px * 10 / 26); }
 .coming-soon__footer { color: var(--text-mute); font-size: 13px; margin-top: 24px; }
 /* This page isn't width-constrained like the header, so keep the
    Discord button's label even at the width where the header hides it. */
