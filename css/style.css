@@ -719,15 +719,6 @@ h1, h2, h3, h4, h5 {
 .coming-soon__logo { margin-bottom: 4px; }
 .coming-soon__logo .logo__stack { align-items: center; }
 .coming-soon__logo .logo__img { height: 40px; }
-.coming-soon__title {
-  font-family: var(--font-head);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  font-size: clamp(40px, 8vw, 84px);
-  line-height: 1.05;
-}
-.coming-soon__lead { color: var(--text-dim); font-size: 17px; max-width: 480px; }
 .coming-soon__footer { color: var(--text-mute); font-size: 13px; margin-top: 24px; }
 /* This page isn't width-constrained like the header, so keep the
    Discord button's label even at the width where the header hides it. */
