@@ -474,6 +474,17 @@ h1, h2, h3, h4, h5 {
   border-color: var(--accent);
 }
 .cta__form select { appearance: none; }
+/* Match the select's placeholder option to the same dim tone as the
+   input placeholders ("Your name", "Email address") — a <select>'s
+   chosen option has no ::placeholder, so it renders full-brightness
+   text by default even while showing the placeholder-like option. */
+.cta__form input::placeholder,
+.cta__form textarea::placeholder {
+  color: var(--text-dim);
+}
+.cta__form select:invalid {
+  color: var(--text-dim);
+}
 .cta__form button { border: none; }
 .form-note {
   grid-column: 1 / -1;
