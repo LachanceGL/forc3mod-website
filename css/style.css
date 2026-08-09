@@ -717,7 +717,6 @@ h1, h2, h3, h4, h5 {
   background: radial-gradient(ellipse at 50% 20%, #0d1626 0%, var(--bg) 60%);
 }
 .coming-soon__logo { margin-bottom: 4px; }
-.coming-soon__logo .logo__stack { align-items: center; }
 .coming-soon__logo .logo__img { height: 40px; }
 /* Header uses a 26px mark with a 10px tagline (ratio 10/26) — scaled up
    to this page's 40px mark so "AC EVO DEVELOPMENT" keeps the same
