@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const FORC3_EMAIL = 'forc3mod@gmail.com';
+
   // ---- Footer year ----
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -26,18 +28,8 @@
       if (nav.classList.contains('is-open')) positionMobileNav();
     });
 
-    // On mobile, tapping a "has-drop" link toggles its submenu instead of navigating.
-    nav.querySelectorAll('.nav__item.has-drop > .nav__link').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 1080) {
-          e.preventDefault();
-          link.parentElement.classList.toggle('is-expanded');
-        }
-      });
-    });
-
-    // Close mobile nav after choosing a real link
-    nav.querySelectorAll('.nav__link:not(.has-drop > .nav__link)').forEach((link) => {
+    // Close mobile nav after choosing a link
+    nav.querySelectorAll('.nav__link').forEach((link) => {
       link.addEventListener('click', () => {
         nav.classList.remove('is-open');
         menuBtn.setAttribute('aria-expanded', 'false');
@@ -125,9 +117,9 @@
 
       const subject = `[FORC3MOD] ${type} from ${name}`;
       const body = `From: ${name} (${email})\n\n${message}`;
-      const mailto = `mailto:forc3mod@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailto = `mailto:${FORC3_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      note.textContent = 'Opening your email app to send this to forc3mod@gmail.com…';
+      note.textContent = 'Opening your email app to send this to FORC3 Email…';
       note.style.color = 'var(--accent-2)';
       window.location.href = mailto;
       contactForm.reset();
