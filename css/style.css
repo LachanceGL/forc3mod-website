@@ -506,10 +506,10 @@ h1, h2, h3, h4, h5 {
    the two stay in proportion to each other. */
 .footer__brand .logo { transform: scale(0.75); transform-origin: top left; }
 .footer__col h5 {
-  font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
-  color: #4b4f5b; margin-bottom: 14px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: #4b4f5b; margin-bottom: 12px;
 }
-.footer__col a { display: block; color: var(--text-mute); font-size: 14.5px; margin-bottom: 10px; }
+.footer__col a { display: block; color: var(--text-mute); font-size: 12.5px; margin-bottom: 9px; }
 /* Footer link hover always uses the site-wide brand blue, never the
    page's theme accent (lime on FORC3 Designer, red on GT3 FORC3) —
    matches the header, which keeps the same blue across all pages. */
@@ -522,7 +522,7 @@ h1, h2, h3, h4, h5 {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 13px;
+  font-size: 11px;
   color: #4b4f5b;
 }
 
