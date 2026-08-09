@@ -49,28 +49,6 @@
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link');
 
-  // While the Contact section is in view, the header CTA offers a way
-  // back Home instead of repeating the page's product pitch.
-  const headerCta = document.querySelector('.header__cta');
-  const headerCtaLabel = headerCta ? headerCta.querySelector('span') : null;
-  const headerCtaOriginalHref = headerCta ? headerCta.getAttribute('href') : null;
-  const headerCtaOriginalText = headerCtaLabel ? headerCtaLabel.textContent : null;
-  let headerCtaShowsHome = false;
-
-  const updateHeaderCta = (currentId) => {
-    if (!headerCta || !headerCtaLabel) return;
-    const shouldShowHome = currentId === 'contact';
-    if (shouldShowHome === headerCtaShowsHome) return;
-    headerCtaShowsHome = shouldShowHome;
-    if (shouldShowHome) {
-      headerCta.setAttribute('href', '#top');
-      headerCtaLabel.textContent = 'Home';
-    } else {
-      headerCta.setAttribute('href', headerCtaOriginalHref);
-      headerCtaLabel.textContent = headerCtaOriginalText;
-    }
-  };
-
   const setActiveLink = () => {
     let currentId = '';
     const scrollPos = window.scrollY + 140;
@@ -85,12 +63,38 @@
       const href = link.getAttribute('href') || '';
       link.classList.toggle('is-active', href === `#${currentId}`);
     });
-
-    updateHeaderCta(currentId);
   };
 
   window.addEventListener('scroll', setActiveLink, { passive: true });
   setActiveLink();
+
+  // ---- Modals (e.g. Changelog) ----
+  document.querySelectorAll('[data-modal-target]').forEach((trigger) => {
+    const modal = document.querySelector(trigger.getAttribute('data-modal-target'));
+    if (!modal) return;
+
+    const openModal = () => {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    trigger.addEventListener('click', openModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    modal.querySelectorAll('[data-modal-close]').forEach((btn) => {
+      btn.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  });
 
   // The contact form has no backend, so it hands off to the visitor's own
   // email client via a mailto: link rather than pretending to submit.
