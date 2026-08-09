@@ -179,7 +179,13 @@ h1, h2, h3, h4, h5 {
 
 .logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo__stack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.logo__img { height: var(--logo-h); width: auto; display: block; flex-shrink: 0; }
+.logo__img {
+  height: var(--logo-h);
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
 /* Footer wordmark: same shape as the header logo, but recolored to a
    plain gray (matching the tagline) instead of the brand-blue gradient.
    Uses the SVG purely as a mask shape, painted with a solid background
@@ -495,6 +501,10 @@ h1, h2, h3, h4, h5 {
 }
 .footer .logo__tagline { color: #4b4f5b; }
 .footer .logo__img--mono { background-color: #4b4f5b; }
+/* Footer logo lockup (mark + tagline) is a smaller, secondary mention
+   of the brand compared to the header — scaled down as one block so
+   the two stay in proportion to each other. */
+.footer__brand .logo { transform: scale(0.75); transform-origin: top left; }
 .footer__col h5 {
   font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
   color: #4b4f5b; margin-bottom: 14px;
