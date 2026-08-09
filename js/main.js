@@ -38,11 +38,21 @@
   }
 
   // ---- Active nav link on scroll ----
+  // Only same-page anchor links (e.g. "#top", "#contact" on index.html)
+  // participate in scroll-spying. Cross-page links (FORC3 Designer, GT3
+  // FORC3, Support Us, etc.) keep whichever is-active state the page was
+  // rendered with — scrolling on one page must never touch the nav item
+  // for a completely different page.
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link');
+  const sameLinkAnchors = Array.from(navLinks).filter((link) => (link.getAttribute('href') || '').startsWith('#'));
 
   const setActiveLink = () => {
-    let currentId = '';
+    if (!sameLinkAnchors.length) return;
+
+    // "top" is the default section — #top is a marker span, not a
+    // tracked <section>, so nothing below ever claims that id on its own.
+    let currentId = 'top';
     const scrollPos = window.scrollY + 140;
 
     sections.forEach((section) => {
@@ -51,7 +61,7 @@
       }
     });
 
-    navLinks.forEach((link) => {
+    sameLinkAnchors.forEach((link) => {
       const href = link.getAttribute('href') || '';
       link.classList.toggle('is-active', href === `#${currentId}`);
     });
