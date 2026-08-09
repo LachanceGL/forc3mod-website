@@ -322,12 +322,6 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 36px;
 }
 .hero__cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
-.hero__cta-arrow {
-  flex-shrink: 0;
-  display: flex;
-  color: var(--accent-2);
-}
-.hero__cta-arrow svg { width: 34px; height: 34px; }
 
 @media (max-width: 640px) {
   .hero { padding-top: 96px; }
