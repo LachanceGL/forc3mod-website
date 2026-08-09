@@ -20,6 +20,10 @@
   --font: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
   --font-head: 'Rajdhani', 'Inter', sans-serif;
   --container: 1200px;
+  /* Single source of truth for the FORC3MOD logo mark's size — the
+     header defines it, and every other logo (footer included) reads
+     from this instead of setting its own height, so they can never drift. */
+  --logo-h: 26px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -174,7 +178,7 @@ h1, h2, h3, h4, h5 {
 
 .logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo__stack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.logo__img { height: 26px; width: auto; display: block; flex-shrink: 0; }
+.logo__img { height: var(--logo-h); width: auto; display: block; flex-shrink: 0; }
 .logo__tagline {
   font-family: var(--font-head);
   font-weight: 600;
@@ -271,7 +275,7 @@ h1, h2, h3, h4, h5 {
   .header__cta { min-width: 0; justify-content: center; }
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
-  .logo__img { height: 20px; }
+  :root { --logo-h: 20px; }
 }
 
 /* Mobile nav overlay. `top` is set inline by JS to match the header's actual
