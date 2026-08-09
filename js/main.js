@@ -108,9 +108,10 @@
       const name = String(data.get('name') || '').trim();
       const email = String(data.get('email') || '').trim();
       const type = String(data.get('type') || '').trim();
+      const message = String(data.get('message') || '').trim();
 
-      if (!name || !email || !type) {
-        note.textContent = 'Please fill in your name, email, and what this is about.';
+      if (!name || !email || !type || !message) {
+        note.textContent = 'Please fill in your name, email, what this is about, and your message.';
         note.style.color = '#ff6b6b';
         return;
       }
@@ -123,7 +124,7 @@
       }
 
       const subject = `[FORC3MOD] ${type} from ${name}`;
-      const body = `From: ${name} (${email})`;
+      const body = `From: ${name} (${email})\n\n${message}`;
       const mailto = `mailto:forc3mod@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
       note.textContent = 'Opening your email app to send this to forc3mod@gmail.com…';
