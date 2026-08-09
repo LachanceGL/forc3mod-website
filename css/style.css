@@ -249,15 +249,6 @@ h1, h2, h3, h4, h5 {
   font-size: 11.5px;
 }
 .header__actions .btn .ico { width: 13px; height: 13px; }
-/* Fixed width so the CTA label (which differs per page — "Get FORC3
-   Designer" vs "Download for Windows" vs "Visit GT3FORC3.COM" etc.)
-   doesn't change this button's box size, which would otherwise shift
-   the Discord button next to it left/right depending on which page
-   you're on. Text stays left-anchored, icon pins to the right edge. */
-.header__cta {
-  min-width: 200px;
-  justify-content: space-between;
-}
 .icon-btn {
   width: 40px; height: 40px;
   flex-shrink: 0;
@@ -281,8 +272,6 @@ h1, h2, h3, h4, h5 {
 }
 
 @media (max-width: 480px) {
-  .header__cta span { display: none; }
-  .header__cta { min-width: 0; justify-content: center; }
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
   :root { --logo-h: 20px; }
