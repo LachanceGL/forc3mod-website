@@ -523,7 +523,7 @@ h1, h2, h3, h4, h5 {
 
 /* ===== Footer ===== */
 .footer {
-  background: var(--bg-alt);
+  background: #07080a;
   border-top: 1px solid var(--border);
   padding-top: 48px;
 }
@@ -533,11 +533,13 @@ h1, h2, h3, h4, h5 {
   gap: 32px;
   padding-bottom: 40px;
 }
+.footer .logo__tagline { color: #4b4f5b; }
+.footer .logo__img--mono { background-color: #4b4f5b; }
 .footer__col h5 {
   font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--text-mute); margin-bottom: 14px;
+  color: #4b4f5b; margin-bottom: 14px;
 }
-.footer__col a { display: block; color: var(--text-dim); font-size: 14.5px; margin-bottom: 10px; }
+.footer__col a { display: block; color: var(--text-mute); font-size: 14.5px; margin-bottom: 10px; }
 /* Footer link hover always uses the site-wide brand blue, never the
    page's theme accent (lime on FORC3 Designer, red on GT3 FORC3) —
    matches the header, which keeps the same blue across all pages. */
