@@ -179,6 +179,16 @@ h1, h2, h3, h4, h5 {
 .logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo__stack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 .logo__img { height: var(--logo-h); width: auto; display: block; flex-shrink: 0; }
+/* Footer wordmark: same shape as the header logo, but recolored to a
+   plain gray (matching the tagline) instead of the brand-blue gradient.
+   Uses the SVG purely as a mask shape, painted with a solid background
+   color, since the header's version has its color baked into the file. */
+.logo__img--mono {
+  aspect-ratio: 589.37706 / 70.02344;
+  background-color: var(--text-mute);
+  -webkit-mask: url('../img/forc3mod-logo.svg') center / contain no-repeat;
+  mask: url('../img/forc3mod-logo.svg') center / contain no-repeat;
+}
 .logo__tagline {
   font-family: var(--font-head);
   font-weight: 600;
