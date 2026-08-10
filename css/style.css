@@ -724,6 +724,3 @@ h1, h2, h3, h4, h5 {
    10px header size. */
 .coming-soon__logo .logo__tagline { font-size: calc(40px * 10 / 26); }
 .coming-soon__footer { color: var(--text-mute); font-size: 13px; margin-top: 24px; }
-/* This page isn't width-constrained like the header, so keep the
-   Discord button's label even at the width where the header hides it. */
-.coming-soon .btn--discord span { display: inline; }
