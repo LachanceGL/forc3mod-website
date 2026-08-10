@@ -184,7 +184,7 @@ h1, h2, h3, h4, h5 {
   width: auto;
   display: block;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 /* Footer wordmark: same shape as the header logo, but recolored to a
    plain gray (matching the tagline) instead of the brand-blue gradient.
