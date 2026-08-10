@@ -723,4 +723,5 @@ h1, h2, h3, h4, h5 {
    proportions relative to the logo instead of just reusing the fixed
    10px header size. */
 .coming-soon__logo .logo__tagline { font-size: calc(40px * 10 / 26); }
+.coming-soon .eyebrow { font-size: 16px; }
 .coming-soon__footer { color: var(--text-mute); font-size: 13px; margin-top: 24px; }
