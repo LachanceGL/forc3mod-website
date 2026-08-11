@@ -14,9 +14,17 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-10
 
+- `a6de88c` **Logo shadow saga, concluded**: `drop-shadow()` softened/jaggied
+  the SVG's edges (offscreen compositing) → switched to `box-shadow` → that
+  drew a visible hard-edged rectangle under the logo instead of hugging the
+  letters (the SVG's box has empty space at the bottom) → removed the shadow
+  entirely. Both `filter: drop-shadow()` and `box-shadow` on `.logo__img` are
+  now confirmed dead ends — see `CLAUDE.md` "Logo system" before retrying
+  either one.
 - `cdf1f85` Re-applied the `box-shadow` vs `filter: drop-shadow()` fix on the
   logo mark (see 2026-08-09 entry — this had been reverted once, then
   confirmed and redone after further discussion about SVG rendering quality).
+  *(Superseded same-day by the shadow removal above.)*
 - `7f3560d` / `411e16a` — the box-shadow swap was tried, then reverted once
   before being redone above (owner wanted to see it live before committing).
 - `7dff5b0` Increased the "Under construction" text size on the Coming Soon

@@ -97,12 +97,16 @@ The full site is intentionally gated while FORC3 Designer isn't ready yet.
   derives its (smaller) size from it via `.footer__brand .logo { transform:
   scale(0.75); }`. Never hardcode a logo height somewhere new — tie it back
   to `--logo-h`.
-- **Logo shadow: use `box-shadow`, not `filter: drop-shadow()`.** This was
-  deliberately tested both ways. `drop-shadow()` forces the browser to
-  rasterize the logo onto an offscreen compositing buffer, which visibly
-  softened/jaggied the SVG's edges. `box-shadow` draws from the box geometry
-  instead and leaves the logo's own rendering untouched — confirmed to look
-  better. Don't switch back without a real reason and a fresh comparison.
+- **Logo shadow: currently none — both options were tried and rejected.**
+  `filter: drop-shadow()` forces an offscreen compositing pass that visibly
+  softened/jaggied the SVG's edges. Switching to `box-shadow` fixed that, but
+  `box-shadow` draws a hard-edged rectangle from the element's bounding box
+  — since the SVG has empty space at the bottom of its box, that rectangle
+  didn't hug the letters and showed up as a visible band under the logo. The
+  shadow was removed entirely rather than pick between those two tradeoffs.
+  If a shadow is wanted again, it'll need a different technique (e.g. a
+  second blurred copy of the logo positioned behind it) — don't just flip
+  back to `filter` or `box-shadow`, both are already-tried dead ends.
 
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 
