@@ -24,33 +24,58 @@ directly.
 - Local testing: `python -m http.server <port>` from the repo root, then open
   in a browser. Always kill the server before ending a session.
 
-## Current status: site is LIVE (normal mode)
+## Current status: site is in "Coming Soon" mode (again)
 
-The site was in a "Coming Soon" maintenance mode for a while (see `MEMORY.md`
-2026-08-09/10 entries for the full story) but has been **reopened** — the
-team is close to releasing FORC3 Designer, so gating the site no longer made
-sense. `index.html` is the real homepage again; `forc3designer.html`,
-`gt3forc3.html`, and `SupportUs.html` all serve their normal content with no
-redirects.
+The site has flipped between a gated "Coming Soon" state and the full live
+site more than once now — see `MEMORY.md` for the blow-by-blow (2026-08-09
+gated it, 2026-08-10 reopened it, 2026-08-16 gated it again). **Check
+`index.html` itself if you're unsure which state it's currently in**: if it
+has a `<section class="coming-soon">`, it's gated; if it has a `<header
+class="header">` with full nav, it's live.
 
-If a maintenance page is needed again in the future, the previous
-implementation (a `.coming-soon` page + a one-line `location.replace(...)`
-redirect guard at the top of `<head>` on every other page) worked well and
-is fully recoverable from git history around commit `f991fc5` — no need to
-reinvent it from scratch, just resurrect that pattern.
+As of the most recent change, it's gated again:
+
+- `index.html` is a **minimal Coming Soon page**: logo, an "Under
+  construction" eyebrow line, and a copyright footer line. No nav, no CTA
+  buttons, no Discord link.
+- `home.html` holds the **full real homepage**, completely intact.
+- `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`
+  each have exactly **one line** added at the very top of `<head>`:
+  ```html
+  <script>location.replace('index.html');</script>
+  ```
+  That is the *only* change made to those four files for this. Nothing else
+  in them was touched — all content is fully preserved and ready to restore.
+
+### How to reopen the full site
+
+1. Delete the `<script>location.replace('index.html');</script>` line from
+   `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`.
+2. Copy `home.html`'s content back into `index.html` (or just rename it),
+   then delete `home.html`.
+3. Remove the now-dead `.coming-soon` CSS block from `css/style.css`.
+4. Commit and push.
+
+This exact cycle (gate → reopen → gate again) has happened before — don't
+be surprised if it happens again. The pattern is cheap to redo either way:
+the Coming Soon page's HTML/CSS block is short and both directions are
+documented step-by-step above and in `MEMORY.md`.
 
 ## File map
 
 | File | Purpose |
 |---|---|
-| `index.html` | Real homepage: hero, feedback/contact form, footer. |
-| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
-| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
-| `SupportUs.html` | Patreon support page. Default blue theme. |
+| `index.html` | **Currently the Coming Soon page.** Normally this is the site's real homepage — see above. |
+| `home.html` | The real homepage, preserved, currently gated/redirects to `index.html`. |
+| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). Currently gated. |
+| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). Currently gated. |
+| `SupportUs.html` | Patreon support page. Default blue theme. Currently gated (and also unlinked from nav/footer even when live — see "Discord / community reference IDs"). |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav scroll-spy, modal system, contact form mailto handler. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
+| `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
+| `img/FORC3Designer_Showcase01.jpg` | Real app screenshot, used as the photo background on `forc3designer.html`'s "Your car, your canvas." card. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -140,7 +165,7 @@ nav links as the user scrolls.
   scroll-spying; cross-page links are safe by default and need no special
   handling.
 
-## Contact form (in `index.html`)
+## Contact form (in `home.html`, or `index.html` when the site isn't gated)
 
 - No backend. Submits via a `mailto:` link. The real address
   (`forc3mod@gmail.com`) lives in **one place**: the `FORC3_EMAIL` constant

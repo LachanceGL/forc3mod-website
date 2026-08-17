@@ -12,6 +12,26 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-16 (later)
+
+- **Site gated again — back into Coming Soon mode.** Restored the exact
+  final Coming Soon `index.html` + `.coming-soon` CSS block from git history
+  (state as of commit `724641e~1`, right before the previous reopening) —
+  didn't reinvent it, just resurrected it per the plan already written down
+  in `CLAUDE.md`. Backed up the current real homepage (with the "DEDICATED
+  3D PAINTING SOFTWARE" eyebrow change and everything else from today) into
+  `home.html`, and re-added the `location.replace('index.html')` guard to
+  `home.html`, `forc3designer.html`, `gt3forc3.html`, `SupportUs.html`.
+  Verified all four redirect correctly.
+- Before gating, also changed forc3designer.html's eyebrow from "FORC3MOD
+  Projects & Sim Racing Community servers" to "DEDICATED 3D PAINTING
+  SOFTWARE" (scoped to that page only — index.html/home.html kept the
+  original, more general eyebrow since it covers both products).
+- Site has now cycled gated → live → gated within this project's history.
+  See `CLAUDE.md` "Current status" for how to tell which state `index.html`
+  is in and how to flip it either direction — expect this to keep happening
+  as the release date moves.
+
 ## 2026-08-16
 
 - `53acdab` Added a real app screenshot (`img/FORC3Designer_Showcase01.jpg`,
