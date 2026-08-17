@@ -78,11 +78,13 @@
     const openModal = () => {
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     };
     const closeModal = () => {
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
 
