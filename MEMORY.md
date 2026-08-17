@@ -12,6 +12,21 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-10 (later)
+
+- **Site reopened — Coming Soon mode retired.** The owner said the team is
+  close to releasing FORC3 Designer, so gating the site no longer made
+  sense. `index.html` is the real homepage again (restored from `home.html`,
+  which was then deleted — no longer needed as a separate backup since
+  `index.html` itself is now that content and git history has everything
+  before this point anyway). Removed the `location.replace('index.html')`
+  redirect-guard script from `forc3designer.html`, `gt3forc3.html`, and
+  `SupportUs.html`, and deleted the now-dead `.coming-soon` CSS block from
+  `style.css`.
+- If a maintenance page is ever needed again, don't rebuild it from scratch
+  — the previous implementation is fully recoverable from git history around
+  commit `f991fc5` (see `CLAUDE.md` "Current status" for the pointer).
+
 ## 2026-08-10
 
 - `a6de88c` **Logo shadow saga, concluded**: `drop-shadow()` softened/jaggied

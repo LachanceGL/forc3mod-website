@@ -24,45 +24,29 @@ directly.
 - Local testing: `python -m http.server <port>` from the repo root, then open
   in a browser. Always kill the server before ending a session.
 
-## Current status: site is in "Coming Soon" mode
+## Current status: site is LIVE (normal mode)
 
-The full site is intentionally gated while FORC3 Designer isn't ready yet.
-**This is not a bug — it's deliberate**, requested by the site owner.
+The site was in a "Coming Soon" maintenance mode for a while (see `MEMORY.md`
+2026-08-09/10 entries for the full story) but has been **reopened** — the
+team is close to releasing FORC3 Designer, so gating the site no longer made
+sense. `index.html` is the real homepage again; `forc3designer.html`,
+`gt3forc3.html`, and `SupportUs.html` all serve their normal content with no
+redirects.
 
-- `index.html` is currently a **minimal Coming Soon page**: logo, an
-  "Under construction" eyebrow line, and a copyright footer line. No nav, no
-  CTA buttons, no Discord link (Discord button was explicitly removed by
-  request — don't add one back without asking).
-- `home.html` holds the **full original homepage**, completely intact and
-  unmodified (hero, feedback/contact form, footer, everything).
-- `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`
-  each got exactly **one line** added at the very top of `<head>`:
-  ```html
-  <script>location.replace('index.html');</script>
-  ```
-  That is the *only* change made to those four files for this. Nothing else
-  in them was touched or deleted — all copy, styling, and structure work from
-  earlier in the project's history is fully preserved and ready to restore.
-- `designer.html` is an unrelated, pre-existing legacy redirect shim
-  (`designer.html` → `forc3designer.html`) — harmless, still just chains
-  into the Coming Soon redirect.
-
-### How to reopen the full site later
-
-1. Delete the `<script>location.replace('index.html');</script>` line from
-   `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`.
-2. Copy `home.html`'s content back into `index.html` (or just rename it).
-3. Commit and push.
+If a maintenance page is needed again in the future, the previous
+implementation (a `.coming-soon` page + a one-line `location.replace(...)`
+redirect guard at the top of `<head>` on every other page) worked well and
+is fully recoverable from git history around commit `f991fc5` — no need to
+reinvent it from scratch, just resurrect that pattern.
 
 ## File map
 
 | File | Purpose |
 |---|---|
-| `index.html` | **Currently the Coming Soon page.** Normally this is the site's real homepage — see above. |
-| `home.html` | The real homepage, preserved, currently gated/redirects to `index.html`. |
-| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). Currently gated. |
-| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). Currently gated. |
-| `SupportUs.html` | Patreon support page. Default blue theme. Currently gated. |
+| `index.html` | Real homepage: hero, feedback/contact form, footer. |
+| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
+| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
+| `SupportUs.html` | Patreon support page. Default blue theme. |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav scroll-spy, modal system, contact form mailto handler. |
@@ -129,7 +113,7 @@ nav links as the user scrolls.
   scroll-spying; cross-page links are safe by default and need no special
   handling.
 
-## Contact form (in `home.html`)
+## Contact form (in `index.html`)
 
 - No backend. Submits via a `mailto:` link. The real address
   (`forc3mod@gmail.com`) lives in **one place**: the `FORC3_EMAIL` constant
@@ -176,7 +160,7 @@ building a new one:
   choice, not a typo) — preserve it when editing existing copy unless told
   otherwise.
 - Keep the header and footer markup/behavior **identical** across all real
-  content pages (`home.html`, `forc3designer.html`, `gt3forc3.html`,
+  content pages (`index.html`, `forc3designer.html`, `gt3forc3.html`,
   `SupportUs.html`). When you change one page's header/footer, mirror the
   change to the other three in the same turn.
 

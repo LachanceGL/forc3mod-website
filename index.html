@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FORC3MOD — Coming Soon</title>
-  <meta name="description" content="FORC3MOD is under construction. FORC3 Designer and the GT3FORC3.COM community are on their way — stay tuned." />
+  <title>FORC3MOD | FORC3 Designer — Free Livery Maker for Assetto Corsa EVO</title>
+  <meta name="description" content="FORC3 Designer is a free, unofficial livery maker for Assetto Corsa EVO. Create and export race-ready liveries with powerful tools and a fast, user-friendly interface — built by FORC3MOD." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,21 +13,129 @@
 </head>
 <body>
 
-  <section class="coming-soon">
-    <span class="logo coming-soon__logo" aria-label="FORC3MOD">
-      <span class="logo__stack">
-        <img src="img/forc3mod-logo.svg" alt="FORC3MOD" class="logo__img" />
-        <span class="logo__tagline">AC EVO DEVELOPMENT</span>
-      </span>
-    </span>
+  <span id="top" aria-hidden="true"></span>
 
-    <p class="eyebrow"><span class="dot"></span> Under construction</p>
+  <!-- ===== Header / Nav ===== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="logo" aria-label="FORC3MOD home">
+        <span class="logo__stack">
+          <img src="img/forc3mod-logo.svg" alt="FORC3MOD" class="logo__img" />
+          <span class="logo__tagline">AC EVO DEVELOPMENT</span>
+        </span>
+      </a>
 
-    <p class="coming-soon__footer">© <span id="year"></span> FORC3MOD. Not affiliated with Kunos Simulazioni.</p>
+      <nav class="nav" id="nav">
+        <a href="#top" class="nav__link is-active">Home</a>
+        <a href="forc3designer.html" class="nav__link">FORC3 Designer</a>
+        <a href="gt3forc3.html" class="nav__link">GT3 FORC3</a>
+        <a href="#contact" class="nav__link">Contact</a>
+        <a href="SupportUs.html" class="nav__link">Support Us</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="https://discord.gg/CbJCmjtVma" target="_blank" rel="noopener" class="btn btn--discord">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+          <span>FORC3MOD Discord</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow"><span class="dot"></span> FORC3MOD Projects &amp; Sim Racing Community servers</p>
+      <h1 class="hero__title">Design liveries.<br />Own the <span class="grad">grid.</span></h1>
+      <p class="hero__lead">
+        FORC3 Designer is a free, unofficial Windows app for creating liveries
+        for Assetto Corsa EVO. No 3D software, no design experience needed //
+        Pick your car, paint your livery, and export it straight into the
+        game, ready to race. Built by artists, for artists.
+      </p>
+      <div class="hero__cta">
+        <a href="forc3designer.html" class="btn btn--primary btn--lg">Get FORC3 Designer
+          <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
+        </a>
+        <a href="forc3designer.html#features" class="btn btn--ghost btn--lg">See what it does</a>
+      </div>
+    </div>
   </section>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <!-- ===== CTA / Contact ===== -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <div class="cta">
+        <div class="cta__content">
+          <h2>Got feedback or<br />a feature idea?</h2>
+          <p>Want to help us improve a feature? Have a car mod you'd like to see, or just a question? Feel free to contact us!</p>
+        </div>
+        <form class="cta__form" id="contactForm" novalidate>
+          <div class="field">
+            <input type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <input type="email" name="email" placeholder="Email address" required />
+          </div>
+          <div class="field field--full">
+            <select name="type" required>
+              <option value="" disabled selected>What's this about? :)</option>
+              <option>Feature request</option>
+              <option>Bug report</option>
+              <option>General question</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <textarea name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg field--full">Send message
+            <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
+          </button>
+          <p class="form-note" id="formNote" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#top" class="logo" aria-label="FORC3MOD home">
+          <span class="logo__stack">
+            <span class="logo__img logo__img--mono" aria-hidden="true"></span>
+            <span class="logo__tagline">AC EVO DEVELOPMENT</span>
+          </span>
+        </a>
+      </div>
+      <div class="footer__col">
+        <h5>Projects</h5>
+        <a href="forc3designer.html">FORC3 Designer</a>
+        <a href="gt3forc3.html">GT3 FORC3</a>
+      </div>
+      <div class="footer__col">
+        <h5>Support</h5>
+        <a href="#contact">Contact</a>
+        <a href="https://discord.com/channels/906573991492349962/1534648749043879936" target="_blank" rel="noopener">Report Bugs</a>
+      </div>
+      <div class="footer__col">
+        <h5>Community</h5>
+        <a href="https://discord.gg/CbJCmjtVma" target="_blank" rel="noopener">Discord / FORC3MOD</a>
+        <a href="https://discord.gg/dfcK4x64vb" target="_blank" rel="noopener">Discord / GT3 FORC3</a>
+        <a href="#">Changelog</a>
+        <a href="SupportUs.html">Support Us</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> FORC3MOD. Not affiliated with Kunos Simulazioni. Assetto Corsa EVO is a trademark of its respective owner.</p>
+      <p class="footer__links">// V 0.1</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
