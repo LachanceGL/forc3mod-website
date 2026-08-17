@@ -620,6 +620,13 @@ h1, h2, h3, h4, h5 {
 .theme-designer .about__card::before {
   background: radial-gradient(circle at 20% 15%, rgba(212, 225, 0, .18), transparent 55%);
 }
+.theme-designer .about__card--photo::before {
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.92) 0%, rgba(0,0,0,.92) 15%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.85) 100%),
+    var(--about-photo);
+  background-size: cover;
+  background-position: center;
+}
 .theme-designer .card:hover { border-color: rgba(212, 225, 0, .4); }
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
 
