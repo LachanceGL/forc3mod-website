@@ -315,7 +315,7 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 18px;
 }
 .hero__title {
-  font-size: clamp(40px, 6.4vw, 78px);
+  font-size: clamp(32px, 5vw, 60px);
   margin-bottom: 16px;
   text-transform: uppercase;
 }
