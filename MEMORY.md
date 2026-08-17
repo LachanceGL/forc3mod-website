@@ -12,6 +12,28 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-16
+
+- `53acdab` Added a real app screenshot (`img/FORC3Designer_Showcase01.jpg`,
+  provided by the owner) as the background photo on the "Your car, your
+  canvas." card on `forc3designer.html`, same `.about__card--photo` pattern
+  `gt3forc3.html` already used. Also dropped "unofficial" from all 5 places
+  it described FORC3MOD/FORC3 Designer (meta descriptions + hero copy on
+  `index.html`, `forc3designer.html`, `SupportUs.html`).
+- Hit two real CSS bugs wiring the photo in — both now documented in
+  `CLAUDE.md` under "Photo cards" so they don't get rediscovered the hard
+  way: (1) `.theme-designer .about__card::before` was silently overriding
+  the photo with a flat gradient because it out-specifies the generic
+  `--photo` rule — needed a matching `.theme-designer .about__card--photo::before`
+  override, same as `.theme-gt3` already had; (2) the inline
+  `--about-photo: url(...)` must be a root-absolute path (`/img/...`), since
+  `url()` inside a custom property resolves relative to where it's *used*
+  (`css/style.css`, i.e. `/css/`) not where it's declared.
+- The owner also shared an app icon (blue-to-lime "FD" mark) to be placed
+  inline on the page (not as a favicon) — **not yet implemented**, still
+  waiting on the file to be saved into `img/`. Pick this up next session if
+  it hasn't been done.
+
 ## 2026-08-10 (evening)
 
 - `036195e` All "Support Us" nav/footer links (all 4 pages, 8 occurrences)

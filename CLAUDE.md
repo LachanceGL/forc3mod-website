@@ -92,6 +92,33 @@ reinvent it from scratch, just resurrect that pattern.
   second blurred copy of the logo positioned behind it) — don't just flip
   back to `filter` or `box-shadow`, both are already-tried dead ends.
 
+## Photo cards (`.about__card--photo`) — two gotchas
+
+Used for the "what it does" section's media card when it should show a real
+photo/screenshot instead of the plain icon card (see `gt3forc3.html` and
+`forc3designer.html` for examples). Set the image via an inline
+`style="--about-photo: url('...')"` on the `.about__card.about__card--photo`
+element.
+
+- **CSS specificity trap**: each theme block has its own
+  `.theme-X .about__card::before` override (for the plain icon card's tinted
+  radial gradient). Because that selector has higher specificity than the
+  base `.about__card--photo::before` rule, adding `--photo` to a themed page
+  **silently falls back to the flat gradient and drops the photo entirely**
+  unless that theme also has its own `.theme-X .about__card--photo::before`
+  override (copy the linear-gradient + `var(--about-photo)` block). Both
+  `.theme-gt3` and `.theme-designer` have this override now — if you add a
+  new theme, you'll need one too.
+- **`url()` in a custom property resolves where it's *used*, not where it's
+  *declared***: the inline `style="--about-photo: url('img/foo.jpg')"` lives
+  in the HTML page (site root), but the actual `background: ..., var(--about-photo)`
+  declaration lives in `css/style.css` (inside `/css/`) — so a relative path
+  resolves against `/css/`, not the page, and 404s (e.g. resolves to
+  `/css/img/foo.jpg`). Use a **root-absolute path** (`/img/foo.jpg`) in the
+  inline style instead. Same underlying gotcha as the footer logo's
+  `mask-image` path (see "Logo system" above) — CSS `url()` in general
+  resolves relative to the *stylesheet* unless you go absolute.
+
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 
 `js/main.js` has a scroll-spy (`setActiveLink`) that toggles `.is-active` on
@@ -181,4 +208,7 @@ building a new one:
 
 ## Pending / open items
 
-- *(none right now — add items here as they come up, and remove them once resolved)*
+- The owner shared a FORC3 Designer app icon (blue-to-lime "FD" mark) to be
+  placed **inline on the page** (their explicit choice — not as a favicon)
+  on `forc3designer.html`. Still waiting on the file to land in `img/` before
+  this can be wired in. See `MEMORY.md` 2026-08-16 entry.
