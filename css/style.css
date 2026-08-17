@@ -307,6 +307,13 @@ h1, h2, h3, h4, h5 {
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
 .hero__changelog-btn { display: block; width: max-content; margin-bottom: 18px; }
+.hero__app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
 .hero__title {
   font-size: clamp(40px, 6.4vw, 78px);
   margin-bottom: 16px;
