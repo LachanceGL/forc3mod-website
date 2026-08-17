@@ -12,6 +12,24 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-10 (evening)
+
+- `036195e` All "Support Us" nav/footer links (all 4 pages, 8 occurrences)
+  now go straight to `https://www.patreon.com/cw/forc3mod/membership`
+  instead of routing through `SupportUs.html`. **`SupportUs.html` is now
+  orphaned** — nothing on the site links to it anymore, but the file itself
+  is untouched and still fully functional if visited directly. If it should
+  be removed entirely (or relinked somewhere), that's a separate decision —
+  don't assume it's dead code to delete without checking with the owner
+  first, since it wasn't explicitly deprecated, just unlinked.
+- `f803caa` Added a dark/slim custom scrollbar site-wide (was the unstyled
+  native OS one) and a baseline `<button>` reset — the modal close (×)
+  button was rendering as a rounded square instead of a circle because nothing
+  reset native button chrome. Also fixed the Changelog modal's scroll-lock to
+  freeze `<html>` as well as `<body>`, since some browsers scroll the root
+  element and the page could still scroll (showing its scrollbar) behind an
+  open modal.
+
 ## 2026-08-10 (later)
 
 - **Site reopened — Coming Soon mode retired.** The owner said the team is
