@@ -208,7 +208,4 @@ building a new one:
 
 ## Pending / open items
 
-- The owner shared a FORC3 Designer app icon (blue-to-lime "FD" mark) to be
-  placed **inline on the page** (their explicit choice — not as a favicon)
-  on `forc3designer.html`. Still waiting on the file to land in `img/` before
-  this can be wired in. See `MEMORY.md` 2026-08-16 entry.
+- *(none right now — add items here as they come up, and remove them once resolved)*

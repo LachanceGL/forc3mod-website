@@ -29,10 +29,10 @@ explicitly rather than leaving the old entry looking still-current.
   `--about-photo: url(...)` must be a root-absolute path (`/img/...`), since
   `url()` inside a custom property resolves relative to where it's *used*
   (`css/style.css`, i.e. `/css/`) not where it's declared.
-- The owner also shared an app icon (blue-to-lime "FD" mark) to be placed
-  inline on the page (not as a favicon) — **not yet implemented**, still
-  waiting on the file to be saved into `img/`. Pick this up next session if
-  it hasn't been done.
+- `be1d041` The app icon (`img/icon.png`, blue-to-lime "FD" mark) landed and
+  is now placed inline in the hero on `forc3designer.html` — a 64px badge
+  above the eyebrow/title, per the owner's choice to show it inline rather
+  than as a favicon. Pending item closed.
 
 ## 2026-08-10 (evening)
 
