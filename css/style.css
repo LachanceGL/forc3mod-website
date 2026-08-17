@@ -636,7 +636,12 @@ h1, h2, h3, h4, h5 {
 }
 /* This card's text sits at the top instead of the bottom (unlike the GT3
    page's photo card), since it has no badge to anchor at the top anymore. */
-.theme-designer .about__card--photo { justify-content: flex-start; }
+.theme-designer .about__card--photo {
+  justify-content: flex-start;
+  padding-top: 24px;
+}
+.theme-designer .about__card--photo h3 { font-size: 22px; }
+.theme-designer .about__card--photo p { font-size: 13px; }
 .theme-designer .card:hover { border-color: rgba(212, 225, 0, .4); }
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
 
