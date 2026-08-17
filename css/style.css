@@ -306,13 +306,13 @@ h1, h2, h3, h4, h5 {
   background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
-.hero__changelog-btn { display: block; width: max-content; margin-bottom: 18px; }
+.hero__icon-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
 .hero__app-icon {
   width: 64px;
   height: 64px;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
-  margin-bottom: 18px;
+  flex-shrink: 0;
 }
 .hero__title {
   font-size: clamp(32px, 5vw, 60px);
