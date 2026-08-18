@@ -222,11 +222,21 @@ this repo.** Important consequences:
 - The green is intentionally **not** themed — it reads as a live/online
   indicator, not page accent, matching the same status line on GT3FORC3.COM
   (same reasoning as the hardcoded blue on footer link hover).
-- `.live-status` is block-level `flex`, not `inline-flex`, because `.eyebrow`
-  directly above it is `inline-flex` — an inline box sits *beside* the
-  eyebrow instead of starting its own line. It also needs an explicit
-  `.live-status[hidden] { display: none }`, since a bare `[hidden]` loses to
-  a `display` declaration.
+- **Placement**: it renders as a pill on the hero title's *first line*, in
+  the empty space beside "Race live." That means it lives **inside the
+  `<h1>`**, so it must stay a `<span>` (an `h1` only accepts phrasing
+  content — a `<p>` there is invalid). `.hero__title-line` is the flex row
+  pairing the two; it replaces the old `<br>`, since a block-level flex child
+  already pushes "Climb the..." to the next line. It wraps below the text on
+  narrow screens rather than overflowing.
+- Because it sits inside the `<h1>`, every inherited heading style has to be
+  undone explicitly (font-size, weight, line-height, letter-spacing, colour)
+  — otherwise it picks up the hero title's clamped display type.
+- It needs an explicit `.live-status[hidden] { display: none }`, since a bare
+  `[hidden]` loses to a `display` declaration.
+- Trade-off accepted: the `<h1>`'s accessible name now includes the pill text
+  ("Race live. GT3FORC3 servers // N drivers on track Climb the
+  leaderboard."). That was the cost of putting it on the title line.
 
 ## Modal system (`js/main.js`)
 

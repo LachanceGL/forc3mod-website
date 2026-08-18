@@ -60,14 +60,23 @@
   <section class="hero">
     <div class="container hero__inner">
       <p class="eyebrow"><span class="dot"></span> A FORC3MOD community</p>
-      <!-- Live driver count, filled in by main.js from the GT3FORC3 Worker.
-           Starts hidden and stays hidden if the fetch fails, so an outage
-           degrades to nothing rather than an empty/broken-looking row. -->
-      <p class="live-status" id="liveStatus" hidden>
-        <span class="live-status__dot" id="liveStatusDot"></span>
-        <span id="liveStatusText"></span>
-      </p>
-      <h1 class="hero__title">Race live.<br />Climb the <span class="grad">leaderboard.</span></h1>
+      <!-- The live pill sits on the title's first line, so it has to live
+           inside the <h1> — hence <span>, not <p> (an h1 only takes phrasing
+           content). .hero__title-line is the flex row that pairs them; it
+           replaces the old <br>, since a block-level flex child already
+           forces "Climb the..." onto the next line.
+           Filled in by main.js from the GT3FORC3 Worker. Starts hidden and
+           stays hidden if the fetch fails, so an outage degrades to nothing
+           rather than an empty/broken-looking pill. -->
+      <h1 class="hero__title">
+        <span class="hero__title-line">Race live.
+          <span class="live-status" id="liveStatus" hidden>
+            <span class="live-status__dot" id="liveStatusDot"></span>
+            <span id="liveStatusText"></span>
+          </span>
+        </span>
+        Climb the <span class="grad">leaderboard.</span>
+      </h1>
       <p class="hero__lead">
         GT3FORC3.COM is a sim racing community built around Assetto Corsa and
         Assetto Corsa EVO // Join our servers and climb the Leaderboards or

@@ -49,10 +49,21 @@ explicitly rather than leaving the old entry looking still-current.
   be edited from here. Documented in `CLAUDE.md` along with why it sums
   rather than reads fixed track keys (server reshuffles rename them) and why
   failure is silent (rendering "0 drivers" on a failed fetch would be a lie).
-- Two things worth remembering from building it: `.eyebrow` is `inline-flex`,
-  so a sibling `inline-flex` status line lands *beside* it rather than on its
-  own row — needed block-level `flex`; and `[hidden]` alone loses to a
-  `display` rule, so `.live-status[hidden] { display: none }` is required.
+- Owner then moved it onto the hero title's first line (beside "Race live.")
+  and asked for nicer formatting — it's now a rounded pill with a tinted
+  green background, border, glow and an emphasised tabular-nums count. Living
+  on the title line means it sits **inside the `<h1>`**, so it had to become a
+  `<span>` (a `<p>` there is invalid) and undo every inherited heading style.
+  Accepted trade-off: the h1's accessible name now includes the pill text.
+- Two CSS things worth remembering: `[hidden]` alone loses to a `display`
+  rule, so `.live-status[hidden] { display: none }` is required; and
+  `.eyebrow` is `inline-flex`, so a sibling `inline-flex` element lands
+  *beside* it rather than on its own row (that bit me at the first placement).
+- Measurement gotcha that bit me twice now: reading `getComputedStyle`
+  immediately after toggling a class returns the *start* of any transitioned
+  property, so styles look like they "didn't apply" while untransitioned
+  ones snap. Set `el.style.transition = 'none'` before reading. Cost me a
+  false "empty state is broken" reading here and a false caret one earlier.
 - Confirmed I can read sibling repos directly (`G:\FORC3MOD\gt3forc3-website`
   is cloned locally), so porting a feature across projects doesn't need the
   other conversation's transcript — just read the source repo.
