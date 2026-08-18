@@ -39,6 +39,19 @@ explicitly rather than leaving the old entry looking still-current.
   back, restore it from `git show cecd217:index.html` (+ the `.coming-soon`
   rules at the end of `git show cecd217:css/style.css`). `CLAUDE.md` now
   documents both flip directions explicitly.
+- **Moved "Support Us" from the nav row into a button next to the header's
+  Discord button**, on request. It's now `<a class="btn btn--primary">` in
+  `.header__actions`, right after Discord (or after the hamburger alone on
+  `SupportUs.html`, which has no header Discord button by design). Uses the
+  existing `.header__actions .btn` sizing and the existing
+  `.theme-X .header .btn--primary` re-pin rules — no new CSS skin, renders
+  blue on every page as intended.
+- Hit and fixed a real overflow bug while doing this: with no icon to
+  collapse to (unlike Discord's icon-only mobile fallback), the button
+  overflowed the viewport below ~440px width. Fixed by hiding it below
+  480px and adding a `.nav__link--support` fallback link in the hamburger
+  drawer at that same breakpoint, so it's still reachable on small phones.
+  Documented as a "don't reintroduce this" gotcha in `CLAUDE.md`.
 
 ## 2026-08-16 (later)
 

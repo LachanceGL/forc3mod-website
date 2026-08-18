@@ -246,6 +246,15 @@ h1, h2, h3, h4, h5 {
 }
 .nav__link:hover, .nav__link.is-active { color: #fff; background: var(--surface); }
 .nav__link.is-active { color: var(--accent-2); }
+/* "Support Us" normally lives as a .btn in .header__actions (see below), not
+   in .nav — this fallback nav entry only exists for the narrow phone width
+   where that header button hides to avoid overflow (see the 480px query),
+   so it stays reachable from the hamburger drawer. Hidden everywhere else
+   so it never duplicates the header button. */
+.nav__link--support { display: none; }
+@media (max-width: 480px) {
+  .nav__link--support { display: inline-flex; }
+}
 
 .header__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
 .header__actions .btn {
@@ -279,6 +288,11 @@ h1, h2, h3, h4, h5 {
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
   :root { --logo-h: 20px; }
+  /* Below 480px there's no longer room for hamburger + Discord icon + a
+     full "Support Us" button without overflowing (it has no icon to
+     collapse to, unlike Discord) — hide it here and fall back to the
+     .nav__link--support entry in the hamburger drawer instead. */
+  .header__actions .btn--primary { display: none; }
 }
 
 /* Mobile nav overlay. `top` is set inline by JS to match the header's actual

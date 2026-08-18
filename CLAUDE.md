@@ -207,6 +207,36 @@ building a new one:
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.
 
+## Header "Support Us" button — a responsive gotcha, don't reintroduce it
+
+"Support Us" used to live only as a `.nav__link` (so it collapsed into the
+hamburger drawer on mobile like every other nav item). It's now a
+`.btn.btn--primary` in `.header__actions`, sitting immediately after the
+Discord button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or
+after the hamburger alone (`SupportUs.html`, which has no header Discord
+button — see above). It's styled via the existing `.header__actions .btn`
+sizing rule, so no new button skin was invented; on `forc3designer.html`/
+`gt3forc3.html` it renders blue (not lime/red) for free via the existing
+`.theme-X .header .btn--primary` re-pin rules, same reasoning as the header
+staying blue-branded everywhere (see "Theming system").
+
+- **Bug hit and fixed**: unlike the Discord button (which has an icon and
+  hides its text below 640px, `.btn--discord span { display:none }`), this
+  button has no icon — there's nothing to collapse to. Left unconditional,
+  it overflowed the viewport (horizontal scroll) on phones narrower than
+  ~440px, because logo + hamburger + Discord-icon + full "Support Us" text
+  no longer fit in one row.
+- **Fix in place**: below 480px (the same breakpoint that already shrinks
+  `--logo-h`/header gaps), `.header__actions .btn--primary` is hidden
+  entirely, and a `.nav__link--support` fallback entry (hidden everywhere
+  else via the inverse rule) appears in the hamburger drawer instead so it
+  stays reachable. The two rules are exact complements of the same 480px
+  breakpoint — never edit one without the other, or you'll either reopen
+  the overflow or end up with the link showing nowhere.
+- If you ever give this button an icon, the simplest fix would instead be
+  matching Discord's `span { display:none }` pattern at 480px and dropping
+  the nav fallback — but that's not what's implemented today.
+
 ## Design conventions
 
 - Fonts: **Rajdhani** (`--font-head`) for headings/nav/eyebrows; **Roboto**
