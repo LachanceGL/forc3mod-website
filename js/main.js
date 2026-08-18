@@ -88,37 +88,58 @@
   // The pill only ever appears when someone is actually driving: an empty
   // server, a missing `nordschleife` key (the Worker renames track keys when
   // servers are reshuffled) or any fetch error all resolve to "show nothing".
+  // The same response also carries `member_count`, shown inside the GT3FORC3
+  // Discord button. One fetch feeds both; each is updated independently so
+  // an empty track can't suppress the member count (or vice versa).
   const liveStatus = document.getElementById('liveStatus');
-  if (liveStatus) {
+  const discordMembers = document.getElementById('discordMembers');
+
+  if (liveStatus || discordMembers) {
     const STATS_URL = 'https://raspy-salad-d894.contact-eb9.workers.dev/discord/stats';
     const TRACK_KEY = 'nordschleife';
     const REFRESH_MS = 90 * 1000;
     const textEl = document.getElementById('liveStatusText');
 
-    const loadLiveStatus = async () => {
+    const showDrivers = (data) => {
+      if (!liveStatus) return;
+      const drivers = Number((data && data.server_players || {})[TRACK_KEY]);
+      if (!Number.isFinite(drivers) || drivers < 1) {
+        liveStatus.hidden = true;
+        return;
+      }
+      textEl.innerHTML = `GT3 Nordschleife server : <span class="live-status__count">${drivers}</span> ` +
+        `driver${drivers === 1 ? '' : 's'} on track`;
+      liveStatus.hidden = false;
+    };
+
+    const showMembers = (data) => {
+      if (!discordMembers) return;
+      const members = Number(data && data.member_count);
+      if (!Number.isFinite(members) || members < 1) {
+        discordMembers.hidden = true;
+        return;
+      }
+      discordMembers.textContent = `[${members} MEMBERS]`;
+      discordMembers.hidden = false;
+    };
+
+    const loadStats = async () => {
       try {
         const res = await fetch(STATS_URL);
         if (!res.ok) throw new Error(`Worker returned ${res.status}`);
         const data = await res.json();
-
-        const drivers = Number((data.server_players || {})[TRACK_KEY]);
-        if (!Number.isFinite(drivers) || drivers < 1) {
-          liveStatus.hidden = true;
-          return;
-        }
-
-        textEl.innerHTML = `GT3 Nordschleife server : <span class="live-status__count">${drivers}</span> ` +
-          `driver${drivers === 1 ? '' : 's'} on track`;
-        liveStatus.hidden = false;
+        showDrivers(data);
+        showMembers(data);
       } catch (err) {
-        // Fail silently and stay hidden — the page reads fine without it,
+        // Fail silently and stay hidden — the page reads fine without either,
         // and rendering a count we couldn't actually read would be a lie.
-        liveStatus.hidden = true;
+        showDrivers(null);
+        showMembers(null);
       }
     };
 
-    loadLiveStatus();
-    setInterval(loadLiveStatus, REFRESH_MS);
+    loadStats();
+    setInterval(loadStats, REFRESH_MS);
   }
 
   // ---- Active nav link on scroll ----

@@ -49,6 +49,25 @@ explicitly rather than leaving the old entry looking still-current.
   be edited from here. Documented in `CLAUDE.md` along with why it sums
   rather than reads fixed track keys (server reshuffles rename them) and why
   failure is silent (rendering "0 drivers" on a failed fetch would be a lie).
+- Long-form badge on the GT3 photo card now carries the full
+  "LIVE NOW : GT3FORC3.COM // HOT LAP // Nurburgring Nordschleife -
+  Leaderboard" line. Needed `text-transform: none` (the label deliberately
+  mixes caps and title case, which the base badge's uppercase would flatten)
+  plus a max-width and relaxed radius, since it's absolutely positioned and
+  now wraps.
+- Added `[N MEMBERS]` inside the GT3FORC3 Discord CTA from the same
+  endpoint's `member_count` (1091 at the time). One fetch now feeds both it
+  and the driver pill, updated independently so an empty track can't suppress
+  the member count.
+- **Found and fixed a pre-existing mobile bug** while doing the badge: the
+  `.about__card` forces `aspect-ratio: 16/10`, which below ~560px is shorter
+  than its own content — the heading overflowed past the card's top edge and
+  was clipped by `overflow: hidden`, with the absolute badge sitting on it.
+  Not caused by the badge (the badge just made it obvious). Fixed with
+  `aspect-ratio: auto; min-height: 330px` under 560px. The height has to
+  clear the *top-anchored* badge against *bottom-anchored* text
+  (`justify-content: flex-end`), which is why it needs to be that generous.
+  This also silently fixed the same clipping on `forc3designer.html`'s card.
 - Final form of the counter: label is "GT3 Nordschleife server : N driver(s)
   on track", it reads **only** the `nordschleife` key (not the sum — the
   label names one server, so summing would misreport), and it renders

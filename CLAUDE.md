@@ -217,6 +217,10 @@ this repo.** Important consequences:
   disappears, the pill silently stops showing (it fails safe rather than
   reporting a wrong number). If the counter mysteriously never appears, check
   that key in the Worker first.
+- The same response's `member_count` also fills `[N MEMBERS]` inside the
+  GT3FORC3 Discord CTA (`.btn__members`). One fetch feeds both, but they are
+  updated **independently** — an empty track must not suppress the member
+  count, and vice versa. Each hides itself if its own value is unreadable.
 - **The pill only ever appears when someone is actually driving.** Zero
   drivers, a missing `nordschleife` key, a non-OK status, bad JSON — every
   one of those resolves to "render nothing". There is deliberately no
