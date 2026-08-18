@@ -7,22 +7,22 @@
   <script>location.replace('index.html');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GT3 FORC3 — Sim Racing Community for Assetto Corsa EVO | FORC3MOD</title>
-  <meta name="description" content="GT3FORC3.COM is a sim racing community for Assetto Corsa EVO — live leaderboards across five hosted servers, driver verification and an active Discord." />
+  <title>FORC3MOD | FORC3 Designer — Free Livery Maker for Assetto Corsa EVO</title>
+  <meta name="description" content="FORC3 Designer is a free livery maker for Assetto Corsa EVO. Create and export race-ready liveries with powerful tools and a fast, user-friendly interface — built by FORC3MOD." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6fff'/%3E%3Ctext x='16' y='24' font-family='Arial, Helvetica, sans-serif' font-weight='800' font-size='22' fill='white' text-anchor='middle'%3E3%3C/text%3E%3C/svg%3E" />
 </head>
-<body class="theme-gt3">
+<body>
 
   <span id="top" aria-hidden="true"></span>
 
   <!-- ===== Header / Nav ===== -->
   <header class="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="FORC3MOD home">
+      <a href="#top" class="logo" aria-label="FORC3MOD home">
         <span class="logo__stack">
           <img src="img/forc3mod-logo.svg" alt="FORC3MOD" class="logo__img" />
           <span class="logo__tagline">AC EVO DEVELOPMENT</span>
@@ -30,10 +30,10 @@
       </a>
 
       <nav class="nav" id="nav">
-        <a href="index.html" class="nav__link">Home</a>
+        <a href="#top" class="nav__link is-active">Home</a>
         <a href="forc3designer.html" class="nav__link">FORC3 Designer</a>
-        <a href="gt3forc3.html" class="nav__link is-active">GT3 FORC3</a>
-        <a href="index.html#contact" class="nav__link">Contact</a>
+        <a href="gt3forc3.html" class="nav__link">GT3 FORC3</a>
+        <a href="#contact" class="nav__link">Contact</a>
         <div class="nav__group">
           <button type="button" class="nav__link nav__toggle" aria-haspopup="true" aria-expanded="false">
             Support
@@ -63,61 +63,55 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="container hero__inner">
-      <p class="eyebrow"><span class="dot"></span> A FORC3MOD community</p>
-      <!-- The live pill sits on the title's first line, so it has to live
-           inside the <h1> — hence <span>, not <p> (an h1 only takes phrasing
-           content). .hero__title-line is the flex row that pairs them; it
-           replaces the old <br>, since a block-level flex child already
-           forces "Climb the..." onto the next line.
-           Filled in by main.js from the GT3FORC3 Worker. Starts hidden and
-           stays hidden if the fetch fails, so an outage degrades to nothing
-           rather than an empty/broken-looking pill. -->
-      <h1 class="hero__title">
-        <span class="hero__title-line">Race live.
-          <span class="live-status" id="liveStatus" hidden>
-            <span class="live-status__dot" id="liveStatusDot"></span>
-            <span id="liveStatusText"></span>
-          </span>
-        </span>
-        Climb the <span class="grad">leaderboard.</span>
-      </h1>
+      <p class="eyebrow"><span class="dot"></span> AC EVO DEVELOPMENT &amp; MORE</p>
+      <h1 class="hero__title">Design liveries.<br />Own the <span class="grad">grid.</span></h1>
       <p class="hero__lead">
-        GT3FORC3.COM is a sim racing community built around Assetto Corsa and
-        Assetto Corsa EVO // Join our servers and climb the Leaderboards or
-        just enjoy the thrill of driving!
+        FORC3 Designer, our free flagship application for Windows for creating
+        liveries for Assetto Corsa EVO is now available for Beta testing //
+        Pick your car, paint your livery, and export it straight into the game,
+        ready to race.
       </p>
       <div class="hero__cta">
-        <a href="https://gt3forc3.com" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Visit GT3FORC3.COM
+        <a href="forc3designer.html" class="btn btn--primary btn--lg">Get FORC3 Designer
           <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
         </a>
-        <a href="https://discord.gg/dfcK4x64vb" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">GT3FORC3 Discord<span class="btn__members" id="discordMembers" hidden></span></a>
+        <a href="forc3designer.html#features" class="btn btn--ghost btn--lg">See what it does</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== What it is ===== -->
-  <section class="section" id="features">
-    <div class="container about">
-      <div class="about__media">
-        <div class="about__card about__card--photo" style="--about-photo: url('https://raw.githubusercontent.com/LachanceGL/gt3forc3-website/refs/heads/main/images/BG_Nordschleife_03.png')">
-          <span class="about__badge about__badge--wide">LIVE NOW : GT3FORC3.COM // HOT LAP // Nürburgring Nordschleife</span>
-          <h3>Assetto Corsa GT3 servers</h3>
-          <p>Nordschleife, Spa, Red Bull Ring, Laguna Seca and Nürburgring Touring // Lap times update every session.</p>
+  <!-- ===== CTA / Contact ===== -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <div class="cta">
+        <div class="cta__content">
+          <h2>Got feedback or<br />a feature idea?</h2>
+          <p>Want to help us improve a feature? Have a car mod you'd like to see, or just a question? Feel free to contact us!</p>
         </div>
-      </div>
-      <div class="about__body">
-        <p class="eyebrow"><span class="dot"></span> What it is</p>
-        <h2 class="section__title">Sim Racing Community Servers &amp; Discord.</h2>
-        <p class="section__lead">
-          The original GT3 FORC3 sim racing community, with servers across the
-          original Assetto Corsa and Assetto Corsa EVO. Look for FORC3 on
-          Content Manager and EVO in-game browser.
-        </p>
-        <ul class="feature-list">
-          <li><span class="tick">✓</span> 7 Servers</li>
-          <li><span class="tick">✓</span> Competitive Leaderboards</li>
-          <li><span class="tick">✓</span> Discord Server</li>
-        </ul>
+        <form class="cta__form" id="contactForm" novalidate>
+          <div class="field">
+            <input type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <input type="email" name="email" placeholder="Email address" required />
+          </div>
+          <div class="field field--full">
+            <select name="type" required>
+              <option value="" disabled selected>What's this about? :)</option>
+              <option>Feature request</option>
+              <option>Bug report</option>
+              <option>General question</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <textarea name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg field--full">Send message
+            <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
+          </button>
+          <p class="form-note" id="formNote" role="status"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -126,7 +120,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="index.html" class="logo" aria-label="FORC3MOD home">
+        <a href="#top" class="logo" aria-label="FORC3MOD home">
           <span class="logo__stack">
             <span class="logo__img logo__img--mono" aria-hidden="true"></span>
             <span class="logo__tagline">AC EVO DEVELOPMENT</span>
@@ -140,7 +134,7 @@
       </div>
       <div class="footer__col">
         <h5>Support</h5>
-        <a href="index.html#contact">Contact</a>
+        <a href="#contact">Contact</a>
         <a href="https://discord.com/channels/1534614323534499891/1534648749043879936" target="_blank" rel="noopener">Report a Bug</a>
         <a href="https://discord.com/channels/1534614323534499891/1534648689300341057" target="_blank" rel="noopener">Make a Suggestion</a>
       </div>

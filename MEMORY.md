@@ -14,6 +14,20 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Site gated again — back into Coming Soon mode** (5th flip). Followed the
+  documented procedure exactly: `git mv index.html home.html`, restored the
+  Coming Soon page from `git show cecd217:index.html`, re-appended the
+  `.coming-soon` CSS block from the same commit, and re-added the
+  `location.replace('index.html')` guard to `home.html`,
+  `forc3designer.html`, `gt3forc3.html`, `SupportUs.html`. Nothing else in
+  those pages touched — all of today's work is preserved in `home.html`.
+- Verified all four redirect to the Coming Soon page and that it renders with
+  its CSS (logo 40px, year filled). Note the gated `index.html` loads no
+  `js/main.js`, so nothing polls the GT3FORC3 Worker while gated.
+- Tip for next time: `navigate` reports a *failure* when a page redirects via
+  `location.replace()` — that's the guard working, not a broken page. Check
+  `location.pathname` afterwards instead of trusting the tool error.
+
 - **Reworked the "Support" nav tab into a dropdown.** It is not a page: it
   now opens a two-item menu (Report a Bug / Make a Suggestion), both Discord
   channel deep links. Supersedes yesterday's entry where Support linked to
