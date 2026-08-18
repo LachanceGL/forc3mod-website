@@ -60,6 +60,13 @@
   <section class="hero">
     <div class="container hero__inner">
       <p class="eyebrow"><span class="dot"></span> A FORC3MOD community</p>
+      <!-- Live driver count, filled in by main.js from the GT3FORC3 Worker.
+           Starts hidden and stays hidden if the fetch fails, so an outage
+           degrades to nothing rather than an empty/broken-looking row. -->
+      <p class="live-status" id="liveStatus" hidden>
+        <span class="live-status__dot" id="liveStatusDot"></span>
+        <span id="liveStatusText"></span>
+      </p>
       <h1 class="hero__title">Race live.<br />Climb the <span class="grad">leaderboard.</span></h1>
       <p class="hero__lead">
         GT3FORC3.COM is a sim racing community built around Assetto Corsa and

@@ -186,6 +186,48 @@ nav links as the user scrolls.
 - Validation is manual JS (all 4 fields required + a basic email regex) —
   see the `contactForm` handler in `main.js`.
 
+## Live driver count on `gt3forc3.html` — a cross-repo dependency
+
+The hero on `gt3forc3.html` shows a live "GT3FORC3 servers // N drivers on
+track" line, fed from **another project's** backend:
+
+- Endpoint: `https://raspy-salad-d894.contact-eb9.workers.dev/discord/stats`
+  — the GT3FORC3 Cloudflare Worker. Same source GT3FORC3.COM's own
+  leaderboard uses, so the two sites always agree.
+- It sends `Access-Control-Allow-Origin: *` and edge-caches for 120s, so
+  calling it cross-origin from `forc3mod.com` is fine and cheap. The page
+  re-polls every 90s.
+- Response: `{ member_count, online_count, server_players }` where
+  `server_players` maps a track id → players on that server. This page isn't
+  per-track, so `main.js` **sums** those values into one total.
+
+**This is the only part of the site that depends on infrastructure outside
+this repo.** Important consequences:
+
+- That Worker lives in `gt3forc3-website` (deployed manually via the
+  Cloudflare dashboard — see that repo's own notes). **Don't edit it from
+  here.** If the shape of `/discord/stats` changes, this page breaks and the
+  fix belongs in that repo.
+- The track ids in `server_players` come from the Worker's `TRACK_KEYWORDS`
+  map, which gets reshuffled when servers change. Summing rather than
+  reading fixed keys is deliberate so a reshuffle can't silently break this.
+- A track missing from the map means "couldn't read it", not zero — one was
+  in fact missing when this was built. Summing what's present is the honest
+  reading either way.
+- **Failure is silent by design**: the element starts `hidden` and stays
+  hidden on any error (non-OK status, bad JSON, empty map). Never "fix" this
+  into rendering `0 drivers` on failure — that would state something false.
+  `0` is only ever shown when the Worker genuinely reports zero, in which
+  case the line goes muted grey and the dot stops pulsing.
+- The green is intentionally **not** themed — it reads as a live/online
+  indicator, not page accent, matching the same status line on GT3FORC3.COM
+  (same reasoning as the hardcoded blue on footer link hover).
+- `.live-status` is block-level `flex`, not `inline-flex`, because `.eyebrow`
+  directly above it is `inline-flex` — an inline box sits *beside* the
+  eyebrow instead of starting its own line. It also needs an explicit
+  `.live-status[hidden] { display: none }`, since a bare `[hidden]` loses to
+  a `display` declaration.
+
 ## Modal system (`js/main.js`)
 
 Generic, reusable pattern — reuse this for any future popup instead of

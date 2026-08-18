@@ -113,6 +113,45 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
+/* ===== Live server status (GT3 FORC3 page) =====
+   Green here is deliberately NOT themed — it reads as a live/online
+   indicator, not as page accent, and matches the same status line on
+   GT3FORC3.COM. Same reasoning as the hardcoded blue on footer link hover. */
+.live-status {
+  /* Block-level flex, not inline-flex: .eyebrow above it is inline-flex, so
+     an inline box here would sit beside it on the same row instead of
+     starting its own line. fit-content keeps the box hugging its text. */
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4ade80;
+  margin: -6px 0 14px;
+}
+.live-status[hidden] { display: none; }   /* [hidden] alone loses to display:inline-flex */
+.live-status__dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+  background: #4ade80;
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+/* Servers reachable but empty — same line, muted, no pulse. */
+.live-status.is-empty { color: var(--text-mute); }
+.live-status.is-empty .live-status__dot { background: var(--text-mute); animation: none; }
+.live-status__count { font-variant-numeric: tabular-nums; }
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-status__dot { animation: none; }
+}
+
 .section { padding: 52px 0; }
 .section--alt { background: var(--bg-alt); }
 .section__head { max-width: 640px; margin: 0 auto 40px; text-align: center; }

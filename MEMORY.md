@@ -38,6 +38,24 @@ explicitly rather than leaving the old entry looking still-current.
   authority on their own Discord.
 - Footer "Support" column is now Contact / Report a Bug / Make a Suggestion,
   matching the nav dropdown.
+- **Added a live driver counter to `gt3forc3.html`'s hero**, mirroring the
+  status line on GT3FORC3.COM. Reads the GT3FORC3 Cloudflare Worker's
+  `/discord/stats` (CORS `*`, 120s edge cache), sums `server_players` into
+  one total, re-polls every 90s. Verified against the live endpoint: it
+  returned `{member_count:1091, online_count:95, server_players:{...}}` with
+  1 driver on Nordschleife, matching the screenshot the owner sent.
+- Notable: this is the **only** part of the site depending on infrastructure
+  outside this repo — the Worker belongs to `gt3forc3-website` and must not
+  be edited from here. Documented in `CLAUDE.md` along with why it sums
+  rather than reads fixed track keys (server reshuffles rename them) and why
+  failure is silent (rendering "0 drivers" on a failed fetch would be a lie).
+- Two things worth remembering from building it: `.eyebrow` is `inline-flex`,
+  so a sibling `inline-flex` status line lands *beside* it rather than on its
+  own row — needed block-level `flex`; and `[hidden]` alone loses to a
+  `display` rule, so `.live-status[hidden] { display: none }` is required.
+- Confirmed I can read sibling repos directly (`G:\FORC3MOD\gt3forc3-website`
+  is cloned locally), so porting a feature across projects doesn't need the
+  other conversation's transcript — just read the source repo.
 - Removed the footer "Changelog" link from all four pages — it was a dead
   `href="#"` placeholder. The Changelog *modal* on `forc3designer.html` (hero
   button + `#changelogModal`) is a separate thing and stays.

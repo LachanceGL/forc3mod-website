@@ -75,6 +75,47 @@
     });
   }
 
+  // ---- Live GT3FORC3 driver count (gt3forc3.html only) ----
+  // Reads the same Cloudflare Worker endpoint GT3FORC3.COM's own leaderboard
+  // uses, so both sites always agree. The Worker sends
+  // Access-Control-Allow-Origin: * and edge-caches for 120s, so calling it
+  // cross-origin from here is fine and cheap.
+  //
+  // `server_players` is a map of track id -> players on that server; this page
+  // isn't per-track, so the counts are summed into one total. A track missing
+  // from the map means its count couldn't be read, not zero — summing the
+  // present ones is the honest reading either way.
+  const liveStatus = document.getElementById('liveStatus');
+  if (liveStatus) {
+    const STATS_URL = 'https://raspy-salad-d894.contact-eb9.workers.dev/discord/stats';
+    const REFRESH_MS = 90 * 1000;
+    const textEl = document.getElementById('liveStatusText');
+
+    const loadLiveStatus = async () => {
+      try {
+        const res = await fetch(STATS_URL);
+        if (!res.ok) throw new Error(`Worker returned ${res.status}`);
+        const data = await res.json();
+
+        const counts = Object.values(data.server_players || {});
+        if (!counts.length) throw new Error('no server counts in response');
+        const drivers = counts.reduce((total, n) => total + (Number(n) || 0), 0);
+
+        textEl.innerHTML = `GT3FORC3 servers // <span class="live-status__count">${drivers}</span> ` +
+          `driver${drivers === 1 ? '' : 's'} on track`;
+        liveStatus.classList.toggle('is-empty', drivers === 0);
+        liveStatus.hidden = false;
+      } catch (err) {
+        // Fail silently and stay hidden — the page reads fine without it,
+        // and a half-rendered "0 drivers" would be a lie if the fetch broke.
+        liveStatus.hidden = true;
+      }
+    };
+
+    loadLiveStatus();
+    setInterval(loadLiveStatus, REFRESH_MS);
+  }
+
   // ---- Active nav link on scroll ----
   // Only same-page anchor links (e.g. "#top", "#contact" on index.html)
   // participate in scroll-spying. Cross-page links (FORC3 Designer, GT3
