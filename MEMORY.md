@@ -12,6 +12,34 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-17
+
+- **Site reopened — back to the full live site.** Reversed the 2026-08-16
+  gating exactly per the plan in `CLAUDE.md`: deleted the
+  `location.replace('index.html')` guard (and its explanatory comment) from
+  `home.html`, `forc3designer.html`, `gt3forc3.html`, `SupportUs.html`;
+  `git mv -f home.html index.html` so the real homepage is `index.html`
+  again; removed the now-dead `.coming-soon` CSS block from the end of
+  `css/style.css`. No content edits — pure un-gating.
+- Verified locally on `http://localhost:8123` before pushing: all four pages
+  load without redirecting, `index.html` has `header.header` and no
+  `.coming-soon`, `forc3designer.html` still carries `body.theme-designer`
+  with its photo-card background intact, no console errors, and the only
+  server 404 is `/favicon.ico` (pre-existing — the site uses an inline
+  data-URI favicon, browsers probe `/favicon.ico` anyway).
+- Screenshots failed again in this environment ("Browser pane is not
+  displayed, so the page is not compositing frames") — verified structurally
+  via `javascript_tool` DOM/`getComputedStyle` checks instead, which is the
+  fallback `CLAUDE.md` already recommends.
+- Fixed `.claude/launch.json` (local-only, gitignored): it was an
+  attach-only config named `gt3forc3-static` pointing at a server nobody
+  started. Now `forc3mod-static`, actually running
+  `python -m http.server 8123` — `preview_start` works out of the box here.
+- The Coming Soon page is NOT kept as a file anymore. If it needs to come
+  back, restore it from `git show cecd217:index.html` (+ the `.coming-soon`
+  rules at the end of `git show cecd217:css/style.css`). `CLAUDE.md` now
+  documents both flip directions explicitly.
+
 ## 2026-08-16 (later)
 
 - **Site gated again — back into Coming Soon mode.** Restored the exact

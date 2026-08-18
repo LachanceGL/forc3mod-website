@@ -24,52 +24,61 @@ directly.
 - Local testing: `python -m http.server <port>` from the repo root, then open
   in a browser. Always kill the server before ending a session.
 
-## Current status: site is in "Coming Soon" mode (again)
+## Current status: site is LIVE (full site, un-gated)
 
 The site has flipped between a gated "Coming Soon" state and the full live
-site more than once now — see `MEMORY.md` for the blow-by-blow (2026-08-09
-gated it, 2026-08-10 reopened it, 2026-08-16 gated it again). **Check
-`index.html` itself if you're unsure which state it's currently in**: if it
-has a `<section class="coming-soon">`, it's gated; if it has a `<header
-class="header">` with full nav, it's live.
+site several times now — see `MEMORY.md` for the blow-by-blow (2026-08-09
+gated it, 2026-08-10 reopened it, 2026-08-16 gated it again, 2026-08-17
+reopened it). **Check `index.html` itself if you're unsure which state it's
+currently in**: if it has a `<section class="coming-soon">`, it's gated; if
+it has a `<header class="header">` with full nav, it's live.
 
-As of the most recent change, it's gated again:
+As of the most recent change, it's live:
 
-- `index.html` is a **minimal Coming Soon page**: logo, an "Under
-  construction" eyebrow line, and a copyright footer line. No nav, no CTA
-  buttons, no Discord link.
-- `home.html` holds the **full real homepage**, completely intact.
-- `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`
-  each have exactly **one line** added at the very top of `<head>`:
-  ```html
-  <script>location.replace('index.html');</script>
-  ```
-  That is the *only* change made to those four files for this. Nothing else
-  in them was touched — all content is fully preserved and ready to restore.
+- `index.html` is the **full real homepage** again (header/nav, hero, about,
+  contact form, footer). `home.html` no longer exists — it was renamed back
+  onto `index.html`.
+- `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html` all load
+  normally; the `location.replace('index.html')` guard (and its explanatory
+  comment) has been deleted from every page.
+- The `.coming-soon` CSS block is gone from the end of `css/style.css`.
 
-### How to reopen the full site
+### How to gate it again (live → Coming Soon)
 
-1. Delete the `<script>location.replace('index.html');</script>` line from
-   `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`.
-2. Copy `home.html`'s content back into `index.html` (or just rename it),
-   then delete `home.html`.
+1. `git mv index.html home.html`, then recreate `index.html` as the Coming
+   Soon page. **Don't reinvent it** — restore it from git history:
+   `git show cecd217:index.html`. Its stylesheet block is the `.coming-soon`
+   rules at the end of `git show cecd217:css/style.css` — append those back.
+2. Add this one line at the very top of `<head>` in `home.html`,
+   `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`. That should
+   be the *only* change to those four files — leave all content intact:
+   ```html
+   <script>location.replace('index.html');</script>
+   ```
+3. Commit and push.
+
+### How to reopen it (Coming Soon → live)
+
+1. Delete the `<script>location.replace('index.html');</script>` line, plus
+   the explanatory comment above it, from `home.html`, `forc3designer.html`,
+   `gt3forc3.html`, and `SupportUs.html`.
+2. `git mv -f home.html index.html`.
 3. Remove the now-dead `.coming-soon` CSS block from `css/style.css`.
 4. Commit and push.
 
-This exact cycle (gate → reopen → gate again) has happened before — don't
-be surprised if it happens again. The pattern is cheap to redo either way:
-the Coming Soon page's HTML/CSS block is short and both directions are
-documented step-by-step above and in `MEMORY.md`.
+This cycle (gate → reopen → gate → reopen) has now happened four times —
+expect it to happen again as the FORC3 Designer release date moves. Both
+directions are cheap and scripted above; always resurrect the Coming Soon
+page from git rather than rewriting it from scratch.
 
 ## File map
 
 | File | Purpose |
 |---|---|
-| `index.html` | **Currently the Coming Soon page.** Normally this is the site's real homepage — see above. |
-| `home.html` | The real homepage, preserved, currently gated/redirects to `index.html`. |
-| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). Currently gated. |
-| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). Currently gated. |
-| `SupportUs.html` | Patreon support page. Default blue theme. Currently gated (and also unlinked from nav/footer even when live — see "Discord / community reference IDs"). |
+| `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
+| `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
+| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
+| `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav scroll-spy, modal system, contact form mailto handler. |
@@ -155,7 +164,7 @@ nav links as the user scrolls.
   correct static `is-active` class (e.g. "FORC3 Designer" highlighted in the
   nav while on that page) on every single page load.
 - **Fix in place**: only links whose `href` starts with `#` (same-page
-  anchors like `#top`/`#contact`, only present on `index.html`/`home.html`)
+  anchors like `#top`/`#contact`, only present on the homepage)
   participate in scroll-spying. Cross-page links keep whatever `is-active`
   state the page was rendered with, untouched.
 - Also: the scroll-spy's default section is `'top'`, not `''` — because
@@ -165,7 +174,7 @@ nav links as the user scrolls.
   scroll-spying; cross-page links are safe by default and need no special
   handling.
 
-## Contact form (in `home.html`, or `index.html` when the site isn't gated)
+## Contact form (in `index.html`, the homepage)
 
 - No backend. Submits via a `mailto:` link. The real address
   (`forc3mod@gmail.com`) lives in **one place**: the `FORC3_EMAIL` constant
