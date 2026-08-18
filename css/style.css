@@ -246,13 +246,19 @@ h1, h2, h3, h4, h5 {
 }
 .nav__link:hover, .nav__link.is-active { color: #fff; background: var(--surface); }
 .nav__link.is-active { color: var(--accent-2); }
-/* "Support Us" normally lives as a .btn in .header__actions (see below), not
-   in .nav — this fallback nav entry only exists for the narrow phone width
-   where that header button hides to avoid overflow (see the 480px query),
-   so it stays reachable from the hamburger drawer. Hidden everywhere else
-   so it never duplicates the header button. */
+/* "Support Us" lives in .header__actions (next to the Discord button) rather
+   than in .nav, but keeps plain .nav__link styling there. Below 520px the
+   header row (logo + hamburger + Discord + this link) no longer fits inside
+   the container gutter — it's text-only, so unlike Discord it has no icon to
+   collapse to — so the header copy hides and this duplicate .nav entry takes
+   over inside the hamburger drawer instead.
+   Measured: it stops fitting at ~494px; 520px leaves a little slack.
+   These two rules are exact complements of one breakpoint — never change one
+   without the other, or Support Us will either overflow the header row or
+   disappear from the page entirely. */
 .nav__link--support { display: none; }
-@media (max-width: 480px) {
+@media (max-width: 520px) {
+  .header__actions .nav__link { display: none; }
   .nav__link--support { display: inline-flex; }
 }
 
@@ -288,11 +294,6 @@ h1, h2, h3, h4, h5 {
   .header__actions { gap: 8px; }
   .header__inner { gap: 12px; }
   :root { --logo-h: 20px; }
-  /* Below 480px there's no longer room for hamburger + Discord icon + a
-     full "Support Us" button without overflowing (it has no icon to
-     collapse to, unlike Discord) — hide it here and fall back to the
-     .nav__link--support entry in the hamburger drawer instead. */
-  .header__actions .btn--primary { display: none; }
 }
 
 /* Mobile nav overlay. `top` is set inline by JS to match the header's actual

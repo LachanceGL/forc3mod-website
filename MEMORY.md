@@ -39,19 +39,25 @@ explicitly rather than leaving the old entry looking still-current.
   back, restore it from `git show cecd217:index.html` (+ the `.coming-soon`
   rules at the end of `git show cecd217:css/style.css`). `CLAUDE.md` now
   documents both flip directions explicitly.
-- **Moved "Support Us" from the nav row into a button next to the header's
-  Discord button**, on request. It's now `<a class="btn btn--primary">` in
-  `.header__actions`, right after Discord (or after the hamburger alone on
-  `SupportUs.html`, which has no header Discord button by design). Uses the
-  existing `.header__actions .btn` sizing and the existing
-  `.theme-X .header .btn--primary` re-pin rules — no new CSS skin, renders
-  blue on every page as intended.
-- Hit and fixed a real overflow bug while doing this: with no icon to
-  collapse to (unlike Discord's icon-only mobile fallback), the button
-  overflowed the viewport below ~440px width. Fixed by hiding it below
-  480px and adding a `.nav__link--support` fallback link in the hamburger
-  drawer at that same breakpoint, so it's still reachable on small phones.
-  Documented as a "don't reintroduce this" gotcha in `CLAUDE.md`.
+- **Moved "Support Us" out of the nav row to sit right of the header's
+  Discord button**, on request. It's now in `.header__actions`, right after
+  Discord (or after the hamburger alone on `SupportUs.html`, which has no
+  header Discord button by design), and keeps `is-active` on its own page.
+- **Got "same formatting" wrong on the first pass and corrected it**: I read
+  it as "format it like the Discord button" and shipped it as a
+  `.btn.btn--primary`. The owner meant "keep the formatting it already had"
+  — i.e. still a plain `.nav__link`, just relocated. Now styled as a
+  `.nav__link`. Noted in `CLAUDE.md` as a don't-redo-this, since turning it
+  into a button next to the Discord button is a tempting-looking change.
+- Hit and fixed a real responsive bug while doing this: being text-only, it
+  has no icon to collapse to (unlike Discord's icon-only mobile fallback),
+  so the header row stopped fitting the container gutter at ~494px. Fixed
+  by hiding it below 520px and showing a `.nav__link--support` duplicate in
+  the hamburger drawer at the same breakpoint. Both rules deliberately sit
+  together in one 520px query rather than being folded into the existing
+  480px one, since they need their own threshold — measured, not guessed.
+  This means each page carries two "Support Us" anchors, only one ever
+  visible; documented in `CLAUDE.md` so it doesn't look like duplication.
 
 ## 2026-08-16 (later)
 

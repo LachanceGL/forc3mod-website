@@ -207,35 +207,36 @@ building a new one:
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.
 
-## Header "Support Us" button — a responsive gotcha, don't reintroduce it
+## Header "Support Us" link — a responsive gotcha, don't reintroduce it
 
-"Support Us" used to live only as a `.nav__link` (so it collapsed into the
-hamburger drawer on mobile like every other nav item). It's now a
-`.btn.btn--primary` in `.header__actions`, sitting immediately after the
-Discord button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or
-after the hamburger alone (`SupportUs.html`, which has no header Discord
-button — see above). It's styled via the existing `.header__actions .btn`
-sizing rule, so no new button skin was invented; on `forc3designer.html`/
-`gt3forc3.html` it renders blue (not lime/red) for free via the existing
-`.theme-X .header .btn--primary` re-pin rules, same reasoning as the header
-staying blue-branded everywhere (see "Theming system").
+"Support Us" used to sit inside `<nav class="nav">` with the other nav items.
+It now lives in `.header__actions` instead, immediately **after** the Discord
+button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the
+hamburger alone (`SupportUs.html`, which has no header Discord button — see
+above). It deliberately keeps plain **`.nav__link` styling**, not a `.btn` —
+it should read as the same nav link it always was, just relocated. It also
+keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 
+- Don't "upgrade" it to `.btn`/`.btn--primary` to match the Discord button
+  next to it — that was tried and explicitly rejected; it stays a nav link.
 - **Bug hit and fixed**: unlike the Discord button (which has an icon and
-  hides its text below 640px, `.btn--discord span { display:none }`), this
-  button has no icon — there's nothing to collapse to. Left unconditional,
-  it overflowed the viewport (horizontal scroll) on phones narrower than
-  ~440px, because logo + hamburger + Discord-icon + full "Support Us" text
-  no longer fit in one row.
-- **Fix in place**: below 480px (the same breakpoint that already shrinks
-  `--logo-h`/header gaps), `.header__actions .btn--primary` is hidden
-  entirely, and a `.nav__link--support` fallback entry (hidden everywhere
-  else via the inverse rule) appears in the hamburger drawer instead so it
-  stays reachable. The two rules are exact complements of the same 480px
-  breakpoint — never edit one without the other, or you'll either reopen
-  the overflow or end up with the link showing nowhere.
-- If you ever give this button an icon, the simplest fix would instead be
-  matching Discord's `span { display:none }` pattern at 480px and dropping
-  the nav fallback — but that's not what's implemented today.
+  hides its text below 640px via `.btn--discord span { display:none }`),
+  this link is text-only — there's nothing to collapse to. Left
+  unconditional, the header row (logo + hamburger + Discord + this link)
+  stops fitting the container gutter at **~494px** and starts breaching it,
+  then overflows outright further down.
+- **Fix in place**: both halves live in one `@media (max-width: 520px)`
+  block next to the `.nav__link` rules — `.header__actions .nav__link` is
+  hidden, and the `.nav__link--support` duplicate inside `.nav` (hidden
+  everywhere else via the inverse rule) appears in the hamburger drawer so
+  it stays reachable. 520px rather than 494px just to leave slack.
+- Those two rules are **exact complements of one breakpoint** — never
+  change one without the other, or Support Us will either overflow the
+  header row or vanish from the site entirely. They're intentionally NOT
+  folded into the nearby 480px query (which handles `--logo-h`/gaps), since
+  this one needs its own threshold.
+- Note the markup therefore has **two** "Support Us" anchors per page, only
+  ever one visible at a time. That's intentional, not leftover duplication.
 
 ## Design conventions
 
