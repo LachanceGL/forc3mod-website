@@ -38,6 +38,9 @@ explicitly rather than leaving the old entry looking still-current.
   authority on their own Discord.
 - Footer "Support" column is now Contact / Report a Bug / Make a Suggestion,
   matching the nav dropdown.
+- Removed the footer "Changelog" link from all four pages — it was a dead
+  `href="#"` placeholder. The Changelog *modal* on `forc3designer.html` (hero
+  button + `#changelogModal`) is a separate thing and stays.
 - **Local-testing note**: the preview browser served a stale cached
   `js/main.js` for several reloads, so the dropdown appeared dead while the
   file on disk was correct — `location.reload(true)` and a page-level cache
