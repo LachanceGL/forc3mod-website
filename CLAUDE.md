@@ -206,13 +206,9 @@ building a new one:
   → `https://discord.com/channels/1534614323534499891/1534648749043879936`
 - "Make a Suggestion" channel ID: `1534648689300341057`
   → `https://discord.com/channels/1534614323534499891/1534648689300341057`
-- ⚠️ **Stale guild ID — don't resurrect it.** `906573991492349962` was
-  previously recorded here as the FORC3MOD guild and used in the footer's
-  deep link, paired with the same `1534648749043879936` channel. A channel
-  belongs to exactly one guild, so that combination was wrong and the link
-  could not resolve. Owner supplied the correct guild on 2026-08-17; every
-  deep link now uses `1534614323534499891`. If you see `906573991492349962`
-  anywhere again, it's a regression.
+- `906573991492349962` is the **old** guild ID, superseded on 2026-08-17.
+  Deep links used to point at it; they're all updated now. Treat any
+  reappearance of it as stale, not current.
 - The header's "FORC3MOD Discord" button and the Support Us page's hero
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.

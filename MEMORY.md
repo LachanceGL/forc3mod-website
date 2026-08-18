@@ -31,12 +31,11 @@ explicitly rather than leaving the old entry looking still-current.
   the collapse breakpoint was still 1080px — i.e. actively overflowing.
   Raised it to 1120px (~20px slack on a 17px scrollbar). The note left in
   `CLAUDE.md` to re-measure before adding nav items is what caught it.
-- **Fixed a broken Discord guild ID.** The footer's "Report Bugs" deep link
-  used guild `906573991492349962` with channel `1534648749043879936`, but
-  the owner's URLs put that channel under guild `1534614323534499891`. A
-  channel belongs to exactly one guild, so the old link could not resolve.
-  All deep links now use the correct guild; the stale ID is flagged in
-  `CLAUDE.md` so it isn't reintroduced.
+- Updated the Discord deep links to the owner's current URLs: guild
+  `1534614323534499891` replaces the older `906573991492349962` everywhere.
+  Just an update, not a bug — I initially wrote it up as a broken link and
+  was corrected. Don't re-derive drama from the ID change; the owner is the
+  authority on their own Discord.
 - Footer "Support" column is now Contact / Report a Bug / Make a Suggestion,
   matching the nav dropdown.
 - **Local-testing note**: the preview browser served a stale cached
