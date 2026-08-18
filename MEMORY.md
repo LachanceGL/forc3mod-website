@@ -12,6 +12,41 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-18
+
+- **Reworked the "Support" nav tab into a dropdown.** It is not a page: it
+  now opens a two-item menu (Report a Bug / Make a Suggestion), both Discord
+  channel deep links. Supersedes yesterday's entry where Support linked to
+  `SupportUs.html` — that page is again reachable only via the Patreon
+  "Support Us" links, and its header link got its `is-active` back.
+- Built a small generic nav-dropdown system (`.nav__group` / `.nav__toggle` /
+  `.nav__menu` + JS) rather than a one-off, mirroring how the modal system is
+  reused. Click-driven, not hover, so touch and the mobile drawer behave the
+  same. Two non-obvious bits, both documented in `CLAUDE.md`: the drawer's
+  close-on-link handler needed `:not(.nav__toggle)` or the toggle dismissed
+  the drawer instead of opening its submenu, and inside the drawer the menu
+  is flattened to `position: static` so it can't overlay the links below.
+- **Caught the nav overflow I'd predicted the day before.** The caret pushed
+  the header row's requirement from 1058px to 1081px of client width while
+  the collapse breakpoint was still 1080px — i.e. actively overflowing.
+  Raised it to 1120px (~20px slack on a 17px scrollbar). The note left in
+  `CLAUDE.md` to re-measure before adding nav items is what caught it.
+- **Fixed a broken Discord guild ID.** The footer's "Report Bugs" deep link
+  used guild `906573991492349962` with channel `1534648749043879936`, but
+  the owner's URLs put that channel under guild `1534614323534499891`. A
+  channel belongs to exactly one guild, so the old link could not resolve.
+  All deep links now use the correct guild; the stale ID is flagged in
+  `CLAUDE.md` so it isn't reintroduced.
+- Footer "Support" column is now Contact / Report a Bug / Make a Suggestion,
+  matching the nav dropdown.
+- **Local-testing note**: the preview browser served a stale cached
+  `js/main.js` for several reloads, so the dropdown appeared dead while the
+  file on disk was correct — `location.reload(true)` and a page-level cache
+  buster both failed to shift it (the script URL was unchanged). Restarting
+  the server on a *different port* forced a clean fetch. Worth reaching for
+  early next time JS edits seem not to apply; verifying the CSS separately
+  (adding `.is-open` by hand) was what proved the code wasn't at fault.
+
 ## 2026-08-17
 
 - **Site reopened — back to the full live site.** Reversed the 2026-08-16

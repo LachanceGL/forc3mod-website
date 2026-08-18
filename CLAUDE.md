@@ -200,9 +200,19 @@ building a new one:
 
 - FORC3MOD Discord invite: `https://discord.gg/CbJCmjtVma`
 - GT3 FORC3 Discord invite: `https://discord.gg/dfcK4x64vb`
-- FORC3MOD Discord guild ID: `906573991492349962`
-- "Report Bugs" channel ID: `1534648749043879936` — footer link deep-links
-  directly to it: `https://discord.com/channels/906573991492349962/1534648749043879936`
+- Support-channel guild ID: `1534614323534499891` — **this is the one to use
+  for channel deep links.**
+- "Report a Bug" channel ID: `1534648749043879936`
+  → `https://discord.com/channels/1534614323534499891/1534648749043879936`
+- "Make a Suggestion" channel ID: `1534648689300341057`
+  → `https://discord.com/channels/1534614323534499891/1534648689300341057`
+- ⚠️ **Stale guild ID — don't resurrect it.** `906573991492349962` was
+  previously recorded here as the FORC3MOD guild and used in the footer's
+  deep link, paired with the same `1534648749043879936` channel. A channel
+  belongs to exactly one guild, so that combination was wrong and the link
+  could not resolve. Owner supplied the correct guild on 2026-08-17; every
+  deep link now uses `1534614323534499891`. If you see `906573991492349962`
+  anywhere again, it's a regression.
 - The header's "FORC3MOD Discord" button and the Support Us page's hero
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.
@@ -238,25 +248,51 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 - Note the markup therefore has **two** "Support Us" anchors per page, only
   ever one visible at a time. That's intentional, not leftover duplication.
 
-## Nav is near its width capacity — check before adding items
+## Nav dropdown system (the "Support" tab)
 
-The nav gained a **"Support"** tab (after Contact, → `SupportUs.html`) on
-2026-08-17. Note "Support" (the nav tab, an internal link to our own pitch
-page) and "Support Us" (the header/footer link, straight to Patreon) are
-deliberately different destinations — not a duplicate.
+**"Support" is a dropdown, not a page.** It has no `href` of its own — it
+opens a menu of two Discord deep links (Report a Bug / Make a Suggestion,
+see IDs above). Don't "fix" it into a link to `SupportUs.html`; that was
+tried and corrected. `SupportUs.html` remains reachable only via the Patreon
+"Support Us" links, which are a separate thing from "Support".
 
-- `SupportUs.html` had **no inbound links at all** before this; every
-  "Support Us" link on the site goes directly to Patreon. The tab is what
-  makes that page reachable, so don't "clean up" the tab as redundant.
-- **Measured**: the full header row (logo + 5 nav items + actions) needs
-  **1058px** of client width, and `.nav` collapses to the hamburger at
-  `max-width: 1080px`. That leaves only single-digit slack once a real
-  scrollbar is subtracted. It fits everywhere today, but the nav is
-  effectively full.
-- **Before adding a sixth nav item**, re-measure and lower that 1080px
-  breakpoint to match, or the header will overflow on ~1081px viewports.
-  Measure it (`logo + nav + actions + 2*gap + container padding`) rather
-  than guessing — that's how the 1058px figure above was obtained.
+Generic and reusable — use it for any future nav dropdown rather than
+building a second mechanism:
+
+```html
+<div class="nav__group">
+  <button class="nav__link nav__toggle" aria-haspopup="true" aria-expanded="false">…</button>
+  <div class="nav__menu"> <a>…</a> </div>
+</div>
+```
+
+- JS toggles `.is-open` on the `.nav__group`; outside-click and Escape close
+  it. It's **click-driven, not hover**, so it behaves the same on touch and
+  inside the mobile drawer.
+- The toggle is a `<button>` carrying `.nav__link`, so `.nav__toggle` resets
+  the button chrome (`background: transparent; border: 0; font-family:
+  inherit`). Base state only — `.nav__link:hover` is more specific, so the
+  hover background still wins.
+- **Two gotchas that are already handled — don't undo them:**
+  - The mobile drawer's "close after choosing a link" handler is scoped
+    `.nav__link:not(.nav__toggle), .nav__menu a`. Without the `:not()`, the
+    toggle would close the drawer instead of opening its submenu.
+  - Inside the drawer the menu is flattened (`position: static`, indented)
+    — an absolutely positioned panel would overlay the links beneath it.
+- The scroll-spy is safe here for free: it only tracks links whose `href`
+  starts with `#`, and the toggle is a `<button>` with no `href` at all.
+
+### Nav width — re-measure before adding items
+
+- **Measured**: the header row (logo + 5 nav items incl. this dropdown +
+  actions) needs **1081px** of *client* width. `.nav` collapses to the
+  hamburger at `max-width: 1120px`, leaving ~20px slack on a 17px scrollbar.
+- That breakpoint was **1080px and actively overflowing** the moment the
+  dropdown's caret was added — the caret pushed the requirement from 1058px
+  to 1081px, past the threshold. Raising it to 1120px is the fix.
+- Before adding another nav item, measure again (`logo + nav + actions +
+  2*gap + container padding`) and raise the breakpoint to match. Don't
+  guess — that's exactly how the overflow above was caught.
 
 ## Design conventions
 

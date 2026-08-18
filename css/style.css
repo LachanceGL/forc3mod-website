@@ -246,6 +246,52 @@ h1, h2, h3, h4, h5 {
 }
 .nav__link:hover, .nav__link.is-active { color: #fff; background: var(--surface); }
 .nav__link.is-active { color: var(--accent-2); }
+
+/* ===== Nav dropdown (the "Support" tab) =====
+   Generic — reuse this for any future nav dropdown rather than building a
+   second one. Markup: .nav__group > button.nav__link.nav__toggle + .nav__menu.
+   JS toggles .is-open on the .nav__group (see main.js). Click-driven, not
+   hover, so it behaves identically on touch and inside the mobile drawer. */
+.nav__group { position: relative; display: inline-flex; }
+/* .nav__toggle is a <button>, so it needs the button chrome reset before it
+   can pass for a .nav__link. Base state only — .nav__link:hover is more
+   specific, so the hover background still wins. */
+.nav__toggle {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav__caret { width: 11px; height: 11px; flex-shrink: 0; transition: transform .2s ease; }
+.nav__group.is-open .nav__caret { transform: rotate(180deg); }
+.nav__menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 95;
+  min-width: 190px;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .5);
+}
+.nav__group.is-open .nav__menu { display: flex; }
+.nav__menu a {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: color .2s, background .2s;
+}
+.nav__menu a:hover { color: #fff; background: var(--surface); }
 /* "Support Us" lives in .header__actions (next to the Discord button) rather
    than in .nav, but keeps plain .nav__link styling there. Below 520px the
    header row (logo + hamburger + Discord + this link) no longer fits inside
@@ -285,7 +331,14 @@ h1, h2, h3, h4, h5 {
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
-@media (max-width: 1080px) {
+/* Nav collapses to the hamburger here. Measured: the full header row (logo +
+   5 nav items incl. the Support dropdown + header actions) needs 1081px of
+   *client* width, so this threshold must stay comfortably above that once a
+   scrollbar is subtracted — 1120px leaves ~20px of slack on a 17px scrollbar.
+   Was 1080px, which overflowed the moment the Support dropdown's caret was
+   added. Re-measure (logo + nav + actions + 2*gap + container padding) and
+   raise this again before adding another nav item. */
+@media (max-width: 1120px) {
   .nav { display: none; }
   .hamburger { display: flex; }
 }
@@ -312,6 +365,20 @@ h1, h2, h3, h4, h5 {
   z-index: 90;
 }
 .nav.is-open .nav__link { padding: 14px 16px; font-size: 16px; }
+/* Inside the drawer the dropdown can't float — there's no room beside it and
+   an absolutely positioned panel would overlay the links below. Flatten it
+   into an inline, indented sub-list that pushes the rest of the drawer down. */
+.nav.is-open .nav__group { display: flex; flex-direction: column; align-items: stretch; }
+.nav.is-open .nav__toggle { justify-content: space-between; }
+.nav.is-open .nav__menu {
+  position: static;
+  min-width: 0;
+  padding: 2px 0 2px 14px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.nav.is-open .nav__menu a { padding: 12px 16px; font-size: 15px; }
 
 /* ===== Hero ===== */
 .hero {

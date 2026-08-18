@@ -28,12 +28,50 @@
       if (nav.classList.contains('is-open')) positionMobileNav();
     });
 
-    // Close mobile nav after choosing a link
-    nav.querySelectorAll('.nav__link').forEach((link) => {
+    // Close mobile nav after choosing a link. Dropdown toggles are excluded —
+    // they open a submenu rather than navigating, so closing the drawer on
+    // them would dismiss the menu the user just asked for. Their child links
+    // do close it, since those navigate away.
+    nav.querySelectorAll('.nav__link:not(.nav__toggle), .nav__menu a').forEach((link) => {
       link.addEventListener('click', () => {
         nav.classList.remove('is-open');
         menuBtn.setAttribute('aria-expanded', 'false');
       });
+    });
+  }
+
+  // ---- Nav dropdowns (e.g. Support) ----
+  // Generic: any .nav__group with a .nav__toggle button and a .nav__menu.
+  // Click-driven rather than hover so it works on touch and in the drawer.
+  const navGroups = Array.from(document.querySelectorAll('.nav__group'));
+
+  const closeNavGroups = (except) => {
+    navGroups.forEach((group) => {
+      if (group === except) return;
+      group.classList.remove('is-open');
+      const toggle = group.querySelector('.nav__toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  navGroups.forEach((group) => {
+    const toggle = group.querySelector('.nav__toggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', (e) => {
+      // Without this the document listener below would immediately reclose it.
+      e.stopPropagation();
+      const willOpen = !group.classList.contains('is-open');
+      closeNavGroups(group);
+      group.classList.toggle('is-open', willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+
+  if (navGroups.length) {
+    document.addEventListener('click', () => closeNavGroups());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNavGroups();
     });
   }
 
