@@ -238,6 +238,26 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 - Note the markup therefore has **two** "Support Us" anchors per page, only
   ever one visible at a time. That's intentional, not leftover duplication.
 
+## Nav is near its width capacity — check before adding items
+
+The nav gained a **"Support"** tab (after Contact, → `SupportUs.html`) on
+2026-08-17. Note "Support" (the nav tab, an internal link to our own pitch
+page) and "Support Us" (the header/footer link, straight to Patreon) are
+deliberately different destinations — not a duplicate.
+
+- `SupportUs.html` had **no inbound links at all** before this; every
+  "Support Us" link on the site goes directly to Patreon. The tab is what
+  makes that page reachable, so don't "clean up" the tab as redundant.
+- **Measured**: the full header row (logo + 5 nav items + actions) needs
+  **1058px** of client width, and `.nav` collapses to the hamburger at
+  `max-width: 1080px`. That leaves only single-digit slack once a real
+  scrollbar is subtracted. It fits everywhere today, but the nav is
+  effectively full.
+- **Before adding a sixth nav item**, re-measure and lower that 1080px
+  breakpoint to match, or the header will overflow on ~1081px viewports.
+  Measure it (`logo + nav + actions + 2*gap + container padding`) rather
+  than guessing — that's how the 1058px figure above was obtained.
+
 ## Design conventions
 
 - Fonts: **Rajdhani** (`--font-head`) for headings/nav/eyebrows; **Roboto**

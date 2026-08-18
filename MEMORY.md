@@ -58,6 +58,26 @@ explicitly rather than leaving the old entry looking still-current.
   480px one, since they need their own threshold — measured, not guessed.
   This means each page carries two "Support Us" anchors, only one ever
   visible; documented in `CLAUDE.md` so it doesn't look like duplication.
+- Hero lead copy reworked twice on request: "free Windows app" became "free
+  3D and 2D Painting app" and the "No 3D software, no design experience
+  needed" clause was dropped (both pages); then the **home page only** was
+  changed again to lead with the Beta announcement ("our free flagship
+  application for Windows … is now available for Beta testing").
+  `forc3designer.html` deliberately keeps the 3D/2D wording. Also updated
+  that page's eyebrow to "DEDICATED 3D &amp; 2D PAINTING SOFTWARE".
+- Owner wrote "Best testing" in the requested copy; shipped it as "Beta
+  testing" as an obvious typo, and flagged it in the reply rather than
+  silently publishing the typo to a live production site.
+- **Added a "Support" nav tab** (after Contact) pointing at `SupportUs.html`
+  — that page previously had *zero* inbound links anywhere, since every
+  "Support Us" link goes straight to Patreon. The tab carries `is-active` on
+  its own page, so the header Patreon link dropped the `is-active` it had
+  been holding as a stand-in.
+- Measured while doing that: the header row now needs **1058px** of client
+  width but `.nav` only collapses at 1080px — single-digit slack once a
+  scrollbar is subtracted. Fits everywhere today, but the nav is full;
+  `CLAUDE.md` now warns to re-measure and lower that breakpoint before
+  adding a sixth nav item.
 
 ## 2026-08-16 (later)
 
