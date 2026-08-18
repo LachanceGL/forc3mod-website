@@ -144,7 +144,6 @@ h1, h2, h3, h4, h5 {
   text-transform: uppercase;
   color: #4ade80;
   white-space: nowrap;
-  transition: background .3s, border-color .3s, color .3s;
 }
 .live-status[hidden] { display: none; }   /* [hidden] alone loses to display:inline-flex */
 .live-status__dot {
@@ -159,18 +158,6 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
   letter-spacing: .06em;
   font-variant-numeric: tabular-nums;   /* count won't jiggle as it updates */
-}
-/* Servers reachable but empty — same pill, muted, pulse stopped. */
-.live-status.is-empty {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: none;
-  color: var(--text-mute);
-}
-.live-status.is-empty .live-status__dot {
-  background: var(--text-mute);
-  box-shadow: none;
-  animation: none;
 }
 @keyframes live-pulse {
   0%, 100% { opacity: 1; }

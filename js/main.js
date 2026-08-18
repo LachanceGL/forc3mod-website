@@ -81,13 +81,17 @@
   // Access-Control-Allow-Origin: * and edge-caches for 120s, so calling it
   // cross-origin from here is fine and cheap.
   //
-  // `server_players` is a map of track id -> players on that server; this page
-  // isn't per-track, so the counts are summed into one total. A track missing
-  // from the map means its count couldn't be read, not zero — summing the
-  // present ones is the honest reading either way.
+  // `server_players` is a map of track id -> players on that server. The pill
+  // names the Nordschleife server specifically, so it reads THAT key rather
+  // than summing every server — summing under this label would misreport.
+  //
+  // The pill only ever appears when someone is actually driving: an empty
+  // server, a missing `nordschleife` key (the Worker renames track keys when
+  // servers are reshuffled) or any fetch error all resolve to "show nothing".
   const liveStatus = document.getElementById('liveStatus');
   if (liveStatus) {
     const STATS_URL = 'https://raspy-salad-d894.contact-eb9.workers.dev/discord/stats';
+    const TRACK_KEY = 'nordschleife';
     const REFRESH_MS = 90 * 1000;
     const textEl = document.getElementById('liveStatusText');
 
@@ -97,17 +101,18 @@
         if (!res.ok) throw new Error(`Worker returned ${res.status}`);
         const data = await res.json();
 
-        const counts = Object.values(data.server_players || {});
-        if (!counts.length) throw new Error('no server counts in response');
-        const drivers = counts.reduce((total, n) => total + (Number(n) || 0), 0);
+        const drivers = Number((data.server_players || {})[TRACK_KEY]);
+        if (!Number.isFinite(drivers) || drivers < 1) {
+          liveStatus.hidden = true;
+          return;
+        }
 
-        textEl.innerHTML = `GT3FORC3 servers // <span class="live-status__count">${drivers}</span> ` +
+        textEl.innerHTML = `GT3 Nordschleife server : <span class="live-status__count">${drivers}</span> ` +
           `driver${drivers === 1 ? '' : 's'} on track`;
-        liveStatus.classList.toggle('is-empty', drivers === 0);
         liveStatus.hidden = false;
       } catch (err) {
         // Fail silently and stay hidden — the page reads fine without it,
-        // and a half-rendered "0 drivers" would be a lie if the fetch broke.
+        // and rendering a count we couldn't actually read would be a lie.
         liveStatus.hidden = true;
       }
     };

@@ -198,8 +198,11 @@ track" line, fed from **another project's** backend:
   calling it cross-origin from `forc3mod.com` is fine and cheap. The page
   re-polls every 90s.
 - Response: `{ member_count, online_count, server_players }` where
-  `server_players` maps a track id → players on that server. This page isn't
-  per-track, so `main.js` **sums** those values into one total.
+  `server_players` maps a track id → players on that server. The pill names
+  the Nordschleife server specifically, so `main.js` reads the
+  **`nordschleife` key only** — it does *not* sum the servers. Summing under
+  that label would misreport (e.g. 9 drivers on Spa must not appear as
+  Nordschleife traffic).
 
 **This is the only part of the site that depends on infrastructure outside
 this repo.** Important consequences:
@@ -208,17 +211,18 @@ this repo.** Important consequences:
   Cloudflare dashboard — see that repo's own notes). **Don't edit it from
   here.** If the shape of `/discord/stats` changes, this page breaks and the
   fix belongs in that repo.
-- The track ids in `server_players` come from the Worker's `TRACK_KEYWORDS`
-  map, which gets reshuffled when servers change. Summing rather than
-  reading fixed keys is deliberate so a reshuffle can't silently break this.
-- A track missing from the map means "couldn't read it", not zero — one was
-  in fact missing when this was built. Summing what's present is the honest
-  reading either way.
-- **Failure is silent by design**: the element starts `hidden` and stays
-  hidden on any error (non-OK status, bad JSON, empty map). Never "fix" this
-  into rendering `0 drivers` on failure — that would state something false.
-  `0` is only ever shown when the Worker genuinely reports zero, in which
-  case the line goes muted grey and the dot stops pulsing.
+- ⚠️ The track ids in `server_players` come from the Worker's
+  `TRACK_KEYWORDS` map, which **gets reshuffled when servers change** — the
+  key `nordschleife` is stable today but is not guaranteed forever. If it
+  disappears, the pill silently stops showing (it fails safe rather than
+  reporting a wrong number). If the counter mysteriously never appears, check
+  that key in the Worker first.
+- **The pill only ever appears when someone is actually driving.** Zero
+  drivers, a missing `nordschleife` key, a non-OK status, bad JSON — every
+  one of those resolves to "render nothing". There is deliberately no
+  empty/offline state: never "improve" this into showing `0 drivers`, both
+  because it was explicitly asked for and because a count we couldn't read
+  must never be rendered as a real one.
 - The green is intentionally **not** themed — it reads as a live/online
   indicator, not page accent, matching the same status line on GT3FORC3.COM
   (same reasoning as the hardcoded blue on footer link hover).

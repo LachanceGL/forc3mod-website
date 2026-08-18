@@ -49,6 +49,12 @@ explicitly rather than leaving the old entry looking still-current.
   be edited from here. Documented in `CLAUDE.md` along with why it sums
   rather than reads fixed track keys (server reshuffles rename them) and why
   failure is silent (rendering "0 drivers" on a failed fetch would be a lie).
+- Final form of the counter: label is "GT3 Nordschleife server : N driver(s)
+  on track", it reads **only** the `nordschleife` key (not the sum — the
+  label names one server, so summing would misreport), and it renders
+  **nothing at all** when that server is empty. That removed the muted
+  "0 drivers" state entirely, so its CSS and the live/empty colour transition
+  were deleted as dead code in the same commit.
 - Owner then moved it onto the hero title's first line (beside "Race live.")
   and asked for nicer formatting — it's now a rounded pill with a tinted
   green background, border, glow and an emphasised tabular-nums count. Living
