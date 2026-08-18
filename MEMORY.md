@@ -50,8 +50,8 @@ explicitly rather than leaving the old entry looking still-current.
   rather than reads fixed track keys (server reshuffles rename them) and why
   failure is silent (rendering "0 drivers" on a failed fetch would be a lie).
 - Long-form badge on the GT3 photo card now carries the full
-  "LIVE NOW : GT3FORC3.COM // HOT LAP // Nurburgring Nordschleife -
-  Leaderboard" line. Needed `text-transform: none` (the label deliberately
+  "LIVE NOW : GT3FORC3.COM // HOT LAP // Nurburgring Nordschleife" line
+  (the trailing "- Leaderboard" was dropped straight after). Needed `text-transform: none` (the label deliberately
   mixes caps and title case, which the base badge's uppercase would flatten)
   plus a max-width and relaxed radius, since it's absolutely positioned and
   now wraps.
