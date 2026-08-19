@@ -14,6 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Site gated again** (second gating of the same day, third state change).
+  Standard procedure: `git mv index.html home.html`, restored the Coming Soon
+  page from `git show cecd217:index.html`, re-appended the `.coming-soon` CSS
+  block, re-added the four `location.replace` guards.
+- Because that re-append **changes `css/style.css`**, bumped the cache-buster
+  to `?v=2` on all pages in the same commit — the first real exercise of the
+  rule added earlier today. Also added `?v=2` to the restored Coming Soon
+  page, which predates versioning and would otherwise have served stale CSS.
+- Verified all four pages redirect and the Coming Soon page renders with its
+  stylesheet. The gated `index.html` loads no `js/main.js`, so while gated
+  nothing polls the Worker and the contact form is unreachable — worth
+  remembering if someone reports the form "not working" during a gate.
+
 - **Owner reported the contact form still opening an email client and no
   message reaching Discord.** Root cause was a stale cached `js/main.js` in
   their browser, not a code or Worker fault: the message they saw ("Opening
