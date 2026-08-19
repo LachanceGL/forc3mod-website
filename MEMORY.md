@@ -14,6 +14,26 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Contact form now targets Discord instead of email.** Front-end rewritten
+  to POST `{name, email, type, message}` to `<worker>/contact`, with a
+  sending state and a `mailto:` fallback kept for when the Worker is
+  unreachable — so an outage can never silently eat a message.
+- Deliberately did **not** use a Discord webhook URL: this repo is public, so
+  the URL would be readable by anyone (channel spam) and GitHub secret
+  scanning gets Discord webhooks auto-revoked. Routing through the Worker
+  keeps the bot token server-side, which is also how `/discord/stats` and
+  `/discord/verify-request` already work there.
+- **Blocked on infrastructure outside this repo**: the `/contact` endpoint
+  doesn't exist yet (verified: it 404s), so submissions currently fall back
+  to email. It has to be added to `gt3forc3-website`'s `workers.js` and
+  pasted into the Cloudflare dashboard manually. Logged under "Pending /
+  open items" in `CLAUDE.md`, and the Worker snippet was handed to the owner
+  in chat.
+- When writing that endpoint, two non-obvious bits: put the message in the
+  embed `description` (4096 chars) not a `field` (1024, would 400 on long
+  messages), and set `allowed_mentions: { parse: [] }` so someone can't get
+  the bot to fire `@everyone` through the form.
+
 - **Fixed the Support nav tab rendering in the wrong font** (owner spotted it
   visually). `.nav__toggle` had `font-family: inherit`, which beat
   `.nav__link`'s `var(--font-head)` — equal specificity, but declared later —

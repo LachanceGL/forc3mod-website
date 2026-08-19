@@ -181,10 +181,20 @@ nav links as the user scrolls.
 
 ## Contact form (in `index.html`, the homepage)
 
-- No backend. Submits via a `mailto:` link. The real address
-  (`forc3mod@gmail.com`) lives in **one place**: the `FORC3_EMAIL` constant
-  at the top of `js/main.js`. UI copy intentionally never spells out the
-  literal address — the success message says "FORC3 Email" instead.
+- **Submits to Discord, not email.** It POSTs JSON
+  (`{name, email, type, message}`) to `POST <worker>/contact`, and the
+  Worker relays it into Discord channel `1534649367573827879` using the bot
+  token. Endpoint constant: `CONTACT_ENDPOINT` at the top of `js/main.js`.
+- ⚠️ **Never put a Discord webhook URL in `js/main.js`.** This repo is
+  public, so it would be world-readable (anyone could spam the channel), and
+  GitHub's secret scanning gets Discord webhooks auto-revoked. The bot token
+  must stay server-side in the Worker — that's the whole reason this goes
+  through the Worker instead of posting to Discord directly.
+- **Fallback**: if the Worker is unreachable or returns non-OK, the form
+  falls back to the old `mailto:` hand-off so a backend outage never
+  silently swallows a message. That's why `FORC3_EMAIL`
+  (`forc3mod@gmail.com`) still exists at the top of `js/main.js` — it is no
+  longer the primary path. UI copy still never spells out the address.
 - Fields: name, email, a "type" `<select>` (Feature request / Bug report /
   General question / Something else), and a message `<textarea>` (no
   placeholder text — intentionally blank).
@@ -404,4 +414,11 @@ building a second mechanism:
 
 ## Pending / open items
 
-- *(none right now — add items here as they come up, and remove them once resolved)*
+- **Contact form needs the Worker's `/contact` endpoint deployed.** The
+  front-end is live and already POSTs there, but the endpoint does not exist
+  yet (`/contact` currently 404s), so every submission is falling back to
+  `mailto:`. The endpoint belongs to the **`gt3forc3-website` Worker**
+  (`workers.js`) and must be pasted into the Cloudflare dashboard by hand —
+  it does not deploy from any repo. Until that lands, the form works but
+  goes to email, not Discord. Nothing in this repo needs to change when it
+  does — the front-end will simply start getting 200s.

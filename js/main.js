@@ -1,7 +1,14 @@
 (() => {
   'use strict';
 
+  // Kept only as the contact form's fallback if the Worker is unreachable.
   const FORC3_EMAIL = 'forc3mod@gmail.com';
+
+  // Contact form posts here; the Worker relays it into the Discord channel
+  // using the bot token. The token stays server-side — never put a Discord
+  // webhook URL in this file, it would be public in a public repo (and
+  // GitHub's secret scanning gets those auto-revoked).
+  const CONTACT_ENDPOINT = 'https://raspy-salad-d894.contact-eb9.workers.dev/contact';
 
   // ---- Footer year ----
   const yearEl = document.getElementById('year');
@@ -210,7 +217,25 @@
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     const note = contactForm.querySelector('.form-note');
-    contactForm.addEventListener('submit', (e) => {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.innerHTML : '';
+
+    const setNote = (text, color) => {
+      note.textContent = text;
+      note.style.color = color;
+    };
+
+    // Falls back to the old mailto hand-off if the Worker can't be reached, so
+    // a backend outage never silently swallows someone's message.
+    const mailtoFallback = (name, email, type, message) => {
+      const subject = `[FORC3MOD] ${type} from ${name}`;
+      const body = `From: ${name} (${email})\n\n${message}`;
+      setNote('Couldn’t reach us directly — opening your email app instead…', '#ffb454');
+      window.location.href =
+        `mailto:${FORC3_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const data = new FormData(contactForm);
@@ -220,26 +245,40 @@
       const message = String(data.get('message') || '').trim();
 
       if (!name || !email || !type || !message) {
-        note.textContent = 'Please fill in your name, email, what this is about, and your message.';
-        note.style.color = '#ff6b6b';
+        setNote('Please fill in your name, email, what this is about, and your message.', '#ff6b6b');
         return;
       }
 
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
-        note.textContent = 'That email address doesn’t look right.';
-        note.style.color = '#ff6b6b';
+        setNote('That email address doesn’t look right.', '#ff6b6b');
         return;
       }
 
-      const subject = `[FORC3MOD] ${type} from ${name}`;
-      const body = `From: ${name} (${email})\n\n${message}`;
-      const mailto = `mailto:${FORC3_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+      }
+      setNote('Sending…', 'var(--accent-2)');
 
-      note.textContent = 'Opening your email app to send this to FORC3 Email…';
-      note.style.color = 'var(--accent-2)';
-      window.location.href = mailto;
-      contactForm.reset();
+      try {
+        const res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, type, message })
+        });
+        if (!res.ok) throw new Error(`Worker returned ${res.status}`);
+
+        setNote('Message sent — thanks! We’ll get back to you.', 'var(--accent-2)');
+        contactForm.reset();
+      } catch (err) {
+        mailtoFallback(name, email, type, message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = submitLabel;
+        }
+      }
     });
   }
 })();
