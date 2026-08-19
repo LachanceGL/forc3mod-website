@@ -86,7 +86,7 @@ the Coming Soon page from git rather than rewriting it from scratch.
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `css/style.css` | Single shared stylesheet for every page. |
-| `js/main.js` | Shared JS: mobile nav, nav scroll-spy, modal system, contact form mailto handler. |
+| `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
 | `img/FORC3Designer_Showcase01.jpg` | Real app screenshot, used as the photo background on `forc3designer.html`'s "Your car, your canvas." card. |
@@ -185,6 +185,14 @@ nav links as the user scrolls.
   (`{name, email, type, message}`) to `POST <worker>/contact`, and the
   Worker relays it into Discord channel `1534649367573827879` using the bot
   token. Endpoint constant: `CONTACT_ENDPOINT` at the top of `js/main.js`.
+  **Live and verified end-to-end on 2026-08-18** — a real form submission
+  returned 200 and posted to the channel. The Worker side is documented in
+  [`docs/BOT-HANDOFF.md`](docs/BOT-HANDOFF.md).
+- Worker-side validation confirmed by testing: missing fields and malformed
+  JSON both return 400 (so bad input never reaches Discord), `GET /contact`
+  falls through to 404, an `@everyone`/`@here` in the message body is
+  neutralised by `allowed_mentions: { parse: [] }`, and a 4000-char message
+  is truncated to 1500 rather than making Discord reject the embed.
 - ⚠️ **Never put a Discord webhook URL in `js/main.js`.** This repo is
   public, so it would be world-readable (anyone could spam the channel), and
   GitHub's secret scanning gets Discord webhooks auto-revoked. The bot token
@@ -414,15 +422,4 @@ building a second mechanism:
 
 ## Pending / open items
 
-- **Contact form needs the Worker's `/contact` endpoint deployed.** The
-  front-end is live and already POSTs there, but the endpoint does not exist
-  yet (`/contact` currently 404s), so every submission is falling back to
-  `mailto:`. The endpoint belongs to the **`gt3forc3-website` Worker**
-  (`workers.js`) and must be pasted into the Cloudflare dashboard by hand —
-  it does not deploy from any repo. Until that lands, the form works but
-  goes to email, not Discord. Nothing in this repo needs to change when it
-  does — the front-end will simply start getting 200s.
-  The full ready-to-paste `workers.js` (the existing Worker plus the
-  `/contact` block, 514 lines) was handed to the owner, and the reasoning,
-  alternatives and the "the bot can't receive HTTP" finding are written up
-  in [`docs/BOT-HANDOFF.md`](docs/BOT-HANDOFF.md) for the bot conversation.
+- *(none right now — add items here as they come up, and remove them once resolved)*

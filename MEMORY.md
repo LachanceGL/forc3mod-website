@@ -14,6 +14,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Contact form is live end-to-end.** Owner deployed the Worker `/contact`
+  endpoint; a real submission through the form returned 200 and posted to
+  Discord channel `1534649367573827879`. Pending item cleared from
+  `CLAUDE.md`.
+- Verified by testing against the deployed endpoint, not just the happy path:
+  missing fields -> 400, malformed JSON -> 400 (so bad input never reaches
+  Discord), `GET /contact` -> 404 (correctly falls through), `@everyone` in
+  the message body is neutralised by `allowed_mentions: { parse: [] }`, and a
+  4000-char message truncates to 1500 instead of Discord rejecting the embed.
+- Three clearly-labelled test messages were posted to that channel during
+  verification; owner was told to delete them.
+- Process note: when generating code for the owner to paste elsewhere, write
+  it with a **quoted** heredoc (`<<'PYEOF'`). An unquoted one let bash expand
+  every backtick template literal in the Worker code and silently produced a
+  broken file — caught only by diffing against the original. Also match the
+  target file's line endings (that Worker is CRLF) or the diff is useless.
+
 - **Contact form now targets Discord instead of email.** Front-end rewritten
   to POST `{name, email, type, message}` to `<worker>/contact`, with a
   sending state and a `mailto:` fallback kept for when the Worker is
