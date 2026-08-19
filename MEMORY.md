@@ -14,6 +14,26 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Fixed the Support nav tab rendering in the wrong font** (owner spotted it
+  visually). `.nav__toggle` had `font-family: inherit`, which beat
+  `.nav__link`'s `var(--font-head)` — equal specificity, but declared later —
+  so the tab rendered in Inter while every other nav item used Rajdhani.
+  Removed that declaration; `.nav__link`'s own font properties already
+  override the global `button { font: inherit }` reset. Noted in `CLAUDE.md`
+  as a do-not-re-add.
+- **Removed the top-level Contact tab**; "Contact us" is now the first item
+  in the Support dropdown. Footer "Contact" → "Contact us", and every
+  "Support Us" label → "Support us" (owner's casing — don't title-case back).
+- Side effect worth knowing: on the homepage `#contact` no longer takes part
+  in the scroll-spy, because that only tracks `.nav__link`s and dropdown menu
+  items aren't one. So nothing highlights while the contact section is in
+  view. Accepted, documented.
+- Re-measured the nav after removing Contact: the header row now needs
+  **990px** of client width (was 1081px). The collapse breakpoint is still
+  1120px, so it's ~110px conservative — left as-is rather than re-tuned,
+  since nothing was broken. Lowering it to ~1023px would put the full nav
+  back on 1024px laptops if that's ever wanted.
+
 - **Site reopened again the same day** — gated and un-gated within hours, so
   the state in `CLAUDE.md` genuinely can be stale; always check `index.html`
   itself rather than trusting the doc. Reversed by the documented steps:

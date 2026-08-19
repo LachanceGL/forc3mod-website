@@ -278,7 +278,7 @@ building a new one:
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.
 
-## Header "Support Us" link — a responsive gotcha, don't reintroduce it
+## Header "Support us" link — a responsive gotcha, don't reintroduce it
 
 "Support Us" used to sit inside `<nav class="nav">` with the other nav items.
 It now lives in `.header__actions` instead, immediately **after** the Discord
@@ -312,10 +312,19 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 ## Nav dropdown system (the "Support" tab)
 
 **"Support" is a dropdown, not a page.** It has no `href` of its own — it
-opens a menu of two Discord deep links (Report a Bug / Make a Suggestion,
-see IDs above). Don't "fix" it into a link to `SupportUs.html`; that was
-tried and corrected. `SupportUs.html` remains reachable only via the Patreon
-"Support Us" links, which are a separate thing from "Support".
+opens a menu of three items: **Contact us** (the homepage `#contact`
+anchor), plus the Report a Bug / Make a Suggestion Discord deep links (IDs
+above). Don't "fix" it into a link to `SupportUs.html`; that was tried and
+corrected. `SupportUs.html` remains reachable only via the Patreon
+"Support us" links, which are a separate thing from "Support".
+
+- There is **no top-level Contact tab** — it was moved into this dropdown on
+  2026-08-18. Consequence: on the homepage `#contact` no longer participates
+  in the scroll-spy (that only tracks `.nav__link`s, and the menu items
+  aren't one), so no nav item highlights while the contact section is in
+  view. That's accepted, not a bug.
+- Label casing is deliberate: **"Support us"** and **"Contact us"**, lowercase
+  second word, set by the owner. Don't title-case them back.
 
 Generic and reusable — use it for any future nav dropdown rather than
 building a second mechanism:
@@ -345,12 +354,17 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
-- **Measured**: the header row (logo + 5 nav items incl. this dropdown +
-  actions) needs **1081px** of *client* width. `.nav` collapses to the
-  hamburger at `max-width: 1120px`, leaving ~20px slack on a 17px scrollbar.
-- That breakpoint was **1080px and actively overflowing** the moment the
-  dropdown's caret was added — the caret pushed the requirement from 1058px
-  to 1081px, past the threshold. Raising it to 1120px is the fix.
+- **Measured (2026-08-18, after Contact moved into the dropdown)**: the
+  header row (logo + 4 nav items incl. this dropdown + actions) needs
+  **990px** of *client* width. `.nav` still collapses at
+  `max-width: 1120px`, so there is now ~110px of spare room — deliberately
+  left conservative rather than re-tuned. If you want the full nav on
+  1024px-wide laptops, lowering the breakpoint to ~1023px is safe on this
+  measurement; nobody has asked for that yet.
+- History: the requirement was 1081px with the Contact tab present, and the
+  breakpoint was **1080px and actively overflowing** the moment the
+  dropdown's caret was added (the caret pushed it from 1058px to 1081px).
+  Raising it to 1120px was the fix; removing Contact later freed 91px.
 - Before adding another nav item, measure again (`logo + nav + actions +
   2*gap + container padding`) and raise the breakpoint to match. Don't
   guess — that's exactly how the overflow above was caught.
