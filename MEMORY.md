@@ -14,6 +14,22 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Owner reported the contact form still opening an email client and no
+  message reaching Discord.** Root cause was a stale cached `js/main.js` in
+  their browser, not a code or Worker fault: the message they saw ("Opening
+  your email app to send this to FORC3 Email…") is the *old* handler's
+  string, which no longer exists in the source, and the old code goes
+  straight to `mailto:` without ever calling the Worker — which explains both
+  symptoms at once. Verified the deployed site was fine by submitting the
+  form from `www.forc3mod.com` itself: Worker returned 200 and the message
+  landed. Fix on their side was a hard refresh.
+- Added `?v=1` to `css/style.css` and `js/main.js` on all four pages so
+  deploys take effect immediately. Measured first: GitHub Pages sends
+  `Cache-Control: max-age=600` + ETag, so visitors self-heal in ~10 min
+  anyway — the query is about *immediate* propagation, not a fix for a
+  permanent cache. **`CLAUDE.md` now says to bump the number whenever CSS/JS
+  changes**; forgetting makes it worse than not having it.
+
 - **Contact form is live end-to-end.** Owner deployed the Worker `/contact`
   endpoint; a real submission through the form returned 200 and posted to
   Discord channel `1534649367573827879`. Pending item cleared from

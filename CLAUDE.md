@@ -387,6 +387,26 @@ building a second mechanism:
   2*gap + container padding`) and raise the breakpoint to match. Don't
   guess — that's exactly how the overflow above was caught.
 
+## Asset cache-busting — bump `?v=` when you edit CSS or JS
+
+Every page loads `css/style.css?v=N` and `js/main.js?v=N`. **When you change
+either file, bump `N` in all four pages in the same commit** — otherwise the
+version query is worse than useless, because it looks like it's handling
+cache invalidation while doing nothing.
+
+- Why it exists: GitHub Pages serves these with `Cache-Control: max-age=600`
+  (10 min) plus an ETag, so visitors *do* self-heal within ~10 minutes. The
+  query makes a deploy take effect **immediately** instead. That started
+  mattering once the contact form's behaviour moved into JS — a stale
+  `main.js` silently sends messages to email instead of Discord, which looks
+  like a broken backend rather than a cache.
+- This bit for real on 2026-08-18: after the contact form switched to the
+  Worker, a cached `main.js` kept showing the old "Opening your email app…"
+  message and never called the Worker, so nothing reached Discord.
+- The same staleness repeatedly hit *local* testing too — the preview browser
+  serves a cached `js/main.js` across reloads. Starting the test server on a
+  **different port** forces a clean fetch; that's faster than fighting it.
+
 ## Design conventions
 
 - Fonts: **Rajdhani** (`--font-head`) for headings/nav/eyebrows; **Roboto**
