@@ -325,12 +325,17 @@ h1, h2, h3, h4, h5 {
 .nav__group { position: relative; display: inline-flex; }
 /* .nav__toggle is a <button>, so it needs the button chrome reset before it
    can pass for a .nav__link. Base state only — .nav__link:hover is more
-   specific, so the hover background still wins. */
+   specific, so the hover background still wins.
+   Do NOT add `font-family` (or the `font` shorthand) here: .nav__link and
+   .nav__toggle have equal specificity, and this rule comes later, so it would
+   win and render the tab in the body font while every other nav item uses
+   Rajdhani. That exact bug shipped once — the tab visibly didn't match. */
 .nav__toggle {
+  -webkit-appearance: none;
+  appearance: none;
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-family: inherit;
 }
 .nav__caret { width: 11px; height: 11px; flex-shrink: 0; transition: transform .2s ease; }
 .nav__group.is-open .nav__caret { transform: rotate(180deg); }
