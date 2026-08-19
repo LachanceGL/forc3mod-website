@@ -24,28 +24,27 @@ directly.
 - Local testing: `python -m http.server <port>` from the repo root, then open
   in a browser. Always kill the server before ending a session.
 
-## Current status: site is GATED ("Coming Soon")
+## Current status: site is LIVE (full site, un-gated)
 
 The site has flipped between a gated "Coming Soon" state and the full live
-site several times now — see `MEMORY.md` for the blow-by-blow (2026-08-09
-gated, 2026-08-10 reopened, 2026-08-16 gated, 2026-08-17 reopened,
-2026-08-18 gated again). **Check `index.html` itself if you're unsure which
-state it's currently in**: if it has a `<section class="coming-soon">`, it's
-gated; if it has a `<header class="header">` with full nav, it's live.
+site repeatedly — see `MEMORY.md` for the blow-by-blow (2026-08-09 gated,
+2026-08-10 reopened, 2026-08-16 gated, 2026-08-17 reopened, 2026-08-18 gated
+then reopened again the same day). **Check `index.html` itself if you're
+unsure which state it's currently in**: if it has a
+`<section class="coming-soon">`, it's gated; if it has a
+`<header class="header">` with full nav, it's live.
 
-As of the most recent change, it's gated:
+As of the most recent change, it's live:
 
-- `index.html` is the **minimal Coming Soon page**: logo, an "Under
-  construction" eyebrow, and a copyright line. No nav, no CTAs, no Discord.
-- `home.html` holds the **full real homepage**, completely intact —
-  including the live driver pill and Discord member counter.
-- `home.html`, `forc3designer.html`, `gt3forc3.html` and `SupportUs.html`
-  each carry the `location.replace('index.html')` guard at the top of
-  `<head>`. That guard (plus its explanatory comment) is the *only* change
-  made to those files for gating — all content is preserved.
-- The `.coming-soon` CSS block is back at the end of `css/style.css`.
-- Note the gated `index.html` loads `css/style.css` but **no** `js/main.js`,
-  so nothing polls the GT3FORC3 Worker while the site is gated.
+- `index.html` is the **full real homepage** again (header/nav, hero, about,
+  contact form, footer). `home.html` no longer exists — it was renamed back
+  onto `index.html`.
+- `forc3designer.html`, `gt3forc3.html` and `SupportUs.html` all load
+  normally; the `location.replace('index.html')` guard and its explanatory
+  comment are gone from every page.
+- The `.coming-soon` CSS block is removed from the end of `css/style.css`.
+- The GT3 live driver pill and Discord member counter are active again, so
+  `gt3forc3.html` polls the GT3FORC3 Worker every 90s while open.
 
 ### How to gate it again (live → Coming Soon)
 
@@ -71,17 +70,17 @@ As of the most recent change, it's gated:
 3. Remove the now-dead `.coming-soon` CSS block from `css/style.css`.
 4. Commit and push.
 
-This cycle (gate → reopen → gate → reopen) has now happened four times —
-expect it to happen again as the FORC3 Designer release date moves. Both
-directions are cheap and scripted above; always resurrect the Coming Soon
-page from git rather than rewriting it from scratch.
+This gate ↔ reopen cycle has happened many times now (three gates and three
+reopenings as of 2026-08-18, twice on that day alone) — expect it to keep
+happening as the FORC3 Designer release date moves. Don't treat either state
+as permanent. Both directions are cheap and scripted above; always resurrect
+the Coming Soon page from git rather than rewriting it from scratch.
 
 ## File map
 
 | File | Purpose |
 |---|---|
-| `index.html` | **Currently the Coming Soon page** (see above). Normally this is the site's real homepage. |
-| `home.html` | The real homepage — header/nav, hero, about, contact form. Preserved intact, currently gated behind a redirect to `index.html`. |
+| `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
 | `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |

@@ -14,6 +14,17 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Site reopened again the same day** — gated and un-gated within hours, so
+  the state in `CLAUDE.md` genuinely can be stale; always check `index.html`
+  itself rather than trusting the doc. Reversed by the documented steps:
+  removed the four guards, `git mv -f home.html index.html`, and deleted the
+  `.coming-soon` CSS block (located by grepping for its section comment
+  rather than by line number, since the stylesheet keeps growing).
+- Verified after reopening: all four pages load without redirecting, nav
+  shows the Support dropdown, GT3 badge and `[N MEMBERS]` render (1089 at
+  the time — the count moves between checks), and the driver pill stayed
+  correctly hidden with 0 on Nordschleife.
+
 - **Site gated again — back into Coming Soon mode** (5th flip). Followed the
   documented procedure exactly: `git mv index.html home.html`, restored the
   Coming Soon page from `git show cecd217:index.html`, re-appended the
