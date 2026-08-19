@@ -422,3 +422,7 @@ building a second mechanism:
   it does not deploy from any repo. Until that lands, the form works but
   goes to email, not Discord. Nothing in this repo needs to change when it
   does — the front-end will simply start getting 200s.
+  The full ready-to-paste `workers.js` (the existing Worker plus the
+  `/contact` block, 514 lines) was handed to the owner, and the reasoning,
+  alternatives and the "the bot can't receive HTTP" finding are written up
+  in [`docs/BOT-HANDOFF.md`](docs/BOT-HANDOFF.md) for the bot conversation.

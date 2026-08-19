@@ -28,7 +28,15 @@ explicitly rather than leaving the old entry looking still-current.
   to email. It has to be added to `gt3forc3-website`'s `workers.js` and
   pasted into the Cloudflare dashboard manually. Logged under "Pending /
   open items" in `CLAUDE.md`, and the Worker snippet was handed to the owner
-  in chat.
+  in chat, and the full 514-line `workers.js` (existing Worker + the new
+  block, CRLF-matched, diff verified as pure addition) was sent as a file.
+- Owner wants this **tracked in the `forc3-discordbot` repo**, so the
+  write-up went into `docs/BOT-HANDOFF.md` here rather than editing that
+  repo — per the handoff workflow. Key finding recorded there: the bot
+  **cannot** be the HTTP receiver. `index.js`/`package.json` have no
+  express/`createServer`/`.listen`, only discord.js/dotenv/node-cron/
+  puppeteer, and it runs locally with a nightly restart — so it has no
+  public URL. A public entry point (the Worker) is required either way.
 - When writing that endpoint, two non-obvious bits: put the message in the
   embed `description` (4096 chars) not a `field` (1024, would 400 on long
   messages), and set `allowed_mentions: { parse: [] }` so someone can't get
