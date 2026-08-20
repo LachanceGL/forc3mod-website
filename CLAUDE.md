@@ -133,7 +133,7 @@ than rewriting it from scratch.
   second blurred copy of the logo positioned behind it) — don't just flip
   back to `filter` or `box-shadow`, both are already-tried dead ends.
 
-## Photo cards (`.about__card--photo`) — two gotchas
+## Photo cards (`.about__card--photo`) — two gotchas, plus a per-page gradient split
 
 Used for the "what it does" section's media card when it should show a real
 photo/screenshot instead of the plain icon card (see `gt3forc3.html` and
@@ -159,6 +159,16 @@ element.
   inline style instead. Same underlying gotcha as the footer logo's
   `mask-image` path (see "Logo system" above) — CSS `url()` in general
   resolves relative to the *stylesheet* unless you go absolute.
+- **The dark overlay gradient over the photo differs by page, on purpose.**
+  `gt3forc3.html`'s badge floats over the top of the photo and its h3/p sit
+  at the bottom, so its `.theme-gt3 .about__card--photo::before` gradient is
+  transparent at the top (0-45%) and only darkens from 60% down — flat
+  photo up top, faded for text at the bottom. `forc3designer.html`'s card has
+  no badge and its own h3/p sit at the *top* instead (see the comment above
+  that rule), so it still needs the full dark band at 0-15% for its own text
+  contrast — **don't copy the GT3 version over there**, it would make that
+  page's heading illegible. If a third themed photo card gets added, decide
+  where its text/badge actually sit before copying either gradient.
 
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 

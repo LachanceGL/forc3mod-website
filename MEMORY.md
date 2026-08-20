@@ -14,6 +14,16 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Removed the dark top gradient from the GT3 photo card**, on request —
+  the badge now floats over the raw photo instead of a black band. Scoped to
+  `.theme-gt3 .about__card--photo::before` only: `forc3designer.html`'s
+  version of the same rule was deliberately left alone, since that card has
+  no badge and its own h3/p sit at the *top*, so it still needs that dark
+  band for text contrast. Verified the two rules stayed independent (GT3's
+  `::before` background now starts `transparent`, forc3designer's is
+  unchanged at `.92`).
+- Bumped `?v=5 -> v=6` (CSS changed).
+
 - **Owner: "Support is not even centered".** They were right, and my previous
   fix caused part of it — trimming `.nav__toggle`'s right padding to 6px left
   the box asymmetric (10px left / 6px right) *and* the in-flow caret still
