@@ -16,8 +16,12 @@ explicitly rather than leaving the old entry looking still-current.
 
 - **Moved the GT3 photo card's "LIVE NOW" badge from top to bottom**, on
   request — it's now a normal flex child (was `position: absolute; top: 32px;
-  left: 32px`), ordered first so it sits directly above the h3/p as one
-  bottom-anchored group, all on the card's existing 12px gap rhythm.
+  left: 32px`) instead of pinned to the corner. First attempt put it *before*
+  h3/p (badge above the heading) — owner said that still wasn't "the
+  bottom", since it read as sitting above the text block rather than below
+  it. Reordered to be the *last* child instead, so it's now the very last
+  thing in the card, flush against the bottom padding (1px off), below both
+  h3 and p.
 - Fixed `.about__badge--wide`'s `max-width: calc(100% - 64px)` to plain
   `100%` — that `-64px` was compensating for the old absolute-position inset
   math (32px left + an assumed 32px right clearance) and would have
