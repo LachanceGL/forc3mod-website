@@ -346,8 +346,16 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
   Measuring showed the spacing was already uniform (equal gaps, pixel-identical
   vertical alignment) — the unevenness was purely this pill-padding effect, so
   measure before assuming a real misalignment.
-- `.nav__toggle` trims its right padding to `6px`: the caret is trailing
-  content, so equal padding leaves the label visibly off-centre in its box.
+- **The "Support" toggle has no caret glyph, deliberately.** A trailing caret
+  can't satisfy both requirements at once here: in the flow it pushes the
+  label off-centre inside the toggle's own box (visible the moment the
+  hover/active background paints), and pulling it out of the flow needs wider
+  symmetric padding, which makes the label-to-label gap before "Support"
+  46px against 34px everywhere else. Both were tried and rejected on
+  2026-08-18. Without it the toggle is pixel-identical to a plain
+  `.nav__link`. `aria-haspopup`/`aria-expanded` still announce it as a menu —
+  if a visual affordance is wanted back, expect to reopen one of those two
+  trade-offs (an underline or a colour shift avoids both).
 - The mobile drawer overrides padding via `.nav.is-open .nav__link`, so none
   of this affects it.
 

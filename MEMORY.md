@@ -14,6 +14,26 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Owner: "Support is not even centered".** They were right, and my previous
+  fix caused part of it — trimming `.nav__toggle`'s right padding to 6px left
+  the box asymmetric (10px left / 6px right) *and* the in-flow caret still
+  pushed the label off-centre.
+- Tried absolute-positioning the caret with symmetric 22px padding: that did
+  centre the label perfectly (offset 0), but pushed the label-to-label gap
+  before "Support" to 46px against 34px everywhere else — trading one
+  unevenness for another, and the owner had *already* complained about uneven
+  spacing.
+- **Resolved by removing the caret entirely.** The toggle is now
+  pixel-identical to a plain `.nav__link`: every item 10px padding, 10px
+  leading and trailing, 14px box gaps, 34px label gaps, every label centred
+  at offset 0. Dropdown still opens on click / closes on outside-click and
+  Escape; `aria-haspopup`/`aria-expanded` keep it announced as a menu.
+- Lesson for next time: a trailing icon inside an item whose siblings have no
+  icon can't be both centred and evenly spaced. Decide which one matters
+  before adding it — or use an affordance that costs no width (underline,
+  colour shift). Documented in `CLAUDE.md`.
+- Bumped `?v=4 -> v=5`. Nav is narrower again (959px needed).
+
 - **Owner reported the nav "badly aligned, multiple different spacings".**
   Measured before changing anything: gaps were already uniform (6px between
   boxes, 34px label-to-label) and vertical alignment pixel-identical (every

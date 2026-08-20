@@ -338,20 +338,21 @@ h1, h2, h3, h4, h5 {
    .nav__toggle have equal specificity, and this rule comes later, so it would
    win and render the tab in the body font while every other nav item uses
    Rajdhani. That exact bug shipped once — the tab visibly didn't match. */
+/* No caret glyph, deliberately. A trailing caret cannot satisfy both things
+   at once inside this nav: in the flow it pushes the label off-centre in the
+   toggle's own box, and taking it out of the flow needs wider symmetric
+   padding, which then makes the label-to-label gap before "Support" wider
+   than every other gap (46px vs 34px). Dropping it makes the toggle
+   pixel-identical to a plain .nav__link — centred label, even rhythm.
+   `aria-haspopup`/`aria-expanded` still announce it as a menu. If a visual
+   affordance is wanted back, expect to re-open one of those two trade-offs. */
 .nav__toggle {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   border: 0;
   cursor: pointer;
-  /* The caret is trailing content, so equal left/right padding leaves this
-     label looking off-centre in its own box (14px before the text, 29px
-     after it once the caret and its gap are counted). Trimming the right
-     padding by the caret's optical weight re-centres the label. */
-  padding-right: 6px;
 }
-.nav__caret { width: 11px; height: 11px; flex-shrink: 0; transition: transform .2s ease; }
-.nav__group.is-open .nav__caret { transform: rotate(180deg); }
 .nav__menu {
   display: none;
   position: absolute;
@@ -457,7 +458,6 @@ h1, h2, h3, h4, h5 {
    an absolutely positioned panel would overlay the links below. Flatten it
    into an inline, indented sub-list that pushes the rest of the drawer down. */
 .nav.is-open .nav__group { display: flex; flex-direction: column; align-items: stretch; }
-.nav.is-open .nav__toggle { justify-content: space-between; }
 .nav.is-open .nav__menu {
   position: static;
   min-width: 0;
