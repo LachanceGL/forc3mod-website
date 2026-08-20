@@ -14,6 +14,18 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Site reopened again** (fourth state change in two days). Guards removed,
+  `git mv -f home.html index.html`, `.coming-soon` CSS block deleted, and the
+  cache-buster bumped `v=2 -> v=3` since that block's removal changes
+  `css/style.css`. `CLAUDE.md` now states the bump requirement inside *both*
+  flip procedures, since it's easy to skip on what feels like a mechanical
+  change.
+- Verified after reopening: no page redirects, nav shows the Support
+  dropdown, GT3 badge and `[1090 MEMBERS]` render, driver pill correctly
+  hidden with nobody on track, all assets on `?v=3`.
+- Stopped tracking a flip count in `CLAUDE.md` — it went stale twice in two
+  days. The dated log here is the source of truth for how often it happens.
+
 - **Site gated again** (second gating of the same day, third state change).
   Standard procedure: `git mv index.html home.html`, restored the Coming Soon
   page from `git show cecd217:index.html`, re-appended the `.coming-soon` CSS
