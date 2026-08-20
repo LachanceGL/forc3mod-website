@@ -24,7 +24,7 @@ directly.
 - Local testing: `python -m http.server <port>` from the repo root, then open
   in a browser. Always kill the server before ending a session.
 
-## Current status: site is LIVE (full site, un-gated)
+## Current status: site is GATED ("Coming Soon")
 
 The site flips between a gated "Coming Soon" state and the full live site
 constantly — see `MEMORY.md` for the log. It was gated, reopened, gated and
@@ -32,15 +32,26 @@ reopened again across 2026-08-17/18 alone. **Never trust this heading; check
 `index.html` itself**: if it has a `<section class="coming-soon">` it's
 gated, if it has a `<header class="header">` with full nav it's live.
 
-As of the most recent change, it's live:
+As of the most recent change, it's gated:
 
-- `index.html` is the **full real homepage** (header/nav, hero, about,
-  contact form, footer). `home.html` does not exist while live.
-- `forc3designer.html`, `gt3forc3.html` and `SupportUs.html` load normally —
-  no `location.replace` guard on any page.
-- The `.coming-soon` CSS block is removed from `css/style.css`.
-- The GT3 live driver pill and Discord member counter are active, and the
-  contact form posts to Discord — `gt3forc3.html` polls the Worker every 90s.
+- `index.html` is the **minimal Coming Soon page**: logo, an "Under
+  construction" eyebrow line, and a copyright footer line. No nav, no CTA
+  buttons, no Discord link.
+- `home.html` holds the **full real homepage**, completely intact —
+  including all the recent copy/feature-list changes on `forc3designer.html`
+  and the GT3 live driver pill / member counter, all preserved and ready to
+  restore.
+- `home.html`, `forc3designer.html`, `gt3forc3.html`, and `SupportUs.html`
+  each have exactly **one line** added at the very top of `<head>`. That is
+  the *only* change made to those four files for this — nothing else in them
+  was touched:
+  ```html
+  <script>location.replace('index.html');</script>
+  ```
+- The `.coming-soon` CSS block is back at the end of `css/style.css`.
+- The gated `index.html` loads `css/style.css` but **no** `js/main.js`, so
+  nothing polls the GT3FORC3 Worker and the contact form is unreachable
+  while the site is gated.
 
 ### How to gate it again (live → Coming Soon)
 
@@ -82,7 +93,8 @@ than rewriting it from scratch.
 
 | File | Purpose |
 |---|---|
-| `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
+| `index.html` | **Currently the Coming Soon page** (see above). Normally the site's real homepage. |
+| `home.html` | The real homepage — header/nav, hero, about, contact form. Preserved intact, currently gated behind a redirect to `index.html`. |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
 | `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |

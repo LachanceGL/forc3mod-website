@@ -12,6 +12,24 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-20
+
+- **Site gated again — back into Coming Soon mode.** Standard procedure:
+  `git mv index.html home.html`, restored the Coming Soon page from
+  `git show cecd217:index.html`, re-appended the `.coming-soon` CSS block
+  from the same commit, re-added the `location.replace('index.html')` guard
+  to `home.html`, `forc3designer.html`, `gt3forc3.html`, `SupportUs.html`.
+  Bumped the cache-buster `?v=8 -> v=9` in the same commit since that CSS
+  re-append changes `css/style.css`.
+- All of yesterday's and today's earlier work is preserved intact in
+  `home.html` — the FORC3 Designer feature-list copy passes (multiple
+  rounds), the reworked home hero lead, and the GT3 photo card's final
+  text-shadow-based contrast fix.
+- Verified all four pages redirect to the Coming Soon page, which renders
+  with its stylesheet at `?v=9`. The gated `index.html` loads no
+  `js/main.js`, so nothing polls the GT3FORC3 Worker and the contact form is
+  unreachable while gated.
+
 ## 2026-08-19
 
 - **GT3 photo card badge/gradient — the full sequence, three rounds of
