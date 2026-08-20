@@ -298,7 +298,15 @@ h1, h2, h3, h4, h5 {
   color: var(--text-mute);
 }
 
-.nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+/* Nav rhythm: most of the separation is real whitespace (`gap`) rather than
+   link padding. That matters because the active/hover state paints a
+   background, which makes a link's own padding *visible* while every other
+   link's padding is invisible — with wide padding and a small gap, the space
+   after the active pill reads much tighter than the space between two plain
+   labels, even though both are identical numbers. Keeping padding small and
+   the gap large makes the pill hug its label so the spacing reads evenly.
+   Label-to-label distance is unchanged at 34px (10 + 14 + 10). */
+.nav { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .nav__link {
   position: relative;
   font-family: var(--font-head);
@@ -306,7 +314,7 @@ h1, h2, h3, h4, h5 {
   font-size: 14.5px;
   letter-spacing: 0.02em;
   color: var(--text-dim);
-  padding: 10px 14px;
+  padding: 10px;
   border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
@@ -336,6 +344,11 @@ h1, h2, h3, h4, h5 {
   background: transparent;
   border: 0;
   cursor: pointer;
+  /* The caret is trailing content, so equal left/right padding leaves this
+     label looking off-centre in its own box (14px before the text, 29px
+     after it once the caret and its gap are counted). Trimming the right
+     padding by the caret's optical weight re-centres the label. */
+  padding-right: 6px;
 }
 .nav__caret { width: 11px; height: 11px; flex-shrink: 0; transition: transform .2s ease; }
 .nav__group.is-open .nav__caret { transform: rotate(180deg); }

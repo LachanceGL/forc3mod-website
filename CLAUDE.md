@@ -329,6 +329,28 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 - Note the markup therefore has **two** "Support Us" anchors per page, only
   ever one visible at a time. That's intentional, not leftover duplication.
 
+## Nav spacing — why padding is small and `gap` is large
+
+`.nav` uses `gap: 14px` with only `10px` of horizontal padding on
+`.nav__link`. That split is deliberate, not arbitrary:
+
+- The active/hover state paints a background, which makes *that* link's
+  padding visible while every other link's padding stays invisible. With wide
+  padding and a small gap the space after the active pill reads far tighter
+  than the space between two plain labels — even though the numbers are
+  identical. Small padding + large gap keeps the pill hugging its label so the
+  rhythm reads evenly.
+- Label-to-label distance is `10 + 14 + 10 = 34px`. If you retune these, keep
+  that sum constant or the whole nav's rhythm shifts.
+- Reported as "badly aligned / multiple different spacings" on 2026-08-18.
+  Measuring showed the spacing was already uniform (equal gaps, pixel-identical
+  vertical alignment) — the unevenness was purely this pill-padding effect, so
+  measure before assuming a real misalignment.
+- `.nav__toggle` trims its right padding to `6px`: the caret is trailing
+  content, so equal padding leaves the label visibly off-centre in its box.
+- The mobile drawer overrides padding via `.nav.is-open .nav__link`, so none
+  of this affects it.
+
 ## Nav dropdown system (the "Support" tab)
 
 **"Support" is a dropdown, not a page.** It has no `href` of its own — it

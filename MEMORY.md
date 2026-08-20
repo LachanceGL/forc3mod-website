@@ -14,6 +14,24 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-18
 
+- **Owner reported the nav "badly aligned, multiple different spacings".**
+  Measured before changing anything: gaps were already uniform (6px between
+  boxes, 34px label-to-label) and vertical alignment pixel-identical (every
+  item top 19, height 43, text top 31.4). So there was no misalignment bug.
+- The real cause was **the active pill making its own padding visible** while
+  every other link's padding is invisible: the space after "Home" read as
+  20px against 34px between plain labels. Fixed by shifting the separation
+  from padding into `gap` — `padding: 10px` + `gap: 14px` instead of
+  `10px 14px` + `6px`. Label-to-label stays 34px, leading space is now a
+  uniform 10px on every item, and the gap after the pill went 20px -> 24px.
+  It can never be exactly equal while the pill has any padding — that part is
+  inherent, worth saying if it's raised again.
+- Also trimmed `.nav__toggle` right padding to 6px: the caret is trailing
+  content, so equal padding left "Support" off-centre in its own box
+  (14 before / 29 after; now 10 / 21).
+- Bumped `?v=3 -> v=4` since CSS changed. Nav got slightly narrower (needs
+  970px now), so header headroom improved rather than regressed.
+
 - **Site reopened again** (fourth state change in two days). Guards removed,
   `git mv -f home.html index.html`, `.coming-soon` CSS block deleted, and the
   cache-buster bumped `v=2 -> v=3` since that block's removal changes
