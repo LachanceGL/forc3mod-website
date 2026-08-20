@@ -12,6 +12,29 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-19
+
+- **Moved the GT3 photo card's "LIVE NOW" badge from top to bottom**, on
+  request — it's now a normal flex child (was `position: absolute; top: 32px;
+  left: 32px`), ordered first so it sits directly above the h3/p as one
+  bottom-anchored group, all on the card's existing 12px gap rhythm.
+- Fixed `.about__badge--wide`'s `max-width: calc(100% - 64px)` to plain
+  `100%` — that `-64px` was compensating for the old absolute-position inset
+  math (32px left + an assumed 32px right clearance) and would have
+  over-constrained the badge now that it's a normal flex child inside the
+  card's own `padding: 40px` (the containing block for `%` already excludes
+  that padding).
+- Verified the badge no longer needs the bottom gradient fade for contrast:
+  sampled the actual photo's pixels at the badge's on-screen position via
+  canvas rather than eyeballing a screenshot — luminance 0.01-0.32 there, the
+  image is dark enough on its own. Checked at 375/560/1280px, plus that
+  `forc3designer.html` (no badge, text at top) is untouched.
+- `CLAUDE.md`'s "badge floats over the top" note from yesterday was now
+  wrong after this move — updated it and added a standalone note that
+  `.about__badge` is in-flow, not absolute, so a badge on a future photo card
+  isn't assumed to inherit the old top-left-pinned behavior.
+- Bumped `?v=6 -> v=7` (CSS changed).
+
 ## 2026-08-18
 
 - **Removed the dark top gradient from the GT3 photo card**, on request —

@@ -545,6 +545,10 @@ h1, h2, h3, h4, h5 {
 }
 .about__card h3 { font-size: 28px; position: relative; }
 .about__card p { color: var(--text-dim); font-size: 14.5px; position: relative; }
+/* In normal flow now, not pinned to the top — the card is a bottom-anchored
+   flex column (justify-content: flex-end), so as the first flex child this
+   sits directly above the heading, at the bottom of the card. Was
+   `position: absolute; top: 32px; left: 32px`. */
 .about__badge {
   align-self: flex-start;
   background: var(--accent-soft);
@@ -556,22 +560,23 @@ h1, h2, h3, h4, h5 {
   text-transform: uppercase;
   padding: 6px 14px;
   border-radius: 999px;
-  position: absolute; top: 32px; left: 32px;
 }
 .about__card--photo .about__badge {
   background: rgba(34, 197, 94, 0.16);
   color: #4ade80;
 }
-/* Long-form badge: carries the full "LIVE NOW : … Leaderboard" line rather
-   than a two-word tag. `text-transform: none` is deliberate — the label mixes
-   deliberate caps ("LIVE NOW", "HOT LAP") with title case ("Nürburgring
-   Nordschleife – Leaderboard"), which the base badge's uppercase would flatten.
-   It's absolutely positioned, so it must be width-capped or it runs past the
-   card's right edge; once it wraps, the pill radius has to relax too. */
+/* Long-form badge: carries the full "LIVE NOW : GT3FORC3.COM // HOT LAP //
+   Nürburgring Nordschleife" line rather than a two-word tag. `text-transform:
+   none` is deliberate — the label mixes deliberate caps ("LIVE NOW",
+   "HOT LAP") with title case ("Nürburgring Nordschleife"), which the base
+   badge's uppercase would flatten. `max-width: 100%` is enough to keep it off
+   the card's edge now that .about__badge is a normal flex child — the 100%
+   is already the padded content box, not the full card, since it's no longer
+   absolutely positioned. Once it wraps, the pill radius has to relax too. */
 .about__badge--wide {
   text-transform: none;
   letter-spacing: .02em;
-  max-width: calc(100% - 64px);
+  max-width: 100%;
   white-space: normal;
   line-height: 1.45;
   border-radius: 14px;

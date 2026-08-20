@@ -160,15 +160,26 @@ element.
   `mask-image` path (see "Logo system" above) — CSS `url()` in general
   resolves relative to the *stylesheet* unless you go absolute.
 - **The dark overlay gradient over the photo differs by page, on purpose.**
-  `gt3forc3.html`'s badge floats over the top of the photo and its h3/p sit
-  at the bottom, so its `.theme-gt3 .about__card--photo::before` gradient is
-  transparent at the top (0-45%) and only darkens from 60% down — flat
-  photo up top, faded for text at the bottom. `forc3designer.html`'s card has
-  no badge and its own h3/p sit at the *top* instead (see the comment above
-  that rule), so it still needs the full dark band at 0-15% for its own text
-  contrast — **don't copy the GT3 version over there**, it would make that
-  page's heading illegible. If a third themed photo card gets added, decide
-  where its text/badge actually sit before copying either gradient.
+  On `gt3forc3.html`, the badge, h3 and p are all normal flex children of the
+  bottom-anchored `.about__card` (`justify-content: flex-end`) — badge first,
+  so it sits directly above the heading, all bottom-grouped. Its
+  `.theme-gt3 .about__card--photo::before` gradient is transparent at the top
+  (0-45%) and only darkens from 60% down: flat photo up top, faded for the
+  text group at the bottom. Checked by sampling the actual photo's pixels at
+  the badge's position (not just eyeballing a screenshot) — that image is
+  dark enough there on its own that the badge stays legible even without
+  gradient help. `forc3designer.html`'s card has no badge and its own h3/p
+  sit at the *top* instead (see the comment above that rule), so it still
+  needs the full dark band at 0-15% for its own text contrast — **don't copy
+  the GT3 version over there**, it would make that page's heading illegible.
+  If a third themed photo card gets added, decide where its text/badge
+  actually sit before copying either gradient.
+- **`.about__badge` is in normal flow, not absolutely positioned** — it used
+  to be pinned to the card's top-left corner (`position: absolute; top: 32px;
+  left: 32px`) regardless of where the h3/p sat. Moved into flow on
+  2026-08-19 so it groups with whatever text follows it; if you add a badge
+  to a *new* photo card, decide from scratch where it should sit rather than
+  assuming the absolute-positioned version — that one's gone.
 
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 
