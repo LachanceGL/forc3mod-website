@@ -14,30 +14,45 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-19
 
-- **Moved the GT3 photo card's "LIVE NOW" badge from top to bottom**, on
-  request — it's now a normal flex child (was `position: absolute; top: 32px;
-  left: 32px`) instead of pinned to the corner. First attempt put it *before*
-  h3/p (badge above the heading) — owner said that still wasn't "the
-  bottom", since it read as sitting above the text block rather than below
-  it. Reordered to be the *last* child instead, so it's now the very last
-  thing in the card, flush against the bottom padding (1px off), below both
-  h3 and p.
-- Fixed `.about__badge--wide`'s `max-width: calc(100% - 64px)` to plain
-  `100%` — that `-64px` was compensating for the old absolute-position inset
-  math (32px left + an assumed 32px right clearance) and would have
-  over-constrained the badge now that it's a normal flex child inside the
-  card's own `padding: 40px` (the containing block for `%` already excludes
-  that padding).
-- Verified the badge no longer needs the bottom gradient fade for contrast:
-  sampled the actual photo's pixels at the badge's on-screen position via
-  canvas rather than eyeballing a screenshot — luminance 0.01-0.32 there, the
-  image is dark enough on its own. Checked at 375/560/1280px, plus that
-  `forc3designer.html` (no badge, text at top) is untouched.
-- `CLAUDE.md`'s "badge floats over the top" note from yesterday was now
-  wrong after this move — updated it and added a standalone note that
-  `.about__badge` is in-flow, not absolute, so a badge on a future photo card
-  isn't assumed to inherit the old top-left-pinned behavior.
-- Bumped `?v=6 -> v=7` (CSS changed).
+- **GT3 photo card badge/gradient — the full sequence, three rounds of
+  owner feedback, ending on a different technique than any of the
+  in-between attempts.** Recorded as one entry rather than three, since the
+  middle attempts were superseded same-day and don't reflect current state:
+  1. Moved `.about__badge` out of `position: absolute; top: 32px; left: 32px`
+     into normal flex flow, first ordered *before* h3/p (bottom-anchored
+     group, badge on top of that group). Owner: still not "the bottom" —
+     it read as above the text block, not below it.
+  2. Reordered badge to be the *last* child instead — below both h3 and p,
+     flush against the card's bottom padding. Also fixed
+     `.about__badge--wide`'s `max-width: calc(100% - 64px)` to plain `100%`
+     (the `-64px` was leftover absolute-position inset math that
+     over-constrained it now that it's inside the card's own
+     `padding: 40px`). Owner: now it's sitting underneath a heavy black
+     gradient — the fade meant for h3/p was covering the badge's new
+     position too.
+  3. Tried narrowing the dark fade to sit only behind h3/p and ease off
+     before the badge, using percentage-of-card-height gradient stops,
+     calibrated by sampling the actual photo's pixel luminance behind each
+     element (not guessed) and checked against WCAG contrast math. This
+     kept breaking: the badge is a long sentence that wraps 1-3 lines
+     depending on card width, so h3's position swings ~25 points of card
+     height between mobile and desktop (~33-52% narrow vs ~58-67% wide) —
+     no fixed set of stops covered both without either leaving mobile h3
+     exposed or dragging the fade back over the badge. Abandoned as
+     structurally the wrong tool: a card-height-relative gradient can't
+     track flex-reflowed text.
+  - **Final state**: `.theme-gt3 .about__card--photo::before` has no dark
+    gradient at all — just the raw photo. `h3`/`p` get a `text-shadow`
+    instead (tight dark shadow + soft wide one), which works at wherever
+    the text actually renders, no position math needed. The badge relies on
+    its own translucent pill fill, same as when it worked fine at its
+    original top-left position.
+  - `forc3designer.html`'s card (no badge, own text at the top, needs the
+    full base/theme-designer dark band) was reverified untouched after
+    every round.
+  - `CLAUDE.md`'s photo-card notes rewritten to match the final approach and
+    explicitly warn against re-trying the abandoned gradient technique.
+  - Bumped `?v=6 -> v=7 -> v=8` across the three rounds.
 
 ## 2026-08-18
 

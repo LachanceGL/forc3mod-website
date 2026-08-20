@@ -159,27 +159,41 @@ element.
   inline style instead. Same underlying gotcha as the footer logo's
   `mask-image` path (see "Logo system" above) — CSS `url()` in general
   resolves relative to the *stylesheet* unless you go absolute.
-- **The dark overlay gradient over the photo differs by page, on purpose.**
-  On `gt3forc3.html`, the badge, h3 and p are all normal flex children of the
-  bottom-anchored `.about__card` (`justify-content: flex-end`) — badge first,
-  so it sits directly above the heading, all bottom-grouped. Its
-  `.theme-gt3 .about__card--photo::before` gradient is transparent at the top
-  (0-45%) and only darkens from 60% down: flat photo up top, faded for the
-  text group at the bottom. Checked by sampling the actual photo's pixels at
-  the badge's position (not just eyeballing a screenshot) — that image is
-  dark enough there on its own that the badge stays legible even without
-  gradient help. `forc3designer.html`'s card has no badge and its own h3/p
-  sit at the *top* instead (see the comment above that rule), so it still
-  needs the full dark band at 0-15% for its own text contrast — **don't copy
-  the GT3 version over there**, it would make that page's heading illegible.
-  If a third themed photo card gets added, decide where its text/badge
-  actually sit before copying either gradient.
-- **`.about__badge` is in normal flow, not absolutely positioned** — it used
-  to be pinned to the card's top-left corner (`position: absolute; top: 32px;
-  left: 32px`) regardless of where the h3/p sat. Moved into flow on
-  2026-08-19 so it groups with whatever text follows it; if you add a badge
-  to a *new* photo card, decide from scratch where it should sit rather than
-  assuming the absolute-positioned version — that one's gone.
+- **`gt3forc3.html`'s photo card has NO dark overlay gradient at all** —
+  `.theme-gt3 .about__card--photo::before` is just `var(--about-photo)`, no
+  `linear-gradient` layer. `forc3designer.html`'s card is different on
+  purpose: no badge, its own h3/p sit at the *top* instead, and it still
+  needs the base/`.theme-designer` version's full dark band for its own text
+  contrast — **don't copy the GT3 (no-gradient) treatment over there**, that
+  card's heading would become illegible.
+- **A percentage-position gradient was tried on the GT3 card first, and
+  abandoned — don't reintroduce it.** The badge is a long sentence that
+  wraps 1-3 lines depending on card width, and it's the *last* flex child
+  (see below), so h3's vertical position swings by ~25 percentage points of
+  card height between mobile and desktop (measured: ~33-52% narrow vs
+  ~58-67% wide). No fixed set of gradient stops can stay dark enough behind
+  h3 at every width without also dragging that darkness down over the badge
+  — which is the exact "badge is under a black gradient" complaint that
+  started this. A card-height-relative gradient structurally cannot track
+  flex-reflowed text.
+- **Contrast is handled by `text-shadow` on `.theme-gt3 .about__card--photo
+  h3, p` instead** — two stacked shadows, a tight dark one for edge
+  definition and a soft wide one for a general halo. This works at the
+  text's actual rendered position regardless of how the badge above it
+  wrapped, so unlike a gradient it needs no knowledge of where anything else
+  landed. If contrast ever looks insufficient on a new/replaced photo,
+  strengthen these shadow values — don't reach for a background gradient
+  again, that's the dead end above.
+- **`.about__badge` is the LAST child of the card**, in normal flow (not
+  absolutely positioned — it used to be pinned to the top-left corner via
+  `position: absolute; top: 32px; left: 32px`, regardless of where h3/p
+  sat). It sits below h3 and p, flush against the card's bottom padding.
+  First attempt put it *before* h3/p (still bottom-anchored as a group, but
+  above the heading) — owner said that still didn't read as "the bottom",
+  since it sat above the text block rather than below it. If you add a
+  badge to a *new* photo card, decide its position from scratch — the old
+  absolute-positioned top-left version is gone, and there's no default to
+  fall back on.
 
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 
