@@ -226,49 +226,52 @@ element.
   If contrast ever looks insufficient on a new/replaced photo, strengthen
   the text-shadow values, not the gradient — the gradient can't reliably
   track the text's position (see above), the shadow always can.
-- **The badge itself needs its own contrast mechanism — it was missed once,
-  broke, and the first fix attempt was also wrong.** Only h3/p got
-  `text-shadow` when that fix landed on 2026-08-19, because the badge sat
-  *after* them at the time (last child) — right in the corner gradient's
-  strongest zone, so it happened to read fine without its own contrast
-  mechanism. When the badge moved back to first child on 2026-08-21 ("LIVE
-  Server must be on top"), that stopped being true, and the owner reported
-  it nearly illegible.
-  - **First fix attempt (wrong)**: added the same `text-shadow` as h3/p and
-    bumped the badge's existing translucent **green** fill
-    (`rgba(34,197,94,*)`) from `.16` to `.28` opacity — reasoning it as "the
-    photo behind it is too bright," same as the h3/p case. The owner's
-    follow-up screenshot showed it still washed out. **Root cause was
-    different**: the pill's fill color and its text color (`#4ade80`) are
-    both green and similarly bright, so fill-vs-text contrast was low
-    *regardless of the photo* — text-shadow only helps text-vs-photo edge
-    definition, it does nothing for a translucent colored fill sitting
-    between the photo and the text.
-  - **Actual fix**: `.about__card--photo .about__badge`'s fill is now a
-    near-opaque dark `rgba(5, 14, 9, 0.85)` with a `rgba(74,222,128,.35)`
-    border (mirrors `.live-status`'s border+glow look), not a translucent
-    green. At 85% opacity the pill reads as a solid dark chip almost
-    independent of the photo underneath — contrast no longer depends on the
-    fill's hue matching the text or on how much photo shows through.
-  - **Verification lesson**: checking "is the photo dark under here" is
-    not the same as checking "does the composited pill have enough contrast
-    against the text" — the first fix's canvas sampling checked *photo*
-    luminance only, never the actual fill-plus-photo-vs-text contrast
-    ratio, which is why it missed the real problem. When re-verifying
-    contrast on this card going forward, compute the WCAG contrast ratio
-    between the *composited* background (fill blended over the worst-case
-    photo pixel in that region) and the text color — not just backdrop
-    darkness in isolation.
-  - Also get an actual screenshot before declaring a legibility fix done,
-    not just math — the first attempt only had math (the Browser pane's
-    screenshot tool was failing that session) and still shipped wrong.
-  - **General lesson stands**: any text in this card needs its own
-    position-independent contrast — don't assume a later reposition is
-    safe just because the current position looks fine. If the badge (or
-    anything else in this card) moves again, re-verify its own contrast at
-    the new position rather than assuming existing rules still cover it —
-    check what selector they're actually scoped to, and check the right
-    thing (composited fill-vs-text, not just photo darkness).
+- **The badge went invisible after moving to first child — the real cause
+  was `position`, not color, and it took three attempts to find.** Only
+  h3/p got `text-shadow` when the 2026-08-19 fix landed, because the badge
+  sat *after* them at the time (last child), reading fine by accident. When
+  it moved back to first child on 2026-08-21 ("LIVE Server must be on
+  top"), the owner reported it nearly illegible.
+  - **Root cause**: `.about__card::before` (the photo+gradient layer) is
+    `position: absolute; inset: 0`. `h3`/`p` are explicitly `position:
+    relative` *specifically* so they paint above that layer — `.about__badge`
+    never got the same treatment. It used to be `position: absolute` itself
+    (an old top-left-pinned layout), which incidentally also promoted it
+    above `::before` for free; when it moved to normal flow in an earlier
+    redesign, that stacking promotion was lost and nothing replaced it. The
+    photo was **literally painting over the badge** — confirmed with
+    `document.elementFromPoint()` at the badge's own center returning the
+    card div, not the badge span.
+  - **Fix**: `.about__badge` (base rule, not a photo-card-only override) now
+    has `position: relative` alongside its other properties. Verify any
+    future stacking suspicion the same way: `elementFromPoint()` at an
+    element's own center should return that element itself; if it returns
+    an ancestor instead, something else — usually an absolutely-positioned
+    sibling/pseudo-element — is painting on top of it.
+  - **Two earlier color-only attempts both shipped and were both invisible
+    underneath the photo the whole time** — neither was "wrong" as color
+    choices, they just could never have worked, because the badge wasn't
+    rendering above the photo layer yet:
+    1. Added `text-shadow` (matching h3/p) + bumped the existing translucent
+       green fill (`rgba(34,197,94,*)`) opacity `.16 -> .28`. Looked
+       plausible (green-on-slightly-brighter-green *is* genuinely low
+       contrast) but was moot regardless of values.
+    2. Replaced the fill with a near-opaque dark `rgba(5,14,9,.85)` +
+       `rgba(74,222,128,.35)` border (mirrors `.live-status`'s look),
+       verified at 8.6–9:1 WCAG contrast — still invisible, for the same
+       reason. **This fill is what's actually live now** — it started
+       working the moment `position: relative` let it render at all, so it
+       wasn't replaced, just finally shown.
+  - **Lesson**: when a styling fix visibly "does nothing" across attempts
+    with materially different values, stop iterating on color/shadow and
+    check *whether the element is painting where you think it is* —
+    `elementFromPoint()` at its own center is a fast, definitive check.
+    Any child of a `position: relative` card that has an
+    absolutely-positioned sibling (like these `::before` photo/gradient
+    layers) needs its own explicit `position` to guarantee it paints above
+    that sibling — don't assume normal DOM/paint order is enough once *any*
+    sibling has been taken out of flow. This applies to any future element
+    added inside `.about__card`/`.about__card--photo`, not just the badge.
 - **`.about__badge` is the FIRST child of the card, in normal flow** (not
   absolutely positioned — it used to be pinned to the top-left corner via
   `position: absolute; top: 32px; left: 32px`, regardless of where h3/p

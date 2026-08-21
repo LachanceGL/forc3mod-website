@@ -14,10 +14,60 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
-- **GT3 badge legibility — first fix (`v=17`) was wrong; second fix
-  (`v=18`) addressed the actual bug.** Owner sent a screenshot ("are you
-  drunk") showing the badge nearly washed out; a hard refresh didn't help
-  ("its refreshed"), ruling out cache.
+- **GT3 badge legibility — the real bug (`v=19`), after two wrong color
+  fixes (`v=17`, `v=18`).** Owner sent a screenshot ("are you drunk")
+  showing the badge nearly washed out; a hard refresh didn't help ("its
+  refreshed"), ruling out cache. After `v=18` shipped, owner reported
+  "literally the same" — and when I suggested a hard-reload/incognito check
+  again, correctly shut that down ("it's not a refresh issue you idiot").
+  That pushback was right and forced an actual structural investigation
+  instead of a third color guess.
+  - **The real root cause**: `.about__card::before` (the photo+gradient
+    layer) is `position: absolute; inset: 0`. `h3`/`p` are explicitly given
+    `position: relative` specifically so they paint *above* that layer.
+    `.about__badge` never got that treatment — it used to be `position:
+    absolute` itself (which incidentally also promoted it above `::before`
+    for free), and when it was switched to normal flow during an earlier
+    redesign, nobody replaced the lost stacking promotion. Net effect:
+    **the photo was literally painting over the badge**, confirmed with
+    `document.elementFromPoint()` at the badge's own center returning the
+    card div, not the badge span. Every color/fill/text-shadow change made
+    to the badge in the two earlier attempts was invisible underneath the
+    photo the whole time — which is exactly why `v=18` looked "literally
+    the same" as `v=17` despite being a completely different set of colors.
+  - **Fix**: added `position: relative;` to the base `.about__badge` rule.
+    Confirmed via the same `elementFromPoint()` check that the badge is now
+    the actual hit target at its own center. `.about__badge` is currently
+    only used on `gt3forc3.html`, so this had no other page to regress.
+  - **The two earlier color attempts weren't wasted** — `v=18`'s
+    near-opaque dark fill + border is still the badge's current styling,
+    just was invisible until this fix let it actually render. Left as-is.
+  - No overflow, no console errors. Bumped `?v=18 -> v=19`.
+  - **Lesson**: when a styling fix visibly "does nothing" across multiple
+    attempts with materially different values, stop iterating on values and
+    check whether the element is actually painting where you think it is —
+    `elementFromPoint()` at the element's own center is a fast, definitive
+    check for "is something else covering this." Any element inside a
+    `position: relative` container with an absolutely-positioned sibling
+    (like the `::before` photo/gradient layers on `.about__card`) needs its
+    own explicit `position` to guarantee it paints above that sibling —
+    don't assume normal DOM order is enough once *any* sibling is taken out
+    of flow.
+
+- **Superseded below — kept for the record of what was tried and why it
+  looked plausible at the time, not as current guidance.**
+  - **First attempt (`v=17`, later shown insufficient by a follow-up
+    screenshot — "still not fixed")**: diagnosed the badge's *photo*
+    backdrop as too bright at its first-child position (corner gradient
+    only ~33% strength there, worst raw photo sample 0.322 luminance), and
+    gave the badge the same `text-shadow` as h3/p plus a bump from `.16` to
+    `.28` on its existing translucent **green** fill
+    (`rgba(34,197,94,*)`). Verified with canvas photo-luminance sampling at
+    1280px/375px and declared it fixed — **but never actually screenshotted
+    it**, and the photo-luminance check was the wrong measurement: it
+    confirmed the photo behind the badge was dark, not that the badge's own
+    pill was readable. In hindsight this measurement was irrelevant either
+    way — the badge wasn't even rendering above the photo yet.
   - **First attempt (`v=17`, later shown insufficient by a follow-up
     screenshot — "still not fixed")**: diagnosed the badge's *photo*
     backdrop as too bright at its first-child position (corner gradient

@@ -550,6 +550,19 @@ h1, h2, h3, h4, h5 {
    sits directly above the heading, at the bottom of the card. Was
    `position: absolute; top: 32px; left: 32px`. */
 .about__badge {
+  /* THE badge's real legibility bug (found 2026-08-21, after two failed
+     color/shadow fixes): `.about__card::before` is `position: absolute;
+     inset: 0` — the photo+gradient layer. h3/p are explicitly `position:
+     relative` (above) specifically so they paint ABOVE that layer. This
+     rule never got the same treatment when the badge moved out of its old
+     `position: absolute` placement (see comment above) into normal flow —
+     losing `position: absolute` silently also lost its implicit stacking
+     promotion, so the badge fell BEHIND `::before` in paint order.
+     Confirmed via elementFromPoint() at the badge's own center returning
+     the card div, not the badge — the photo was literally being painted
+     over it, which is why changing its own fill/text-shadow/border had
+     zero visible effect no matter how the colors were tuned. */
+  position: relative;
   align-self: flex-start;
   background: var(--accent-soft);
   color: var(--accent-2);
