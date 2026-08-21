@@ -14,6 +14,20 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-20
 
+- **Reframed `FD_SitePreview.jpg`** on request ("frame it better"). Measured
+  rather than guessed: scanned the image's pixels to find the car's actual
+  bounding box (x 122-977 of 1048px width — the app's left toolbar was
+  pulling the plain `center` crop off the car's true midpoint), then solved
+  for the `background-position` percentage that centers the crop window on
+  the car at each card breakpoint. Those percentages turned out to differ a
+  lot by aspect ratio (~56% mobile, ~61% desktop) since how much the image
+  overflows the card varies a lot between them — a single static value can't
+  perfectly satisfy both. Picked `55%`, closest to mobile's ideal, since
+  mobile is where by far the most cropping happens (~244px unavoidably lost
+  vs only ~33px at desktop, which barely shows either way). Verified with
+  the same box-math, not a screenshot (still unreliable in this environment
+  per the existing project note). Bumped `?v=10 -> v=11` (CSS changed).
+
 - **Swapped the "Your car, your canvas." card image** on `forc3designer.html`
   from `img/FORC3Designer_Showcase01.jpg` to a new owner-provided screenshot,
   `img/FD_SitePreview.jpg` (already present in `img/`, just not referenced
