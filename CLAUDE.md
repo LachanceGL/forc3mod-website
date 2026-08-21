@@ -439,6 +439,18 @@ building a new one:
 - Currently used for: the Changelog modal on `forc3designer.html` (button
   sits above the hero eyebrow line).
 
+### Changelog modal content — sourced from a doc, not edited in HTML directly
+
+[`docs/DESIGNER-CHANGELOG.md`](docs/DESIGNER-CHANGELOG.md) is the
+**authoritative source** for the modal's entries (owner request,
+2026-08-21) — same handoff pattern as `forc3-designer`'s
+`docs/TooltipsTexts_Bindkeys`. When the owner gives new changelog content,
+update that file first, then propagate it into the
+`#changelogModal .modal__body` markup in `forc3designer.html` (one
+`.modal__entry` div per line, newest first — see existing entries for the
+exact markup shape). Keep both in sync in the same commit; don't let the
+doc drift from what's actually live. Plain HTML/text edit — no `?v=` bump.
+
 ## Discord / community reference IDs
 
 - FORC3MOD Discord invite: `https://discord.gg/CbJCmjtVma`

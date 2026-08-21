@@ -14,6 +14,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Created `docs/DESIGNER-CHANGELOG.md`** as the editable source for the
+  Changelog modal on `forc3designer.html`, on request ("make this panel as
+  a file I can edit in VScode, then you look at it to update it on the
+  site"). Same handoff pattern as `forc3-designer`'s
+  `docs/TooltipsTexts_Bindkeys` — owner edits the doc, Claude propagates it
+  into the modal's HTML. Seeded with the two entries already live (v0.1.1,
+  v0.1). See `CLAUDE.md`'s "Changelog modal content" subsection under
+  "Modal system" for the sync workflow.
+
 - **Wired the FORC3 Designer download button to a real URL.** Both
   "Download for Windows" buttons on `forc3designer.html` (hero + features
   section) went from `href="#"` placeholders to
