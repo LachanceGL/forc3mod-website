@@ -830,18 +830,7 @@ h1, h2, h3, h4, h5 {
   background:
     linear-gradient(to bottom, rgba(0,0,0,.92) 0%, rgba(0,0,0,.92) 15%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.85) 100%),
     var(--about-photo);
-  /* Per-layer sizing (comma-separated, matching the two `background` layers
-     above in order): the gradient still `cover`s the whole card as usual,
-     but the photo uses `contain` instead. `--about-photo` here is
-     FD_SitePreview_Framed.jpg, cropped down to just the car (toolbar and
-     most of the dead background trimmed out, found by scanning the source
-     screenshot for the car's actual pixel bounding box, not eyeballed). A
-     `cover` crop on the uncropped screenshot was tried first and rejected —
-     the requirement is that the whole car is always visible, and `cover`
-     fundamentally can't guarantee that at every card aspect ratio, only
-     `contain` can (it may letterbox instead, which is fine — the letterboxed
-     margin is this same dark background colour either way). */
-  background-size: cover, contain;
+  background-size: cover;
   background-position: center;
 }
 /* This card's text sits at the top instead of the bottom (unlike the GT3
@@ -849,6 +838,27 @@ h1, h2, h3, h4, h5 {
 .theme-designer .about__card--photo {
   justify-content: flex-start;
   padding-top: 24px;
+  /* The card is sized to FD_SitePreview.jpg's own aspect ratio (824/485,
+     the actual file's pixel dimensions) instead of the generic 4/3 (desktop)
+     / 16/10 (tablet) / auto+min-height (mobile) the plain icon cards use.
+     With the box shaped like the image, `cover` above shows the ENTIRE
+     photo with zero cropping at every breakpoint — no per-image tuning,
+     no letterboxing, nothing to re-derive. Overrides `.about__card`'s
+     responsive aspect-ratio rules at all three breakpoints because this
+     selector has higher specificity than the plain class alone, regardless
+     of which media query is active. If this image is ever replaced with a
+     different-shaped one, update this ratio to match — it's read directly
+     off the file, not a design constant. */
+  aspect-ratio: 824 / 485;
+  /* `.about__card`'s own mobile rule (below 560px) sets min-height: 330px,
+     which doesn't get cancelled just because this rule's aspect-ratio wins
+     — CSS cascades per property, not per whole rule. Left alone, the two
+     fight: to satisfy both a fixed aspect-ratio AND min-height:330px at a
+     width where that ratio would naturally give a shorter height, the
+     browser widens the box past its container to keep the ratio, which
+     overflowed the viewport on mobile. min-height: 0 lets the aspect-ratio
+     alone determine sizing, like it does at every other breakpoint. */
+  min-height: 0;
 }
 .theme-designer .about__card--photo h3 { font-size: 22px; }
 .theme-designer .about__card--photo p { font-size: 13px; }

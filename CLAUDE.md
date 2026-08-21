@@ -93,8 +93,7 @@ than rewriting it from scratch.
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
-| `img/FD_SitePreview_Framed.jpg` | The actual photo background used on `forc3designer.html`'s "Your car, your canvas." card — a derivative crop of `FD_SitePreview.jpg` with the app's left toolbar and most dead space trimmed out. See "Photo cards" below. |
-| `img/FD_SitePreview.jpg` | The original owner-provided screenshot (full app UI, including the toolbar — not just the car). No longer referenced directly by any page; kept on disk as the source `FD_SitePreview_Framed.jpg` was cropped from. |
+| `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
 | `CNAME` | GitHub Pages custom domain config. |
 
@@ -163,30 +162,30 @@ element.
   inline style instead. Same underlying gotcha as the footer logo's
   `mask-image` path (see "Logo system" above) — CSS `url()` in general
   resolves relative to the *stylesheet* unless you go absolute.
-- **`forc3designer.html`'s photo card uses `background-size: cover, contain`
-  — two different sizing keywords, one per layer** (the `background:`
-  property there has two comma-separated layers: the dark gradient first,
-  then `var(--about-photo)`). The gradient still `cover`s the card as usual;
-  the photo uses `contain` instead, so the *whole* image is always visible,
-  letterboxed rather than cropped, regardless of card aspect ratio.
-  - History: a `cover` crop (first plain `center`, then a measured
-    `55% center` to reduce clipping) was tried and explicitly rejected — the
-    owner wants the whole car visible with nothing cut off, which `cover`
-    structurally cannot guarantee at every breakpoint no matter how the
-    position is tuned. `contain` guarantees it outright.
-  - This only works well because `--about-photo` here is
-    `FD_SitePreview_Framed.jpg`, a **derivative crop**, not the original
-    screenshot — see the file map. The raw `FD_SitePreview.jpg` includes the
-    app's left toolbar and a lot of dead background; `contain`-fitting *that*
-    directly would shrink the car down small to fit the toolbar in too.
-    `FD_SitePreview_Framed.jpg` was cropped (via a one-off script, not
-    committed) to just the car with a small margin, found by scanning the
-    source image for the car's actual bright-pixel bounding box rather than
-    eyeballing it — the toolbar's icons are bright too, so that scan has to
-    stay clear of the toolbar's own x-range or it contaminates the result.
-  - If this image is ever replaced, crop the new source the same way (car +
-    small margin, no UI chrome) rather than pointing `--about-photo` at an
-    uncropped screenshot and expecting `contain` alone to compensate.
+- **`forc3designer.html`'s photo card is sized to match `FD_SitePreview.jpg`
+  exactly**, not the generic 4/3 (desktop) / 16/10 (tablet) / auto+min-height
+  (mobile) ratios the plain icon cards and `gt3forc3.html`'s card use.
+  `.theme-designer .about__card--photo` sets
+  `aspect-ratio: 824 / 485` — the *actual pixel dimensions* of the current
+  file, read off it directly, not a design constant — which overrides
+  `.about__card`'s responsive rules at every breakpoint (higher specificity
+  wins regardless of which media query is active). With the box shaped
+  exactly like the image, plain `background-size: cover` (same as every
+  other photo card) shows the whole image with zero cropping and zero
+  letterboxing — no per-image position tuning needed at all.
+  - Also has to cancel `.about__card`'s mobile-only `min-height: 330px` (via
+    `min-height: 0` in the same rule) — that property doesn't get overridden
+    just because `aspect-ratio` does (CSS cascades per property, not per
+    rule), and left in place it fights the fixed ratio: to satisfy both at a
+    width where 824/485 naturally gives a shorter height, the browser
+    widens the box past its container to hold the ratio, overflowing the
+    viewport. Hit and fixed this exact overflow while building it.
+  - **If `FD_SitePreview.jpg` is ever replaced with a different-shaped
+    image, update the `824 / 485` to the new file's real dimensions** — this
+    is deliberately *not* a derivative/cropped asset (a cropped-then-shrunk
+    version was built and explicitly rejected — use the real file the owner
+    provides, not a generated one), so the ratio has to be re-read from
+    whatever file is actually in use, not assumed.
 - **`gt3forc3.html`'s photo card has NO dark overlay gradient at all** —
   `.theme-gt3 .about__card--photo::before` is just `var(--about-photo)`, no
   `linear-gradient` layer. `forc3designer.html`'s card is different on

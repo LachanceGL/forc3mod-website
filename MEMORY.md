@@ -23,44 +23,36 @@ explicitly rather than leaving the old entry looking still-current.
   by breakpoint) to even understand why my own fix was so subtle. Asked what
   they actually wanted rather than guess a third time: "show the whole car,
   nothing cropped" (vs. the alternative of zooming in tighter).
-- **Solved properly instead of re-tuning position again**: `cover` structurally
-  cannot guarantee "nothing cropped" at every card aspect ratio no matter how
-  it's positioned — only `contain` can. Cropped a new derivative image,
-  `img/FD_SitePreview_Framed.jpg`, from the original screenshot: found the
-  car's real bounding box by scanning pixel brightness (both x AND y this
-  time — the earlier fix only ever measured x), trimmed out the toolbar and
-  most of the dead background, left a small margin. Switched
-  `.theme-designer .about__card--photo::before` to
-  `background-size: cover, contain` (per-layer: gradient still covers, photo
-  now contains) so the *whole* car is guaranteed visible at every breakpoint,
-  letterboxed rather than cropped — a guarantee that doesn't depend on
-  position tuning or need re-measuring per breakpoint the way `cover` did.
-- Gotcha hit while cropping: my first attempt used symmetric percentage
-  padding around the car's bbox on all four sides, which re-entered the
-  toolbar's zone on the left (the toolbar's own icons extend to ~x149,
-  well past the car's x122 bbox start) and left a sliver of it in the crop.
-  Fixed with an explicit hard left bound instead of padding math on that
-  side specifically. Caught by actually viewing the cropped file with the
-  Read tool before wiring it up — did the same for the final crop before
-  committing, since screenshots of the rendered page remain unavailable in
-  this environment (confirmed failing twice again this session).
-- `img/FD_SitePreview.jpg` (uncropped) kept on disk as the crop's source,
-  same reasoning as before for not deleting owner-provided assets.
-- Bumped `?v=11 -> v=12` (CSS changed).
-
-- **Reframed `FD_SitePreview.jpg`** on request ("frame it better"). Measured
-  rather than guessed: scanned the image's pixels to find the car's actual
-  bounding box (x 122-977 of 1048px width — the app's left toolbar was
-  pulling the plain `center` crop off the car's true midpoint), then solved
-  for the `background-position` percentage that centers the crop window on
-  the car at each card breakpoint. Those percentages turned out to differ a
-  lot by aspect ratio (~56% mobile, ~61% desktop) since how much the image
-  overflows the card varies a lot between them — a single static value can't
-  perfectly satisfy both. Picked `55%`, closest to mobile's ideal, since
-  mobile is where by far the most cropping happens (~244px unavoidably lost
-  vs only ~33px at desktop, which barely shows either way). Verified with
-  the same box-math, not a screenshot (still unreliable in this environment
-  per the existing project note). Bumped `?v=10 -> v=11` (CSS changed).
+- **First attempt at that: cropped a derivative image**,
+  `img/FD_SitePreview_Framed.jpg` — trimmed the toolbar and dead space out
+  of the screenshot, switched the card to `background-size: cover, contain`
+  (contain guarantees nothing is ever cropped, unlike cover). Owner then
+  updated the actual `FD_SitePreview.jpg` source on disk with a new capture,
+  and separately said not to use a generated derivative image at all —
+  **"use the real one."** Deleted `FD_SitePreview_Framed.jpg` entirely and
+  reverted `--about-photo` back to the real, owner-provided
+  `FD_SitePreview.jpg`.
+- **Final approach, on request ("make so the card fits it's size ratio")**:
+  instead of cropping the image to fit the card, size the *card* to match
+  the image. `.theme-designer .about__card--photo` now sets
+  `aspect-ratio: 824 / 485` (that file's real pixel dimensions), overriding
+  `.about__card`'s three responsive ratios (4/3 desktop, 16/10 tablet, auto
+  mobile) at every breakpoint via specificity. With box and image the same
+  shape, plain `background-size: cover` shows the whole thing with zero
+  cropping and zero letterboxing — simpler than the contain approach and
+  needs no generated asset.
+- Bug caught while verifying, not shipped blind: `.about__card`'s mobile
+  `min-height: 330px` doesn't get cancelled just because `aspect-ratio` is
+  overridden (cascades per property, not per rule) — left in place, it fought
+  the fixed ratio and forced the card to 561px wide, overflowing the 375px
+  viewport. Fixed with `min-height: 0` in the same override rule. Confirmed
+  clean (no overflow, text still fits, ratio matches image) at 375/700/1280px
+  after the fix, plus that `gt3forc3.html`'s card is untouched.
+- Lesson worth keeping: don't manufacture a derivative asset when the owner
+  can just supply the right one and the CSS can adapt to it instead — ask
+  first if genuinely unsure which they'd prefer, since it isn't always
+  obvious in advance which side (image or box) should be the one that bends.
+- Bumped `?v=12 -> v=13` (CSS changed).
 
 - **Swapped the "Your car, your canvas." card image** on `forc3designer.html`
   from `img/FORC3Designer_Showcase01.jpg` to a new owner-provided screenshot,
