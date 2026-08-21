@@ -30,6 +30,16 @@ explicitly rather than leaving the old entry looking still-current.
   `js/main.js`, so nothing polls the GT3FORC3 Worker and the contact form is
   unreachable while gated.
 
+- **Site reopened again the same day.** Guards removed from all four pages,
+  `git mv -f home.html index.html`, `.coming-soon` CSS block deleted, cache-
+  buster bumped `?v=9 -> v=10` since that removal changes `css/style.css`.
+- Verified everything preserved through the gate/reopen round-trip: all four
+  pages load without redirecting, the FORC3 Designer feature list shows all
+  of today's edits ("Paint directly in 3D on the car model", "Built
+  specifically for EVO current pipeline", "Export directly to the game"),
+  the home hero lead matches yesterday's rewrite, and the GT3 photo card
+  still has no gradient / has `text-shadow` on h3/p / badge still last child.
+
 ## 2026-08-19
 
 - **GT3 photo card badge/gradient — the full sequence, three rounds of
