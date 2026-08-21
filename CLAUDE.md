@@ -226,24 +226,49 @@ element.
   If contrast ever looks insufficient on a new/replaced photo, strengthen
   the text-shadow values, not the gradient — the gradient can't reliably
   track the text's position (see above), the shadow always can.
-- **The badge itself needs this same treatment — it was missed once, and
-  broke.** Only h3/p got `text-shadow` when that fix landed on 2026-08-19,
-  because the badge sat *after* them at the time (last child) — right in
-  the corner gradient's strongest zone, so it happened to read fine without
-  its own contrast mechanism. When the badge moved back to first child on
-  2026-08-21 ("LIVE Server must be on top"), that stopped being true: first
-  position sits where the gradient is much weaker (~33% strength measured),
-  and the badge's own `rgba(34,197,94,.16)` fill was too weak on its own —
-  confirmed as a real regression via canvas pixel sampling, not a caching
-  issue, after the owner reported it nearly illegible. Fixed by giving
-  `.about__card--photo .about__badge` the same two-layer `text-shadow` as
-  h3/p, plus bumping its own fill to `.28` opacity. **Lesson: any text in
-  this card needs its own position-independent contrast — don't assume a
-  later reposition is safe just because the current position looks fine.**
-  If the badge (or anything else in this card) moves again, re-verify its
-  own contrast at the new position rather than assuming the existing
-  text-shadow rules still cover it by inheritance — check what selector
-  they're actually scoped to.
+- **The badge itself needs its own contrast mechanism — it was missed once,
+  broke, and the first fix attempt was also wrong.** Only h3/p got
+  `text-shadow` when that fix landed on 2026-08-19, because the badge sat
+  *after* them at the time (last child) — right in the corner gradient's
+  strongest zone, so it happened to read fine without its own contrast
+  mechanism. When the badge moved back to first child on 2026-08-21 ("LIVE
+  Server must be on top"), that stopped being true, and the owner reported
+  it nearly illegible.
+  - **First fix attempt (wrong)**: added the same `text-shadow` as h3/p and
+    bumped the badge's existing translucent **green** fill
+    (`rgba(34,197,94,*)`) from `.16` to `.28` opacity — reasoning it as "the
+    photo behind it is too bright," same as the h3/p case. The owner's
+    follow-up screenshot showed it still washed out. **Root cause was
+    different**: the pill's fill color and its text color (`#4ade80`) are
+    both green and similarly bright, so fill-vs-text contrast was low
+    *regardless of the photo* — text-shadow only helps text-vs-photo edge
+    definition, it does nothing for a translucent colored fill sitting
+    between the photo and the text.
+  - **Actual fix**: `.about__card--photo .about__badge`'s fill is now a
+    near-opaque dark `rgba(5, 14, 9, 0.85)` with a `rgba(74,222,128,.35)`
+    border (mirrors `.live-status`'s border+glow look), not a translucent
+    green. At 85% opacity the pill reads as a solid dark chip almost
+    independent of the photo underneath — contrast no longer depends on the
+    fill's hue matching the text or on how much photo shows through.
+  - **Verification lesson**: checking "is the photo dark under here" is
+    not the same as checking "does the composited pill have enough contrast
+    against the text" — the first fix's canvas sampling checked *photo*
+    luminance only, never the actual fill-plus-photo-vs-text contrast
+    ratio, which is why it missed the real problem. When re-verifying
+    contrast on this card going forward, compute the WCAG contrast ratio
+    between the *composited* background (fill blended over the worst-case
+    photo pixel in that region) and the text color — not just backdrop
+    darkness in isolation.
+  - Also get an actual screenshot before declaring a legibility fix done,
+    not just math — the first attempt only had math (the Browser pane's
+    screenshot tool was failing that session) and still shipped wrong.
+  - **General lesson stands**: any text in this card needs its own
+    position-independent contrast — don't assume a later reposition is
+    safe just because the current position looks fine. If the badge (or
+    anything else in this card) moves again, re-verify its own contrast at
+    the new position rather than assuming existing rules still cover it —
+    check what selector they're actually scoped to, and check the right
+    thing (composited fill-vs-text, not just photo darkness).
 - **`.about__badge` is the FIRST child of the card, in normal flow** (not
   absolutely positioned — it used to be pinned to the top-left corner via
   `position: absolute; top: 32px; left: 32px`, regardless of where h3/p

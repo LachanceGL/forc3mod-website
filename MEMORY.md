@@ -14,31 +14,51 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
-- **Fixed the GT3 badge's own legibility** — owner sent a screenshot ("are
-  you drunk") showing the badge nearly washed out; a hard refresh didn't
-  help ("its refreshed"), ruling out cache. Diagnosed for real: moving the
-  badge back to first-child position (see below) put it where the corner
-  gradient has already faded to only ~33% strength, and confirmed via
-  canvas pixel sampling that the underlying photo there is genuinely bright
-  in spots (worst raw sample 0.322 luminance at the time) — the badge's old
-  `rgba(34,197,94,0.16)` fill was too weak to read against that.
-  This is the exact same category of bug the h3/p text-shadow fix already
-  solved once on this card (2026-08-19: a gradient can't be the contrast
-  mechanism when the thing sitting on top of it moves) — the badge just
-  hadn't gotten the same treatment yet, because it didn't need it in its
-  *previous* positions. Fixed by giving `.about__card--photo .about__badge`
-  the same two-layer `text-shadow` as h3/p (`0 2px 10px rgba(0,0,0,.85), 0
-  1px 2px rgba(0,0,0,.95)`), plus bumping its own background fill from
-  `.16` to `.28` opacity for better pill-shape definition. Re-verified with
-  the same canvas-sampling method at both 1280px and 375px: raw photo
-  luminance under the badge is actually a fairly dark, uniform region at
-  both sizes (avg ~0.14-0.16; the earlier 0.322 "worst case" was measured
-  at a different viewport/position combination) — comfortably inside the
-  range this exact text-shadow already proved safe for h3/p. No overflow,
-  no console errors, forc3designer.html's card (no badge) unaffected.
-  Bumped `?v=16 -> v=17`.
-  See `CLAUDE.md`'s "Photo cards" section — badge now documented as needing
-  its own robust, position-independent contrast mechanism, not just h3/p.
+- **GT3 badge legibility — first fix (`v=17`) was wrong; second fix
+  (`v=18`) addressed the actual bug.** Owner sent a screenshot ("are you
+  drunk") showing the badge nearly washed out; a hard refresh didn't help
+  ("its refreshed"), ruling out cache.
+  - **First attempt (`v=17`, later shown insufficient by a follow-up
+    screenshot — "still not fixed")**: diagnosed the badge's *photo*
+    backdrop as too bright at its first-child position (corner gradient
+    only ~33% strength there, worst raw photo sample 0.322 luminance), and
+    gave the badge the same `text-shadow` as h3/p plus a bump from `.16` to
+    `.28` on its existing translucent **green** fill
+    (`rgba(34,197,94,*)`). Verified with canvas photo-luminance sampling at
+    1280px/375px and declared it fixed — **but never actually screenshotted
+    it**, and the photo-luminance check was the wrong measurement: it
+    confirmed the photo behind the badge was dark, not that the badge's own
+    pill was readable.
+  - **Real bug**: the pill's fill color and its text color are both
+    **green and similarly bright** (`rgba(34,197,94,*)` behind `#4ade80`).
+    text-shadow fixes edge definition against a busy *photo*, but does
+    nothing for fill-vs-text contrast when the fill sits *between* the
+    photo and the text — that contrast was low regardless of the photo,
+    which is exactly what the owner's second screenshot showed unchanged.
+  - **Actual fix (`v=18`)**: replaced the green translucent fill with a
+    near-opaque dark one — `rgba(5, 14, 9, 0.85)` — plus a
+    `rgba(74,222,128,.35)` border for definition, mirroring `.live-status`'s
+    border+glow pill look. At 85% opacity the pill reads as a solid dark
+    chip almost independent of the photo underneath, so contrast no longer
+    depends on the fill's hue matching (or clashing with) the text, or on
+    how much photo shows through.
+  - **Verified properly this time**: computed the actual WCAG contrast
+    ratio between the composited pill color (fill blended over the
+    *brightest single photo pixel* sampled directly under the badge — true
+    worst case, not an average) and the text color. Result: **8.64:1 at
+    1280px, 9.02:1 at 375px** — both comfortably past the 4.5:1 AA
+    threshold for normal text, using the actual worst-case pixel rather
+    than an average. This is the contrast-ratio check that should have run
+    the first time instead of a photo-darkness check.
+  - No overflow, no console errors, forc3designer.html's card (no badge)
+    unaffected. Bumped `?v=16 -> v=17 -> v=18` across both attempts.
+  - **Lesson for next time a translucent color fill sits over a photo**:
+    verifying "the backdrop is dark" is not the same as verifying "the
+    fill-plus-backdrop has enough contrast against the text color" — check
+    the actual composited color against the text color's contrast ratio,
+    not just backdrop luminance in isolation. And when the owner sends a
+    screenshot, get an actual screenshot back before declaring it fixed —
+    math alone missed this the first time.
 
 - **Moved the GT3 badge back above the heading** — owner: "LIVE Server must
   be on top." This is the badge's *third* position in this card's history:
