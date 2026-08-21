@@ -399,6 +399,36 @@ this repo.** Important consequences:
   ("Race live. GT3FORC3 servers // N drivers on track Climb the
   leaderboard."). That was the cost of putting it on the title line.
 
+## FORC3 Designer download button — another cross-repo dependency
+
+Both "Download for Windows" buttons on `forc3designer.html` (hero CTA and
+the "What it does" section CTA) point directly at:
+
+```
+https://github.com/LachanceGL/forc3-designer-releases/releases/latest/download/FORC3-Designer-Setup.exe
+```
+
+- That's GitHub's "latest release" redirect URL, so it always serves
+  whatever the newest published release's `FORC3-Designer-Setup.exe` asset
+  is — **no code change needed here when a new version ships**, as long as
+  the release in `forc3-designer-releases` keeps using that exact asset
+  filename. If a future release renames the installer asset, this link
+  breaks (404) until it's updated to match.
+- `forc3-designer-releases` is a **separate GitHub repo** from this one and
+  from the app's own source repo (`forc3-designer`, on Azure DevOps per
+  `MEMORY.md`) — it exists purely to host built installer releases. Don't
+  confuse the three: `forc3mod-website` (this repo, the marketing site),
+  `forc3-designer` (ADO, the app's source), `forc3-designer-releases`
+  (GitHub, built installers only).
+- Both links carry `target="_blank" rel="noopener"`, matching this site's
+  convention for every other external link (Discord, Patreon).
+- As of 2026-08-21 when this was wired in, `CLAUDE.md`'s "What this is"
+  section still describes FORC3 Designer as "still in development — not
+  released yet." Wiring the download link doesn't by itself confirm a
+  public release — if that status line goes stale, verify against whether
+  the releases repo actually has a published release before trusting either
+  claim over the other.
+
 ## Modal system (`js/main.js`)
 
 Generic, reusable pattern — reuse this for any future popup instead of

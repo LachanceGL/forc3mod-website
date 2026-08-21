@@ -14,6 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Wired the FORC3 Designer download button to a real URL.** Both
+  "Download for Windows" buttons on `forc3designer.html` (hero + features
+  section) went from `href="#"` placeholders to
+  `https://github.com/LachanceGL/forc3-designer-releases/releases/latest/download/FORC3-Designer-Setup.exe`
+  — GitHub's "latest release" redirect, so it stays current automatically
+  as long as future releases keep that asset filename. Added
+  `target="_blank" rel="noopener"` to match every other external link on
+  the site. Plain HTML attribute change, no CSS/JS touched, no `?v=` bump
+  needed. See `CLAUDE.md`'s new "FORC3 Designer download button" section
+  for the cross-repo naming (this site vs. `forc3-designer` on ADO vs.
+  `forc3-designer-releases` on GitHub) and the caveat that this alone
+  doesn't confirm the app is publicly released yet.
+
 - **GT3 badge legibility — the real bug (`v=19`), after two wrong color
   fixes (`v=17`, `v=18`).** Owner sent a screenshot ("are you drunk")
   showing the badge nearly washed out; a hard refresh didn't help ("its
