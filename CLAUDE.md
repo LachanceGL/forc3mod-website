@@ -93,7 +93,8 @@ than rewriting it from scratch.
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
-| `img/FD_SitePreview.jpg` | Real app screenshot, used as the photo background on `forc3designer.html`'s "Your car, your canvas." card (swapped in 2026-08-20, replacing `FORC3Designer_Showcase01.jpg`). Its `background-position` is tuned off-center (`55% center`) — see "Photo cards" below. |
+| `img/FD_SitePreview_Framed.jpg` | The actual photo background used on `forc3designer.html`'s "Your car, your canvas." card — a derivative crop of `FD_SitePreview.jpg` with the app's left toolbar and most dead space trimmed out. See "Photo cards" below. |
+| `img/FD_SitePreview.jpg` | The original owner-provided screenshot (full app UI, including the toolbar — not just the car). No longer referenced directly by any page; kept on disk as the source `FD_SitePreview_Framed.jpg` was cropped from. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
 | `CNAME` | GitHub Pages custom domain config. |
 
@@ -162,21 +163,30 @@ element.
   inline style instead. Same underlying gotcha as the footer logo's
   `mask-image` path (see "Logo system" above) — CSS `url()` in general
   resolves relative to the *stylesheet* unless you go absolute.
-- **`background-position: center` on a `cover`-sized image doesn't mean
-  "the subject is centered"** — it means the raw canvas is centered, which
-  is only the same thing if the subject happens to sit in the middle of the
-  source file. `forc3designer.html`'s `FD_SitePreview.jpg` doesn't: it's an
-  app screenshot with a left-side toolbar, so the car itself sits right of
-  the image's true center. `.theme-designer .about__card--photo::before` now
-  uses `background-position: 55% center`, chosen by scanning the image for
-  the car's actual pixel bounding box (not eyeballed) and solving for how
-  much each card aspect ratio's crop window overflows the image — the value
-  that best centers the crop on the car turned out to range from ~56% at the
-  narrow mobile aspect ratio up to ~61% at the wide desktop one, since it's
-  mobile that crops the most (~244px unavoidably lost vs ~33px at desktop);
-  55% was picked to fit mobile closely since that's where it's most visible.
-  If this image is ever replaced, re-derive the percentage rather than
-  reusing 55% — it's specific to where the subject sits in *this* file.
+- **`forc3designer.html`'s photo card uses `background-size: cover, contain`
+  — two different sizing keywords, one per layer** (the `background:`
+  property there has two comma-separated layers: the dark gradient first,
+  then `var(--about-photo)`). The gradient still `cover`s the card as usual;
+  the photo uses `contain` instead, so the *whole* image is always visible,
+  letterboxed rather than cropped, regardless of card aspect ratio.
+  - History: a `cover` crop (first plain `center`, then a measured
+    `55% center` to reduce clipping) was tried and explicitly rejected — the
+    owner wants the whole car visible with nothing cut off, which `cover`
+    structurally cannot guarantee at every breakpoint no matter how the
+    position is tuned. `contain` guarantees it outright.
+  - This only works well because `--about-photo` here is
+    `FD_SitePreview_Framed.jpg`, a **derivative crop**, not the original
+    screenshot — see the file map. The raw `FD_SitePreview.jpg` includes the
+    app's left toolbar and a lot of dead background; `contain`-fitting *that*
+    directly would shrink the car down small to fit the toolbar in too.
+    `FD_SitePreview_Framed.jpg` was cropped (via a one-off script, not
+    committed) to just the car with a small margin, found by scanning the
+    source image for the car's actual bright-pixel bounding box rather than
+    eyeballing it — the toolbar's icons are bright too, so that scan has to
+    stay clear of the toolbar's own x-range or it contaminates the result.
+  - If this image is ever replaced, crop the new source the same way (car +
+    small margin, no UI chrome) rather than pointing `--about-photo` at an
+    uncropped screenshot and expecting `contain` alone to compensate.
 - **`gt3forc3.html`'s photo card has NO dark overlay gradient at all** —
   `.theme-gt3 .about__card--photo::before` is just `var(--about-photo)`, no
   `linear-gradient` layer. `forc3designer.html`'s card is different on

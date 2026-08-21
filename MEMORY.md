@@ -14,6 +14,40 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-20
 
+- **The `55%` reframe (previous entry) turned out to be a dead end** — owner
+  reported "I don't see any difference" after a confirmed hard refresh.
+  Correctly so: the actual pixel shift at the desktop breakpoint was only
+  ~5px, since the position percentage doesn't map linearly to "where the
+  subject sits" the way I'd assumed — I had to re-derive the real relationship
+  (it depends on how much the image overflows the card, which differs a lot
+  by breakpoint) to even understand why my own fix was so subtle. Asked what
+  they actually wanted rather than guess a third time: "show the whole car,
+  nothing cropped" (vs. the alternative of zooming in tighter).
+- **Solved properly instead of re-tuning position again**: `cover` structurally
+  cannot guarantee "nothing cropped" at every card aspect ratio no matter how
+  it's positioned — only `contain` can. Cropped a new derivative image,
+  `img/FD_SitePreview_Framed.jpg`, from the original screenshot: found the
+  car's real bounding box by scanning pixel brightness (both x AND y this
+  time — the earlier fix only ever measured x), trimmed out the toolbar and
+  most of the dead background, left a small margin. Switched
+  `.theme-designer .about__card--photo::before` to
+  `background-size: cover, contain` (per-layer: gradient still covers, photo
+  now contains) so the *whole* car is guaranteed visible at every breakpoint,
+  letterboxed rather than cropped — a guarantee that doesn't depend on
+  position tuning or need re-measuring per breakpoint the way `cover` did.
+- Gotcha hit while cropping: my first attempt used symmetric percentage
+  padding around the car's bbox on all four sides, which re-entered the
+  toolbar's zone on the left (the toolbar's own icons extend to ~x149,
+  well past the car's x122 bbox start) and left a sliver of it in the crop.
+  Fixed with an explicit hard left bound instead of padding math on that
+  side specifically. Caught by actually viewing the cropped file with the
+  Read tool before wiring it up — did the same for the final crop before
+  committing, since screenshots of the rendered page remain unavailable in
+  this environment (confirmed failing twice again this session).
+- `img/FD_SitePreview.jpg` (uncropped) kept on disk as the crop's source,
+  same reasoning as before for not deleting owner-provided assets.
+- Bumped `?v=11 -> v=12` (CSS changed).
+
 - **Reframed `FD_SitePreview.jpg`** on request ("frame it better"). Measured
   rather than guessed: scanned the image's pixels to find the car's actual
   bounding box (x 122-977 of 1048px width — the app's left toolbar was

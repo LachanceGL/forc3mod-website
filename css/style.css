@@ -830,22 +830,19 @@ h1, h2, h3, h4, h5 {
   background:
     linear-gradient(to bottom, rgba(0,0,0,.92) 0%, rgba(0,0,0,.92) 15%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.85) 100%),
     var(--about-photo);
-  background-size: cover;
-  /* A plain `center` crop clipped the rear wing/spoiler noticeably more than
-     the front bumper — worst at the narrow mobile breakpoint (measured: 96px
-     off the front vs 147px off the rear), since the app's left toolbar in
-     the screenshot pulls the raw image's midpoint left of the car's actual
-     bounding box (found by scanning the image for the car's bright-pixel
-     extent, not eyeballed: car spans roughly x 122-977 of the 1048px-wide
-     source). 55% balances that — it isn't a clean "center on the car" for
-     every card size (the required value to do that ranges from ~56% at the
-     mobile aspect ratio up to ~61% at the wide desktop one, since how much
-     the image overflows the card differs a lot by breakpoint), but mobile is
-     where the crop is most severe (~244px unavoidably cut vs ~33px at
-     desktop) and 55% nearly centers it there (118px/125px each end) while
-     still clearly improving desktop's balance too (2px/31px, down from a
-     42px rear clip). Re-measure both ends if this image is ever replaced. */
-  background-position: 55% center;
+  /* Per-layer sizing (comma-separated, matching the two `background` layers
+     above in order): the gradient still `cover`s the whole card as usual,
+     but the photo uses `contain` instead. `--about-photo` here is
+     FD_SitePreview_Framed.jpg, cropped down to just the car (toolbar and
+     most of the dead background trimmed out, found by scanning the source
+     screenshot for the car's actual pixel bounding box, not eyeballed). A
+     `cover` crop on the uncropped screenshot was tried first and rejected —
+     the requirement is that the whole car is always visible, and `cover`
+     fundamentally can't guarantee that at every card aspect ratio, only
+     `contain` can (it may letterbox instead, which is fine — the letterboxed
+     margin is this same dark background colour either way). */
+  background-size: cover, contain;
+  background-position: center;
 }
 /* This card's text sits at the top instead of the bottom (unlike the GT3
    page's photo card), since it has no badge to anchor at the top anymore. */
