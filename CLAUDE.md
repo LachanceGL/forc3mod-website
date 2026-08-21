@@ -226,6 +226,24 @@ element.
   If contrast ever looks insufficient on a new/replaced photo, strengthen
   the text-shadow values, not the gradient — the gradient can't reliably
   track the text's position (see above), the shadow always can.
+- **The badge itself needs this same treatment — it was missed once, and
+  broke.** Only h3/p got `text-shadow` when that fix landed on 2026-08-19,
+  because the badge sat *after* them at the time (last child) — right in
+  the corner gradient's strongest zone, so it happened to read fine without
+  its own contrast mechanism. When the badge moved back to first child on
+  2026-08-21 ("LIVE Server must be on top"), that stopped being true: first
+  position sits where the gradient is much weaker (~33% strength measured),
+  and the badge's own `rgba(34,197,94,.16)` fill was too weak on its own —
+  confirmed as a real regression via canvas pixel sampling, not a caching
+  issue, after the owner reported it nearly illegible. Fixed by giving
+  `.about__card--photo .about__badge` the same two-layer `text-shadow` as
+  h3/p, plus bumping its own fill to `.28` opacity. **Lesson: any text in
+  this card needs its own position-independent contrast — don't assume a
+  later reposition is safe just because the current position looks fine.**
+  If the badge (or anything else in this card) moves again, re-verify its
+  own contrast at the new position rather than assuming the existing
+  text-shadow rules still cover it by inheritance — check what selector
+  they're actually scoped to.
 - **`.about__badge` is the FIRST child of the card, in normal flow** (not
   absolutely positioned — it used to be pinned to the top-left corner via
   `position: absolute; top: 32px; left: 32px`, regardless of where h3/p

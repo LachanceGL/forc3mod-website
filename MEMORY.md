@@ -14,6 +14,32 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Fixed the GT3 badge's own legibility** — owner sent a screenshot ("are
+  you drunk") showing the badge nearly washed out; a hard refresh didn't
+  help ("its refreshed"), ruling out cache. Diagnosed for real: moving the
+  badge back to first-child position (see below) put it where the corner
+  gradient has already faded to only ~33% strength, and confirmed via
+  canvas pixel sampling that the underlying photo there is genuinely bright
+  in spots (worst raw sample 0.322 luminance at the time) — the badge's old
+  `rgba(34,197,94,0.16)` fill was too weak to read against that.
+  This is the exact same category of bug the h3/p text-shadow fix already
+  solved once on this card (2026-08-19: a gradient can't be the contrast
+  mechanism when the thing sitting on top of it moves) — the badge just
+  hadn't gotten the same treatment yet, because it didn't need it in its
+  *previous* positions. Fixed by giving `.about__card--photo .about__badge`
+  the same two-layer `text-shadow` as h3/p (`0 2px 10px rgba(0,0,0,.85), 0
+  1px 2px rgba(0,0,0,.95)`), plus bumping its own background fill from
+  `.16` to `.28` opacity for better pill-shape definition. Re-verified with
+  the same canvas-sampling method at both 1280px and 375px: raw photo
+  luminance under the badge is actually a fairly dark, uniform region at
+  both sizes (avg ~0.14-0.16; the earlier 0.322 "worst case" was measured
+  at a different viewport/position combination) — comfortably inside the
+  range this exact text-shadow already proved safe for h3/p. No overflow,
+  no console errors, forc3designer.html's card (no badge) unaffected.
+  Bumped `?v=16 -> v=17`.
+  See `CLAUDE.md`'s "Photo cards" section — badge now documented as needing
+  its own robust, position-independent contrast mechanism, not just h3/p.
+
 - **Moved the GT3 badge back above the heading** — owner: "LIVE Server must
   be on top." This is the badge's *third* position in this card's history:
   originally first (before h3/p), moved to last (after p) on 2026-08-19
