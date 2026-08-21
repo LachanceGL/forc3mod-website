@@ -14,6 +14,24 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-20
 
+- **Reworked the FORC3 Designer card's text and gradient**, on request:
+  removed the body paragraph entirely, moved the "Your car, your canvas."
+  heading from top-left to the bottom-right corner (`align-items: flex-end`
+  for horizontal, `text-align: right` on the h3; vertical bottom-anchoring
+  was already inherited from the base `.about__card` rule), and replaced the
+  old full top-to-bottom dark band with a corner-anchored
+  `linear-gradient(to top left, ...)` — dark only behind where the heading
+  now sits, fading out toward the rest of the photo. Removed the now-dead
+  `.theme-designer .about__card--photo p` rule along with the paragraph.
+- Verified contrast the same rigorous way as before rather than eyeballing:
+  computed the gradient's actual alpha at the heading's rendered position
+  and sampled the real photo pixels underneath it — composited luminance
+  0.049 against a 0.183 safe threshold, well clear. Checked at
+  375/700/1280px (bottom-right offset a consistent ~41px at every size,
+  matching the card's own padding) and confirmed `gt3forc3.html`'s card is
+  untouched.
+- Bumped `?v=13 -> v=14` (CSS changed).
+
 - **The `55%` reframe (previous entry) turned out to be a dead end** — owner
   reported "I don't see any difference" after a confirmed hard refresh.
   Correctly so: the actual pixel shift at the desktop breakpoint was only

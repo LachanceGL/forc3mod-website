@@ -828,16 +828,26 @@ h1, h2, h3, h4, h5 {
 }
 .theme-designer .about__card--photo::before {
   background:
-    linear-gradient(to bottom, rgba(0,0,0,.92) 0%, rgba(0,0,0,.92) 15%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.85) 100%),
+    /* Dark pool anchored at the bottom-right corner (`to top left` starts
+       the gradient line there), fading to fully transparent by 65% of the
+       way toward the opposite corner — the heading sits in that corner now,
+       not at the top, so that's the only part of the photo that needs
+       darkening for text contrast. Opacity checked against this image's own
+       bottom-right pixels (sampled, not guessed): mostly dark already but
+       with bright patches up to ~164/255, hence still fairly strong (.9) at
+       the corner itself. */
+    linear-gradient(to top left, rgba(0,0,0,.9) 0%, rgba(0,0,0,.55) 30%, transparent 65%),
     var(--about-photo);
   background-size: cover;
   background-position: center;
 }
-/* This card's text sits at the top instead of the bottom (unlike the GT3
-   page's photo card), since it has no badge to anchor at the top anymore. */
+/* Text sits in the bottom-right corner: align-items shifts the box itself
+   to the right edge (cross-axis, since this is a column flex container),
+   text-align (below) right-aligns the h3's own wrapped lines within that
+   box. justify-content is inherited as flex-end from the base .about__card
+   rule, which bottom-anchors it — no override needed here for that part. */
 .theme-designer .about__card--photo {
-  justify-content: flex-start;
-  padding-top: 24px;
+  align-items: flex-end;
   /* The card is sized to FD_SitePreview.jpg's own aspect ratio (824/485,
      the actual file's pixel dimensions) instead of the generic 4/3 (desktop)
      / 16/10 (tablet) / auto+min-height (mobile) the plain icon cards use.
@@ -860,8 +870,7 @@ h1, h2, h3, h4, h5 {
      alone determine sizing, like it does at every other breakpoint. */
   min-height: 0;
 }
-.theme-designer .about__card--photo h3 { font-size: 22px; }
-.theme-designer .about__card--photo p { font-size: 13px; }
+.theme-designer .about__card--photo h3 { font-size: 22px; text-align: right; }
 .theme-designer .card:hover { border-color: rgba(212, 225, 0, .4); }
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
 

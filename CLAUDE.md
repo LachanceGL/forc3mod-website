@@ -188,11 +188,22 @@ element.
     whatever file is actually in use, not assumed.
 - **`gt3forc3.html`'s photo card has NO dark overlay gradient at all** —
   `.theme-gt3 .about__card--photo::before` is just `var(--about-photo)`, no
-  `linear-gradient` layer. `forc3designer.html`'s card is different on
-  purpose: no badge, its own h3/p sit at the *top* instead, and it still
-  needs the base/`.theme-designer` version's full dark band for its own text
-  contrast — **don't copy the GT3 (no-gradient) treatment over there**, that
-  card's heading would become illegible.
+  `linear-gradient` layer. `forc3designer.html`'s card still needs *some*
+  darkening for its own heading's contrast — it has no badge, and (as of
+  2026-08-20) no body paragraph either, just the h3 alone, now positioned in
+  the **bottom-right corner** rather than the top. Its
+  `.theme-designer .about__card--photo::before` gradient is a corner pool
+  instead of a full top-to-bottom band: `linear-gradient(to top left,
+  rgba(0,0,0,.9) 0%, rgba(0,0,0,.55) 30%, transparent 65%)`, dark only in
+  that corner where the heading actually sits, fading out toward the rest of
+  the photo — **don't copy the GT3 (no-gradient) treatment over there**, that
+  heading would become illegible without it.
+  - Positioning: `align-items: flex-end` on the card (a column flex
+    container) pushes the h3 to the right edge; `text-align: right` on the
+    h3 right-aligns its own wrapped lines within that box.
+    `justify-content` for the bottom-anchoring is inherited from the base
+    `.about__card` rule (`flex-end`) — no override needed for that part,
+    only the horizontal side needed one.
 - **A percentage-position gradient was tried on the GT3 card first, and
   abandoned — don't reintroduce it.** The badge is a long sentence that
   wraps 1-3 lines depending on card width, and it's the *last* flex child
