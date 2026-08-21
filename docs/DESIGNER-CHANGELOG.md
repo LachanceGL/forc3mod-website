@@ -24,5 +24,5 @@ vVERSION — DESCRIPTION // Mon D, YYYY
 
 ---
 
-v0.1.1 — Fixes the installer's final page // Aug 21, 2026
-v0.1 — Initial release // Aug 21, 2026
+v0.1.1 — Installer improvement // Aug 21, 2026
+v0.1.0 — Initial release // Aug 21, 2026
