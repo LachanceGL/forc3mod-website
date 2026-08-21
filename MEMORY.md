@@ -14,6 +14,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-20
 
+- **Swapped the "Your car, your canvas." card image** on `forc3designer.html`
+  from `img/FORC3Designer_Showcase01.jpg` to a new owner-provided screenshot,
+  `img/FD_SitePreview.jpg` (already present in `img/`, just not referenced
+  yet). Root-absolute path in the inline `--about-photo` style, per the
+  established `url()`-resolves-against-the-stylesheet gotcha. Old image left
+  on disk rather than deleted — it's owner-provided, not generated, so
+  removing it felt like a bigger call than a routine dead-code cleanup.
+  `CLAUDE.md`'s file map updated to match.
+
 - **Site gated again — back into Coming Soon mode.** Standard procedure:
   `git mv index.html home.html`, restored the Coming Soon page from
   `git show cecd217:index.html`, re-appended the `.coming-soon` CSS block

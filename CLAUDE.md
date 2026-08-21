@@ -93,7 +93,8 @@ than rewriting it from scratch.
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
-| `img/FORC3Designer_Showcase01.jpg` | Real app screenshot, used as the photo background on `forc3designer.html`'s "Your car, your canvas." card. |
+| `img/FD_SitePreview.jpg` | Real app screenshot, used as the photo background on `forc3designer.html`'s "Your car, your canvas." card (swapped in 2026-08-20, replacing `FORC3Designer_Showcase01.jpg`). |
+| `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
