@@ -31,9 +31,17 @@ explicitly rather than leaving the old entry looking still-current.
   (bottom-right) is untouched.
 - `CLAUDE.md` updated to make the distinction explicit for next time:
   gradient-as-contrast-mechanism is still the dead end on this card;
-  gradient-as-decoration-while-shadow-does-the-work is fine and is what's
-  shipped now.
+  gradient-as-decoration-while-shadow-does-the-work is fine.
 - Bumped `?v=14 -> v=15` (CSS changed).
+- **Follow-up same day: owner said the gradient read as too weak** ("must be
+  black to opacity") — fair, the .55 peak I'd picked was closer to a gray
+  wash than black. Bumped the stops to match theme-designer's exactly (.9 /
+  .55 / transparent at 0/30/65%), so the two pages are now genuinely
+  consistent rather than GT3's being a diluted copy. The
+  decorative-not-load-bearing reasoning didn't change — text-shadow is still
+  untouched and still what actually keeps the text legible — only the
+  gradient's own visual strength did. Re-verified text-shadow still applied
+  and no overflow after the change. Bumped `?v=15 -> v=16`.
 
 ## 2026-08-20
 
