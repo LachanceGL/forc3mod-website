@@ -226,16 +226,21 @@ element.
   If contrast ever looks insufficient on a new/replaced photo, strengthen
   the text-shadow values, not the gradient — the gradient can't reliably
   track the text's position (see above), the shadow always can.
-- **`.about__badge` is the LAST child of the card**, in normal flow (not
+- **`.about__badge` is the FIRST child of the card, in normal flow** (not
   absolutely positioned — it used to be pinned to the top-left corner via
   `position: absolute; top: 32px; left: 32px`, regardless of where h3/p
-  sat). It sits below h3 and p, flush against the card's bottom padding.
-  First attempt put it *before* h3/p (still bottom-anchored as a group, but
-  above the heading) — owner said that still didn't read as "the bottom",
-  since it sat above the text block rather than below it. If you add a
-  badge to a *new* photo card, decide its position from scratch — the old
-  absolute-positioned top-left version is gone, and there's no default to
-  fall back on.
+  sat). The card as a whole is still bottom-anchored (`justify-content:
+  flex-end`, inherited from the base `.about__card` rule), so the badge+h3+p
+  group sits at the bottom of the card either way — this only controls the
+  order *within* that group. Has flipped twice: badge-before-h3 (original),
+  then moved to *after* p (owner: that didn't read as "the bottom", since it
+  sat above the group rather than below it — see MEMORY.md 2026-08-19), then
+  back to badge-first (owner: "LIVE Server must be on top" — see MEMORY.md
+  2026-08-21). If it moves again, don't assume either position is "settled" —
+  check `MEMORY.md`'s dated log for the most recent instruction before
+  guessing. If you add a badge to a *new* photo card, decide its position
+  from scratch — the old absolute-positioned top-left version is gone, and
+  there's no default to fall back on.
 
 ## Nav active-state — a fixed gotcha, don't reintroduce it
 

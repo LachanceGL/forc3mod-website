@@ -14,6 +14,16 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Moved the GT3 badge back above the heading** — owner: "LIVE Server must
+  be on top." This is the badge's *third* position in this card's history:
+  originally first (before h3/p), moved to last (after p) on 2026-08-19
+  because that read as "not the bottom," now moved back to first on request.
+  Pure markup reorder, no CSS touched — the group as a whole stays
+  bottom-anchored via the base `.about__card`'s `justify-content: flex-end`
+  regardless of internal order, so this only affects order *within* the
+  group. No `?v=` bump needed. `CLAUDE.md`'s note on this now points at this
+  log instead of asserting a "final" position, since it's flipped twice.
+
 - **Added a bottom-left corner gradient to the GT3 card**, on request, to
   mirror theme-designer's new bottom-right one. Had to reconcile this with a
   hard lesson from 2026-08-19: a position-tracking gradient was already
