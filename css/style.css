@@ -915,26 +915,24 @@ h1, h2, h3, h4, h5 {
 .theme-gt3 .about__card::before {
   background: radial-gradient(circle at 20% 15%, rgba(255, 46, 46, .25), transparent 55%);
 }
-/* GT3-only: NO dark overlay gradient at all — just the raw photo. Different
-   from base/theme-designer, which keep a full top-to-bottom dark card
-   (theme-designer's card has no badge and its own h3/p sit at the top, so it
-   still needs that darkening for contrast).
-   A percentage-position gradient was tried here first, tuned to sit behind
-   h3/p and ease off before the badge. It kept failing: the badge is a long
-   sentence that wraps 1-3 lines depending on card width, which swings h3's
-   vertical position by ~25 percentage points between mobile and desktop
-   (verified: ~33-52% narrow vs ~58-67% wide) — no single set of gradient
-   stops covers both without either leaving mobile h3 uncovered or dragging
-   the fade back down over the badge, which is the exact complaint that
-   started this. A card-height-relative gradient just can't track
-   flex-reflowed text reliably.
-   Text contrast is handled by `text-shadow` on h3/p instead (below) — that
-   works at the text's actual rendered position regardless of how the badge
-   above it wrapped, so it doesn't need to know where anything else is. The
-   badge relies on its own translucent pill fill, same as originally
-   verified when it sat elsewhere on this photo. */
+/* GT3-only: no full top-to-bottom dark band (unlike base/theme-designer) —
+   just a soft corner pool, bottom-left, mirroring theme-designer's
+   bottom-right one for visual consistency between the two product pages.
+   IMPORTANT — this gradient is decorative only, NOT the contrast mechanism:
+   a percentage-position gradient was tried here before as the *actual*
+   text-legibility fix and had to be abandoned (see the dead-end note further
+   down) — the badge wraps 1-3 lines depending on card width, which swings
+   h3's vertical position by ~25 percentage points between mobile and
+   desktop, and no fixed gradient could track that. This one doesn't have to:
+   it's kept deliberately gentle (fades out earlier, lower peak opacity than
+   theme-designer's) because `text-shadow` below still does the real
+   contrast work regardless of where anything wrapped to. Don't strengthen
+   this gradient to compensate for weak contrast — strengthen the
+   text-shadow instead, same as the existing rule below already says. */
 .theme-gt3 .about__card--photo::before {
-  background: var(--about-photo);
+  background:
+    linear-gradient(to top right, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 25%, transparent 50%),
+    var(--about-photo);
   background-size: cover;
   background-position: center;
 }

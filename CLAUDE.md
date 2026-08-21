@@ -186,42 +186,46 @@ element.
     version was built and explicitly rejected — use the real file the owner
     provides, not a generated one), so the ratio has to be re-read from
     whatever file is actually in use, not assumed.
-- **`gt3forc3.html`'s photo card has NO dark overlay gradient at all** —
-  `.theme-gt3 .about__card--photo::before` is just `var(--about-photo)`, no
-  `linear-gradient` layer. `forc3designer.html`'s card still needs *some*
-  darkening for its own heading's contrast — it has no badge, and (as of
-  2026-08-20) no body paragraph either, just the h3 alone, now positioned in
-  the **bottom-right corner** rather than the top. Its
-  `.theme-designer .about__card--photo::before` gradient is a corner pool
-  instead of a full top-to-bottom band: `linear-gradient(to top left,
-  rgba(0,0,0,.9) 0%, rgba(0,0,0,.55) 30%, transparent 65%)`, dark only in
-  that corner where the heading actually sits, fading out toward the rest of
-  the photo — **don't copy the GT3 (no-gradient) treatment over there**, that
-  heading would become illegible without it.
+- **`forc3designer.html`'s card** needs its heading darkening from a
+  gradient, since it has no badge and (as of 2026-08-20) no body paragraph
+  either — just the h3 alone, positioned in the **bottom-right corner**
+  rather than the top. Its `.theme-designer .about__card--photo::before`
+  gradient is a corner pool: `linear-gradient(to top left, rgba(0,0,0,.9)
+  0%, rgba(0,0,0,.55) 30%, transparent 65%)`, dark in that corner, fading
+  out toward the rest of the photo.
   - Positioning: `align-items: flex-end` on the card (a column flex
     container) pushes the h3 to the right edge; `text-align: right` on the
     h3 right-aligns its own wrapped lines within that box.
     `justify-content` for the bottom-anchoring is inherited from the base
     `.about__card` rule (`flex-end`) — no override needed for that part,
     only the horizontal side needed one.
-- **A percentage-position gradient was tried on the GT3 card first, and
-  abandoned — don't reintroduce it.** The badge is a long sentence that
-  wraps 1-3 lines depending on card width, and it's the *last* flex child
-  (see below), so h3's vertical position swings by ~25 percentage points of
-  card height between mobile and desktop (measured: ~33-52% narrow vs
-  ~58-67% wide). No fixed set of gradient stops can stay dark enough behind
-  h3 at every width without also dragging that darkness down over the badge
-  — which is the exact "badge is under a black gradient" complaint that
-  started this. A card-height-relative gradient structurally cannot track
-  flex-reflowed text.
+- **`gt3forc3.html`'s card also has a corner gradient now** — bottom-left,
+  mirroring theme-designer's bottom-right one for visual consistency between
+  the two product pages: `linear-gradient(to top right, rgba(0,0,0,.55) 0%,
+  rgba(0,0,0,.25) 25%, transparent 50%)`. **This one is decorative only,
+  NOT the contrast mechanism** — keep reading before touching it.
+- **A percentage-position gradient was tried on the GT3 card once before, as
+  the *actual* contrast fix, and had to be abandoned — don't repeat that
+  mistake.** The badge is a long sentence that wraps 1-3 lines depending on
+  card width, and it's the *last* flex child (see below), so h3's vertical
+  position swings by ~25 percentage points of card height between mobile and
+  desktop (measured: ~33-52% narrow vs ~58-67% wide). No fixed set of
+  gradient stops can stay dark enough behind h3 at every width without also
+  dragging that darkness down over the badge — which is the exact "badge is
+  under a black gradient" complaint that started this. A card-height-relative
+  gradient structurally cannot track flex-reflowed text, so it can never
+  safely be the thing legibility depends on here.
 - **Contrast is handled by `text-shadow` on `.theme-gt3 .about__card--photo
   h3, p` instead** — two stacked shadows, a tight dark one for edge
   definition and a soft wide one for a general halo. This works at the
   text's actual rendered position regardless of how the badge above it
   wrapped, so unlike a gradient it needs no knowledge of where anything else
-  landed. If contrast ever looks insufficient on a new/replaced photo,
-  strengthen these shadow values — don't reach for a background gradient
-  again, that's the dead end above.
+  landed. **The bottom-left corner gradient added later doesn't replace
+  this** — it's kept deliberately gentle (fades out earlier, lower peak
+  opacity than theme-designer's) precisely because it isn't load-bearing.
+  If contrast ever looks insufficient on a new/replaced photo, strengthen
+  the text-shadow values, not the gradient — the gradient can't reliably
+  track the text's position (see above), the shadow always can.
 - **`.about__badge` is the LAST child of the card**, in normal flow (not
   absolutely positioned — it used to be pinned to the top-left corner via
   `position: absolute; top: 32px; left: 32px`, regardless of where h3/p

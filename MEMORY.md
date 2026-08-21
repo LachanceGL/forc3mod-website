@@ -12,6 +12,29 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-21
+
+- **Added a bottom-left corner gradient to the GT3 card**, on request, to
+  mirror theme-designer's new bottom-right one. Had to reconcile this with a
+  hard lesson from 2026-08-19: a position-tracking gradient was already
+  tried and abandoned on this exact card as the *contrast* mechanism, because
+  the badge's 1-3 line wrap swings h3's position by ~25 points of card
+  height between breakpoints — no fixed gradient could track it, which is
+  why `text-shadow` replaced it entirely.
+- Resolved by keeping this new gradient purely decorative rather than
+  load-bearing: `text-shadow` on h3/p is untouched, still doing the actual
+  contrast work regardless of position. The new gradient is deliberately
+  gentle (fades out by 50%, lower peak opacity than theme-designer's 65%/.9)
+  since it doesn't need to precisely track anything — it just has to look
+  like an accent, not carry legibility. Verified text-shadow is still
+  applied and unchanged, and that forc3designer.html's own corner gradient
+  (bottom-right) is untouched.
+- `CLAUDE.md` updated to make the distinction explicit for next time:
+  gradient-as-contrast-mechanism is still the dead end on this card;
+  gradient-as-decoration-while-shadow-does-the-work is fine and is what's
+  shipped now.
+- Bumped `?v=14 -> v=15` (CSS changed).
+
 ## 2026-08-20
 
 - **Reworked the FORC3 Designer card's text and gradient**, on request:
