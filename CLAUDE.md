@@ -516,11 +516,13 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
   Measuring showed the spacing was already uniform (equal gaps, pixel-identical
   vertical alignment) — the unevenness was purely this pill-padding effect, so
   measure before assuming a real misalignment.
-- **The "Support" toggle has no caret glyph, deliberately.** A trailing caret
-  can't satisfy both requirements at once here: in the flow it pushes the
-  label off-centre inside the toggle's own box (visible the moment the
+- **The "Get support" toggle has no caret glyph, deliberately.** (Labeled
+  "Support" until 2026-08-21, when it was renamed to "Get support" — see
+  below. The no-caret reasoning is unaffected by the label text.) A trailing
+  caret can't satisfy both requirements at once here: in the flow it pushes
+  the label off-centre inside the toggle's own box (visible the moment the
   hover/active background paints), and pulling it out of the flow needs wider
-  symmetric padding, which makes the label-to-label gap before "Support"
+  symmetric padding, which makes the label-to-label gap before this toggle
   46px against 34px everywhere else. Both were tried and rejected on
   2026-08-18. Without it the toggle is pixel-identical to a plain
   `.nav__link`. `aria-haspopup`/`aria-expanded` still announce it as a menu —
@@ -529,22 +531,27 @@ keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
 - The mobile drawer overrides padding via `.nav.is-open .nav__link`, so none
   of this affects it.
 
-## Nav dropdown system (the "Support" tab)
+## Nav dropdown system (the "Get support" tab)
 
-**"Support" is a dropdown, not a page.** It has no `href` of its own — it
-opens a menu of three items: **Contact us** (the homepage `#contact`
-anchor), plus the Report a Bug / Make a Suggestion Discord deep links (IDs
-above). Don't "fix" it into a link to `SupportUs.html`; that was tried and
-corrected. `SupportUs.html` remains reachable only via the Patreon
-"Support us" links, which are a separate thing from "Support".
+**"Get support" is a dropdown, not a page.** (Labeled "Support" until
+2026-08-21; renamed on request — same dropdown, same behavior, just the
+label text.) It has no `href` of its own — it opens a menu of three items:
+**Contact us** (the homepage `#contact` anchor), plus the Report a Bug /
+Make a Suggestion Discord deep links (IDs above). Don't "fix" it into a link
+to `SupportUs.html`; that was tried and corrected. `SupportUs.html` remains
+reachable only via the Patreon "Support us" links, which are a separate
+thing from "Get support" — the footer's "Get support" column heading
+(above the same three links) was renamed at the same time, for the same
+reason; both used to just say "Support."
 
 - There is **no top-level Contact tab** — it was moved into this dropdown on
   2026-08-18. Consequence: on the homepage `#contact` no longer participates
   in the scroll-spy (that only tracks `.nav__link`s, and the menu items
   aren't one), so no nav item highlights while the contact section is in
   view. That's accepted, not a bug.
-- Label casing is deliberate: **"Support us"** and **"Contact us"**, lowercase
-  second word, set by the owner. Don't title-case them back.
+- Label casing is deliberate: **"Support us"**, **"Contact us"**, and **"Get
+  support"**, lowercase second (and third) word, set by the owner. Don't
+  title-case them back.
 
 Generic and reusable — use it for any future nav dropdown rather than
 building a second mechanism:
@@ -574,13 +581,16 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
-- **Measured (2026-08-18, after Contact moved into the dropdown)**: the
-  header row (logo + 4 nav items incl. this dropdown + actions) needs
-  **990px** of *client* width. `.nav` still collapses at
-  `max-width: 1120px`, so there is now ~110px of spare room — deliberately
-  left conservative rather than re-tuned. If you want the full nav on
-  1024px-wide laptops, lowering the breakpoint to ~1023px is safe on this
-  measurement; nobody has asked for that yet.
+- **Measured (2026-08-21, after "Support" -> "Get support")**: the header
+  row (logo + 4 nav items incl. this dropdown + actions) needs **~981px** of
+  required width. `.nav` still collapses at `max-width: 1120px`, so there is
+  still ~139px of spare room — the longer label didn't meaningfully eat into
+  it. (Prior measurement, 2026-08-18 after Contact moved into the dropdown,
+  was 990px with the shorter "Support" label — the two aren't directly
+  comparable since the measurement method differed slightly, but both land
+  comfortably under 1120px.) If you want the full nav on 1024px-wide
+  laptops, lowering the breakpoint to ~1023px is safe on this measurement;
+  nobody has asked for that yet.
 - History: the requirement was 1081px with the Contact tab present, and the
   breakpoint was **1080px and actively overflowing** the moment the
   dropdown's caret was added (the caret pushed it from 1058px to 1081px).

@@ -14,6 +14,17 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Renamed the "Support" nav dropdown + footer heading to "Get support"**
+  across all 4 pages, on request ("change any Support to Get support").
+  Left "Support us" (the Patreon link/footer link) untouched — the request
+  was for the standalone "Support" label specifically, and CLAUDE.md already
+  documents these as two deliberately separate things. Re-measured the nav's
+  required width with the longer label (~981px) against the 1120px collapse
+  breakpoint — still ~139px of headroom, no breakpoint change needed.
+  Verified no overflow at 1121px (right at the edge), mobile drawer shows
+  "Get support" correctly. `CLAUDE.md`'s "Nav dropdown system" and "Nav
+  width" sections updated to match.
+
 - **Created `docs/DESIGNER-CHANGELOG.md`** as the editable source for the
   Changelog modal on `forc3designer.html`, on request ("make this panel as
   a file I can edit in VScode, then you look at it to update it on the
