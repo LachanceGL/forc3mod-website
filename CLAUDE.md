@@ -467,11 +467,20 @@ doc drift from what's actually live. Plain HTML/text edit — no `?v=` bump.
 - The header's "FORC3MOD Discord" button and the Support Us page's hero
   Discord button were both **intentionally removed** by request. Support Us
   now has zero Discord CTAs on purpose — don't add one back without asking.
+- X (Twitter): `https://x.com/forc3mod`. Linked in the footer's Community
+  column (all 4 pages, plain text link matching the Discord entries' style)
+  and as a circular `.icon-btn` in the header, immediately **before** the
+  Discord button, on `index.html`, `forc3designer.html`, and `gt3forc3.html`
+  only — `SupportUs.html` has no header Discord button (see above), so
+  there's no "next to Discord" slot there; it wasn't added to that page's
+  header. Icon is the current X logo (not the old bird), inline SVG, reusing
+  the site's existing `.icon-btn` treatment (same class as the hamburger and
+  modal-close buttons) rather than a new one-off style.
 
 ## Header "Support us" link — a responsive gotcha, don't reintroduce it
 
 "Support Us" used to sit inside `<nav class="nav">` with the other nav items.
-It now lives in `.header__actions` instead, immediately **after** the Discord
+It now lives in `.header__actions` instead, after the X icon + Discord
 button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the
 hamburger alone (`SupportUs.html`, which has no header Discord button — see
 above). It deliberately keeps plain **`.nav__link` styling**, not a `.btn` —
@@ -581,16 +590,16 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
-- **Measured (2026-08-21, after "Support" -> "Get support")**: the header
-  row (logo + 4 nav items incl. this dropdown + actions) needs **~981px** of
-  required width. `.nav` still collapses at `max-width: 1120px`, so there is
-  still ~139px of spare room — the longer label didn't meaningfully eat into
-  it. (Prior measurement, 2026-08-18 after Contact moved into the dropdown,
-  was 990px with the shorter "Support" label — the two aren't directly
-  comparable since the measurement method differed slightly, but both land
-  comfortably under 1120px.) If you want the full nav on 1024px-wide
-  laptops, lowering the breakpoint to ~1023px is safe on this measurement;
-  nobody has asked for that yet.
+- **Measured (2026-08-21, after adding the header X icon button)**: the
+  header row (logo + 4 nav items + actions incl. the new X icon) needs
+  **~1033px** of required width. `.nav` still collapses at `max-width:
+  1120px`, so there is still ~87px of spare room. Verified no overflow at
+  1121px (right at the breakpoint edge) and at 375px (X icon stays a plain
+  40px `.icon-btn`, doesn't need to hide/shrink like the Discord button's
+  label text does). (Prior measurement, 2026-08-21 after "Support" ->
+  "Get support", was ~981px before the X icon existed.) If you want the
+  full nav on 1024px-wide laptops, lowering the breakpoint to ~1023px is
+  safe on this measurement; nobody has asked for that yet.
 - History: the requirement was 1081px with the Contact tab present, and the
   breakpoint was **1080px and actively overflowing** the moment the
   dropdown's caret was added (the caret pushed it from 1058px to 1081px).

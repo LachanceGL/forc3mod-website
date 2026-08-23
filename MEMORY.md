@@ -14,6 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Added an X (Twitter) icon button to the header**, next to the Discord
+  button, on request (screenshot showed the intended empty spot). Used the
+  existing `.icon-btn` class (same circular treatment as the hamburger/modal
+  close buttons) rather than inventing a new style, placed immediately
+  before the Discord button on `index.html`, `forc3designer.html`, and
+  `gt3forc3.html`. Not added to `SupportUs.html`'s header — that page has no
+  header Discord button by design (see CLAUDE.md), so there's no "next to
+  Discord" slot to put it in. Re-measured the header's required width
+  (~1033px, was ~981px) against the 1120px collapse breakpoint — still
+  ~87px of headroom, verified no overflow at 1121px or 375px. Links to
+  `https://x.com/forc3mod`, same URL already used for the footer's X link
+  added earlier today.
+
 - **Renamed the "Support" nav dropdown + footer heading to "Get support"**
   across all 4 pages, on request ("change any Support to Get support").
   Left "Support us" (the Patreon link/footer link) untouched — the request
