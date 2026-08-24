@@ -14,6 +14,25 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Added Instagram (`https://www.instagram.com/forc3mod/`)** on request,
+  mirroring exactly how X was added earlier today: footer Community column
+  link on all 4 pages (below the X link), plus a header `.icon-btn` right
+  after the X icon, on `index.html`, `forc3designer.html`, `gt3forc3.html`.
+  **Found and fixed a real overflow bug this introduced**: with two social
+  icons now in `.header__actions`, the row stopped fitting real phone
+  widths (~375-400px, including the very common iPhone 12/13 at 390px) —
+  measured required width ~401px, a razor-thin fit. Fixed the same way the
+  site already handles this (Discord label hides at 640px, Support us hides
+  at 520px): both social icons now share a `.header__social` class, hidden
+  below 410px via a new media query in `css/style.css`, still reachable via
+  the footer everywhere. Verified no overflow from 375px up through 1121px
+  (the nav breakpoint edge) on both `index.html` and `gt3forc3.html`, console
+  clean. Bumped `?v=19 -> v=20` (CSS changed). Re-measured nav's required
+  width too (~1083px, was ~1033px with just X) — still fits under the
+  1120px breakpoint but headroom is down to ~37px; flagged in CLAUDE.md to
+  re-measure before any third header icon. See CLAUDE.md's new "Header
+  social icons — an overflow gotcha" section.
+
 - **Added an X (Twitter) icon button to the header**, next to the Discord
   button, on request (screenshot showed the intended empty spot). Used the
   existing `.icon-btn` class (same circular treatment as the hamburger/modal

@@ -417,6 +417,21 @@ h1, h2, h3, h4, h5 {
 .icon-btn .ico { width: 17px; height: 17px; }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent-2); }
 
+/* The X/Instagram header icons are the newest, lowest-priority items in
+   .header__actions — same "hide before the row overflows" treatment as the
+   Discord button's label text (640px) and the Support us link (520px)
+   below. Measured (2026-08-21, after adding Instagram): logo + hamburger +
+   2 social icons + Discord icon + gaps needs ~401px even with the existing
+   480px-breakpoint gap/logo reductions already applied — that's a razor-thin
+   fit with zero slack at exactly 401px, so the breakpoint is set a bit
+   above it (410px) for a small buffer against font-rendering differences
+   across browsers, rather than matching the measurement exactly. Doesn't
+   fit most phones (iPhone 12/13 at 390px included) without hiding these.
+   Still reachable via the footer's Community column on every page. */
+@media (max-width: 410px) {
+  .header__social { display: none; }
+}
+
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 

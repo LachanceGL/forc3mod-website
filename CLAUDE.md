@@ -476,11 +476,41 @@ doc drift from what's actually live. Plain HTML/text edit — no `?v=` bump.
   header. Icon is the current X logo (not the old bird), inline SVG, reusing
   the site's existing `.icon-btn` treatment (same class as the hamburger and
   modal-close buttons) rather than a new one-off style.
+- Instagram: `https://www.instagram.com/forc3mod/`. Same treatment as X —
+  footer Community column link on all 4 pages (added below the X link), plus
+  a header `.icon-btn` right after the X icon (before Discord), on the same
+  3 pages. Both header icons share the `.header__social` class — see "Header
+  social icons — an overflow gotcha" below.
+
+## Header social icons — an overflow gotcha, don't reintroduce it
+
+`.header__actions` holds (in order): the hamburger, the X icon, the
+Instagram icon, the Discord button, then "Support us" — on `index.html`,
+`forc3designer.html`, `gt3forc3.html`. Both social icons share the
+`.header__social` class, a circular `.icon-btn` each.
+
+- **Bug hit and fixed (2026-08-21, adding the Instagram icon)**: with two
+  social icons plus the hamburger, X, and Discord's icon-only mobile state
+  all competing for space, the header row stopped fitting at **~401px** of
+  *client* width even with the existing 480px-breakpoint gap/logo
+  reductions already applied — real phones in the ~375-400px range
+  (including iPhone 12/13 at 390px) overflowed.
+- **Fix in place**: `@media (max-width: 410px) { .header__social { display:
+  none; } }` hides both social icons below that width — picked a few px
+  above the measured ~401px cutoff for a small buffer against
+  font-rendering differences across browsers, rather than matching the
+  measurement exactly. They're still reachable via the footer's Community
+  column on every page, so nothing becomes unreachable, just hidden from
+  the header on the narrowest phones.
+- **If you add a third header social icon**, re-measure the same way
+  (resize down from a wide viewport, binary-search the width where
+  `header.scrollWidth > header.clientWidth` flips true) rather than assuming
+  410px still holds — three icons need more room than two did.
 
 ## Header "Support us" link — a responsive gotcha, don't reintroduce it
 
 "Support Us" used to sit inside `<nav class="nav">` with the other nav items.
-It now lives in `.header__actions` instead, after the X icon + Discord
+It now lives in `.header__actions` instead, after the social icons + Discord
 button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the
 hamburger alone (`SupportUs.html`, which has no header Discord button — see
 above). It deliberately keeps plain **`.nav__link` styling**, not a `.btn` —
@@ -590,16 +620,21 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
-- **Measured (2026-08-21, after adding the header X icon button)**: the
-  header row (logo + 4 nav items + actions incl. the new X icon) needs
-  **~1033px** of required width. `.nav` still collapses at `max-width:
-  1120px`, so there is still ~87px of spare room. Verified no overflow at
-  1121px (right at the breakpoint edge) and at 375px (X icon stays a plain
-  40px `.icon-btn`, doesn't need to hide/shrink like the Discord button's
-  label text does). (Prior measurement, 2026-08-21 after "Support" ->
-  "Get support", was ~981px before the X icon existed.) If you want the
-  full nav on 1024px-wide laptops, lowering the breakpoint to ~1023px is
-  safe on this measurement; nobody has asked for that yet.
+- **Measured (2026-08-21, after adding the header Instagram icon)**: the
+  header row (logo + 4 nav items + actions incl. both social icons) needs
+  **~1083px** of required width. `.nav` still collapses at `max-width:
+  1120px`, so there is still ~37px of spare room at this breakpoint —
+  getting tight; re-measure before adding a third header icon rather than
+  assuming there's still headroom. Verified no overflow at 1121px (right at
+  the breakpoint edge). Below 1120px a *separate* overflow surfaced instead
+  (the collapsed/hamburger layout, not this nav breakpoint) — see "Header
+  social icons — an overflow gotcha" for that one; it's a different fix
+  (`.header__social` hides below 410px) at a different width entirely, not
+  a nav-breakpoint change. (Prior measurement, 2026-08-21 right after adding
+  just the X icon, was ~1033px; before any social icon existed it was
+  ~981px.) If you want the full nav on 1024px-wide laptops, lowering the
+  breakpoint to ~1023px is safe on this measurement; nobody has asked for
+  that yet.
 - History: the requirement was 1081px with the Contact tab present, and the
   breakpoint was **1080px and actively overflowing** the moment the
   dropdown's caret was added (the caret pushed it from 1058px to 1081px).
