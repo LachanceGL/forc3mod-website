@@ -472,7 +472,7 @@ don't reach for a custom JS toggle here. Shape for each entry:
 
 ```html
 <details class="modal__entry"> <!-- add `open` only on the newest entry -->
-  <summary class="modal__version">vX.Y.Z <span class="modal__date">— Short summary // Mon D, YYYY</span></summary>
+  <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">— Short summary // Mon D, YYYY</span></span></summary>
   <div class="modal__entry-body">
     <p>Intro paragraph.</p>
     <h4>Optional grouping</h4>
@@ -481,6 +481,18 @@ don't reach for a custom JS toggle here. Shape for each entry:
 </details>
 ```
 
+- **`<summary>` MUST wrap its text in one `.modal__version-text` span — never
+  put the version text and `.modal__date` span as siblings directly inside
+  `<summary>`.** `.modal__version` (the `<summary>`) is `display: flex;
+  justify-content: space-between` so the chevron pseudo-element lands on the
+  right. A bare text node ("vX.Y.Z ") sitting next to the `.modal__date`
+  span as **separate** flex children becomes two flex items, and
+  `space-between` shoves a visible gap between them — shipped exactly this
+  bug once (screenshot: owner reported "fix the alignment", 2026-08-21).
+  Wrapping both in one span makes it a single flex item again, only
+  separated from the chevron. If you ever add a 4th piece of text to the
+  summary line, put it inside the same wrapper span too, not as a new
+  direct child of `<summary>`.
 - The **newest entry ships with the `open` attribute** so what's new is
   visible immediately without a click; older entries start collapsed.
   Moving which entry is "newest" means moving `open` to match — don't leave

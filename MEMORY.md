@@ -14,6 +14,21 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Fixed a flex layout bug in the new changelog accordions** — owner
+  screenshotted a visible gap between the version number and the "—
+  description" text on all three entries. Root cause: `<summary>` is
+  `display:flex; justify-content:space-between` (to push the chevron
+  right), and the markup had "vX.Y.Z " as a bare text node followed by
+  `<span class="modal__date">` as a **sibling** — two separate flex items,
+  so `space-between` shoved a gap between them instead of just pushing the
+  chevron away. Fixed by wrapping the version text + date span together in
+  one `.modal__version-text` span, making it a single flex item again.
+  Verified: text now starts flush left (measured `getBoundingClientRect()`
+  matches summary's own left edge on all 3 entries), no overflow at 375px
+  or 1280px, console clean. No CSS changed, HTML-only fix, no `?v=` bump.
+  `CLAUDE.md`'s markup example updated to the correct wrapped shape with an
+  explicit warning not to repeat this.
+
 - **Changelog modal reworked into accordions, and adopted a standing
   convention: proactively check `forc3-designer-releases` on GitHub for new
   releases from now on**, rather than waiting for the owner to paste
