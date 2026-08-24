@@ -471,7 +471,7 @@ JS for expand/collapse and is keyboard/screen-reader accessible for free —
 don't reach for a custom JS toggle here. Shape for each entry:
 
 ```html
-<details class="modal__entry"> <!-- add `open` only on the newest entry -->
+<details class="modal__entry">
   <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">— Short summary // Mon D, YYYY</span></span></summary>
   <div class="modal__entry-body">
     <p>Intro paragraph.</p>
@@ -493,10 +493,11 @@ don't reach for a custom JS toggle here. Shape for each entry:
   separated from the chevron. If you ever add a 4th piece of text to the
   summary line, put it inside the same wrapper span too, not as a new
   direct child of `<summary>`.
-- The **newest entry ships with the `open` attribute** so what's new is
-  visible immediately without a click; older entries start collapsed.
-  Moving which entry is "newest" means moving `open` to match — don't leave
-  it on a stale entry.
+- **All entries start collapsed** — no `open` attribute on any of them
+  (owner request, 2026-08-21, right after the accordion shipped: "make so
+  they are all collapsed by default"). The newest entry briefly shipped
+  with `open` by default; that was reverted. Don't reintroduce `open` on
+  any entry without being asked again.
 - `.modal__version` (now the `<summary>`) gets a generated chevron via
   `::after` that rotates on `[open]` — see `css/style.css`'s "Modal" section.
   Don't add a real chevron element in the markup; the CSS already handles it.

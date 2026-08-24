@@ -33,10 +33,9 @@ followed by:
 Version should match the actual GitHub release tag. Date format is
 `Mon D, YYYY` (e.g. `Aug 23, 2026`).
 
-On the site, entries render as `<details>/<summary>` accordions — the
-newest one ships expanded (`open` attribute) so what's new is visible
-without a click; older ones are collapsed. See `CLAUDE.md`'s "Changelog
-modal content" section for the exact markup shape to propagate this into.
+On the site, entries render as `<details>/<summary>` accordions, **all
+collapsed by default**. See `CLAUDE.md`'s "Changelog modal content" section
+for the exact markup shape to propagate this into.
 
 ---
 
