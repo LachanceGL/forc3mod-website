@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20" />
+  <link rel="stylesheet" href="css/style.css?v=21" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6fff'/%3E%3Ctext x='16' y='24' font-family='Arial, Helvetica, sans-serif' font-weight='800' font-size='22' fill='white' text-anchor='middle'%3E3%3C/text%3E%3C/svg%3E" />
 </head>
 <body class="theme-designer">
@@ -150,16 +150,48 @@
         <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close changelog">&times;</button>
       </div>
       <div class="modal__body">
-        <div class="modal__entry">
-          <p class="modal__version">v0.1.1 <span class="modal__date">— Installer improvement // Aug 21, 2026</span></p>
-        </div>
-        <div class="modal__entry">
-          <p class="modal__version">v0.1.0 <span class="modal__date">— Initial release // Aug 21, 2026</span></p>
-        </div>
+        <details class="modal__entry" open>
+          <summary class="modal__version">v0.1.2 <span class="modal__date">— Performance improvements and fixes // Aug 23, 2026</span></summary>
+          <div class="modal__entry-body">
+            <p>Mostly speed, plus a batch of fixes. Placing a decal is around 1.5x quicker and gradients almost 2x. Switching or reordering layers no longer stalls on a document with a lot of layers, and the app holds considerably less memory while you work.</p>
+            <h4>Fixes</h4>
+            <ul class="feature-list">
+              <li>Applying a decal no longer creates a "Decals" folder, and decal layers are named the same whether you place them in the 2D or 3D view.</li>
+              <li>In Orthographic view, zooming in from the front or back no longer cuts into the car.</li>
+              <li>Launching AC EVO no longer shows Windows' "open Steam?" prompt.</li>
+              <li>A long report can no longer trap the app: Escape or a click outside closes it, and it scrolls if it does not fit.</li>
+            </ul>
+            <h4>Layers</h4>
+            <ul class="feature-list">
+              <li>Folders can be reordered, including empty ones.</li>
+              <li>Layers inside a folder are marked with a rail so groups read clearly, and empty folders are dimmed.</li>
+              <li>The visibility eye now sits beside the lock.</li>
+            </ul>
+            <h4>Elsewhere</h4>
+            <ul class="feature-list">
+              <li>Gradient and Bezier swapped places on the tool bar, and their shortcuts swapped with them: Q is Gradient, W is Bezier.</li>
+              <li>The colour picker gained an "Add to Swatches" button and shows the five most recently saved colours.</li>
+              <li>An "Update available" badge appears in the header when there is one, and Check for Updates moved to the Settings menu.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="modal__entry">
+          <summary class="modal__version">v0.1.1 <span class="modal__date">— Installer improvement // Aug 21, 2026</span></summary>
+          <div class="modal__entry-body">
+            <p>Fixes the installer's final page, where the "Run FORC3 Designer" and "Create desktop shortcut" checkboxes were almost invisible — dark text on a dark background.</p>
+            <p>The app itself is unchanged from 0.1.0.</p>
+          </div>
+        </details>
+        <details class="modal__entry">
+          <summary class="modal__version">v0.1.0 <span class="modal__date">— Initial release // Aug 21, 2026</span></summary>
+          <div class="modal__entry-body">
+            <p>Initial beta release of FORC3 Designer.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js?v=20"></script>
+  <script src="js/main.js?v=21"></script>
 </body>
 </html>

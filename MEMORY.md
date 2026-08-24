@@ -14,6 +14,36 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-21
 
+- **Changelog modal reworked into accordions, and adopted a standing
+  convention: proactively check `forc3-designer-releases` on GitHub for new
+  releases from now on**, rather than waiting for the owner to paste
+  changelog text. Fetched the repo's releases via its public API and found
+  a real v0.1.2 release already published (today, 2026-08-23) that hadn't
+  been reflected on the site — added it as the third entry, distilled from
+  its "What's new in 0.1.2" release-body section (stripped the
+  download-link/Windows-warning/footer boilerplate every release body
+  carries).
+  - Converted each `.modal__entry` from a flat one-line div into a native
+    `<details>/<summary>` accordion — no JS needed, keyboard/AT-accessible
+    for free. Newest entry (v0.1.2) ships `open` so what's new shows
+    immediately; v0.1.1 and v0.1.0 start collapsed. Added
+    `.modal__entry-body` styling (paragraphs, optional `<h4>` subheadings,
+    bullet lists) and a CSS-only rotating chevron on the summary via
+    `::after` + `[open]`.
+  - `docs/DESIGNER-CHANGELOG.md` rewritten to the new two-part format (short
+    summary + full body per entry) and now explicitly documents the
+    "check GitHub releases" convention going forward — see its own header
+    for the exact API endpoint. `CLAUDE.md`'s "Changelog modal content"
+    section has the markup shape and the accordion behavior notes.
+  - Verified: v0.1.2 opens by default with real content, clicking v0.1.1's
+    summary expands it (native `<details>` toggling confirmed via JS
+    `.click()`), no horizontal overflow at 375px or 1280px, modal's existing
+    internal vertical scroll (`max-height: 80vh; overflow-y: auto`) handles
+    multiple open entries at once, console clean. Bumped `?v=20 -> v=21`
+    (CSS changed). Download button unaffected — already points at GitHub's
+    "latest release" redirect, so it's already serving v0.1.2 with no code
+    change needed.
+
 - **Added Instagram (`https://www.instagram.com/forc3mod/`)** on request,
   mirroring exactly how X was added earlier today: footer Community column
   link on all 4 pages (below the X link), plus a header `.icon-btn` right

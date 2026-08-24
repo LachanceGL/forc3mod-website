@@ -439,17 +439,59 @@ building a new one:
 - Currently used for: the Changelog modal on `forc3designer.html` (button
   sits above the hero eyebrow line).
 
-### Changelog modal content — sourced from a doc, not edited in HTML directly
+### Changelog modal content — sourced from a doc, and from GitHub releases
 
 [`docs/DESIGNER-CHANGELOG.md`](docs/DESIGNER-CHANGELOG.md) is the
 **authoritative source** for the modal's entries (owner request,
 2026-08-21) — same handoff pattern as `forc3-designer`'s
 `docs/TooltipsTexts_Bindkeys`. When the owner gives new changelog content,
-update that file first, then propagate it into the
-`#changelogModal .modal__body` markup in `forc3designer.html` (one
-`.modal__entry` div per line, newest first — see existing entries for the
-exact markup shape). Keep both in sync in the same commit; don't let the
-doc drift from what's actually live. Plain HTML/text edit — no `?v=` bump.
+update that file first, then propagate it into `forc3designer.html`.
+
+- **From now on (owner request, 2026-08-21), proactively check
+  [`forc3-designer-releases`](https://github.com/LachanceGL/forc3-designer-releases/releases)
+  for new releases** rather than waiting to be handed changelog text — its
+  API (`https://api.github.com/repos/LachanceGL/forc3-designer-releases/releases`,
+  no auth needed) exposes each release's body, which has a "What's new in
+  X.Y.Z" section. That section *is* the changelog — the rest of the release
+  body (download link, the "Windows protected your PC" note, the repeated
+  footer blurb) is release-page boilerplate, strip it before using it here.
+  Do this whenever asked to update the changelog, and also opportunistically
+  when doing other FORC3 Designer work on this repo — don't require the
+  owner to paste release notes in by hand.
+- Keep the doc and the modal in sync in the same commit; don't let one drift
+  from the other. Plain HTML/text + doc edit, no `?v=` bump for content-only
+  changes — only bump it if you also touch `css/style.css` (e.g. the
+  accordion styling below).
+
+**Modal markup — each entry is a `<details>/<summary>` accordion**
+(added 2026-08-21, replacing a flat one-line-per-entry layout), on request
+("make so each title is a drop-down menu showing the actual changelog
+inside it — must be like that from now on"). Native `<details>` needs no
+JS for expand/collapse and is keyboard/screen-reader accessible for free —
+don't reach for a custom JS toggle here. Shape for each entry:
+
+```html
+<details class="modal__entry"> <!-- add `open` only on the newest entry -->
+  <summary class="modal__version">vX.Y.Z <span class="modal__date">— Short summary // Mon D, YYYY</span></summary>
+  <div class="modal__entry-body">
+    <p>Intro paragraph.</p>
+    <h4>Optional grouping</h4>
+    <ul class="feature-list"><li>...</li></ul>
+  </div>
+</details>
+```
+
+- The **newest entry ships with the `open` attribute** so what's new is
+  visible immediately without a click; older entries start collapsed.
+  Moving which entry is "newest" means moving `open` to match — don't leave
+  it on a stale entry.
+- `.modal__version` (now the `<summary>`) gets a generated chevron via
+  `::after` that rotates on `[open]` — see `css/style.css`'s "Modal" section.
+  Don't add a real chevron element in the markup; the CSS already handles it.
+- `.modal__entry-body`'s `<h4>` subheadings are optional — only add them
+  when the release itself grouped changes (e.g. "Fixes" / "Layers" /
+  "Elsewhere" in v0.1.2). A short release (like v0.1.0/v0.1.1) can just be
+  one or two `<p>` tags with no subheadings.
 
 ## Discord / community reference IDs
 

@@ -1021,8 +1021,12 @@ h1, h2, h3, h4, h5 {
 }
 .modal__header h3 { font-size: 20px; text-transform: uppercase; }
 .modal__close { width: 32px; height: 32px; font-size: 18px; flex-shrink: 0; }
-.modal__entry { margin-bottom: 24px; }
-.modal__entry:last-child { margin-bottom: 0; }
+/* Each entry is a native <details>/<summary> accordion — no JS needed for
+   the expand/collapse interaction, and it's keyboard/screen-reader
+   accessible for free. The newest entry ships with the `open` attribute so
+   what's new is visible immediately without a click. */
+.modal__entry { border-bottom: 1px solid var(--border); }
+.modal__entry:last-child { border-bottom: none; }
 .modal__version {
   font-family: var(--font-head);
   font-weight: 700;
@@ -1030,7 +1034,52 @@ h1, h2, h3, h4, h5 {
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: .04em;
-  margin-bottom: 10px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  transition: color .2s ease;
 }
+.modal__version::-webkit-details-marker { display: none; }
+.modal__version:hover { color: var(--accent); }
+/* Chevron is a generated flex item (::after on a flex container), not a
+   real child — keeps the version text as a single flex item on the left
+   so justify-content: space-between pushes just the chevron to the right,
+   without needing to wrap the text in its own span. */
+.modal__version::after {
+  content: "";
+  width: 8px; height: 8px;
+  flex-shrink: 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .55;
+  transition: transform .2s ease;
+}
+.modal__entry[open] > .modal__version::after { transform: rotate(-135deg); }
 .modal__date { color: var(--text-mute); font-weight: 500; text-transform: none; letter-spacing: 0; }
+.modal__entry-body {
+  padding: 0 0 18px;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.modal__entry-body p { margin: 0 0 10px; }
+.modal__entry-body p:last-child { margin-bottom: 0; }
+.modal__entry-body h4 {
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text);
+  margin: 16px 0 6px;
+}
+.modal__entry-body h4:first-child { margin-top: 0; }
+.modal__entry-body ul { margin: 0 0 6px; }
+.modal__entry-body li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+.modal__entry-body li::before { content: "–"; position: absolute; left: 0; color: var(--text-mute); }
 .modal .feature-list { margin: 0; }
