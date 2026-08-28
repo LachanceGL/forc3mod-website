@@ -12,6 +12,32 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-28
+
+- **Added the v0.2.0 changelog entry** — a big release (layer masks, layer
+  effects, 22 cars now across five classes, speed work, a batch of fixes).
+  Followed the standing convention: checked `forc3-designer-releases` for
+  the release body first. Initially found the release published but with an
+  **empty body** — flagged it to the owner rather than inventing content,
+  and correctly reported "still empty" on two follow-up "check again"
+  requests before the owner actually saved the release notes on GitHub's
+  side (confirmed via the release's `updated_at` timestamp changing between
+  checks). Once real content existed, distilled the "What's new in 0.2.0"
+  section into the same summary+body format as prior entries (7 subsections
+  this time: Masks, Layer effects, Layers, Cars, Decals, Speed, Fixes),
+  added as a new collapsed `<details>` entry above v0.1.2 in both
+  `docs/DESIGNER-CHANGELOG.md` and the modal. Verified: all 4 entries load
+  collapsed, v0.2.0 expands correctly despite being by far the longest entry
+  yet, no horizontal overflow at 375px or 1280px (the modal's existing
+  `overflow-y: auto` handles the vertical length fine), console clean.
+  HTML-only change (no CSS), no `?v=` bump needed.
+- **Lesson confirmed**: when a GitHub release exists but its body is empty,
+  don't guess at changelog content from the diff/assets/anything else —
+  report it plainly and wait. Re-checking on request is cheap and the
+  `updated_at` field is a reliable way to confirm whether anything actually
+  changed between checks, rather than just re-reporting the same empty
+  state without evidence it was actually re-verified.
+
 ## 2026-08-21
 
 - **Fixed a flex layout bug in the new changelog accordions** — owner

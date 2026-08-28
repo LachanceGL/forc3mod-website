@@ -39,6 +39,70 @@ for the exact markup shape to propagate this into.
 
 ---
 
+## v0.2.0 — Aug 28, 2026
+
+Layer masks, effects, and more cars
+
+The biggest release so far: layer masks, layer effects, seven more cars, and
+a lot less waiting.
+
+### Masks
+- Right-click a layer for Add Black Mask or Add White Mask, then paint to
+  hide or reveal. The brush, eraser, fill bucket, gradient and decals all
+  work on a mask.
+- While you edit one, the hidden area is tinted red on the car. An eye
+  button beside the MASK MODE tag turns that tint off.
+- Invert Mask, and Shift+click a layer's mask chip to bypass it without
+  deleting it.
+- The 3D Channel View dropdown gained a Mask entry.
+
+### Layer effects
+- Stroke and Drop Shadow, both live — nothing is baked into the layer, so
+  you can keep adjusting or remove them.
+- The drop shadow is aimed with a dial, and now falls the same way on every
+  panel of the car. It used to come out mirrored on one side.
+- A stroke can outline just the silhouette, or every hole as well.
+- Fill applies the current colour and material values through a layer's own
+  shape, so a decal can be recoloured after it is placed.
+- The Effects panel floats beside the layers, and every value can be typed
+  instead of dragged.
+
+### Layers
+- Select several layers and merge them.
+- Drag a whole selection at once, including out of a folder.
+- Lock and Delete act on everything selected.
+- Drag a row by pressing anywhere on it, not just a grip.
+
+### Cars
+22 now, across five classes.
+- New: Caterham Seven Academy, Ferrari F2004, Ferrari SF-25, BMW M2 CS
+  Racing, Ferrari 488 Challenge EVO, Lamborghini Huracan Super Trofeo EVO2,
+  Mazda MX-5 ND Cup.
+- Two new categories: Formula 1, and Single-Spec & One-Make.
+
+### Decals
+- The Decals Libraries is now a shelf across the bottom of the 3D view, and
+  collapses out of the way.
+- My Decals is saved per project rather than shared between all of them.
+- Applying a decal paints the layer you have selected instead of adding one.
+
+### Speed
+- The first brush stroke after picking a layer no longer stalls.
+- Shift+drag to select panels starts smoothly instead of hitching.
+- The Effects sliders respond as you drag them.
+- Saving shows a progress bar rather than appearing to hang.
+
+### Fixes
+- The brush edge is properly antialiased in the 3D view. It was a hard,
+  stair-stepped circle at full hardness.
+- About FORC3 Designer opens again — it did nothing in 0.1.2.
+- The layer right-click menu no longer opens off the edge of the window.
+- The Top orthographic view lays the car out sideways, so the whole car
+  fits instead of being cut off at the nose and tail.
+- Ctrl+Z now steps back through a bezier path while you are drawing it.
+- M returns the 3D Channel View to Final Result; , and . cycle through the
+  channels.
+
 ## v0.1.2 — Aug 23, 2026
 
 Performance improvements and fixes

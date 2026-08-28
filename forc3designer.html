@@ -151,6 +151,62 @@
       </div>
       <div class="modal__body">
         <details class="modal__entry">
+          <summary class="modal__version"><span class="modal__version-text">v0.2.0 <span class="modal__date">— Layer masks, effects, and more cars // Aug 28, 2026</span></span></summary>
+          <div class="modal__entry-body">
+            <p>The biggest release so far: layer masks, layer effects, seven more cars, and a lot less waiting.</p>
+            <h4>Masks</h4>
+            <ul class="feature-list">
+              <li>Right-click a layer for Add Black Mask or Add White Mask, then paint to hide or reveal. The brush, eraser, fill bucket, gradient and decals all work on a mask.</li>
+              <li>While you edit one, the hidden area is tinted red on the car. An eye button beside the MASK MODE tag turns that tint off.</li>
+              <li>Invert Mask, and Shift+click a layer's mask chip to bypass it without deleting it.</li>
+              <li>The 3D Channel View dropdown gained a Mask entry.</li>
+            </ul>
+            <h4>Layer effects</h4>
+            <ul class="feature-list">
+              <li>Stroke and Drop Shadow, both live — nothing is baked into the layer, so you can keep adjusting or remove them.</li>
+              <li>The drop shadow is aimed with a dial, and now falls the same way on every panel of the car. It used to come out mirrored on one side.</li>
+              <li>A stroke can outline just the silhouette, or every hole as well.</li>
+              <li>Fill applies the current colour and material values through a layer's own shape, so a decal can be recoloured after it is placed.</li>
+              <li>The Effects panel floats beside the layers, and every value can be typed instead of dragged.</li>
+            </ul>
+            <h4>Layers</h4>
+            <ul class="feature-list">
+              <li>Select several layers and merge them.</li>
+              <li>Drag a whole selection at once, including out of a folder.</li>
+              <li>Lock and Delete act on everything selected.</li>
+              <li>Drag a row by pressing anywhere on it, not just a grip.</li>
+            </ul>
+            <h4>Cars</h4>
+            <p>22 now, across five classes.</p>
+            <ul class="feature-list">
+              <li>New: Caterham Seven Academy, Ferrari F2004, Ferrari SF-25, BMW M2 CS Racing, Ferrari 488 Challenge EVO, Lamborghini Huracan Super Trofeo EVO2, Mazda MX-5 ND Cup.</li>
+              <li>Two new categories: Formula 1, and Single-Spec &amp; One-Make.</li>
+            </ul>
+            <h4>Decals</h4>
+            <ul class="feature-list">
+              <li>The Decals Libraries is now a shelf across the bottom of the 3D view, and collapses out of the way.</li>
+              <li>My Decals is saved per project rather than shared between all of them.</li>
+              <li>Applying a decal paints the layer you have selected instead of adding one.</li>
+            </ul>
+            <h4>Speed</h4>
+            <ul class="feature-list">
+              <li>The first brush stroke after picking a layer no longer stalls.</li>
+              <li>Shift+drag to select panels starts smoothly instead of hitching.</li>
+              <li>The Effects sliders respond as you drag them.</li>
+              <li>Saving shows a progress bar rather than appearing to hang.</li>
+            </ul>
+            <h4>Fixes</h4>
+            <ul class="feature-list">
+              <li>The brush edge is properly antialiased in the 3D view. It was a hard, stair-stepped circle at full hardness.</li>
+              <li>About FORC3 Designer opens again — it did nothing in 0.1.2.</li>
+              <li>The layer right-click menu no longer opens off the edge of the window.</li>
+              <li>The Top orthographic view lays the car out sideways, so the whole car fits instead of being cut off at the nose and tail.</li>
+              <li>Ctrl+Z now steps back through a bezier path while you are drawing it.</li>
+              <li>M returns the 3D Channel View to Final Result; , and . cycle through the channels.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="modal__entry">
           <summary class="modal__version"><span class="modal__version-text">v0.1.2 <span class="modal__date">— Performance improvements and fixes // Aug 23, 2026</span></span></summary>
           <div class="modal__entry-body">
             <p>Mostly speed, plus a batch of fixes. Placing a decal is around 1.5x quicker and gradients almost 2x. Switching or reordering layers no longer stalls on a document with a lot of layers, and the app holds considerably less memory while you work.</p>
