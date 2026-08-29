@@ -439,6 +439,28 @@ building a new one:
 - Currently used for: the Changelog modal on `forc3designer.html` (button
   sits above the hero eyebrow line).
 
+### Every modal is deep-linkable (added 2026-08-28, on request)
+
+Opening a modal pushes its own `id` onto the URL hash via
+`history.pushState` (e.g. `forc3designer.html#changelogModal`), and closing
+it (via close button, backdrop click, or Escape) clears the hash again via
+`history.replaceState`. Loading a page with a matching hash already in the
+URL opens that modal automatically on load. This is generic — it falls out
+of the existing `data-modal-target`/modal-`id` wiring, so any future modal
+gets a shareable link for free, no extra markup needed.
+
+- Deliberately uses `pushState`/`replaceState` rather than setting
+  `location.hash` directly — the latter triggers the browser's native
+  scroll-to-anchor behavior, which this sidesteps entirely rather than
+  relying on it being a harmless no-op for a `position: fixed` overlay.
+- **Scope decision**: does NOT listen for `popstate` (browser back/forward).
+  Clicking the browser's Back button after opening a modal changes the URL
+  back but won't auto-close the modal — the ask was "make it linkable," not
+  full history-based routing, and this site has no other routing complexity
+  to match. Revisit only if back/forward behavior is specifically requested.
+- Shareable URL for the changelog specifically:
+  `forc3designer.html#changelogModal`.
+
 ### Changelog modal content — sourced from a doc, and from GitHub releases
 
 [`docs/DESIGNER-CHANGELOG.md`](docs/DESIGNER-CHANGELOG.md) is the

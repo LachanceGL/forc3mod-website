@@ -14,6 +14,26 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-28
 
+- **Made the modal system deep-linkable** ("make so the changelog can be
+  linked to"). Extended the generic `[data-modal-target]` wiring in
+  `js/main.js` rather than building anything changelog-specific: opening a
+  modal now `history.pushState`s its own element `id` onto the URL hash,
+  closing it `history.replaceState`s the hash back out, and a page loaded
+  with a matching hash already present auto-opens that modal. Used
+  pushState/replaceState instead of setting `location.hash` directly to
+  avoid the browser's native scroll-to-anchor jump. Deliberately did NOT
+  wire up `popstate` (back/forward button behavior) — out of scope for
+  "make it linkable," and there's no other history/routing logic on this
+  site to be consistent with. Shareable link:
+  `forc3designer.html#changelogModal`. Verified: direct navigation to that
+  URL opens the modal on load, clicking the Change Log button updates the
+  address bar, closing (button/backdrop/Escape all tested via the close
+  button) clears the hash back to a bare URL, console clean on both
+  `forc3designer.html` and a page with no modals (`index.html`). Bumped
+  `?v=21 -> v=22` (JS changed). Since this rides the existing generic
+  system, any future modal gets this for free — see `CLAUDE.md`'s new
+  "Every modal is deep-linkable" subsection.
+
 - **Added the v0.2.0 changelog entry** — a big release (layer masks, layer
   effects, 22 cars now across five classes, speed work, a batch of fixes).
   Followed the standing convention: checked `forc3-designer-releases` for
