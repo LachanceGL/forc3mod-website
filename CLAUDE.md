@@ -442,7 +442,7 @@ building a new one:
 ### Every modal is deep-linkable (added 2026-08-28, on request)
 
 Opening a modal pushes its own `id` onto the URL hash via
-`history.pushState` (e.g. `forc3designer.html#changelogModal`), and closing
+`history.pushState` (e.g. `forc3designer.html#changelog`), and closing
 it (via close button, backdrop click, or Escape) clears the hash again via
 `history.replaceState`. Loading a page with a matching hash already in the
 URL opens that modal automatically on load. This is generic — it falls out
@@ -458,8 +458,11 @@ gets a shareable link for free, no extra markup needed.
   back but won't auto-close the modal — the ask was "make it linkable," not
   full history-based routing, and this site has no other routing complexity
   to match. Revisit only if back/forward behavior is specifically requested.
-- Shareable URL for the changelog specifically:
-  `forc3designer.html#changelogModal`.
+- Shareable URL for the changelog specifically: `forc3designer.html#changelog`.
+  Modal element id was renamed from `changelogModal` to plain `changelog`
+  (2026-08-28, owner: "remove model from the link") purely for a cleaner
+  URL — no behavior change, the deep-link system reads `modal.id` generically
+  either way.
 
 ### Changelog modal content — sourced from a doc, and from GitHub releases
 
