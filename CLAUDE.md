@@ -495,14 +495,29 @@ video existed to show.
 
 - **`.modal--video`** is a wider, padding-stripped variant of the base
   `.modal` (900px vs the text modals' 520px) — a video reads as a cinematic
-  player, not a document in a card, so it gets no header/title row. The
-  close button (`.modal__close--video`) floats over the video's own
-  top-right corner instead of sitting in a padded header bar.
+  player, not a document in a card, so it gets no header/title row.
+- **The close button (`.modal__close--video`) sits just above the video's
+  top-right corner, outside its bounds** — it originally floated directly
+  over the video, which the owner flagged as covering the content; moved
+  to `position: absolute; top: -48px; right: 0` relative to `.modal--video`.
+  That only works because `.modal--video` also overrides `overflow:
+  visible` — the base `.modal` rule sets `overflow-y: auto` (which per the
+  CSS spec forces the other axis to compute as `auto` too, not `visible`),
+  and either `auto` or `hidden` would clip a negatively-positioned child the
+  same way. The video's own rounded corners moved to `.modal__video`'s own
+  `border-radius` instead of relying on the parent clipping them, since the
+  parent no longer clips anything.
 - **`.modal__video`'s `aspect-ratio: 1960 / 1080`** is the source file's own
   real pixel dimensions (read off it directly), same pattern as
   `FD_SitePreview.jpg`'s photo card sizing — if the video file is ever
   replaced with a different-shaped one, update this to match, don't assume
   16:9.
+- **`controlsList="nodownload noplaybackrate"` +
+  `disablePictureInPicture` + `disableRemotePlayback`** on the `<video>`
+  suppress Chrome's native "⋮" overflow menu (download / playback speed /
+  picture-in-picture / cast) — owner request ("remove the 3 dots options").
+  Fullscreen is untouched; that's a primary control, not part of the
+  overflow menu.
 - `preload="none"` on the `<video>` so nothing downloads until a visitor
   actually opens the modal — the file is ~22MB, too large to load eagerly
   for every visitor.

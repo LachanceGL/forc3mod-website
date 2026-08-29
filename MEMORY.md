@@ -14,6 +14,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-29
 
+- **Fixed the demo video modal's close button covering the video, and
+  removed the video's native "⋮" overflow menu** — same-day follow-up after
+  shipping the video modal. Moved `.modal__close--video` from floating over
+  the video's top-right corner to `position: absolute; top: -48px` —
+  outside the video entirely, over the dark backdrop. That required
+  overriding `.modal--video` to `overflow: visible` (the base `.modal`
+  rule's `overflow-y: auto` would otherwise clip a negatively-positioned
+  child same as `hidden` would), and moving the video's rounded corners
+  onto `.modal__video`'s own `border-radius` since the parent no longer
+  clips them. Also added `controlsList="nodownload noplaybackrate"` +
+  `disablePictureInPicture` + `disableRemotePlayback` to suppress Chrome's
+  native overflow-menu button entirely, on request. Verified via
+  `getBoundingClientRect()` overlap check (not just visually) that the
+  close button and video no longer intersect, at both 1280px and 375px, no
+  horizontal overflow, console clean. Bumped `?v=23 -> v=24` (CSS-only this
+  time, JS untouched).
+
 - **Brought back "See what it does" and wired it to a real demo video**, on
   request ("bring back the button... use the video inside
   ...\forc3designervid"). Moved the owner-provided file from the top-level
