@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-29
 
+- **Added the v0.2.1 changelog entry** — checked `forc3-designer-releases`
+  per the standing convention, found it already published with real
+  content (5 more cars across 2 new classes, reworked Decals Libraries UI,
+  a shorter top bar). Added as the newest collapsed entry above v0.2.0 in
+  both `docs/DESIGNER-CHANGELOG.md` and the modal. Verified 5 entries total,
+  all collapsed, correct order, no overflow at 375px/1280px, console clean.
+  HTML-only change, no `?v=` bump.
+
 - **Fixed the demo video modal's close button covering the video, and
   removed the video's native "⋮" overflow menu** — same-day follow-up after
   shipping the video modal. Moved `.modal__close--video` from floating over

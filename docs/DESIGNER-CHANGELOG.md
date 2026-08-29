@@ -39,6 +39,28 @@ for the exact markup shape to propagate this into.
 
 ---
 
+## v0.2.1 — Aug 29, 2026
+
+More cars and a reworked Decals Libraries
+
+Five more cars, two new classes, and the Decals Libraries reworked.
+
+### Cars
+27 now, across seven classes.
+- Two new categories: Road & Hot Hatches, and Supercars & Hypercars.
+- New: Alpine A290 Beta Concept, Audi RS 3 Sportback, Audi RS 6 Avant,
+  Ferrari 296 GTB, Dallara Stradale.
+
+### Decals Libraries
+- The tabs are proper file tabs now: the selected one joins the sheet below
+  it and the outline runs around it.
+- The strip behind the tabs is see-through, so the car shows through it.
+- Add moved to the left of the tabs.
+- Less space between the decal thumbnails, and more above them.
+
+### Elsewhere
+- The top bar is a little shorter, which gives the 3D view more room.
+
 ## v0.2.0 — Aug 28, 2026
 
 Layer masks, effects, and more cars
