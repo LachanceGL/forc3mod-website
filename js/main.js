@@ -182,18 +182,39 @@
   window.addEventListener('scroll', setActiveLink, { passive: true });
   setActiveLink();
 
-  // ---- Modals (e.g. Changelog) ----
+  // ---- Modals (e.g. Changelog, demo video) ----
   // Deep-linkable: opening a modal pushes its id onto the URL hash (so the
   // current address bar URL can be copied/shared to reopen it directly),
   // closing clears the hash again. Loading a page with a matching hash
   // already in the URL opens that modal automatically. Uses
   // pushState/replaceState rather than setting location.hash directly so
   // the browser never tries a native scroll-to-anchor jump for it.
+  //
+  // A hashchange listener (below the loop) also opens/closes modals when the
+  // hash changes without a full page load — e.g. the back/forward buttons
+  // after opening one, or an in-page link jumping straight from one modal's
+  // hash to another's on the same page. Without it, only the very first
+  // page load honors the hash; a same-document hash change (which is all
+  // back/forward and same-page hash links ever cause) wouldn't reach the
+  // "open on load" check below, since that only runs once per real load.
+  const modalControllers = [];
   document.querySelectorAll('[data-modal-target]').forEach((trigger) => {
     const modal = document.querySelector(trigger.getAttribute('data-modal-target'));
     if (!modal) return;
 
+    // Any <video> inside a modal (e.g. the demo player) plays when the
+    // modal opens and pauses + rewinds when it closes — generic, so it
+    // applies to any future video modal without extra wiring.
+    const modalVideo = modal.querySelector('video');
+
     const openModal = (updateHash = true) => {
+      // Only one modal open at a time — a trigger button sits behind the
+      // open overlay so a mouse can't normally reach a second one, but a
+      // keyboard user tabbing past it still can, so this isn't purely
+      // defensive.
+      modalControllers.forEach((c) => {
+        if (c.modal !== modal && c.modal.classList.contains('is-open')) c.closeModal();
+      });
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
@@ -201,6 +222,7 @@
       if (updateHash && location.hash.slice(1) !== modal.id) {
         history.pushState(null, '', `#${modal.id}`);
       }
+      if (modalVideo) modalVideo.play().catch(() => {});
     };
     const closeModal = () => {
       modal.classList.remove('is-open');
@@ -209,6 +231,10 @@
       document.body.style.overflow = '';
       if (location.hash.slice(1) === modal.id) {
         history.replaceState(null, '', location.pathname + location.search);
+      }
+      if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
       }
     };
 
@@ -223,9 +249,20 @@
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
 
+    modalControllers.push({ modal, openModal, closeModal });
+
     // Open immediately if the page was loaded with this modal's hash —
     // don't re-push the same hash that's already there.
     if (location.hash.slice(1) === modal.id) openModal(false);
+  });
+
+  window.addEventListener('hashchange', () => {
+    const targetId = location.hash.slice(1);
+    modalControllers.forEach(({ modal, openModal, closeModal }) => {
+      const isOpen = modal.classList.contains('is-open');
+      if (modal.id === targetId && !isOpen) openModal(false);
+      else if (modal.id !== targetId && isOpen) closeModal();
+    });
   });
 
   // The contact form has no backend, so it hands off to the visitor's own

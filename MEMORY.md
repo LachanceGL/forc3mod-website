@@ -12,6 +12,57 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-29
+
+- **Brought back "See what it does" and wired it to a real demo video**, on
+  request ("bring back the button... use the video inside
+  ...\forc3designervid"). Moved the owner-provided file from the top-level
+  `forc3designervid/v002.mp4` into `video/forc3designer-demo.mp4` (matching
+  the site's flat asset convention), read its real dimensions (1960×1080,
+  ~72s) via a `<video>` element in the browser rather than guessing, and
+  built a new video modal (`.modal--video`, wider and padding-stripped vs.
+  the text modals, sized to the file's real aspect ratio). Button restored
+  on both `forc3designer.html` (opens the modal directly) and `index.html`
+  (links to `forc3designer.html#demo`, reusing the deep-link system rather
+  than duplicating the modal on a second page).
+- **Found and fixed two real bugs in the deep-link system while building
+  this** — both only became reachable once a second modal existed on the
+  same page:
+  1. The original "open on load" check only fires once, at initial script
+     execution. Navigating between two different modal hashes on an
+     already-loaded page (confirmed with `location.hash = '#demo'` in a
+     live tab) is a same-document fragment navigation — it doesn't re-run
+     that check, so the second modal silently failed to open. Fixed with a
+     `window.addEventListener('hashchange', ...)` that opens whichever
+     modal now matches the hash and closes whichever no longer does. This
+     also gives back/forward button support for free, which an earlier
+     entry had explicitly scoped out as unnecessary — no longer true, so
+     that note in `CLAUDE.md` was corrected rather than left stale.
+  2. Clicking one modal's trigger while another was already open (only
+     reachable via keyboard tab, not mouse — a mouse can't reach a trigger
+     button that's covered by the other modal's fixed overlay) left both
+     modals visually stacked open at once. Confirmed by simulating the
+     click sequence directly rather than assuming a mouse test would catch
+     it. Fixed: `openModal()` now closes any other open modal first.
+  - **Testing note for next time**: the Browser pane's `navigate` tool gave
+    inconsistent results for same-hash-different-fragment navigation on an
+    already-loaded tab — sometimes behaving like a real reload, sometimes
+    not, in a way that didn't match manually setting `location.hash` in the
+    page. When testing hash-change behavior specifically, prefer
+    `location.hash = '#x'` executed in-page over the `navigate` tool, and
+    don't trust a single navigate-tool result as proof of a bug without
+    cross-checking that way.
+  - Verified end-to-end: fresh-tab load with `#demo` opens+autoplays;
+    click-to-open pauses+rewinds on close and clears the hash; same-document
+    hash switching between `#changelog` and `#demo` now opens/closes the
+    right one each way; the click-based double-open is fixed; no horizontal
+    overflow at 375px or 1280px; console clean on both pages. Bumped
+    `?v=22 -> v=23` (CSS + JS changed).
+  - `CLAUDE.md`'s "Modal system" section now documents the video-autoplay
+    hook, the single-modal-at-a-time rule, and the corrected hashchange
+    behavior; added a new "Demo video modal" subsection and a `video/` row
+    in the file map.
+
 ## 2026-08-28
 
 - **Made the modal system deep-linkable** ("make so the changelog can be

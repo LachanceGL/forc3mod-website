@@ -95,6 +95,7 @@ than rewriting it from scratch.
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
+| `video/forc3designer-demo.mp4` | Owner-provided demo video (1960×1080, ~72s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. Originally handed off in a top-level `forc3designervid/` folder; moved+renamed into this folder to match the site's flat asset convention (`css/`, `js/`, `img/`), same as every other asset here — not a re-encode or derivative. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -436,8 +437,18 @@ building a new one:
 - Any element with `data-modal-target="#someId"` opens the modal with that id.
 - Any element inside the modal with `data-modal-close` closes it.
 - Clicking the backdrop or pressing Escape also closes it.
-- Currently used for: the Changelog modal on `forc3designer.html` (button
-  sits above the hero eyebrow line).
+- Currently used for: the Changelog modal and the demo video modal, both on
+  `forc3designer.html`.
+- Any `<video>` found inside a modal plays automatically when that modal
+  opens and pauses + rewinds to 0 when it closes (generic — applies to any
+  future video modal too, not hardcoded to the demo one). See "Demo video
+  modal" below for the current instance.
+- **Only one modal is ever open at a time.** Opening a modal closes any
+  other currently-open one first. A mouse can't normally trigger this itself
+  (an open modal's fixed-position overlay covers every trigger button on the
+  page), but a keyboard user tabbing past the covered buttons still can —
+  found by testing that path directly, not by inspection. Fixed in
+  `openModal()` at the top, not as a special case.
 
 ### Every modal is deep-linkable (added 2026-08-28, on request)
 
@@ -453,16 +464,60 @@ gets a shareable link for free, no extra markup needed.
   `location.hash` directly — the latter triggers the browser's native
   scroll-to-anchor behavior, which this sidesteps entirely rather than
   relying on it being a harmless no-op for a `position: fixed` overlay.
-- **Scope decision**: does NOT listen for `popstate` (browser back/forward).
-  Clicking the browser's Back button after opening a modal changes the URL
-  back but won't auto-close the modal — the ask was "make it linkable," not
-  full history-based routing, and this site has no other routing complexity
-  to match. Revisit only if back/forward behavior is specifically requested.
-- Shareable URL for the changelog specifically: `forc3designer.html#changelog`.
-  Modal element id was renamed from `changelogModal` to plain `changelog`
+- **A `hashchange` listener also opens/closes modals when the hash changes
+  without a full page reload** (added 2026-08-28, once a second modal
+  existed on the same page and exposed the gap). The original "open on load"
+  check only runs once, during the page's initial script execution — it does
+  NOT re-fire for a same-document hash change (typing a different hash into
+  an already-loaded page's address bar, an in-page link jumping from one
+  modal's hash straight to another's, or the browser's back/forward buttons
+  moving between two hash states). Confirmed via `location.hash = '#other'`
+  in a live tab that the original code silently did nothing in that case.
+  The `hashchange` listener fixes all of those in one place: it finds
+  whichever modal's id now matches the hash and opens it, and closes any
+  open modal whose id no longer matches. This also means back/forward now
+  closes an opened modal for free — an earlier version of this doc scoped
+  that out as unnecessary, but it falls out of the same fix at no extra
+  cost, so there's no reason to avoid it.
+- Shareable URL for the changelog: `forc3designer.html#changelog`. Modal
+  element id was renamed from `changelogModal` to plain `changelog`
   (2026-08-28, owner: "remove model from the link") purely for a cleaner
-  URL — no behavior change, the deep-link system reads `modal.id` generically
-  either way.
+  URL — no behavior change, the deep-link system reads `modal.id`
+  generically either way.
+- Shareable URL for the demo video: `forc3designer.html#demo`.
+
+### Demo video modal (added 2026-08-28, on request)
+
+`forc3designer.html`'s hero "See what it does" button (`data-modal-target="#demo"`)
+opens a modal playing `video/forc3designer-demo.mp4` — brought back after
+being removed earlier (it used to scroll to `#features`) once an actual demo
+video existed to show.
+
+- **`.modal--video`** is a wider, padding-stripped variant of the base
+  `.modal` (900px vs the text modals' 520px) — a video reads as a cinematic
+  player, not a document in a card, so it gets no header/title row. The
+  close button (`.modal__close--video`) floats over the video's own
+  top-right corner instead of sitting in a padded header bar.
+- **`.modal__video`'s `aspect-ratio: 1960 / 1080`** is the source file's own
+  real pixel dimensions (read off it directly), same pattern as
+  `FD_SitePreview.jpg`'s photo card sizing — if the video file is ever
+  replaced with a different-shaped one, update this to match, don't assume
+  16:9.
+- `preload="none"` on the `<video>` so nothing downloads until a visitor
+  actually opens the modal — the file is ~22MB, too large to load eagerly
+  for every visitor.
+- Autoplay is attempted (`.play().catch(() => {})`) but not forced — a
+  user-gesture-triggered open (button click) reliably autoplays in every
+  browser that matters here; a hash-driven page load with no prior gesture
+  may get silently blocked by the browser's autoplay policy, in which case
+  the video just sits paused with visible `controls` for the visitor to
+  press play themselves. This is expected, not a bug to chase.
+- **`index.html`'s own "See what it does" button doesn't duplicate the modal
+  or video reference** — it's a plain link to `forc3designer.html#demo`,
+  reusing the deep-link system instead. Single source of truth for the
+  modal markup; if a second page ever needs its own inline demo player,
+  duplicate the modal block there rather than trying to share one across
+  pages.
 
 ### Changelog modal content — sourced from a doc, and from GitHub releases
 
