@@ -14,6 +14,31 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-31
 
+- **Added Facebook (`https://www.facebook.com/61593866946389/`)** on
+  request ("add at the top") — same treatment as X/Instagram, footer
+  Community column link (placed **first**, above Discord, per "at the top")
+  and a header `.icon-btn` **first** among the social icons (before X), on
+  `index.html`, `forc3designer.html`, `gt3forc3.html`.
+  - **Hit the exact overflow bug CLAUDE.md already warned about**: "three
+    icons need more room than two did." Required width jumped from ~401px
+    to ~443px; the existing 410px `.header__social` hide-breakpoint
+    overflowed by 32px at 411px. Raised the breakpoint to 450px (verified:
+    hidden at 450px, all 3 visible with no overflow at 451px).
+  - **Real debugging detour**: right after the HTML edit, the Browser
+    pane kept showing only 2 social icons — even in a brand-new tab, even
+    after a `force: true` reload. Checked via `curl` directly against the
+    local dev server and confirmed the served HTML already had all 3 icons
+    correctly — so this was the Browser pane's own HTTP cache for the
+    unbusted local HTML (`css`/`js` have `?v=`, the HTML itself doesn't),
+    not a real bug. A cache-busting query string on the navigation URL
+    (`?nocache=1`) forced a genuine fresh load and the 3rd icon appeared.
+    Documented this specific failure mode in `CLAUDE.md` so a future
+    session doesn't mistake it for a broken edit.
+  - Verified end-to-end after the fix: no overflow at 1121px (nav
+    breakpoint edge, still fine with 3 icons), no overflow at 450/451px
+    (the new social-icon breakpoint edge), no overflow at 375px, console
+    clean. Bumped `?v=24 -> v=25` (CSS changed).
+
 - **Added the v0.3.1 changelog entry, deliberately trimmed** — checked
   `forc3-designer-releases` per the standing convention. Its "What's new"
   body recapped all of v0.3.0's content ("Coming from 0.2.1? Everything

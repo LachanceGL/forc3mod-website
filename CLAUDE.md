@@ -663,31 +663,46 @@ don't reach for a custom JS toggle here. Shape for each entry:
   a header `.icon-btn` right after the X icon (before Discord), on the same
   3 pages. Both header icons share the `.header__social` class — see "Header
   social icons — an overflow gotcha" below.
+- Facebook: `https://www.facebook.com/61593866946389/`. Same treatment
+  again, added 2026-08-31 — footer Community column link **first**, above
+  Discord (owner: "add at the top"), and a header `.icon-btn` first among
+  the social icons (before X), on the same 3 pages. Also `.header__social`.
 
 ## Header social icons — an overflow gotcha, don't reintroduce it
 
-`.header__actions` holds (in order): the hamburger, the X icon, the
-Instagram icon, the Discord button, then "Support us" — on `index.html`,
-`forc3designer.html`, `gt3forc3.html`. Both social icons share the
-`.header__social` class, a circular `.icon-btn` each.
+`.header__actions` holds (in order): the hamburger, the Facebook icon, the
+X icon, the Instagram icon, the Discord button, then "Support us" — on
+`index.html`, `forc3designer.html`, `gt3forc3.html`. All three social icons
+share the `.header__social` class, a circular `.icon-btn` each.
 
 - **Bug hit and fixed (2026-08-21, adding the Instagram icon)**: with two
   social icons plus the hamburger, X, and Discord's icon-only mobile state
   all competing for space, the header row stopped fitting at **~401px** of
   *client* width even with the existing 480px-breakpoint gap/logo
   reductions already applied — real phones in the ~375-400px range
-  (including iPhone 12/13 at 390px) overflowed.
-- **Fix in place**: `@media (max-width: 410px) { .header__social { display:
-  none; } }` hides both social icons below that width — picked a few px
-  above the measured ~401px cutoff for a small buffer against
-  font-rendering differences across browsers, rather than matching the
-  measurement exactly. They're still reachable via the footer's Community
-  column on every page, so nothing becomes unreachable, just hidden from
-  the header on the narrowest phones.
-- **If you add a third header social icon**, re-measure the same way
+  (including iPhone 12/13 at 390px) overflowed. Fixed by hiding
+  `.header__social` below a breakpoint (see below for the current value).
+- **Bug hit and fixed again (2026-08-31, adding Facebook as a third icon)**
+  — exactly the warning this doc already had: three icons need more room
+  than two did. Required width jumped to **~443px**, overflowing the
+  then-current 410px breakpoint by 32px at 411px. Confirmed the fix was
+  real (not a stale-cache false read) by checking with `curl` directly
+  against the local dev server — the served HTML already had 3 icons — while
+  a freshly opened Browser-pane tab still rendered only 2; a cache-busting
+  query string on the URL was what finally forced a true reload. Breakpoint
+  raised from 410px to **450px** (still a few px of buffer above the 443px
+  measurement, same margin logic as the original fix). Verified no overflow
+  at 450px (hidden) and 451px (all 3 visible) right at the edge, and no
+  overflow at 375px.
+- **If you add a fourth header social icon**, re-measure the same way
   (resize down from a wide viewport, binary-search the width where
   `header.scrollWidth > header.clientWidth` flips true) rather than assuming
-  410px still holds — three icons need more room than two did.
+  450px still holds. If a Browser-pane check ever contradicts a `curl`
+  check of the same URL, trust the `curl` result for what's actually
+  deployed — the discrepancy is almost certainly the preview tab's own HTTP
+  cache (the local dev server's HTML isn't `?v=`-busted the way `css`/`js`
+  are), not a real bug; force it with a cache-busting query string rather
+  than concluding the fix didn't work.
 
 ## Header "Support us" link — a responsive gotcha, don't reintroduce it
 
@@ -802,20 +817,21 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
-- **Measured (2026-08-21, after adding the header Instagram icon)**: the
-  header row (logo + 4 nav items + actions incl. both social icons) needs
-  **~1083px** of required width. `.nav` still collapses at `max-width:
-  1120px`, so there is still ~37px of spare room at this breakpoint —
-  getting tight; re-measure before adding a third header icon rather than
-  assuming there's still headroom. Verified no overflow at 1121px (right at
-  the breakpoint edge). Below 1120px a *separate* overflow surfaced instead
-  (the collapsed/hamburger layout, not this nav breakpoint) — see "Header
-  social icons — an overflow gotcha" for that one; it's a different fix
-  (`.header__social` hides below 410px) at a different width entirely, not
-  a nav-breakpoint change. (Prior measurement, 2026-08-21 right after adding
-  just the X icon, was ~1033px; before any social icon existed it was
-  ~981px.) If you want the full nav on 1024px-wide laptops, lowering the
-  breakpoint to ~1023px is safe on this measurement; nobody has asked for
+- **Measured (2026-08-31, after adding the header Facebook icon — 3 social
+  icons now)**: **verified no overflow at 1121px**, right at the breakpoint
+  edge, same as with 2 icons — the `estimatedRequiredWidth` heuristic used
+  in earlier measurements here (~1079-1083px depending on run) has enough
+  run-to-run variance from font rendering that it's not worth chasing to
+  the pixel; treat the actual `header.scrollWidth > header.clientWidth`
+  check at the breakpoint edge as the authoritative test, not the estimate.
+  `.nav` still collapses at `max-width: 1120px`. Below 1120px a *separate*
+  overflow surfaced instead (the collapsed/hamburger layout, not this nav
+  breakpoint) — see "Header social icons — an overflow gotcha" for that one;
+  it's a different fix (`.header__social` now hides below 450px, was 410px
+  for 2 icons) at a different width entirely, not a nav-breakpoint change.
+  If you want the full nav on 1024px-wide laptops, lowering the breakpoint
+  to ~1023px is *probably* still safe but re-verify with the same
+  overflow check rather than trusting the estimate; nobody has asked for
   that yet.
 - History: the requirement was 1081px with the Contact tab present, and the
   breakpoint was **1080px and actively overflowing** the moment the
