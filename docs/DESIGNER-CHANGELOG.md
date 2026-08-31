@@ -39,6 +39,48 @@ for the exact markup shape to propagate this into.
 
 ---
 
+## v0.3.0 — Aug 31, 2026
+
+More cars, refined shadows and strokes
+
+### Cars
+36 now.
+- New categories: Sports & Performance, Classic & Historic.
+- New cars: Ferrari 288 GTO, Ferrari Daytona SP3, Honda NSX-R, Honda S2000
+  AP1, Lamborghini Huracan STO, Mazda MX-5 NA, Toyota GR86, Volkswagen Golf
+  Mk8 GTI Clubsport, Volkswagen Golf Mk8 R.
+- Search box in the car picker. "mx5" finds the MX-5, "golf r" finds only
+  the R.
+
+### Drop Shadow
+- Falls the same way on both sides of the car. It used to point toward the
+  back on one door and the front on the other.
+- Fixed the transparent gap between a layer and its own shadow.
+- Fixed the missing pixels in inner corners.
+- Fixed the shadow showing through translucent artwork.
+
+### Stroke
+- Cleaner edge, computed from real coverage.
+- Antialiasing matched to the artwork it wraps, per layer.
+- Fixed the stepping along the outline at every width.
+
+### Decal
+- Outline control, applied to the artwork before it is projected.
+- Switch under Apply: paint onto the current layer, or make a new one.
+- Picking the Decal tool opens the Decals shelf.
+
+### Layers and Effects
+- Each effect has its own titled settings block.
+- The Effects header names the layer it is editing.
+- FX opens the Effects panel from either layer menu.
+- A new layer lands directly above the selected one.
+- Undo and Redo move into the toolbar when the 2D view is collapsed.
+
+### Other
+- FORC3 Designer wordmark in the header.
+- Straight lines can be clicked point to point, not only dragged.
+- Opacity, blur, stroke and shadow adjust much faster on a big livery.
+
 ## v0.2.1 — Aug 29, 2026
 
 More cars and a reworked Decals Libraries

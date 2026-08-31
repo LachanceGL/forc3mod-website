@@ -95,7 +95,8 @@ than rewriting it from scratch.
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
-| `video/forc3designer-demo.mp4` | Owner-provided demo video (1960×1080, ~72s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. Originally handed off in a top-level `forc3designervid/` folder; moved+renamed into this folder to match the site's flat asset convention (`css/`, `js/`, `img/`), same as every other asset here — not a re-encode or derivative. |
+| `video/forc3designer-demo-02.mp4` | **Currently active** owner-provided demo video (1960×1080, ~93s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
+| `video/forc3designer-demo.mp4` | Earlier demo video (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. If a `-03` ever supersedes `-02`, keep both older files rather than deleting either. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -489,9 +490,12 @@ gets a shareable link for free, no extra markup needed.
 ### Demo video modal (added 2026-08-28, on request)
 
 `forc3designer.html`'s hero "See what it does" button (`data-modal-target="#demo"`)
-opens a modal playing `video/forc3designer-demo.mp4` — brought back after
+opens a modal playing `video/forc3designer-demo-02.mp4` — brought back after
 being removed earlier (it used to scroll to `#features`) once an actual demo
-video existed to show.
+video existed to show. The video file itself gets swapped in place as newer
+demos are provided (see the file map's `video/` rows) — just update the
+`<video src>` and, if the new file's own pixel dimensions differ, the
+`aspect-ratio` below to match.
 
 - **`.modal--video`** is a wider, padding-stripped variant of the base
   `.modal` (900px vs the text modals' 520px) — a video reads as a cinematic

@@ -147,7 +147,7 @@
   <div class="modal-overlay" id="demo" aria-hidden="true">
     <div class="modal modal--video" role="dialog" aria-modal="true" aria-label="FORC3 Designer demo video">
       <button type="button" class="icon-btn modal__close modal__close--video" data-modal-close aria-label="Close video">&times;</button>
-      <video class="modal__video" src="video/forc3designer-demo.mp4" controls preload="none" playsinline controlsList="nodownload noplaybackrate" disablePictureInPicture disableRemotePlayback></video>
+      <video class="modal__video" src="video/forc3designer-demo-02.mp4" controls preload="none" playsinline controlsList="nodownload noplaybackrate" disablePictureInPicture disableRemotePlayback></video>
     </div>
   </div>
 
@@ -159,6 +159,51 @@
         <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close changelog">&times;</button>
       </div>
       <div class="modal__body">
+        <details class="modal__entry">
+          <summary class="modal__version"><span class="modal__version-text">v0.3.0 <span class="modal__date">— More cars, refined shadows and strokes // Aug 31, 2026</span></span></summary>
+          <div class="modal__entry-body">
+            <h4>Cars</h4>
+            <p>36 now.</p>
+            <ul class="feature-list">
+              <li>New categories: Sports &amp; Performance, Classic &amp; Historic.</li>
+              <li>New cars: Ferrari 288 GTO, Ferrari Daytona SP3, Honda NSX-R, Honda S2000 AP1, Lamborghini Huracan STO, Mazda MX-5 NA, Toyota GR86, Volkswagen Golf Mk8 GTI Clubsport, Volkswagen Golf Mk8 R.</li>
+              <li>Search box in the car picker. "mx5" finds the MX-5, "golf r" finds only the R.</li>
+            </ul>
+            <h4>Drop Shadow</h4>
+            <ul class="feature-list">
+              <li>Falls the same way on both sides of the car. It used to point toward the back on one door and the front on the other.</li>
+              <li>Fixed the transparent gap between a layer and its own shadow.</li>
+              <li>Fixed the missing pixels in inner corners.</li>
+              <li>Fixed the shadow showing through translucent artwork.</li>
+            </ul>
+            <h4>Stroke</h4>
+            <ul class="feature-list">
+              <li>Cleaner edge, computed from real coverage.</li>
+              <li>Antialiasing matched to the artwork it wraps, per layer.</li>
+              <li>Fixed the stepping along the outline at every width.</li>
+            </ul>
+            <h4>Decal</h4>
+            <ul class="feature-list">
+              <li>Outline control, applied to the artwork before it is projected.</li>
+              <li>Switch under Apply: paint onto the current layer, or make a new one.</li>
+              <li>Picking the Decal tool opens the Decals shelf.</li>
+            </ul>
+            <h4>Layers and Effects</h4>
+            <ul class="feature-list">
+              <li>Each effect has its own titled settings block.</li>
+              <li>The Effects header names the layer it is editing.</li>
+              <li>FX opens the Effects panel from either layer menu.</li>
+              <li>A new layer lands directly above the selected one.</li>
+              <li>Undo and Redo move into the toolbar when the 2D view is collapsed.</li>
+            </ul>
+            <h4>Other</h4>
+            <ul class="feature-list">
+              <li>FORC3 Designer wordmark in the header.</li>
+              <li>Straight lines can be clicked point to point, not only dragged.</li>
+              <li>Opacity, blur, stroke and shadow adjust much faster on a big livery.</li>
+            </ul>
+          </div>
+        </details>
         <details class="modal__entry">
           <summary class="modal__version"><span class="modal__version-text">v0.2.1 <span class="modal__date">— More cars and a reworked Decals Libraries // Aug 29, 2026</span></span></summary>
           <div class="modal__entry-body">

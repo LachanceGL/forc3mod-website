@@ -12,6 +12,34 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-08-31
+
+- **Added the v0.3.0 changelog entry** — checked `forc3-designer-releases`
+  per the standing convention, found it published with substantial content
+  (36 cars now, 9 new; refined Drop Shadow and Stroke rendering with 7 bug
+  fixes between them; reworked Decal/Layers/Effects UI details). Added as
+  the newest collapsed entry, 6 subsections (the longest entry yet). Also
+  re-checked the older releases' `updated_at` timestamps against what was
+  already on the site — none had changed since last pulled, so no content
+  updates were needed there despite being asked to check ("update oldest
+  ones to updated versions"); reported that plainly rather than silently
+  doing nothing. Verified 6 entries total, correct order, all collapsed,
+  no overflow expanded or collapsed at 375px/1280px, console clean.
+- **Swapped the demo video to a newer file**, on request mid-turn — the
+  owner had already placed `video/forc3designer-demo-02.mp4` (93s, same
+  1960×1080 as before) directly in the repo. Pointed the modal's `<video
+  src>` at it, kept the old `forc3designer-demo.mp4` in place rather than
+  deleting it (same "owner-provided, not generated, don't delete" reasoning
+  as `img/FORC3Designer_Showcase01.jpg`). Aspect ratio unchanged since the
+  dimensions matched. **Testing note**: an already-loaded Browser pane tab
+  served a stale cached copy of `forc3designer.html` showing the old video
+  src, even after a `navigate` call with `force: true` — same class of
+  local-dev caching quirk documented elsewhere in this file. Opening a
+  genuinely fresh tab (not reusing or force-reloading an existing one)
+  resolved it immediately; used that to confirm the real fix rather than
+  trusting the stale tab. No CSS/JS changed either update — HTML-only, no
+  `?v=` bump.
+
 ## 2026-08-29
 
 - **Added the v0.2.1 changelog entry** — checked `forc3-designer-releases`
