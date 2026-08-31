@@ -190,11 +190,18 @@
   // pushState/replaceState rather than setting location.hash directly so
   // the browser never tries a native scroll-to-anchor jump for it.
   //
-  // A hashchange listener (below the loop) also opens/closes modals when the
-  // hash changes without a full page load — e.g. the back/forward buttons
-  // after opening one, or an in-page link jumping straight from one modal's
-  // hash to another's on the same page. Without it, only the very first
-  // page load honors the hash; a same-document hash change (which is all
+  // Individual id'd items inside a modal (e.g. each changelog version entry)
+  // are linkable too: opening one (a <details> being expanded) pushes its
+  // own id onto the hash instead of the modal's; loading/jumping to that
+  // hash opens the modal, expands that specific entry, and scrolls it into
+  // view. Collapsing a linked entry falls back to the modal's own hash
+  // (the modal is still open, just no longer pointing at one entry).
+  //
+  // A hashchange listener (below the loop) also opens/closes modals and
+  // entries when the hash changes without a full page load — e.g. the
+  // back/forward buttons, or an in-page link jumping straight from one
+  // hash to another on the same page. Without it, only the very first page
+  // load honors the hash; a same-document hash change (which is all
   // back/forward and same-page hash links ever cause) wouldn't reach the
   // "open on load" check below, since that only runs once per real load.
   const modalControllers = [];
@@ -207,7 +214,12 @@
     // applies to any future video modal without extra wiring.
     const modalVideo = modal.querySelector('video');
 
-    const openModal = (updateHash = true) => {
+    // Any other id'd element inside the modal (e.g. changelog entries) is
+    // individually linkable — generic, not hardcoded to the changelog.
+    const linkableEntries = Array.from(modal.querySelectorAll('[id]'));
+    const entryForHash = (hash) => linkableEntries.find((el) => el.id === hash);
+
+    const openModal = (updateHash = true, hashOverride = null) => {
       // Only one modal open at a time — a trigger button sits behind the
       // open overlay so a mouse can't normally reach a second one, but a
       // keyboard user tabbing past it still can, so this isn't purely
@@ -219,8 +231,9 @@
       modal.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-      if (updateHash && location.hash.slice(1) !== modal.id) {
-        history.pushState(null, '', `#${modal.id}`);
+      const targetHash = hashOverride || modal.id;
+      if (updateHash && location.hash.slice(1) !== targetHash) {
+        history.pushState(null, '', `#${targetHash}`);
       }
       if (modalVideo) modalVideo.play().catch(() => {});
     };
@@ -229,13 +242,20 @@
       modal.setAttribute('aria-hidden', 'true');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      if (location.hash.slice(1) === modal.id) {
+      const currentHash = location.hash.slice(1);
+      if (currentHash === modal.id || entryForHash(currentHash)) {
         history.replaceState(null, '', location.pathname + location.search);
       }
       if (modalVideo) {
         modalVideo.pause();
         modalVideo.currentTime = 0;
       }
+    };
+    // Expands (if it's a <details>) and scrolls a linkable entry into view.
+    // Doesn't touch the hash itself — callers decide that separately.
+    const revealEntry = (entry) => {
+      if (entry.tagName === 'DETAILS') entry.open = true;
+      entry.scrollIntoView({ block: 'start' });
     };
 
     trigger.addEventListener('click', () => openModal());
@@ -249,19 +269,50 @@
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
 
-    modalControllers.push({ modal, openModal, closeModal });
+    // Expanding a linkable <details> entry by hand links straight to it;
+    // collapsing one that was linked falls back to the modal's own link
+    // rather than clearing the hash outright (the modal is still open).
+    linkableEntries.forEach((entry) => {
+      if (entry.tagName !== 'DETAILS') return;
+      entry.addEventListener('toggle', () => {
+        if (entry.open) {
+          if (location.hash.slice(1) !== entry.id) history.pushState(null, '', `#${entry.id}`);
+        } else if (location.hash.slice(1) === entry.id) {
+          history.replaceState(null, '', `#${modal.id}`);
+        }
+      });
+    });
 
-    // Open immediately if the page was loaded with this modal's hash —
-    // don't re-push the same hash that's already there.
-    if (location.hash.slice(1) === modal.id) openModal(false);
+    modalControllers.push({ modal, openModal, closeModal, entryForHash, revealEntry });
+
+    // Open immediately if the page was loaded pointing at this modal, or at
+    // one specific entry inside it — don't re-push the same hash that's
+    // already there.
+    const initialHash = location.hash.slice(1);
+    if (initialHash === modal.id) {
+      openModal(false);
+    } else {
+      const entry = entryForHash(initialHash);
+      if (entry) {
+        openModal(false, initialHash);
+        revealEntry(entry);
+      }
+    }
   });
 
   window.addEventListener('hashchange', () => {
     const targetId = location.hash.slice(1);
-    modalControllers.forEach(({ modal, openModal, closeModal }) => {
+    modalControllers.forEach(({ modal, openModal, closeModal, entryForHash, revealEntry }) => {
       const isOpen = modal.classList.contains('is-open');
-      if (modal.id === targetId && !isOpen) openModal(false);
-      else if (modal.id !== targetId && isOpen) closeModal();
+      const entry = entryForHash(targetId);
+      if (modal.id === targetId) {
+        if (!isOpen) openModal(false);
+      } else if (entry) {
+        if (!isOpen) openModal(false, targetId);
+        revealEntry(entry);
+      } else if (isOpen) {
+        closeModal();
+      }
     });
   });
 

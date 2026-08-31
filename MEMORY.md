@@ -14,6 +14,35 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-31
 
+- **Made individual changelog entries linkable**, not just the changelog
+  modal as a whole ("changelogs should also have a specific link to them").
+  Generalized the existing modal deep-link system (built 2026-08-28) rather
+  than building something changelog-specific: any id'd element inside a
+  modal is now a "linkable entry" — expanding a `<details>` one pushes its
+  own id onto the hash instead of the modal's; a matching hash on load or
+  via `hashchange` opens the containing modal, expands that one entry, and
+  scrolls it into view; collapsing a linked entry falls back to the modal's
+  own hash rather than clearing it, since the modal is still open. Gave
+  each changelog entry a stable id (`v0-3-0` down to `v0-1-0`, dashes not
+  dots).
+  - Verified in a genuinely fresh tab (not a reused/reloaded one, learned
+    from an earlier caching false-alarm this session): `#v0-2-1` opens the
+    modal, expands that entry, scrolls to it. Verified same-document
+    hash-to-hash jumps between two different entries both work via the
+    `hashchange` path (`location.hash = ...` direct assignment, the
+    reliable test method from the earlier modal work — the `navigate` tool
+    itself is not trustworthy for this). Verified jumping to `#demo` while
+    a changelog entry's hash was active correctly closes the changelog.
+  - **Hit a test-methodology gotcha, not a real bug**: a `<details>`
+    element's `toggle` event doesn't fire perfectly synchronously with the
+    click — checking `location.hash` immediately after a synthetic
+    `summary.click()` saw the pre-toggle value, made it look broken. A
+    short delay (or any real user click, which never hits this) showed the
+    hash update was correct all along. Documented in `CLAUDE.md` so this
+    doesn't get mistaken for a regression later.
+  - No overflow at 375px/1280px, console clean. Bumped `?v=23 -> v=24`
+    (JS-only this time — no CSS touched).
+
 - **Added the v0.3.0 changelog entry** — checked `forc3-designer-releases`
   per the standing convention, found it published with substantial content
   (36 cars now, 9 new; refined Drop Shadow and Stroke rendering with 7 bug

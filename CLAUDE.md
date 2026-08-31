@@ -486,6 +486,34 @@ gets a shareable link for free, no extra markup needed.
   URL — no behavior change, the deep-link system reads `modal.id`
   generically either way.
 - Shareable URL for the demo video: `forc3designer.html#demo`.
+- **Individual id'd elements inside a modal are linkable too** (added
+  2026-08-31, on request — "changelogs should also have a specific link to
+  them"). Any element inside a modal with its own `id` (e.g. one changelog
+  version entry) is a `linkableEntry`: expanding a `<details>` one (by hand
+  or via a matching hash) pushes *its own* id onto the hash instead of the
+  modal's, and loading/jumping to that hash opens the containing modal,
+  expands that one `<details>`, and scrolls it into view
+  (`scrollIntoView`). Collapsing a linked entry falls back to the modal's
+  own hash (`#changelog`), not an empty one — the modal is still open, it
+  just no longer points at one specific entry. This is generic (matches any
+  `[id]` inside a modal, not hardcoded to `.modal__entry`), so it costs
+  nothing to add a linkable id to some future modal's internals.
+  - Changelog entry ids are `v0-3-0`, `v0-2-1`, `v0-2-0`, `v0-1-2`,
+    `v0-1-1`, `v0-1-0` (dashes, not dots — plays nicer as a URL fragment and
+    avoids ever needing to escape a `.` in a selector). **Add a matching id
+    to every new changelog entry going forward** — it's what makes
+    `forc3designer.html#v0-3-0` linkable directly to that version.
+  - Doesn't force-collapse other entries when jumping to one via hash —
+    native `<details>` here allows multiple open at once, and jumping to a
+    new entry only guarantees *that one* is open+visible, it doesn't touch
+    whatever else was already expanded.
+  - **Testing note**: a `<details>` element's `toggle` event does not fire
+    perfectly synchronously with the click that causes it (confirmed:
+     checking `location.hash` immediately after a synthetic `summary.click()`
+    saw the old value; a small delay — or a real user click, which never
+    hits this in practice — showed the update). Don't be fooled by a
+    synchronous check into thinking the toggle-updates-hash wiring is
+    broken; verify with a short `setTimeout`/`await` after the click.
 
 ### Demo video modal (added 2026-08-28, on request)
 

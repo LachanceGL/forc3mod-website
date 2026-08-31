@@ -37,6 +37,11 @@ On the site, entries render as `<details>/<summary>` accordions, **all
 collapsed by default**. See `CLAUDE.md`'s "Changelog modal content" section
 for the exact markup shape to propagate this into.
 
+Each entry also gets its own `id` (e.g. `v0-3-0`, dashes not dots) so it's
+individually linkable — `forc3designer.html#v0-3-0` opens the changelog and
+jumps straight to that version. Give every new entry a matching id when you
+propagate it into the modal.
+
 ---
 
 ## v0.3.0 — Aug 31, 2026
