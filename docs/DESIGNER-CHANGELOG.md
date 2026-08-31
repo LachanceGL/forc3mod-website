@@ -18,6 +18,14 @@ release body (Download link, the "Windows protected your PC" note, the
 footer blurb) is release-page boilerplate, not changelog content — strip it
 out when copying into an entry here.
 
+A patch release's "What's new" section can also **recap the prior release**
+(e.g. v0.3.1's body repeated all of v0.3.0's content under "Coming from
+0.2.1? Everything below shipped in 0.3.0 as well") — that's for visitors
+landing on the release page who skipped a version. On the site, only
+include what's genuinely new to that version; the earlier release already
+has its own entry, so repeating it would duplicate content across two
+accordion rows.
+
 ## Entry format
 
 Newest entry first. Each entry is a `## vVERSION — Mon D, YYYY` heading,
@@ -43,6 +51,21 @@ jumps straight to that version. Give every new entry a matching id when you
 propagate it into the modal.
 
 ---
+
+## v0.3.1 — Aug 31, 2026
+
+Opacity slider for Brush & Eraser
+
+The release body also recaps everything from 0.3.0 ("Coming from 0.2.1?
+Everything below shipped in 0.3.0 as well") — that's for people who skipped
+straight to 0.3.1 on the releases page. Skip it here: 0.3.0 is already its
+own entry directly below, so only the genuinely new part goes in this one.
+
+### Brush and Eraser
+- New Opacity slider, shared by both tools.
+- It is per stroke: crossing a stroke over itself will not build past the
+  value you set. Go over an area again with a second stroke to build it up.
+- Works with a soft brush, with the PBR channels, and when painting a mask.
 
 ## v0.3.0 — Aug 31, 2026
 

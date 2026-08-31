@@ -14,6 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-31
 
+- **Added the v0.3.1 changelog entry, deliberately trimmed** — checked
+  `forc3-designer-releases` per the standing convention. Its "What's new"
+  body recapped all of v0.3.0's content ("Coming from 0.2.1? Everything
+  below shipped in 0.3.0 as well") since it's meant for visitors who skip
+  straight to the newest release page — but v0.3.0 already has its own
+  entry directly below on the site, so copying that recap in would have
+  duplicated it. Added only the genuinely new part (a per-stroke Opacity
+  slider shared by Brush and Eraser), with id `v0-3-1`, as the newest
+  collapsed entry. Documented this "watch for release-note recaps"
+  pattern in `docs/DESIGNER-CHANGELOG.md` for next time. Verified in a
+  fresh tab that `#v0-3-1` opens the modal, expands that entry, no
+  overflow at 375px/1280px, console clean. HTML-only, no `?v=` bump.
+
 - **Made individual changelog entries linkable**, not just the changelog
   modal as a whole ("changelogs should also have a specific link to them").
   Generalized the existing modal deep-link system (built 2026-08-28) rather
