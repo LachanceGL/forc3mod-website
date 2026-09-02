@@ -14,6 +14,25 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-31
 
+- **Added `download/index.html`** as a `forc3mod.com` redirect to the
+  FORC3 Designer "latest release" GitHub download URL, on request ("it
+  needs to be a forc3mod.com url, is that possible"). Same
+  `<meta http-equiv="refresh">` shim technique already used by
+  `designer.html`'s legacy-URL redirect — GitHub Pages serves static
+  folder+`index.html` as a clean trailing-slash URL for free, no build
+  step. Live at `https://www.forc3mod.com/download/`. Points at `latest`,
+  not a version-pinned URL, so it stays current the same way the on-site
+  buttons already do.
+  - Couldn't fully verify the download fires inside the Browser pane tool
+    itself — it explicitly denies navigating to a download-triggering URL
+    ("navigation to ... was denied or failed"), which is a restriction of
+    that tool, not evidence the redirect is broken. Verified what's
+    actually checkable: the meta tag renders with the correct URL, and
+    `curl` already confirmed (when the two on-page buttons were built) that
+    the exact same GitHub URL returns `200` with
+    `Content-Disposition: attachment`. Documented this verification gap
+    plainly in `CLAUDE.md` rather than overclaiming end-to-end proof.
+
 - **Added Facebook (`https://www.facebook.com/61593866946389/`)** on
   request ("add at the top") — same treatment as X/Instagram, footer
   Community column link (placed **first**, above Discord, per "at the top")
