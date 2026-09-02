@@ -89,7 +89,7 @@ than rewriting it from scratch.
 | `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
-| `download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
+| `forc3-designer-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
@@ -432,17 +432,25 @@ https://github.com/LachanceGL/forc3-designer-releases/releases/latest/download/F
   the releases repo actually has a published release before trusting either
   claim over the other.
 
-### `forc3mod.com/download/` — a shareable link
+### `forc3mod.com/forc3-designer-download` — a shareable link
 
-`download/index.html` is a static redirect shim (`<meta http-equiv="refresh">`,
-same technique as `designer.html`'s legacy-URL shim) to the same "latest
-release" GitHub URL above. Exists purely so the download link can be handed
-out as a `forc3mod.com` URL instead of a raw `github.com` one — the owner
-asked for this directly ("it needs to be a forc3mod.com url, is that
-possible"). GitHub Pages serves it at `https://www.forc3mod.com/download/`
-(the folder + `index.html` gives the clean trailing-slash URL, no `.html`
-needed) for free, no server/build step required — same static-hosting
-mechanism as every other page on this site.
+`forc3-designer-download/index.html` is a static redirect shim
+(`<meta http-equiv="refresh">`, same technique as `designer.html`'s
+legacy-URL shim) to the same "latest release" GitHub URL above. Exists
+purely so the download link can be handed out as a `forc3mod.com` URL
+instead of a raw `github.com` one — the owner asked for this directly ("it
+needs to be a forc3mod.com url, is that possible"). GitHub Pages serves it
+at `https://www.forc3mod.com/forc3-designer-download` (the folder +
+`index.html` gives the clean URL, no `.html` needed) for free, no
+server/build step required — same static-hosting mechanism as every other
+page on this site.
+
+- **Path history**: this folder was named `download/` initially, then
+  renamed to `forc3-designer/`, then to its current
+  `forc3-designer-download/` — all in the same request/session, owner
+  iterating on the exact URL wanted. If asked to change this path again,
+  rename the folder with `git mv` (not create a new one) and update the
+  in-file `<link rel="canonical">` to match, same as done each time here.
 
 - Points at the `latest` redirect (not a version-pinned URL), so it stays
   current automatically exactly like the on-site buttons — no edits needed

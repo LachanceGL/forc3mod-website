@@ -14,15 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-08-31
 
-- **Added `download/index.html`** as a `forc3mod.com` redirect to the
-  FORC3 Designer "latest release" GitHub download URL, on request ("it
-  needs to be a forc3mod.com url, is that possible"). Same
-  `<meta http-equiv="refresh">` shim technique already used by
-  `designer.html`'s legacy-URL redirect — GitHub Pages serves static
-  folder+`index.html` as a clean trailing-slash URL for free, no build
-  step. Live at `https://www.forc3mod.com/download/`. Points at `latest`,
-  not a version-pinned URL, so it stays current the same way the on-site
-  buttons already do.
+- **Added a `forc3mod.com` redirect to the FORC3 Designer "latest release"
+  GitHub download URL**, on request ("it needs to be a forc3mod.com url, is
+  that possible"). Same `<meta http-equiv="refresh">` shim technique
+  already used by `designer.html`'s legacy-URL redirect — GitHub Pages
+  serves static folder+`index.html` as a clean URL for free, no build
+  step. Points at `latest`, not a version-pinned URL, so it stays current
+  the same way the on-site buttons already do.
+  - **Path renamed twice in the same request**: `download/` →
+    `forc3-designer/` → final `forc3-designer-download/`, owner iterating
+    on the exact URL live in front of them. Each rename was a `git mv` +
+    updating the in-file `<link rel="canonical">` to match, not a
+    delete-and-recreate. Live at
+    `https://www.forc3mod.com/forc3-designer-download`.
   - Couldn't fully verify the download fires inside the Browser pane tool
     itself — it explicitly denies navigating to a download-triggering URL
     ("navigation to ... was denied or failed"), which is a restriction of
