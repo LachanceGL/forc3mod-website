@@ -52,6 +52,48 @@ propagate it into the modal.
 
 ---
 
+## v0.4.0 — Sep 2, 2026
+
+69 cars now, including the first mod car
+
+Every car in Assetto Corsa EVO is now in the app, plus a first mod car.
+Skipped the "Coming from a previous version?" recap at the end of the
+release body (opacity slider, car-picker search, decal outline, effects
+panel rework, shadow/stroke fixes, performance) — all already covered by
+the v0.3.0/v0.3.1 entries below.
+
+### Cars
+69 now, up from 36. Two new categories, Track Specials and MODS.
+
+### Track Specials
+- Dallara EXP, Ferrari F40 LM, Porsche 935.
+
+### Classic & Historic
+- Alfa Romeo 75 Turbo Evo, Alfa Romeo Giulia Sprint GTA, Audi Sport Quattro,
+  BMW M3 E30 Sport Evo, BMW M3 E46 CSL, Ford Escort RS Cosworth,
+  Lamborghini Countach LP5000 QV, Lancia Delta HF Integrale Evo II,
+  Mercedes-Benz 190E 2.5-16 Evolution II, Mini John Cooper Works Mk IV,
+  Nissan Datsun 240Z, Peugeot 205 T16, Porsche 964 Turbo 3.6,
+  Renault 5 GT Turbo, Toyota Sprinter Trueno Apex AE86, Toyota Supra MKIV,
+  Volkswagen Golf GTI Mk1.
+
+### Sports & Performance
+- Alfa Romeo Giulia GTAm, Alpine A110 S, BMW M2 Coupe, BMW M4 CSL,
+  BMW M8 Competition, Caterham Seven 485 CSR, Chevrolet Camaro ZL1,
+  Lotus Emira, Lotus Exige V6 Cup.
+
+### Road & Hot Hatches
+- Abarth 695 Biposto, Alfa Romeo Junior Veloce, Hyundai i30 N Hatchback.
+
+### MODS
+- Mazda 787B — the first mod car.
+
+### Other
+- The Layers panel drops to icons when you make it narrow, instead of
+  cutting the button labels in half.
+- Fixed the Frame View and Turntable tooltips being covered by the Decals
+  shelf.
+
 ## v0.3.1 — Aug 31, 2026
 
 Opacity slider for Brush & Eraser

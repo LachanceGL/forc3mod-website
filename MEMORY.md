@@ -12,6 +12,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-02
+
+- **Added the v0.4.0 changelog entry** — checked `forc3-designer-releases`
+  per the standing convention. A big one: every car in Assetto Corsa EVO is
+  now in the app (69 total, up from 36, 33 new), plus a first mod car
+  (Mazda 787B) under a new MODS category, plus a new Track Specials
+  category and two small UI fixes. Skipped the release body's "Coming from
+  a previous version?" recap (opacity slider, car-picker search, decal
+  outline, effects rework, shadow/stroke fixes) since it's already covered
+  by the v0.3.0/v0.3.1 entries — same trim-the-recap pattern established
+  for v0.3.1. Added as the newest collapsed entry (id `v0-4-0`), with each
+  car category broken into its own `<h4>` subsection matching how the
+  release itself grouped them. Verified: 8 entries total in correct order,
+  deep link `#v0-4-0` opens the modal and expands just that entry, no
+  overflow at 375px or 1280px despite being the longest entry yet, console
+  clean. HTML-only, no `?v=` bump.
+
 ## 2026-08-31
 
 - **Added a `forc3mod.com` redirect to the FORC3 Designer "latest release"
