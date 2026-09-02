@@ -451,6 +451,28 @@ page on this site.
   iterating on the exact URL wanted. If asked to change this path again,
   rename the folder with `git mv` (not create a new one) and update the
   in-file `<link rel="canonical">` to match, same as done each time here.
+- **Styled to match the site, not left as plain HTML** (owner: "make it
+  dark mode and look better, themed with we have if people are going to
+  see this") — loads the real `/css/style.css` and the real Rajdhani/Roboto
+  Google Fonts link, shows the actual `img/forc3mod-logo.svg` and a
+  `.btn.btn--primary` fallback button, on a dark background with a soft
+  blue radial glow (same accent-glow language as the banner/cards
+  elsewhere). Root-absolute asset paths (`/css/style.css`, `/img/...`) are
+  required here specifically because this page lives one folder deep
+  (`/forc3-designer-download/`) — a relative path would resolve against
+  that folder instead of the site root and 404, same class of gotcha as
+  the photo-card `url()` note elsewhere in this doc.
+  - In practice almost nobody ever sees this — the `<meta http-equiv=
+    "refresh">` above fires instantly for any normal visitor. It's styled
+    anyway for the rare case a browser/extension blocks the redirect, so
+    it still reads as forc3mod.com rather than a bare unstyled fallback.
+  - **Verification note**: this page's own meta-refresh made it hard to
+    screenshot normally (it immediately redirects away) — but the Browser
+    pane tool used for testing explicitly denies navigating to
+    download-triggering URLs (see the verification-gap note above), so in
+    *that* tool specifically the redirect never fires and the styled page
+    stays put — useful for checking it, not a general trick for viewing
+    pages that redirect elsewhere.
 
 - Points at the `latest` redirect (not a version-pinned URL), so it stays
   current automatically exactly like the on-site buttons — no edits needed

@@ -36,6 +36,16 @@ explicitly rather than leaving the old entry looking still-current.
     the exact same GitHub URL returns `200` with
     `Content-Disposition: attachment`. Documented this verification gap
     plainly in `CLAUDE.md` rather than overclaiming end-to-end proof.
+  - **Styled the fallback page to match the site** ("make it dark mode and
+    look better, themed") — was plain unstyled HTML; now loads the real
+    `/css/style.css` + Google Fonts, shows the real logo and a
+    `.btn--primary` button on a dark background with a soft accent glow.
+    Used root-absolute asset paths since the page lives a folder deep.
+    Actually verified visually this time (not just via computed styles) —
+    the Browser pane's own denial of the download navigation meant the
+    redirect never fired in that tool, so the styled page stayed on-screen
+    long enough to screenshot properly; confirmed logo, button gradient,
+    and glow all render correctly, no overflow at 375px, console clean.
 
 - **Added Facebook (`https://www.facebook.com/61593866946389/`)** on
   request ("add at the top") — same treatment as X/Instagram, footer
