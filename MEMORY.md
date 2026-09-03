@@ -25,6 +25,16 @@ explicitly rather than leaving the old entry looking still-current.
   lightening slightly on hover. Verified at desktop and 375px mobile: no
   overflow, icon renders crisp, console clean. CSS-only change, bumped
   `?v=` 25→26 across all 5 pages (including the download-redirect shim).
+  - **Corrected twice, in the same session**: owner said "don't make it a
+    button" — stripped the pill's border/background/padding/border-radius
+    to bare text + icon (kept `color`, hover-only color shift, still an
+    `<a>`). Bumped `?v=` 26→27. Owner immediately followed with "nor a
+    link" — even hover-tint + a working href still read as clickable, so
+    changed the element from `<a>` to a plain `<span>` (no href, no hover
+    rule, no transition — pure static caption text). Bumped `?v=` 27→28.
+    Lesson: "don't make it X" can mean the affordance, not just the
+    styling — when in doubt after a correction like this, ask whether the
+    underlying interactivity should go too, not just the visual chrome.
 
 ## 2026-09-02
 

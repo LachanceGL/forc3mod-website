@@ -434,23 +434,31 @@ https://github.com/LachanceGL/forc3-designer-releases/releases/latest/download/F
 
 ### "Hosted on GitHub" badge (added 2026-09-03)
 
-A small pill sits directly below the hero CTA row (`.hero__source`, in
-`forc3designer.html`), linking to
-`https://github.com/LachanceGL/forc3-designer-releases/releases` — the
-releases page itself, not the direct installer download (that's what the
-two "Download for Windows" buttons already do). Owner request, from a
+A small `<span class="hero__source">` sits directly below the hero CTA row
+in `forc3designer.html` — icon + "Hosted on GitHub" as **plain static
+caption text, not an interactive element at all**. Owner request, from a
 screenshot marking the empty space under the hero buttons.
 
-- **Deliberately neutral/dark, not theme-lime** — owner said "neutral and
-  darker" explicitly. Uses `var(--border)` / `var(--text-mute)` /
-  `rgba(255,255,255,.03)` background, the same desaturated-pill language as
-  `.icon-btn`, not the page's lime accent. Don't theme this one.
-  Hover only lightens slightly (`var(--text-dim)`, `rgba(255,255,255,.06)`)
-  — no accent color on hover either, same reasoning.
-  - `.about__badge` and `.live-status` intentionally *do* pick up
-    accent/status colors — this pill doesn't. If you copy either as a
-    starting point for a future badge, verify which pattern you actually
-    want before reusing the colors alongside the shape.
+- **Went through two corrections before landing here — both are dead ends,
+  don't reintroduce either:**
+  1. First shipped as an `<a>` styled as a pill (border, background,
+     padding, border-radius — `.icon-btn`-style chrome) linking to
+     `forc3-designer-releases`' releases page. Owner: "don't make it a
+     button" — it read as a third CTA competing with the two real buttons
+     above it.
+  2. Stripped the box styling but kept it as a hover-tinting `<a>`
+     (`var(--text-mute)` → `var(--text-dim)` on hover, still a real link).
+     Owner: "nor a link" — even without box chrome, a hover color shift and
+     a working `href` still reads as clickable.
+  - **Current state**: a plain `<span>` (no `href` at all — not an `<a>`),
+    static `color: var(--text-mute)` with no `:hover` rule and no
+    `transition`. `cursor` is the browser default (`auto`), confirmed via
+    `getComputedStyle`. It is purely informational now — there is nothing
+    to click.
+  - **Deliberately neutral/dark, not theme-lime** — owner said "neutral and
+    darker" for the color itself, independent of the button/link
+    corrections above. `.about__badge` and `.live-status` intentionally
+    *do* pick up accent/status colors; this one doesn't and shouldn't.
 - Icon is the GitHub Octocat mark, inline SVG, sized via the shared `.ico`
   class (`width/height: 1em`, `fill: currentColor` — see `css/style.css`
   line ~89) same as every other icon-in-a-pill on this site. No new SVG
