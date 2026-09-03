@@ -12,6 +12,20 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-03
+
+- **Added a "Hosted on GitHub" badge to `forc3designer.html`'s hero**, on
+  request via a screenshot marking the empty space under the CTA row.
+  `.hero__source` — a small pill with the Octocat mark, linking to the
+  `forc3-designer-releases` releases page (not the direct installer
+  download; the two "Download for Windows" buttons already cover that).
+  Owner said "neutral and darker" explicitly, so it deliberately does NOT
+  pick up the page's lime theme accent — uses the same desaturated
+  `var(--border)`/`var(--text-mute)` pill language as `.icon-btn`, only
+  lightening slightly on hover. Verified at desktop and 375px mobile: no
+  overflow, icon renders crisp, console clean. CSS-only change, bumped
+  `?v=` 25→26 across all 5 pages (including the download-redirect shim).
+
 ## 2026-09-02
 
 - **Added the v0.4.0 changelog entry** — checked `forc3-designer-releases`
