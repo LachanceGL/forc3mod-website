@@ -523,7 +523,7 @@ h1, h2, h3, h4, h5 {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-top: 11px;
+  margin-top: 8px;
   font-family: var(--font-head);
   font-size: 12px;
   font-weight: 600;
