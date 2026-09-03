@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
-/* ===== Live server status pill (GT3 FORC3 hero) =====
+/* ===== Live server status pill (GT3FORC3 hero) =====
    Sits on the hero title's first line, in the empty space beside "Race live."
    Green here is deliberately NOT themed — it reads as a live/online
    indicator, not as page accent, and matches the same status line on
@@ -805,7 +805,7 @@ h1, h2, h3, h4, h5 {
 }
 .footer__col a { display: block; color: var(--text-mute); font-size: 12.5px; margin-bottom: 9px; }
 /* Footer link hover always uses the site-wide brand blue, never the
-   page's theme accent (lime on FORC3 Designer, red on GT3 FORC3) —
+   page's theme accent (lime on FORC3 Designer, red on GT3FORC3) —
    matches the header, which keeps the same blue across all pages. */
 .footer__col a:hover { color: #4fb3ff; }
 
@@ -930,7 +930,7 @@ h1, h2, h3, h4, h5 {
 .theme-designer .card--featured { border-color: rgba(212, 225, 0, .35); }
 
 /* =========================================================
-   GT3 FORC3 page theme — red accent, matching GT3FORC3.COM's
+   GT3FORC3 page theme — red accent, matching GT3FORC3.COM's
    own GT3-class branding (distinct from the site-wide blue
    brand used on the rest of forc3mod.com).
    ========================================================= */

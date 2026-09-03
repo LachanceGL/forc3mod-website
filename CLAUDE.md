@@ -11,7 +11,7 @@ one). Treat this as a living doc, not a one-time snapshot.
 Static marketing site for FORC3MOD — an unofficial modding/livery-tool studio
 for Assetto Corsa EVO. Flagship product is **FORC3 Designer** (a livery
 painting app, still in development — not released yet). The site also
-promotes the **GT3 FORC3** sim racing community and a Patreon support page.
+promotes the **GT3FORC3** sim racing community and a Patreon support page.
 
 No framework, no build step. Plain HTML/CSS/JS, hand-edited and pushed
 directly.
@@ -86,7 +86,7 @@ than rewriting it from scratch.
 |---|---|
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
-| `gt3forc3.html` | GT3 FORC3 community page. Red theme (`body.theme-gt3`). |
+| `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `forc3-designer-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
@@ -731,8 +731,15 @@ don't reach for a custom JS toggle here. Shape for each entry:
 
 ## Discord / community reference IDs
 
+- **"GT3FORC3", one word, no space — not "GT3 FORC3".** The site used both
+  inconsistently until 2026-09-03 (nav/footer/title said "GT3 FORC3", but
+  the hero already said "GT3FORC3.COM"/"GT3FORC3 Discord"). Owner asked for
+  the space removed everywhere; every page-visible instance was normalized
+  to the no-space form in that pass. Don't reintroduce the spaced version —
+  the filename (`gt3forc3.html`) and the real domain (`gt3forc3.com`) were
+  already one word, so no-space is the correct/consistent form.
 - FORC3MOD Discord invite: `https://discord.gg/CbJCmjtVma`
-- GT3 FORC3 Discord invite: `https://discord.gg/dfcK4x64vb`
+- GT3FORC3 Discord invite: `https://discord.gg/dfcK4x64vb`
 - Support-channel guild ID: `1534614323534499891` — **this is the one to use
   for channel deep links.**
 - "Report a Bug" channel ID: `1534648749043879936`

@@ -14,6 +14,16 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-03
 
+- **Renamed "GT3 FORC3" to "GT3FORC3" (no space) everywhere it appears on
+  the site** — nav links, footer links, page `<title>`, and the hero body
+  paragraph on `gt3forc3.html`, across all 4 pages. The hero already used
+  the no-space form ("GT3FORC3.COM", "GT3FORC3 Discord") — this fixed an
+  inconsistency rather than introducing a new name. Also updated the
+  matching mentions in `CLAUDE.md` (overview, file map, Discord invite
+  line) and 3 descriptive CSS comments in `css/style.css` for consistency;
+  didn't touch historical entries elsewhere in this file. HTML-only + CSS
+  comments only — no `?v=` bump needed (comment-only CSS edit changes
+  nothing rendered).
 - **Added a "Hosted on GitHub" badge to `forc3designer.html`'s hero**, on
   request via a screenshot marking the empty space under the CTA row.
   `.hero__source` — a small pill with the Octocat mark, linking to the
