@@ -12,6 +12,30 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-04
+
+- **Swapped the demo video modal to `forc3designer-demo-03.mp4`** — owner
+  dropped the new file straight into `video/` (arrived untracked in
+  `git status`, no request text beyond "update the demo to 03"). Checked
+  its real dimensions via a live `<video>` element in the browser before
+  touching CSS: 1960×1080, same as `-02`, so `.modal__video`'s
+  `aspect-ratio: 1960/1080` needed no change — just the `<video src>`.
+  Duration ~68s (down from `-02`'s ~93s). Verified end-to-end: opened the
+  modal via the real button, confirmed `currentSrc` points at the new file,
+  `#demo` hash set, video autoplaying, console clean. `-02` and the
+  original `-01` both kept in the repo, unreferenced — same "owner-provided,
+  don't delete" reasoning as every other superseded asset here.
+- **Retitled the homepage and `forc3designer.html` for SEO**, request:
+  "change site title... to EVO Livery Painting Tool something", then
+  "update meta description" for both pages. Homepage leads with the
+  keyword phrase ("EVO Livery Painting Tool — FORC3 Designer | FORC3MOD");
+  the product page leads with the product name instead ("FORC3 Designer —
+  Free EVO Livery Painting Tool | FORC3MOD") specifically so the two pages
+  don't carry duplicate `<title>` text, which Google penalizes. Both meta
+  descriptions rewritten to match the same framing, checked against
+  Google's ~155-160 char display limit (153 and 139 chars respectively).
+  HTML-only, no `?v=` bump.
+
 ## 2026-09-03
 
 - **Renamed "GT3 FORC3" to "GT3FORC3" (no space) everywhere it appears on

@@ -96,8 +96,9 @@ than rewriting it from scratch.
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
-| `video/forc3designer-demo-02.mp4` | **Currently active** owner-provided demo video (1960×1080, ~93s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
-| `video/forc3designer-demo.mp4` | Earlier demo video (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. If a `-03` ever supersedes `-02`, keep both older files rather than deleting either. |
+| `video/forc3designer-demo-03.mp4` | **Currently active** owner-provided demo video (1960×1080, ~68s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
+| `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
+| `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -614,7 +615,7 @@ gets a shareable link for free, no extra markup needed.
 ### Demo video modal (added 2026-08-28, on request)
 
 `forc3designer.html`'s hero "See what it does" button (`data-modal-target="#demo"`)
-opens a modal playing `video/forc3designer-demo-02.mp4` — brought back after
+opens a modal playing `video/forc3designer-demo-03.mp4` — brought back after
 being removed earlier (it used to scroll to `#features`) once an actual demo
 video existed to show. The video file itself gets swapped in place as newer
 demos are provided (see the file map's `video/` rows) — just update the
