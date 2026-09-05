@@ -38,6 +38,14 @@ followed by:
    Elsewhere, etc., matching however the release itself grouped them). This
    becomes the expanded dropdown content.
 
+   ⚠ **No opening summary paragraph.** The body starts at its first `###`
+   heading. Item 1's summary already says what the release is, and repeating
+   it as a sentence above the sections is preamble. The app's own notes
+   dropped theirs for the same reason (owner request, 2026-09-05; recorded in
+   `forc3-designer`'s `docs/CHANGELOG.md` rule 3, which is also where the
+   release body's own format now lives). Entries older than v0.5.0 keep the
+   paragraph they shipped with rather than being rewritten.
+
 Version should match the actual GitHub release tag. Date format is
 `Mon D, YYYY` (e.g. `Aug 23, 2026`).
 
@@ -56,11 +64,10 @@ propagate it into the modal.
 
 72 cars, manufacturer decals, and a custom theme color
 
-Three new cars, decals for real car manufacturers, and an app-wide theme
-color you can set yourself. Skipped the "Coming from an older version"
-recap at the end of the release body (33 more cars and two new categories
-in 0.4.0, the Layers panel dropping to icons) since that's already covered
-by the v0.4.0 entry below.
+> Note, not body copy: skipped the "Coming from an older version" recap at
+> the end of the release body (33 more cars and two new categories in 0.4.0,
+> the Layers panel dropping to icons), since the v0.4.0 entry below already
+> covers it.
 
 ### Cars
 72 now, up from 69. Audi R8 LMS GT2, Audi R8 V10 Performance Quattro,
