@@ -12,6 +12,35 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-05
+
+- **Added the v0.5.0 changelog entry** — checked `forc3-designer-releases`
+  per the standing convention ("check the new update changelog etc and
+  update what's needed"). 3 new cars (72 total, up from 69: Audi R8 LMS
+  GT2, Audi R8 V10 Performance Quattro, Mazda RX-7 FD Spirit R — the
+  release body's own "0.9 cars" total-count line was a typo, corrected to
+  3 here since 69+3=72 matches the stated total), decals for real car
+  manufacturers (searchable by brand), two new Cyberpunk decal kits (H4X,
+  JDM), Align Guides on the Decal tool, the Decal tool's Outline removed in
+  favor of Effects-panel Stroke, off-car decals no longer disappearing, a
+  new Main Theme Color app-wide customization setting, and a Shift+Space
+  shortcut for the Decals Libraries shelf. Skipped the release body's
+  "Coming from an older version" recap (0.4.0's 33 cars/two categories,
+  Layers panel icon collapse) since that's already covered by the v0.4.0
+  entry. Added as the newest collapsed entry (id `v0-5-0`). **Also
+  verified the site's stable download link still resolves correctly** —
+  checked that `FORC3-Designer-Setup.exe` (the fixed filename our
+  "Download for Windows" buttons and the `forc3mod.com/forc3-designer-download`
+  redirect depend on) still exists as an asset on this release alongside
+  the app's own versioned installer name
+  (`FORC3.Designer_0.5.0_x64-setup.exe`); confirmed via `curl` that the
+  `.../releases/latest/download/FORC3-Designer-Setup.exe` URL 302s through
+  to the v0.5.0 asset with a 200 and the correct file size — no link
+  changes needed. Verified the changelog entry itself: 9 entries total in
+  correct order, deep link `#v0-5-0` opens the modal and expands just that
+  entry, no overflow at 375px or 1280px, console clean. HTML-only, no
+  `?v=` bump.
+
 ## 2026-09-04
 
 - **Swapped the demo video modal to `forc3designer-demo-03.mp4`** — owner

@@ -52,6 +52,40 @@ propagate it into the modal.
 
 ---
 
+## v0.5.0 — Sep 5, 2026
+
+72 cars, manufacturer decals, and a custom theme color
+
+Three new cars, decals for real car manufacturers, and an app-wide theme
+color you can set yourself. Skipped the "Coming from an older version"
+recap at the end of the release body (33 more cars and two new categories
+in 0.4.0, the Layers panel dropping to icons) since that's already covered
+by the v0.4.0 entry below.
+
+### Cars
+72 now, up from 69. Audi R8 LMS GT2, Audi R8 V10 Performance Quattro,
+Mazda RX-7 FD Spirit R.
+
+### Decals
+- Decals for car manufacturers, picked from a searchable list of brands.
+- Two new Cyberpunk kits: H4X and JDM.
+- Align guides on the Decal tool: a dotted crosshair through the decal's
+  center that stops at the artwork rather than the placement box, so one
+  decal can be lined up against another. Off by default, toggled from
+  Guides.
+- The Decal tool's Outline is gone. Use Stroke in the Effects panel
+  instead.
+- A decal applied off the car now stays loaded instead of disappearing, so
+  it can be moved and applied again.
+
+### Appearance
+- Main Theme Color, in Settings > Preferences. Pick the accent color the
+  whole app uses, keep up to four presets, and Default Yellow puts it back.
+- The yellow blur behind the Apply buttons is gone.
+
+### Other
+- Shift+Space shows and hides the Decals Libraries shelf.
+
 ## v0.4.0 — Sep 2, 2026
 
 69 cars now, including the first mod car
