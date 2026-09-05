@@ -1122,6 +1122,28 @@ h1, h2, h3, h4, h5 {
 }
 .modal__entry-body h4:first-child { margin-top: 0; }
 .modal__entry-body ul { margin: 0 0 6px; }
-.modal__entry-body li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+/* flex column (not plain block flow) so a bullet that embeds preview media
+   (see .modal__entry-media below) reliably stacks it under the bullet's
+   text — the dash bullet stays correct since its ::before is position:
+   absolute, which flex layout excludes from participating as a flex item. */
+.modal__entry-body li { position: relative; padding-left: 14px; margin-bottom: 4px; display: flex; flex-direction: column; }
 .modal__entry-body li::before { content: "–"; position: absolute; left: 0; color: var(--text-mute); }
 .modal .feature-list { margin: 0; }
+/* Inline preview media (screenshots/clips) inside a changelog entry's
+   bullet list — mirrors GitHub's own release notes, which embed the exact
+   same assets under the bullet they illustrate. Generic: any future entry
+   can drop one of these into a <li> with no new CSS needed. Videos set
+   their own aspect-ratio inline (real pixel dimensions, same convention as
+   .modal__video); images rely on their width/height attributes instead,
+   the standard technique for a real <img> tag. */
+.modal__entry-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 8px 0 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: #000;
+}
+.modal__entry-media-row { display: flex; gap: 8px; margin: 8px 0 4px; }
+.modal__entry-media-row .modal__entry-media { margin: 0; flex: 1 1 0; min-width: 0; }

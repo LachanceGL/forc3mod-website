@@ -730,6 +730,115 @@ don't reach for a custom JS toggle here. Shape for each entry:
   "Elsewhere" in v0.1.2). A short release (like v0.1.0/v0.1.1) can just be
   one or two `<p>` tags with no subheadings.
 
+### Embedded release media inside a changelog entry (added 2026-09-05)
+
+The GitHub release itself often embeds screenshots/clips inline under the
+bullet they illustrate (owner: "do something similar to what forc3-designer
+is doing... we must add those markers and their content also"). v0.5.0's
+entry does the same — mirror this for future entries whenever the release
+body has inline images/videos, don't just take the text and drop the media.
+
+- **Hotlink the GitHub release asset URLs directly** (e.g.
+  `https://github.com/LachanceGL/forc3-designer-releases/releases/download/vX.Y.Z/Name.ext`)
+  — don't download and re-host these under `img/`/`video/`. Unlike the demo
+  video and app screenshots (which are owner-provided outside of any
+  release and belong in this repo), these assets already live permanently
+  at a stable, version-pinned URL as part of the release itself; hotlinking
+  keeps the repo smaller and never goes stale (the URL is pinned to that
+  exact tag, unlike the "latest" download link elsewhere on this page).
+  - These URLs respond with `Content-Disposition: attachment` and
+    `Content-Type: application/octet-stream` (confirmed via `curl -I`) —
+    that looks like it should force a download, but **verified directly**
+    (loaded one in a real `<img>`/`<video>` element and checked
+    `naturalWidth`/`videoWidth`) that browsers ignore both headers for a
+    subresource load and render the actual bytes normally. Don't assume
+    these need to be re-hosted just because of those headers.
+- **Markup shape**: a `<video class="modal__entry-media">` or
+  `<img class="modal__entry-media">` sits **inside the `<li>`, after the
+  bullet's own text** — not in a separate paragraph. For two images meant
+  to sit side by side (e.g. the two Cyberpunk kit screenshots), wrap both
+  in one `<span class="modal__entry-media-row">` instead of two separate
+  `.modal__entry-media` elements. Video: set `style="aspect-ratio: W / H"`
+  inline using the file's own real pixel dimensions (checked once per file
+  via a live `<video>` element's `videoWidth`/`videoHeight` — same
+  "measure the real file, don't assume" convention as `.modal__video`
+  elsewhere in this doc), plus the same `controls preload="none" playsinline
+  controlsList="nodownload noplaybackrate" disablePictureInPicture
+  disableRemotePlayback` attribute set as the demo video, for the same
+  reasons (suppress the native overflow menu, don't eagerly download).
+  Image: set real `width`/`height` HTML attributes instead (the standard
+  CLS-safe technique for a genuine `<img>` tag, as opposed to the demo's
+  CSS-background photo card, which can't use attributes and needs
+  `aspect-ratio` in CSS instead).
+- **`.modal__entry-media` in `css/style.css`** is generic — `display:block;
+  width:100%; height:auto;` plus the modal's usual rounded-corner/border
+  treatment. `.modal__entry-media-row` is a `display:flex; gap:8px` wrapper
+  whose `.modal__entry-media` children get `flex:1 1 0; min-width:0` so two
+  images split the width evenly.
+- ⚠️ **`.modal__entry-body li` needed `display:flex; flex-direction:
+  column` added to it (previously plain block flow) for this to lay out
+  correctly** — found the hard way: a block-level `<video>`/`<img>` sitting
+  in a `<li>` right after a raw text node rendered at a fixed width (turned
+  out to be correct — 100% of the `<li>`'s own content box) but positioned
+  as if still inline-flowing after the text, overflowing the modal's right
+  edge instead of dropping to its own full-width line below. This
+  reproduced identically at both a ~375px and a 1280px viewport (ruled out
+  a narrow-viewport-specific cause) and is inconsistent with what
+  `display:block` is supposed to do in any spec-compliant browser — almost
+  certainly a limitation of this project's own testing setup (the preview
+  browser tool used for local verification) rather than something real
+  visitors would see, especially since the *same* tool was also caught, in
+  the same session, not applying the standard `details:not([open]) >
+  *:not(summary){display:none}` UA rule (see the toggle/autoplay item
+  below) — i.e. this specific rendering engine has now shown two gaps
+  against ordinary, decades-old CSS behavior. Rather than ship on faith
+  that real browsers would render it correctly, the `<li>` was switched to
+  the same flex-column stacking technique already proven to work correctly
+  in this environment for `.modal__entry-media-row` (a raw text run becomes
+  one anonymous flex item, the media becomes another, `align-items:
+  stretch` gives both full width) — removes the ambiguity entirely rather
+  than trusting either the testing tool or spec-reasoning alone. Confirmed
+  fixed via `getBoundingClientRect()` sweep of every descendant (zero
+  elements crossing the modal's own edge) at both viewports, not just a
+  screenshot — this environment's screenshots are separately known to be
+  unreliable (see "Working conventions" below), so a geometry check is the
+  standard of proof here, not a visual read.
+- ⚠️ **The existing "any `<video>` in a modal autoplays on open, pauses on
+  close" logic in `js/main.js` only ever looked at the modal's *first*
+  video** (`modal.querySelector('video')`, singular) — fine when the demo
+  modal was the only modal that could ever contain one, broken the moment
+  a second modal (the changelog) could contain *several*. Reworked to be
+  correct for any number of videos in any modal, generically:
+  - `openModal()` now autoplays only a video that isn't inside a collapsed
+    `<details>` — checked via `!video.closest('details:not([open])')`,
+    **not** `offsetParent !== null`. The `offsetParent` approach was tried
+    first and looked reasonable (a collapsed `<details>`'s content should
+    have no layout box) but was proven wrong live: even a bare, freshly
+    created `<details><summary></summary><p>x</p></details>` reports
+    `getComputedStyle(p).display === 'block'` in this project's preview
+    browser tool when collapsed — i.e. the same missing UA-stylesheet rule
+    noted above, discovered via this exact bug. Checking the ancestor
+    `<details>`'s own `.open` property instead is semantic (what actually
+    matters — is this content collapsed) rather than layout-derived (how
+    a particular engine happens to render that), so it's correct
+    regardless of whether a given browser implements that UA rule.
+  - `closeModal()` now pauses + rewinds **every** video in the modal
+    (`modal.querySelectorAll('video')`), not just the first — otherwise a
+    changelog preview clip played inside an expanded entry would keep
+    playing invisibly after the whole modal was dismissed.
+  - Collapsing a linkable `<details>` entry (already-existing toggle
+    listener, used for the hash-linking behavior) now also pauses +
+    rewinds any `<video>` inside that specific entry — so a clip doesn't
+    keep playing after its own accordion section is closed, independent of
+    whether the whole modal closes.
+  - Preview clips do **not** autoplay when their entry is merely expanded
+    (only the demo modal's single video autoplays, on modal-open) — a
+    changelog clip is click-to-play via its own native `controls`, matching
+    how GitHub's own release page presents these (no autoplay there
+    either).
+  - `?v=` bumped for both `css/style.css` and `js/main.js` across all 4
+    pages in the same commit — this touched both files.
+
 ## Discord / community reference IDs
 
 - **"GT3FORC3", one word, no space — not "GT3 FORC3".** The site used both
@@ -992,6 +1101,24 @@ cache invalidation while doing nothing.
   place). When a screenshot looks wrong, cross-check with
   `getBoundingClientRect()` / `getComputedStyle()` via JS before assuming
   something is actually broken.
+- **This preview browser tool's rendering engine also has real gaps beyond
+  screenshots** (found 2026-09-05, building the v0.5.0 changelog's embedded
+  media): it does not apply the standard `details:not([open]) >
+  *:not(summary){display:none}` UA rule (confirmed: a bare, freshly created
+  `<details><summary></summary><p>x</p></details>` reports the `<p>` as
+  `display:block` even while collapsed), and relatedly a block-level
+  `<video>`/`<img>` placed right after raw text inside a `<li>` rendered at
+  the correct width but positioned as if still inline instead of dropping
+  to its own line. Both are basic, decades-old CSS behavior that every
+  real browser gets right — treat a `getBoundingClientRect()`/
+  `getComputedStyle()` result that contradicts well-established CSS
+  semantics as a possible tool limitation too, not just proof the code is
+  wrong. Where practical, prefer semantic checks over layout-derived ones
+  (e.g. an element's own `.open` property rather than whether the browser
+  chose to give something a layout box) and structure new markup so it
+  doesn't depend on subtle "does this force a new line" behavior in the
+  first place (see "Embedded release media" above for the flex-column
+  fix) — that way it's correct regardless of which engine renders it.
 - Always stop/kill the local test server before finishing.
 - Commit and push straight to `main` after each change — this is a solo
   static site with direct-to-prod deploys via GitHub Pages, no PR workflow.

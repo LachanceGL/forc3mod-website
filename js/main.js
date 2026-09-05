@@ -209,10 +209,19 @@
     const modal = document.querySelector(trigger.getAttribute('data-modal-target'));
     if (!modal) return;
 
-    // Any <video> inside a modal (e.g. the demo player) plays when the
-    // modal opens and pauses + rewinds when it closes — generic, so it
-    // applies to any future video modal without extra wiring.
-    const modalVideo = modal.querySelector('video');
+    // Any <video> inside a modal (the demo player, or a changelog entry's
+    // preview clip) pauses + rewinds when the modal closes — generic, so
+    // it applies to any future video without extra wiring. Only a video
+    // that isn't sitting inside a collapsed <details> autoplays when the
+    // modal opens — a changelog preview clip only starts once its own
+    // entry is expanded, never invisibly in the background. Checked via
+    // the ancestor <details>' own `.open` property directly, not layout
+    // (e.g. offsetParent) — a collapsed <details> is only guaranteed to
+    // hide its content visually if the browser applies the UA stylesheet's
+    // `details:not([open]) > *:not(summary){display:none}` rule, which
+    // isn't something to depend on for correctness here.
+    const modalVideos = () => Array.from(modal.querySelectorAll('video'));
+    const visibleModalVideo = () => modalVideos().find((v) => !v.closest('details:not([open])'));
 
     // Any other id'd element inside the modal (e.g. changelog entries) is
     // individually linkable — generic, not hardcoded to the changelog.
@@ -235,7 +244,8 @@
       if (updateHash && location.hash.slice(1) !== targetHash) {
         history.pushState(null, '', `#${targetHash}`);
       }
-      if (modalVideo) modalVideo.play().catch(() => {});
+      const video = visibleModalVideo();
+      if (video) video.play().catch(() => {});
     };
     const closeModal = () => {
       modal.classList.remove('is-open');
@@ -246,10 +256,10 @@
       if (currentHash === modal.id || entryForHash(currentHash)) {
         history.replaceState(null, '', location.pathname + location.search);
       }
-      if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-      }
+      modalVideos().forEach((v) => {
+        v.pause();
+        v.currentTime = 0;
+      });
     };
     // Expands (if it's a <details>) and scrolls a linkable entry into view.
     // Doesn't touch the hash itself — callers decide that separately.
@@ -277,8 +287,14 @@
       entry.addEventListener('toggle', () => {
         if (entry.open) {
           if (location.hash.slice(1) !== entry.id) history.pushState(null, '', `#${entry.id}`);
-        } else if (location.hash.slice(1) === entry.id) {
-          history.replaceState(null, '', `#${modal.id}`);
+        } else {
+          if (location.hash.slice(1) === entry.id) history.replaceState(null, '', `#${modal.id}`);
+          // Collapsing an entry stops any preview clip inside it rather
+          // than leaving it playing silently offscreen.
+          entry.querySelectorAll('video').forEach((v) => {
+            v.pause();
+            v.currentTime = 0;
+          });
         }
       });
     });

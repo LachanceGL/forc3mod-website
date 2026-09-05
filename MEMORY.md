@@ -14,6 +14,45 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-05
 
+- **Embedded the v0.5.0 release's own screenshots/clips into its changelog
+  entry**, on request ("do something similar to what forc3-designer is
+  doing for the changelogs... we must add those markers and their content
+  also" — the release body embeds media inline under specific bullets).
+  Hotlinked the 5 GitHub release assets directly (2 videos, 1 solo image, 2
+  side-by-side images) rather than re-hosting them — they're pinned to the
+  `v0.5.0` tag already, permanent, and re-hosting would just bloat the repo.
+  Verified `Content-Disposition: attachment` + `application/octet-stream`
+  headers on those URLs don't actually block `<img>`/`<video>` rendering
+  (checked `naturalWidth`/`videoWidth` load correctly) before committing to
+  hotlinking. Added `.modal__entry-media`/`.modal__entry-media-row` CSS.
+  **Found and fixed two real bugs along the way**, both documented in full
+  in `CLAUDE.md`'s new "Embedded release media" and updated "Working
+  conventions" sections:
+  1. `js/main.js`'s modal video autoplay/pause only ever handled the
+     modal's *first* `<video>` — broke the moment the changelog modal could
+     contain several. Reworked to autoplay only a video outside a collapsed
+     `<details>` (checked via `.closest('details:not([open]))`, not
+     `offsetParent`) and to pause+rewind *every* video in the modal on
+     close, plus pause a clip when its own entry collapses.
+  2. A block-level `<video>`/`<img>` right after raw bullet text overflowed
+     the modal instead of dropping to its own line — reproduced at both
+     375px and 1280px, so not a narrow-viewport thing. Traced to this
+     project's own preview-browser testing tool not implementing the
+     standard `details:not([open]) > *:not(summary){display:none}` UA
+     rule (confirmed with a bare, freshly created `<details>` — this
+     doesn't come from anything in our CSS at all), found via the *first*
+     bug's `offsetParent`-based check misfiring. Fixed by making
+     `.modal__entry-body li` a flex column, matching the pattern that
+     already worked for the side-by-side kit images, rather than trusting
+     either the tool or spec-reasoning alone about whether a real browser
+     would render it fine. Verified via a full `getBoundingClientRect()`
+     sweep (zero elements crossing the modal's edge), not a screenshot.
+  `?v=` bumped for both CSS and JS (25→26 for the video-handling fix,
+  30→31→32 for the media CSS and the li flex fix), across all 5 pages.
+  Also synced `docs/DESIGNER-CHANGELOG.md` with markdown image/video links
+  matching the HTML, and added a note there for future entries to do the
+  same whenever a release embeds media.
+
 - **Added the v0.5.0 changelog entry** — checked `forc3-designer-releases`
   per the standing convention ("check the new update changelog etc and
   update what's needed"). 3 new cars (72 total, up from 69: Audi R8 LMS

@@ -58,6 +58,16 @@ individually linkable — `forc3designer.html#v0-3-0` opens the changelog and
 jumps straight to that version. Give every new entry a matching id when you
 propagate it into the modal.
 
+**If the release body embeds screenshots/clips inline** (owner request,
+2026-09-05 — "do something similar to what forc3-designer is doing... we
+must add those markers and their content also"), embed them here too,
+right after the bullet they illustrate, same as the release itself does —
+a markdown `![alt](url)` for an image, `[Video: description](url)` for a
+video. Don't drop them just because they're not plain text. See
+`CLAUDE.md`'s "Embedded release media inside a changelog entry" section
+for the exact HTML this maps to in the modal (hotlink the release's own
+asset URL, don't re-host it in this repo).
+
 ---
 
 ## v0.5.0 — Sep 5, 2026
@@ -75,11 +85,15 @@ Mazda RX-7 FD Spirit R.
 
 ### Decals
 - Decals for car manufacturers, picked from a searchable list of brands.
+  [Video: the new decal libraries](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/Preview_DecalsLib.mp4)
 - Two new Cyberpunk kits: H4X and JDM.
+  ![The H4X Cyberpunk decal kit](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/Kits_H4X.jpg)
+  ![The JDM Cyberpunk decal kit](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/Kits_JDM.jpg)
 - Align guides on the Decal tool: a dotted crosshair through the decal's
   center that stops at the artwork rather than the placement box, so one
   decal can be lined up against another. Off by default, toggled from
   Guides.
+  [Video: align guides on the Decal tool](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/Upcoming_AlignGuides.mp4)
 - The Decal tool's Outline is gone. Use Stroke in the Effects panel
   instead.
 - A decal applied off the car now stays loaded instead of disappearing, so
@@ -88,6 +102,7 @@ Mazda RX-7 FD Spirit R.
 ### Appearance
 - Main Theme Color, in Settings > Preferences. Pick the accent color the
   whole app uses, keep up to four presets, and Default Yellow puts it back.
+  ![Setting the app's theme color in Preferences](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/ColorTheme01.jpg)
 - The yellow blur behind the Apply buttons is gone.
 
 ### Other
