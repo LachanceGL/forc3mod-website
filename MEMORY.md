@@ -14,6 +14,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-05
 
+- **Dropped the summary text from every changelog entry's collapsed title**
+  — owner sent a screenshot with each entry's summary struck through in red
+  ("make so theres no title like that, only the date"). Was `vX.Y.Z —
+  Summary text // Mon D, YYYY`, now just `vX.Y.Z — Mon D, YYYY`, applied to
+  all 9 existing entries (this is a format change, not scoped to the
+  newest one). `docs/DESIGNER-CHANGELOG.md`'s one-line summary is now
+  doc-only — still written for anyone skimming that file, just no longer
+  propagated into the site's `<summary>` markup. HTML-only, no `?v=` bump.
+
 - **Embedded the v0.5.0 release's own screenshots/clips into its changelog
   entry**, on request ("do something similar to what forc3-designer is
   doing for the changelogs... we must add those markers and their content

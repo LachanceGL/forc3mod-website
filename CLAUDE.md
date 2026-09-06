@@ -696,7 +696,7 @@ don't reach for a custom JS toggle here. Shape for each entry:
 
 ```html
 <details class="modal__entry">
-  <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">— Short summary // Mon D, YYYY</span></span></summary>
+  <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">— Mon D, YYYY</span></span></summary>
   <div class="modal__entry-body">
     <p>Intro paragraph.</p>
     <h4>Optional grouping</h4>
@@ -705,6 +705,16 @@ don't reach for a custom JS toggle here. Shape for each entry:
 </details>
 ```
 
+- **Collapsed title is date-only** (changed 2026-09-05, owner: "make so
+  theres no title like that, only the date" — a screenshot marked every
+  entry's summary text in red strikethrough). Was `vX.Y.Z — Short summary
+  // Mon D, YYYY`; the `— Short summary //` part is gone, leaving
+  `vX.Y.Z — Mon D, YYYY`. Applied to all 9 existing entries, not just the
+  newest — this is a title-format change, not a per-release decision.
+  `docs/DESIGNER-CHANGELOG.md`'s one-line summary is now doc-only (still
+  worth writing for anyone skimming that file) — it no longer gets
+  propagated into the `<summary>` markup for new entries either. HTML-only
+  change, no `?v=` bump.
 - **`<summary>` MUST wrap its text in one `.modal__version-text` span — never
   put the version text and `.modal__date` span as siblings directly inside
   `<summary>`.** `.modal__version` (the `<summary>`) is `display: flex;

@@ -30,9 +30,16 @@ accordion rows.
 
 Newest entry first. Each entry is a `## vVERSION — Mon D, YYYY` heading,
 followed by:
-1. A **one-line summary** (own paragraph, right after the heading) — this
-   becomes the collapsed dropdown's title line on the site
-   (`vVERSION — summary // date`). No trailing period, terse style.
+1. A **one-line summary** (own paragraph, right after the heading). No
+   trailing period, terse style.
+
+   ⚠ **Doc-only as of 2026-09-05 — this no longer appears on the site.**
+   The collapsed dropdown's title line used to be `vVERSION — summary //
+   date`; owner asked for the summary dropped so it's just `vVERSION —
+   date` now (see `CLAUDE.md`'s "Changelog modal content" section, the
+   "Collapsed title is date-only" note). Keep writing one here anyway —
+   it's still useful for anyone skimming this file — just know it won't be
+   propagated into the `<summary>` markup anymore.
 2. The **full changelog body** — plain paragraphs, and optional `###`
    subheadings with bullet lists for grouped changes (Fixes / Layers /
    Elsewhere, etc., matching however the release itself grouped them). This
