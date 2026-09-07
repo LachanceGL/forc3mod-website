@@ -948,20 +948,23 @@ share the `.header__social` class, a circular `.icon-btn` each.
   transform instead**, and don't assume a new icon's artwork is centred in
   its viewBox just because the box is square — measure with `getBBox()`
   first.
-- **Current values: `viewBox="1.405 2.12 24 24"`, rendered at 18.39px.**
+- **Current values: `viewBox="0.1 2.12 24 24"`, rendered at 18.39px.**
   The `2.12` is the vertical recentring above — it's the artwork's own
-  offset in viewBox space, so it holds at any render size. The `1.405` is
-  **not** a centring value: it's `0.1` (the horizontal recentring) plus a
-  further owner-requested 1px nudge to the left, expressed in viewBox
-  units. The size is two owner-requested bumps over the shared 17px —
-  +5%, then +3% (17 -> 17.85 -> 18.39).
-- ⚠️ **Those two numbers are coupled — changing the size means recomputing
-  the minX.** A viewBox unit is `size / 24` px, so a fixed-px nudge is a
-  different number of units at every size: at 18.39px, 1px = 24 / 18.39 =
-  1.305 units, hence `0.1 + 1.305 = 1.405`. Recompute rather than carrying
-  the old minX over, or the nudge silently drifts. Verified after the last
-  change that the glyph's bbox centre sits exactly 1.00px left of the
-  button's centre with zero vertical offset.
+  offset in viewBox space, so it holds at any render size. `0.1` is the
+  horizontal recentring value with **no left/right nudge on top of it** —
+  a 2026-09-06 owner request added a 1px-left nudge (`0.1 -> 1.405`,
+  see the math below), then a 2026-09-07 request ("1px to the right")
+  removed it again by subtracting the same 1.305 units back off, landing
+  exactly on the original `0.1` centred value rather than overshooting past
+  it. The size is two owner-requested bumps over the shared 17px — +5%,
+  then +3% (17 -> 17.85 -> 18.39) — unaffected by this horizontal change.
+- ⚠️ **minX and render size are coupled — changing the size means
+  recomputing any nudge on top of `0.1`.** A viewBox unit is `size / 24`
+  px, so a fixed-px nudge is a different number of units at every size: at
+  18.39px, 1px = 24 / 18.39 = 1.305 units (hence the `0.1 + 1.305 = 1.405`
+  used between 2026-09-06 and 2026-09-07). Recompute from `size / 24`
+  rather than carrying an old nudge's unit count over if the size ever
+  changes again.
 - The size bumps don't change the overflow story: re-checked at 451px
   after each, the header still fits with all 3 icons visible.
 - **If you add a fourth header social icon**, re-measure the same way
