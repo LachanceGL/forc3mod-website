@@ -612,6 +612,25 @@ gets a shareable link for free, no extra markup needed.
     synchronous check into thinking the toggle-updates-hash wiring is
     broken; verify with a short `setTimeout`/`await` after the click.
 
+### Modal widths — `.modal` / `.modal--wide` / `.modal--video`
+
+Three sizes, all set by `max-width` on the modal box (each keeps `width:
+100%`, so they shrink to fit narrow viewports on their own):
+
+- `.modal` — 520px. The plain text-modal default.
+- `.modal--wide` — 720px. **The changelog uses this** (added 2026-09-06, on
+  request: "make so the popup window is wider"). It was on the bare 520px
+  base until then, which got cramped once entries started embedding release
+  screenshots and clips (see "Embedded release media" above) — 520px minus
+  56px of padding left the side-by-side image row ~230px per image.
+- `.modal--video` — 900px, plus the padding/overflow overrides described
+  below.
+
+720px rather than reusing 900px: the changelog is mostly prose, and a
+900px box would put body text on an ~844px line. If a future text modal
+also wants more room, reuse `.modal--wide` rather than adding a fourth
+size.
+
 ### Demo video modal (added 2026-08-28, on request)
 
 `forc3designer.html`'s hero "See what it does" button (`data-modal-target="#demo"`)
@@ -623,7 +642,7 @@ demos are provided (see the file map's `video/` rows) — just update the
 `aspect-ratio` below to match.
 
 - **`.modal--video`** is a wider, padding-stripped variant of the base
-  `.modal` (900px vs the text modals' 520px) — a video reads as a cinematic
+  `.modal` (900px vs the text modals' 520px, or 720px with `.modal--wide`) — a video reads as a cinematic
   player, not a document in a card, so it gets no header/title row.
 - **The close button (`.modal__close--video`) sits just above the video's
   top-right corner, outside its bounds** — it originally floated directly
@@ -917,6 +936,25 @@ share the `.header__social` class, a circular `.icon-btn` each.
   measurement, same margin logic as the original fix). Verified no overflow
   at 450px (hidden) and 451px (all 3 visible) right at the edge, and no
   overflow at 375px.
+- **The Facebook glyph is recentred in the markup, not with CSS** (2026-09-06,
+  owner: "the Facebook icon is not well center and should be 5% bigger").
+  `.icon-btn` flex-centres its `<svg>`, but that only centres the *box* —
+  Facebook's artwork is not centred inside its own 24x24 viewBox. Measured
+  with `getBBox()`: its bbox centre is **12.10 / 14.12** against the box's
+  own 12 / 12, i.e. ~2.1 units low, so the "f" rendered visibly below
+  centre while X (12.04 / 12) and Instagram (12 / 12) were already fine.
+  Fixed by shifting that `<svg>`'s viewBox origin by the offset —
+  `viewBox="0.1 2.12 24 24"` — on all 3 pages that have the icon. Verified
+  the glyph's bbox centre now lands exactly on the button's centre (0, 0
+  offset), matching the other two. **Don't "simplify" it back to
+  `0 0 24 24` and nudge with a CSS transform instead**, and don't assume a
+  new icon's artwork is centred in its viewBox just because the box is
+  square — measure with `getBBox()` first.
+- `.header__social--facebook .ico` renders at **17.85px** (5% over the
+  shared `.icon-btn .ico` 17px) — the Facebook mark is narrow and tall, so
+  it reads optically smaller than the X/Instagram glyphs at the same size.
+  That extra 0.85px does not change the overflow story: re-checked at
+  451px, the header still fits with all 3 icons visible.
 - **If you add a fourth header social icon**, re-measure the same way
   (resize down from a wide viewport, binary-search the width where
   `header.scrollWidth > header.clientWidth` flips true) rather than assuming

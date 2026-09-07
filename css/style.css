@@ -415,6 +415,17 @@ h1, h2, h3, h4, h5 {
   transition: border-color .2s, color .2s;
 }
 .icon-btn .ico { width: 17px; height: 17px; }
+/* The Facebook mark is narrow and tall next to the X/Instagram glyphs, so
+   it reads optically smaller at the shared 17px — rendered 5% larger to
+   even them out. Its centring is fixed in the markup instead of here: the
+   glyph's artwork is not centred inside its own 24x24 viewBox (measured
+   with getBBox: centre 12.10/14.12 against the box's own 12/12, i.e. ~2.1
+   units low), so flex-centring the <svg> still left the "f" sitting low.
+   The Facebook <svg>'s viewBox origin is shifted by that offset
+   (`viewBox="0.1 2.12 24 24"`) so the box is genuinely centred on the
+   artwork — don't "simplify" it back to `0 0 24 24` and nudge with a CSS
+   transform instead. */
+.header__social--facebook .ico { width: 17.85px; height: 17.85px; }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent-2); }
 
 /* The Facebook/X/Instagram header icons are the newest, lowest-priority
@@ -1028,6 +1039,11 @@ h1, h2, h3, h4, h5 {
   transition: transform .2s ease;
 }
 .modal-overlay.is-open .modal { transform: translateY(0); }
+/* Wider text-modal variant — the changelog uses it because its entries now
+   embed release screenshots and clips (see .modal__entry-media), which the
+   520px base is too narrow to show usefully. Still well short of
+   .modal--video's 900px, to keep the prose line length readable. */
+.modal--wide { max-width: 720px; }
 .modal__header {
   display: flex;
   align-items: center;
