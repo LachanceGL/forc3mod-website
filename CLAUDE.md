@@ -943,18 +943,27 @@ share the `.header__social` class, a circular `.icon-btn` each.
   with `getBBox()`: its bbox centre is **12.10 / 14.12** against the box's
   own 12 / 12, i.e. ~2.1 units low, so the "f" rendered visibly below
   centre while X (12.04 / 12) and Instagram (12 / 12) were already fine.
-  Fixed by shifting that `<svg>`'s viewBox origin by the offset —
-  `viewBox="0.1 2.12 24 24"` — on all 3 pages that have the icon. Verified
-  the glyph's bbox centre now lands exactly on the button's centre (0, 0
-  offset), matching the other two. **Don't "simplify" it back to
-  `0 0 24 24` and nudge with a CSS transform instead**, and don't assume a
-  new icon's artwork is centred in its viewBox just because the box is
-  square — measure with `getBBox()` first.
-- `.header__social--facebook .ico` renders at **17.85px** (5% over the
-  shared `.icon-btn .ico` 17px) — the Facebook mark is narrow and tall, so
-  it reads optically smaller than the X/Instagram glyphs at the same size.
-  That extra 0.85px does not change the overflow story: re-checked at
-  451px, the header still fits with all 3 icons visible.
+  Fixed by shifting that `<svg>`'s viewBox origin on all 3 pages that have
+  the icon. **Don't "simplify" it back to `0 0 24 24` and nudge with a CSS
+  transform instead**, and don't assume a new icon's artwork is centred in
+  its viewBox just because the box is square — measure with `getBBox()`
+  first.
+- **Current values: `viewBox="1.405 2.12 24 24"`, rendered at 18.39px.**
+  The `2.12` is the vertical recentring above — it's the artwork's own
+  offset in viewBox space, so it holds at any render size. The `1.405` is
+  **not** a centring value: it's `0.1` (the horizontal recentring) plus a
+  further owner-requested 1px nudge to the left, expressed in viewBox
+  units. The size is two owner-requested bumps over the shared 17px —
+  +5%, then +3% (17 -> 17.85 -> 18.39).
+- ⚠️ **Those two numbers are coupled — changing the size means recomputing
+  the minX.** A viewBox unit is `size / 24` px, so a fixed-px nudge is a
+  different number of units at every size: at 18.39px, 1px = 24 / 18.39 =
+  1.305 units, hence `0.1 + 1.305 = 1.405`. Recompute rather than carrying
+  the old minX over, or the nudge silently drifts. Verified after the last
+  change that the glyph's bbox centre sits exactly 1.00px left of the
+  button's centre with zero vertical offset.
+- The size bumps don't change the overflow story: re-checked at 451px
+  after each, the header still fits with all 3 icons visible.
 - **If you add a fourth header social icon**, re-measure the same way
   (resize down from a wide viewport, binary-search the width where
   `header.scrollWidth > header.clientWidth` flips true) rather than assuming

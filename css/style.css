@@ -416,8 +416,11 @@ h1, h2, h3, h4, h5 {
 }
 .icon-btn .ico { width: 17px; height: 17px; }
 /* The Facebook mark is narrow and tall next to the X/Instagram glyphs, so
-   it reads optically smaller at the shared 17px — rendered 5% larger to
-   even them out. Its centring is fixed in the markup instead of here: the
+   it reads optically smaller at the shared 17px — rendered 8% larger to
+   even them out (17px -> 17.85px -> 18.39px, two owner-requested bumps).
+   Changing this size means recomputing the viewBox minX below: that offset
+   is a 1px nudge expressed in viewBox units, so it scales with the render
+   size (24 / 18.39 = 1.305 units per px). Its centring is fixed in the markup instead of here: the
    glyph's artwork is not centred inside its own 24x24 viewBox (measured
    with getBBox: centre 12.10/14.12 against the box's own 12/12, i.e. ~2.1
    units low), so flex-centring the <svg> still left the "f" sitting low.
@@ -425,7 +428,7 @@ h1, h2, h3, h4, h5 {
    (`viewBox="0.1 2.12 24 24"`) so the box is genuinely centred on the
    artwork — don't "simplify" it back to `0 0 24 24` and nudge with a CSS
    transform instead. */
-.header__social--facebook .ico { width: 17.85px; height: 17.85px; }
+.header__social--facebook .ico { width: 18.39px; height: 18.39px; }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent-2); }
 
 /* The Facebook/X/Instagram header icons are the newest, lowest-priority
