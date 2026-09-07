@@ -103,8 +103,6 @@ Mazda RX-7 FD Spirit R.
   [Video: align guides on the Decal tool](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.5.0/Upcoming_AlignGuides.mp4)
 - The Decal tool's Outline is gone. Use Stroke in the Effects panel
   instead.
-- A decal applied off the car now stays loaded instead of disappearing, so
-  it can be moved and applied again.
 
 ### Appearance
 - Main Theme Color, in Settings > Preferences. Pick the accent color the
