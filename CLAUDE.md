@@ -992,7 +992,7 @@ uses (see "Nav dropdown system" below), so no JS changes were needed at all;
 `main.js`'s dropdown wiring is `document.querySelectorAll('.nav__group')` and
 picks up any number of groups automatically. The two links inside are:
 **Patreon** (`https://www.patreon.com/cw/forc3mod/membership`, with the
-Patreon "P" brand mark as an inline SVG — Simple Icons' 24x24 path, no local
+Patreon logo as an inline SVG — Simple Icons' current 24x24 path, no local
 asset needed) and **Buy us Beers** (`https://buymeacoffee.com/forc3mod`,
 plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn't
 need currentColor theming).
@@ -1014,6 +1014,16 @@ page.
   dropdown that wants icon+label options instead of plain text; reuse
   `.nav__menu--cards` on the wrapping `.nav__menu` to lay them out
   side-by-side.
+- **Shipped with the wrong Patreon logo once — caught and fixed same-day
+  (2026-09-10).** The first pass used the classic two-shape "bar + circle"
+  Patreon mark; Patreon rebranded in 2023 to a single rounded drop-shape
+  monogram, and the old mark now reads as outdated/wrong to anyone who
+  knows the current brand. Fixed by pulling the current path straight from
+  Simple Icons (`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/patreon.svg`)
+  rather than from memory — that's the reliable way to get a brand mark
+  right; don't hand-recall a logo path for a brand that might have
+  rebranded since training data was cut. If another brand icon on this site
+  ever looks off, re-derive it the same way instead of guessing a fix.
 - **`.nav__menu--right`**: this dropdown's toggle sits at the very right edge
   of the header row, but `.nav__menu`'s default is `left: 0` (fine for "Get
   support", which sits mid-row). Left-aligned, two ~104px cards here would
