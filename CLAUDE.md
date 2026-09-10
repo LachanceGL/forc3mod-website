@@ -879,6 +879,10 @@ body has inline images/videos, don't just take the text and drop the media.
   already one word, so no-space is the correct/consistent form.
 - FORC3MOD Discord invite: `https://discord.gg/CbJCmjtVma`
 - GT3FORC3 Discord invite: `https://discord.gg/dfcK4x64vb`
+- Patreon: `https://www.patreon.com/cw/forc3mod/membership`
+- Buy Me a Coffee: `https://buymeacoffee.com/forc3mod` — added 2026-09-10 as
+  the second option in the header "Support us" dropdown (see below), the
+  Patreon link's first-ever alternative on this site.
 - Support-channel guild ID: `1534614323534499891` — **this is the one to use
   for channel deep links.**
 - "Report a Bug" channel ID: `1534648749043879936`
@@ -977,36 +981,95 @@ share the `.header__social` class, a circular `.icon-btn` each.
   are), not a real bug; force it with a cache-busting query string rather
   than concluding the fix didn't work.
 
-## Header "Support us" link — a responsive gotcha, don't reintroduce it
+## Header "Support us" dropdown — a responsive gotcha, don't reintroduce it
 
-"Support Us" used to sit inside `<nav class="nav">` with the other nav items.
-It now lives in `.header__actions` instead, after the social icons + Discord
-button (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the
-hamburger alone (`SupportUs.html`, which has no header Discord button — see
-above). It deliberately keeps plain **`.nav__link` styling**, not a `.btn` —
-it should read as the same nav link it always was, just relocated. It also
-keeps `is-active` on `SupportUs.html`, same as any nav link on its own page.
+"Support us" used to sit inside `<nav class="nav">` with the other nav items,
+then became a plain link relocated into `.header__actions`. **As of
+2026-09-10 it's a dropdown** (owner request: "add a drop down where it shows
+2 cards, One is Patreon... and the other one is Buy us Beers") — same
+`.nav__group`/`.nav__toggle`/`.nav__menu` mechanism "Get support" already
+uses (see "Nav dropdown system" below), so no JS changes were needed at all;
+`main.js`'s dropdown wiring is `document.querySelectorAll('.nav__group')` and
+picks up any number of groups automatically. The two links inside are:
+**Patreon** (`https://www.patreon.com/cw/forc3mod/membership`, with the
+Patreon "P" brand mark as an inline SVG — Simple Icons' 24x24 path, no local
+asset needed) and **Buy us Beers** (`https://buymeacoffee.com/forc3mod`,
+plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn't
+need currentColor theming).
 
-- Don't "upgrade" it to `.btn`/`.btn--primary` to match the Discord button
-  next to it — that was tried and explicitly rejected; it stays a nav link.
-- **Bug hit and fixed**: unlike the Discord button (which has an icon and
-  hides its text below 640px via `.btn--discord span { display:none }`),
-  this link is text-only — there's nothing to collapse to. Left
-  unconditional, the header row (logo + hamburger + Discord + this link)
-  stops fitting the container gutter at **~494px** and starts breaching it,
-  then overflows outright further down.
+It lives in `.header__actions`, after the social icons + Discord button
+(`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the hamburger
+alone (`SupportUs.html`, which has no header Discord button — see above).
+The toggle button keeps plain **`.nav__link` styling**, not a `.btn` — same
+reasoning as before the dropdown existed: it should read as the same nav
+item, not compete visually with the Discord button next to it. It also keeps
+`is-active` on `SupportUs.html`'s toggle, same as any nav link on its own
+page.
+
+- **Cards, not a plain link list**: `.nav__menu--cards` switches the menu to
+  a horizontal flex row of `.nav__card` boxes (icon on top, label below,
+  bordered/backgrounded), instead of `.nav__menu`'s default vertical list of
+  plain text links ("Get support" still uses that default — it's the
+  generic case, `--cards` is the override). Reuse `.nav__card` for any future
+  dropdown that wants icon+label options instead of plain text; reuse
+  `.nav__menu--cards` on the wrapping `.nav__menu` to lay them out
+  side-by-side.
+- **`.nav__menu--right`**: this dropdown's toggle sits at the very right edge
+  of the header row, but `.nav__menu`'s default is `left: 0` (fine for "Get
+  support", which sits mid-row). Left-aligned, two ~104px cards here would
+  grow off the right edge of the viewport at typical widths. `--right` flips
+  to `left: auto; right: 0` so the menu hangs from the toggle's right edge
+  instead, growing leftward. Any future dropdown anchored near the right
+  edge of a row should reuse this rather than re-deriving it.
+- Don't "upgrade" the toggle to `.btn`/`.btn--primary` to match the Discord
+  button next to it — that was tried (before the dropdown existed) and
+  explicitly rejected; it stays nav-link styled.
+- **Responsive swap, mechanism unchanged from the old plain-link version**:
+  unlike the Discord button (which has an icon and hides its text below
+  640px via `.btn--discord span { display:none }`), this toggle is
+  text-only — there's nothing to collapse to. Left unconditional, the header
+  row (logo + hamburger + Discord + this dropdown) stops fitting the
+  container gutter at **~494px** and starts breaching it, then overflows
+  outright further down.
 - **Fix in place**: both halves live in one `@media (max-width: 520px)`
-  block next to the `.nav__link` rules — `.header__actions .nav__link` is
-  hidden, and the `.nav__link--support` duplicate inside `.nav` (hidden
+  block — `.header__actions .nav__group--support` (the whole group, not just
+  the toggle, so an already-open menu doesn't get orphaned) is hidden, and
+  the `.nav__group--support-mobile` duplicate inside `.nav` (hidden
   everywhere else via the inverse rule) appears in the hamburger drawer so
-  it stays reachable. 520px rather than 494px just to leave slack.
+  it stays reachable, flattened into a static, indented sub-list by the same
+  generic `.nav.is-open .nav__group`/`.nav__menu` rules "Get support" uses.
+  520px rather than 494px just to leave slack. These class names
+  (`nav__group--support` / `nav__group--support-mobile`) replace the old
+  plain-link version's `.nav__link--support` — same swap mechanism, renamed
+  because the thing being swapped is now a whole `.nav__group`, not a bare
+  `<a>`.
 - Those two rules are **exact complements of one breakpoint** — never
-  change one without the other, or Support Us will either overflow the
+  change one without the other, or Support us will either overflow the
   header row or vanish from the site entirely. They're intentionally NOT
   folded into the nearby 480px query (which handles `--logo-h`/gaps), since
   this one needs its own threshold.
-- Note the markup therefore has **two** "Support Us" anchors per page, only
-  ever one visible at a time. That's intentional, not leftover duplication.
+- Note the markup therefore has **two** "Support us" `.nav__group`s per
+  page, only ever one visible at a time. That's intentional, not leftover
+  duplication.
+- Cards keep their side-by-side layout and their own padding/font-size even
+  flattened into the mobile drawer — `.nav.is-open .nav__menu--cards` and
+  `.nav.is-open .nav__menu--cards a.nav__card` re-assert those, since the
+  generic `.nav.is-open .nav__menu a` rule (higher specificity than the base
+  `.nav__card`) would otherwise win and squash them to the plain-list
+  padding/size.
+- **Couldn't verify the exact ~495-520px overflow boundary directly in this
+  session** — the Browser pane's `resize_window` custom-width sizing has a
+  floor around ~612px in this environment (requesting 521px or 600px both
+  silently rendered at 612px; 700px+ and the `mobile` preset (375px) both
+  worked correctly). Verified instead at 375px (mobile preset — drawer
+  version renders correctly, cards fit) and 900px+ (header version — no
+  overflow), and confirmed by inspection that a `<button>` with
+  `.nav__link.nav__toggle` renders at the same box size as the `<a>` it
+  replaced (same font/padding, background/border already reset to none on
+  both), so the pre-existing 520px threshold — tuned against the old plain
+  link — should still hold. If this is ever reported broken in the
+  495-520px range specifically, re-measure for real rather than trusting
+  this reasoning.
 
 ## Nav spacing — why padding is small and `gap` is large
 

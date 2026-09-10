@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=34" />
+  <link rel="stylesheet" href="css/style.css?v=35" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6fff'/%3E%3Ctext x='16' y='24' font-family='Arial, Helvetica, sans-serif' font-weight='800' font-size='22' fill='white' text-anchor='middle'%3E3%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
@@ -39,14 +39,42 @@
             <a href="https://discord.com/channels/1534614323534499891/1534648689300341057" target="_blank" rel="noopener">Make a Suggestion</a>
           </div>
         </div>
-        <a href="https://www.patreon.com/cw/forc3mod/membership" target="_blank" rel="noopener" class="nav__link nav__link--support">Support us</a>
+        <div class="nav__group nav__group--support-mobile">
+          <button type="button" class="nav__link nav__toggle" aria-haspopup="true" aria-expanded="false">
+            Support us
+          </button>
+          <div class="nav__menu nav__menu--cards">
+            <a href="https://www.patreon.com/cw/forc3mod/membership" target="_blank" rel="noopener" class="nav__card">
+              <svg viewBox="0 0 24 24" class="ico nav__card-icon" aria-hidden="true"><path d="M0 .48v23.04h4.219V.48zm15.384 0c-4.767 0-8.641 3.874-8.641 8.641 0 4.75 3.874 8.625 8.641 8.625 4.75 0 8.625-3.875 8.625-8.625-.001-4.767-3.876-8.641-8.625-8.641z"/></svg>
+              <span>Patreon</span>
+            </a>
+            <a href="https://buymeacoffee.com/forc3mod" target="_blank" rel="noopener" class="nav__card">
+              <span class="nav__card-icon nav__card-icon--emoji" aria-hidden="true">🍺</span>
+              <span>Buy us Beers</span>
+            </a>
+          </div>
+        </div>
       </nav>
 
       <div class="header__actions">
         <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
-        <a href="https://www.patreon.com/cw/forc3mod/membership" target="_blank" rel="noopener" class="nav__link is-active">Support us</a>
+        <div class="nav__group nav__group--support">
+          <button type="button" class="nav__link nav__toggle is-active" aria-haspopup="true" aria-expanded="false">
+            Support us
+          </button>
+          <div class="nav__menu nav__menu--cards nav__menu--right">
+            <a href="https://www.patreon.com/cw/forc3mod/membership" target="_blank" rel="noopener" class="nav__card">
+              <svg viewBox="0 0 24 24" class="ico nav__card-icon" aria-hidden="true"><path d="M0 .48v23.04h4.219V.48zm15.384 0c-4.767 0-8.641 3.874-8.641 8.641 0 4.75 3.874 8.625 8.641 8.625 4.75 0 8.625-3.875 8.625-8.625-.001-4.767-3.876-8.641-8.625-8.641z"/></svg>
+              <span>Patreon</span>
+            </a>
+            <a href="https://buymeacoffee.com/forc3mod" target="_blank" rel="noopener" class="nav__card">
+              <span class="nav__card-icon nav__card-icon--emoji" aria-hidden="true">🍺</span>
+              <span>Buy us Beers</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
