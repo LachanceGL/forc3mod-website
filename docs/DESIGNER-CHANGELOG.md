@@ -77,6 +77,31 @@ asset URL, don't re-host it in this repo).
 
 ---
 
+## v0.6.0 — Sep 9, 2026
+
+New Triplanar tool, localized gradients, and a paint-through fix
+
+### Changes
+- New Tool: Triplanar projection.
+  [Video: triplanar projection](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/Triplanar.mp4)
+- Gradient Tool: new Localized gradients feature.
+  [Video: localized gradients](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/LocalizedGradients.mp4)
+- Improved basic Shapes decals library.
+  [Video: the new Shapes library](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/ImprovedBasicShapes.mp4)
+- Brands library removed — will be added back later as an addon.
+- Layers menu: Delete Layer moved to the bottom of the menu.
+
+### Fixes
+- Paint Through now works properly by painting on backface areas (e.g. on a wing).
+  [Video: paint through on a wing](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/PaintThroughFix.mp4)
+- Export Livery now finds your saved cars properly — some were never showing up in the list (e.g. Dallara Stradale).
+- Bezier Tool: Anchor tool now breaks a point correctly.
+- Fill Tool: Shift+drag selection now follows Symmetry.
+- Orthographic View: middle mouse pan now moves on both axes in the Top view.
+- Decals Libraries: each tab keeps its scroll position when you switch away and back.
+- Layers: a layer can now be dropped between two folders.
+- Overall performance and UI/UX fixes.
+
 ## v0.5.0 — Sep 5, 2026
 
 72 cars, manufacturer decals, and a custom theme color
