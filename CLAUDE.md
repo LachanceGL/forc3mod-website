@@ -1320,6 +1320,10 @@ cache invalidation while doing nothing.
 - `//` is used deliberately as a clause separator in body copy (a stylistic
   choice, not a typo) — preserve it when editing existing copy unless told
   otherwise.
+- **Site version label** is the `// V 0.3` text in each page's
+  `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
+  from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
+  anything; change it on every page at once, including `grid.html`.
 - Keep the header and footer markup/behavior **identical** across all real
   content pages (`index.html`, `forc3designer.html`, `gt3forc3.html`,
   `SupportUs.html`). When you change one page's header/footer, mirror the
