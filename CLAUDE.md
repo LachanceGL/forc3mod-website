@@ -999,10 +999,15 @@ need currentColor theming). Label wording has moved twice, same day it
 shipped (2026-09-10): the owner's original request phrasing ("Buy us
 Beers") → "Buy Beers" → current "Buy A Beer". Treat the label as settled
 on whatever CLAUDE.md/the live markup currently say, not on any of the
-earlier quoted phrasings in this doc's history. **Card order is Buy A Beer
-first, Patreon second** (swapped 2026-09-10, on request — was Patreon
-first originally) in both the `.header__actions` and mobile-drawer copies,
-on all 4 pages.
+earlier quoted phrasings in this doc's history. **Card order differs by
+location, on purpose (both set by the owner, 2026-09-10):** header and
+mobile-drawer copies are **Buy A Beer, then Patreon**; the footer copy is
+**Patreon, then Buy A Beer** ("on the footer swap the Buy A Beer and
+Patreon positions"). Same on all 4 pages. Don't "fix" them to match. The
+footer's toggle line (`<button ... class="nav__toggle" ...>Support us</button>`,
+no `.nav__link`) is unique per page, so anchor footer-only markup edits on
+it — the drawer copy's `.nav__menu nav__menu--cards` line is identical to
+the footer's.
 
 It lives in `.header__actions`, after the social icons + Discord button
 (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the hamburger
