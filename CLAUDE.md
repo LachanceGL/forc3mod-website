@@ -1050,10 +1050,10 @@ page.
   rebranded since training data was cut. If another brand icon on this site
   ever looks off, re-derive it the same way instead of guessing a fix.
 - **Owner flagged the Patreon/Buy A Beer pair as "not well aligned" —
-  twice, same day (2026-09-10), two different real causes, neither a
-  geometry bug.** Both times `getBoundingClientRect` confirmed the two
-  cards' icon boxes and label positions were pixel-identical, so the fix in
-  each case was visual, not layout:
+  three times, same day (2026-09-10), three different causes.** The first
+  two were visual, not layout — the two cards' icon boxes measured
+  pixel-identical. The third was a real layout bug introduced by the second
+  fix:
   1. **Color/weight imbalance.** `.nav__card`'s default
      `color: var(--text-dim)` (and `#fff` on hover) drives the Patreon
      SVG's fill via `currentColor`, so it dimmed/brightened with the
@@ -1077,6 +1077,16 @@ page.
      bbox quirks. This is the general fix for this class of problem: don't
      try to pad each icon individually to compensate for its own shape;
      shrink both into a shared oversized slot instead.
+  3. **Labels at different heights — caused by fix 2 itself.** The emoji
+     `<span>` is a real 26px slot with a 20px glyph inside, but the
+     Patreon `<svg>` has no wrapper, so it *is* the slot — shrinking it to
+     20px made its box 20px, not 26px. The Patreon card's content ended up
+     6px shorter, so in the stacked header cards (`justify-content:
+     center`) its label sat 3px higher than "Buy A Beer" (measured label
+     tops 41px vs 44px). Fixed with `margin: 3px` on `.nav__card-icon.ico`,
+     so both icons take up the same 26x26. When comparing two cards,
+     measure the **label** positions, not just the icon boxes — fix 2 was
+     signed off on icon boxes and missed this.
   - If a future icon+emoji (or icon+icon) pairing gets a "looks unaligned
     but measures identical" complaint, check color/contrast parity and
     then relative glyph-fill-vs-box-size before re-measuring geometry —

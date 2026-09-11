@@ -442,8 +442,12 @@ h1, h2, h3, h4, h5 {
    shape, same bbox-centering, but far less visual weight, reading as
    "misaligned" even though the two icons' boxes are pixel-identical. Fixed
    by keeping the Patreon icon at a brighter, fixed tone rather than letting
-   it dim/brighten with the card's own hover state like the label text does. */
-.nav__card-icon.ico { width: 20px; height: 20px; color: var(--text); }
+   it dim/brighten with the card's own hover state like the label text does.
+   The SVG has no wrapper, so it *is* the 26px slot: shrinking it to 20px
+   needs a 3px margin to keep its outer box at 26px like the emoji's slot.
+   Without it the Patreon card's content is 6px shorter and its label sat
+   3px higher than "Buy A Beer" in the stacked header cards. */
+.nav__card-icon.ico { width: 20px; height: 20px; margin: 3px; color: var(--text); }
 .nav__card-icon--emoji { font-size: 20px; line-height: 1; }
 /* This dropdown is the last item in the header (either end of .nav or
    .header__actions), so its toggle sits at the row's right edge. .nav__menu's
