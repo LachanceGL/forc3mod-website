@@ -1332,7 +1332,8 @@ cache invalidation while doing nothing.
 - **The header has no bottom border** — its 1px `var(--border)` line was
   removed on request (2026-09-11). Header is now exactly 82px tall (the
   `.header__inner` height), matching the mobile drawer's pre-JS `top: 82px`
-  fallback.
+  fallback. The homepage contact card (`.cta`) lost its 1px outline the
+  same day ("here too"); it's set apart by its `--surface` background alone.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
