@@ -993,9 +993,26 @@ uses (see "Nav dropdown system" below), so no JS changes were needed at all;
 picks up any number of groups automatically. The two links inside are:
 **Patreon** (`https://www.patreon.com/cw/forc3mod/membership`, with the
 Patreon logo as an inline SVG — Simple Icons' current 24x24 path, no local
-asset needed) and **Buy us Beers** (`https://buymeacoffee.com/forc3mod`,
+asset needed) and **Buy Beers** (`https://buymeacoffee.com/forc3mod`,
 plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn't
-need currentColor theming).
+need currentColor theming). Label shortened from "Buy us Beers" to "Buy
+Beers" on 2026-09-10, same day it shipped — the owner's original request
+phrasing ("Buy us Beers") is preserved verbatim just above since it's a
+quote of what was asked, not the card's label.
+- **Owner flagged the pair as "not well aligned" the same day** — turned out
+  to be a color/weight imbalance, not a geometry bug: `getBoundingClientRect`
+  confirmed both cards' icon boxes and label positions were pixel-identical.
+  The real cause is that `.nav__card`'s default `color: var(--text-dim)`
+  (and `#fff` on hover) drives the Patreon SVG's fill via `currentColor`, so
+  it dimmed/brightened with the card's hover state — but the beer emoji is a
+  native-color glyph that ignores `color` entirely and always renders at
+  full saturation. At rest, that made the Patreon mark read as a washed-out
+  grey blob next to a vivid mug even though the underlying shape was
+  correctly centered. Fixed with `.nav__card-icon.ico { color: var(--text); }`
+  — pins the SVG to a bright, fixed tone independent of the card's own
+  hover-driven text color. If a future icon+emoji pairing has the same
+  "looks unaligned but measures identical" complaint, check color/contrast
+  parity before re-measuring geometry.
 
 It lives in `.header__actions`, after the social icons + Discord button
 (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the hamburger

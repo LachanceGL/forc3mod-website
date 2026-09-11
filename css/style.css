@@ -410,6 +410,14 @@ h1, h2, h3, h4, h5 {
 }
 .nav__card:hover { color: #fff; border-color: var(--accent); background: var(--surface-2); }
 .nav__card-icon { width: 26px; height: 26px; }
+/* The Buy Beers emoji renders in its own full native color regardless of
+   `color`, so at the card's default dim text color the Patreon mark (an SVG,
+   fill: currentColor) came out a washed-out grey blob next to it — same
+   shape, same bbox-centering, but far less visual weight, reading as
+   "misaligned" even though the two icons' boxes are pixel-identical. Fixed
+   by keeping the Patreon icon at a brighter, fixed tone rather than letting
+   it dim/brighten with the card's own hover state like the label text does. */
+.nav__card-icon.ico { color: var(--text); }
 .nav__card-icon--emoji { font-size: 24px; line-height: 1; }
 /* This dropdown is the last item in the header (either end of .nav or
    .header__actions), so its toggle sits at the row's right edge. .nav__menu's
