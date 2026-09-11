@@ -891,6 +891,26 @@ h1, h2, h3, h4, h5 {
    page's theme accent (lime on FORC3 Designer, red on GT3FORC3) —
    matches the header, which keeps the same blue across all pages. */
 .footer__col a:hover { color: #4fb3ff; }
+/* The footer's "Support us" is a .nav__group dropdown now too (same Buy A
+   Beer / Patreon cards as the header one), but `.footer__col a` only
+   targets real `<a>` tags — the toggle is a `<button>`, so it needs its own
+   rule to read like the plain-text links around it instead of picking up
+   `.nav__toggle`'s bare button-reset look. Deliberately NOT given
+   `.nav__link` here (that's the header's Rajdhani/uppercase-ish styling) —
+   this one matches its footer siblings instead. The `.nav__menu--cards`
+   dropdown itself is unstyled here beyond what already exists for the
+   header instance; `.nav__group`'s own `position: relative` is enough to
+   anchor it regardless of which parent it sits in. */
+.footer__col .nav__toggle {
+  display: block;
+  color: var(--text-mute);
+  font-family: inherit;
+  font-size: 12.5px;
+  margin-bottom: 9px;
+  padding: 0;
+  text-align: left;
+}
+.footer__col .nav__toggle:hover { color: #4fb3ff; }
 
 .footer__bottom {
   border-top: 1px solid var(--border);

@@ -1119,6 +1119,30 @@ page.
   link — should still hold. If this is ever reported broken in the
   495-520px range specifically, re-measure for real rather than trusting
   this reasoning.
+- **The footer's "Projects" column "Support us" link became the same
+  dropdown too (2026-09-10, on request: "the footer button link should do
+  the same").** Third `.nav__group` per page now (header, mobile-drawer,
+  footer), same Buy A Beer/Patreon cards, same generic JS wiring — still
+  zero JS changes needed. Two things needed adjusting for the footer
+  context specifically, since it's a different parent than the nav/header:
+  - **Styling**: `.footer__col a` styles real `<a>` tags only, so the
+    footer's toggle `<button>` needed its own `.footer__col .nav__toggle`
+    rule reproducing the same color/size/spacing as its sibling footer
+    links. Deliberately does **not** carry `.nav__link` (the header's
+    Rajdhani/uppercase-leaning style) — it should read as a plain footer
+    link, matching "FORC3 Designer"/"GT3FORC3" above it, not as a nav item.
+  - **Menu alignment**: uses the plain `.nav__menu` default (`left: 0`), not
+    `.nav__menu--right`. The header instance needed `--right` because its
+    toggle sits at the row's right edge; the footer instance sits at the
+    **left** edge of the "Projects" column (second of four columns), with
+    room to its right, so the default left-aligned menu doesn't overflow.
+    Don't copy `--right` here just because the header instance uses it —
+    match the alignment to where the toggle actually sits.
+  - No new breakpoint logic needed: the footer isn't part of the
+    hamburger-drawer system at all, so there's only one footer copy (no
+    mobile-swap duplicate), and the grid's own existing responsive column
+    collapse (900px → 2 columns, 560px → 1 column) doesn't interact with
+    the dropdown's own positioning.
 
 ## Nav spacing — why padding is small and `gap` is large
 
