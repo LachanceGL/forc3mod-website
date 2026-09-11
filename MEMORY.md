@@ -12,6 +12,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-11
+
+- **`grid.html`: `.fmgrid` → `.grid`**, the three places the page names the
+  pack extension (meta description, the "how it works" paragraph, the feature
+  list). FORC3 Grid renamed its pack files that day, on the owner's request;
+  the app still opens old `.fmgrid` files, so the page only needed the new
+  name. Text-only, no `?v=` bump. The page stays `noindex` and unlinked until
+  FORC3 Grid launches — untouched here.
+
 ## 2026-09-05
 
 - **Dropped the summary text from every changelog entry's collapsed title**
