@@ -1329,6 +1329,13 @@ cache invalidation while doing nothing.
 - `//` is used deliberately as a clause separator in body copy (a stylistic
   choice, not a typo) — preserve it when editing existing copy unless told
   otherwise.
+- **Keep solid icon sizes whole CSS pixels** when a request ends in a
+  fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
+  The owner said 16.45px "does not seem to appear clean": it isn't a whole
+  number of screen pixels at 100/125/150/200% Windows scaling, so the
+  logo's edges and small counters (Discord's eyes) smear across pixels.
+  Round to the nearest whole px (16px there) and say so. The Facebook
+  icon's 18.39px is an existing exception that hasn't been reported.
 - **Site version label** is the `// V 0.3` text in each page's
   `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
   from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
