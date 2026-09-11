@@ -998,21 +998,10 @@ plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn'
 need currentColor theming). Label shortened from "Buy us Beers" to "Buy
 Beers" on 2026-09-10, same day it shipped — the owner's original request
 phrasing ("Buy us Beers") is preserved verbatim just above since it's a
-quote of what was asked, not the card's label.
-- **Owner flagged the pair as "not well aligned" the same day** — turned out
-  to be a color/weight imbalance, not a geometry bug: `getBoundingClientRect`
-  confirmed both cards' icon boxes and label positions were pixel-identical.
-  The real cause is that `.nav__card`'s default `color: var(--text-dim)`
-  (and `#fff` on hover) drives the Patreon SVG's fill via `currentColor`, so
-  it dimmed/brightened with the card's hover state — but the beer emoji is a
-  native-color glyph that ignores `color` entirely and always renders at
-  full saturation. At rest, that made the Patreon mark read as a washed-out
-  grey blob next to a vivid mug even though the underlying shape was
-  correctly centered. Fixed with `.nav__card-icon.ico { color: var(--text); }`
-  — pins the SVG to a bright, fixed tone independent of the card's own
-  hover-driven text color. If a future icon+emoji pairing has the same
-  "looks unaligned but measures identical" complaint, check color/contrast
-  parity before re-measuring geometry.
+quote of what was asked, not the card's label. **Card order is Buy Beers
+first, Patreon second** (swapped 2026-09-10, on request — was Patreon
+first originally) in both the `.header__actions` and mobile-drawer copies,
+on all 4 pages.
 
 It lives in `.header__actions`, after the social icons + Discord button
 (`index.html`, `forc3designer.html`, `gt3forc3.html`) or after the hamburger
@@ -1041,6 +1030,38 @@ page.
   right; don't hand-recall a logo path for a brand that might have
   rebranded since training data was cut. If another brand icon on this site
   ever looks off, re-derive it the same way instead of guessing a fix.
+- **Owner flagged the Patreon/Buy Beers pair as "not well aligned" —
+  twice, same day (2026-09-10), two different real causes, neither a
+  geometry bug.** Both times `getBoundingClientRect` confirmed the two
+  cards' icon boxes and label positions were pixel-identical, so the fix in
+  each case was visual, not layout:
+  1. **Color/weight imbalance.** `.nav__card`'s default
+     `color: var(--text-dim)` (and `#fff` on hover) drives the Patreon
+     SVG's fill via `currentColor`, so it dimmed/brightened with the
+     card's hover state — but the beer emoji is a native-color glyph that
+     ignores `color` entirely and always renders at full saturation. At
+     rest that made the Patreon mark read as a washed-out grey blob next
+     to a vivid mug. Fixed with `.nav__card-icon.ico { color: var(--text); }`
+     — pins the SVG to a bright, fixed tone independent of the card's own
+     hover-driven text color.
+  2. **Uneven "breathing room," reported as "icons must have some spacing
+     on top, it's not well unified."** The Patreon path already spans its
+     full 24x24 viewBox edge-to-edge (measured with `getBBox`:
+     y 0.0003-24.0003, no built-in padding), while an emoji glyph's own
+     internal padding is font/platform-dependent and not something CSS
+     controls — at equal box sizes the two read with visibly uneven margins
+     around them, purely from each glyph's own silhouette, not from any
+     CSS asymmetry between the two cards. Fixed by making `.nav__card-icon`
+     an oversized, flex-centred 26px **slot** and rendering both actual
+     glyphs smaller inside it (20px SVG, 20px emoji font-size) — a fixed,
+     equal margin on every side for both, regardless of either glyph's own
+     bbox quirks. This is the general fix for this class of problem: don't
+     try to pad each icon individually to compensate for its own shape;
+     shrink both into a shared oversized slot instead.
+  - If a future icon+emoji (or icon+icon) pairing gets a "looks unaligned
+    but measures identical" complaint, check color/contrast parity and
+    then relative glyph-fill-vs-box-size before re-measuring geometry —
+    both times here, the geometry was already correct.
 - **`.nav__menu--right`**: this dropdown's toggle sits at the very right edge
   of the header row, but `.nav__menu`'s default is `left: 0` (fine for "Get
   support", which sits mid-row). Left-aligned, two ~104px cards here would

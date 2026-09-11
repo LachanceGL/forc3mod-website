@@ -409,7 +409,24 @@ h1, h2, h3, h4, h5 {
   transition: border-color .2s, color .2s, background .2s;
 }
 .nav__card:hover { color: #fff; border-color: var(--accent); background: var(--surface-2); }
-.nav__card-icon { width: 26px; height: 26px; }
+/* The icon is a fixed-size 26px "slot", flex-centred, deliberately larger
+   than the glyph rendered inside it (20px) so both icons get the same real,
+   even margin on every side regardless of their own shape. Needed because
+   the Patreon mark's path already spans its full 24x24 viewBox edge-to-edge
+   (measured with getBBox: y 0.0003-24.0003, no built-in padding) while an
+   emoji glyph's own internal padding is font-dependent and not something we
+   control — at equal box sizes the two read with visibly uneven "breathing
+   room" (reported: "icons must have some spacing on top, it's not well
+   unified"), even though their boxes were pixel-identical. Shrinking both
+   glyphs inside an oversized, centred slot fixes it at the source instead
+   of trying to pad each shape individually. */
+.nav__card-icon {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* The Buy Beers emoji renders in its own full native color regardless of
    `color`, so at the card's default dim text color the Patreon mark (an SVG,
    fill: currentColor) came out a washed-out grey blob next to it — same
@@ -417,8 +434,8 @@ h1, h2, h3, h4, h5 {
    "misaligned" even though the two icons' boxes are pixel-identical. Fixed
    by keeping the Patreon icon at a brighter, fixed tone rather than letting
    it dim/brighten with the card's own hover state like the label text does. */
-.nav__card-icon.ico { color: var(--text); }
-.nav__card-icon--emoji { font-size: 24px; line-height: 1; }
+.nav__card-icon.ico { width: 20px; height: 20px; color: var(--text); }
+.nav__card-icon--emoji { font-size: 20px; line-height: 1; }
 /* This dropdown is the last item in the header (either end of .nav or
    .header__actions), so its toggle sits at the row's right edge. .nav__menu's
    default `left: 0` would grow two ~104px cards off the right edge of the
