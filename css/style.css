@@ -388,18 +388,14 @@ h1, h2, h3, h4, h5 {
    a bare link. Reuses the exact same .nav__group/.nav__toggle mechanism —
    .nav__menu--cards only overrides the menu's own layout. */
 .nav__menu--cards { flex-direction: row; gap: 8px; padding: 10px; }
-/* Icon and label sit side by side on one line (owner: "make so like if it
-   was on a single line" — the original stacked icon-above-label layout,
-   two lines per card, read as bulkier than needed for a two-word label).
-   `white-space: nowrap` + auto width (no fixed `width` here any more) lets
-   each card size to its own label instead of both sharing one fixed box —
-   "Buy A Beer" and "Patreon" aren't the same length. */
 .nav__card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 14px;
+  width: 104px;
+  padding: 14px 10px;
   border-radius: var(--radius-sm);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -408,8 +404,18 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
   font-size: 12.5px;
   letter-spacing: 0.02em;
-  white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
   transition: border-color .2s, color .2s, background .2s;
+}
+/* Footer only: icon and label side by side on one line, each card sized to
+   its own label. The header keeps the stacked icon-above-label cards. */
+.footer__col .nav__card {
+  flex-direction: row;
+  justify-content: flex-start;
+  width: auto;
+  padding: 10px 14px;
+  white-space: nowrap;
 }
 .nav__card:hover { color: #fff; border-color: var(--accent); background: var(--surface-2); }
 /* The icon is a fixed-size 26px "slot", flex-centred, deliberately larger
@@ -569,7 +575,7 @@ h1, h2, h3, h4, h5 {
    re-asserting here since the generic `.nav.is-open .nav__menu a` rule above
    is more specific than the base `.nav__card` and would otherwise win. */
 .nav.is-open .nav__menu--cards { padding: 10px 16px; }
-.nav.is-open .nav__menu--cards a.nav__card { padding: 10px 14px; font-size: 12.5px; }
+.nav.is-open .nav__menu--cards a.nav__card { padding: 14px 10px; font-size: 12.5px; }
 
 /* ===== Hero ===== */
 .hero {
@@ -889,13 +895,17 @@ h1, h2, h3, h4, h5 {
   font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
   color: #4b4f5b; margin-bottom: 12px;
 }
-.footer__col a { display: block; color: var(--text-mute); font-size: 12.5px; margin-bottom: 9px; }
+/* Direct children only (`>`): the "Support us" dropdown's .nav__card links
+   also live inside .footer__col, and a plain descendant `a` selector
+   out-ranks `.nav__card` — it forced them to display:block (icon stacked
+   above the label) and gave them this color, hover and margin too. */
+.footer__col > a { display: block; color: var(--text-mute); font-size: 12.5px; margin-bottom: 9px; }
 /* Footer link hover always uses the site-wide brand blue, never the
    page's theme accent (lime on FORC3 Designer, red on GT3FORC3) —
    matches the header, which keeps the same blue across all pages. */
-.footer__col a:hover { color: #4fb3ff; }
+.footer__col > a:hover { color: #4fb3ff; }
 /* The footer's "Support us" is a .nav__group dropdown now too (same Buy A
-   Beer / Patreon cards as the header one), but `.footer__col a` only
+   Beer / Patreon cards as the header one), but `.footer__col > a` only
    targets real `<a>` tags — the toggle is a `<button>`, so it needs its own
    rule to read like the plain-text links around it instead of picking up
    `.nav__toggle`'s bare button-reset look. Deliberately NOT given
@@ -904,6 +914,10 @@ h1, h2, h3, h4, h5 {
    dropdown itself is unstyled here beyond what already exists for the
    header instance; `.nav__group`'s own `position: relative` is enough to
    anchor it regardless of which parent it sits in. */
+/* Block-level here: the default inline-flex .nav__group sits on a text line
+   and picks up baseline/descender space, pushing "Support us" 4px further
+   below its sibling links than they are from each other. */
+.footer__col .nav__group { display: flex; }
 .footer__col .nav__toggle {
   display: block;
   color: var(--text-mute);

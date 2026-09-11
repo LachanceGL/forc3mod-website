@@ -1020,17 +1020,25 @@ page.
   the override). Reuse `.nav__card` for any future dropdown that wants
   icon+label options instead of plain text; reuse `.nav__menu--cards` on
   the wrapping `.nav__menu` to lay them out side-by-side.
-- **Each card's own icon+label is one line, side by side** (changed
-  2026-09-10, owner: "make so like if it was on a single line" — the
-  original had the icon stacked above the label, two lines per card, which
-  read as bulkier than a two-word label needed). `.nav__card` is
-  `flex-direction: row` with no fixed `width` any more — each card sizes to
-  its own label's natural width (`white-space: nowrap` stops it wrapping),
-  since "Buy A Beer" and "Patreon" aren't the same length and forcing a
-  shared fixed width would either clip the longer one or leave the shorter
-  one with dead space. If a future card's label is a lot longer, check it
-  doesn't force the menu wider than its container before shipping — nothing
-  currently caps the row's total width.
+- **Card layout differs by location, on purpose.** Header (and mobile
+  drawer) cards are the base `.nav__card`: icon stacked above the label,
+  fixed 104px width. **Footer cards only** put the icon and label side by
+  side on one line (owner, 2026-09-10: "make so like if it was on a single
+  line... that's for the footer only") via `.footer__col .nav__card` —
+  `flex-direction: row`, auto width per label (`white-space: nowrap`),
+  since "Buy A Beer" and "Patreon" aren't the same length. Don't unify the
+  two; the owner asked for the difference.
+  - The first attempt at this changed the base `.nav__card` (so the header
+    changed too, which wasn't wanted) and **didn't work in the footer
+    anyway**: `.footer__col a { display: block }` also matched the card
+    `<a>`s inside the footer dropdown and out-ranks `.nav__card`, so they
+    stayed block with the icon stacked on top. That rule is now
+    `.footer__col > a` (direct children only), which also stopped it
+    leaking its color, hover color and 9px bottom margin onto the cards.
+    That first attempt was reported as working from card heights alone,
+    without comparing them to the header's; the tell was that footer
+    cards were taller than a one-line card could be. Check that icon and
+    label centres line up rather than just reading a size.
 - **Shipped with the wrong Patreon logo once — caught and fixed same-day
   (2026-09-10).** The first pass used the classic two-shape "bar + circle"
   Patreon mark; Patreon rebranded in 2023 to a single rounded drop-shape
@@ -1148,6 +1156,10 @@ page.
     room to its right, so the default left-aligned menu doesn't overflow.
     Don't copy `--right` here just because the header instance uses it —
     match the alignment to where the toggle actually sits.
+  - **`.footer__col .nav__group { display: flex; }`** — block-level in the
+    footer. The default `inline-flex` group sits on a text line and picks
+    up baseline space, which put "Support us" 33px below "GT3FORC3"
+    instead of the 29px every other footer link uses.
   - No new breakpoint logic needed: the footer isn't part of the
     hamburger-drawer system at all, so there's only one footer copy (no
     mobile-swap duplicate), and the grid's own existing responsive column
