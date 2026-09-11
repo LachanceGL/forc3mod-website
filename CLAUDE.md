@@ -878,7 +878,16 @@ body has inline images/videos, don't just take the text and drop the media.
   the filename (`gt3forc3.html`) and the real domain (`gt3forc3.com`) were
   already one word, so no-space is the correct/consistent form.
 - FORC3MOD Discord invite: `https://discord.gg/CbJCmjtVma`
-- GT3FORC3 Discord invite: `https://discord.gg/dfcK4x64vb`
+- GT3FORC3 Discord invite: `https://discord.gg/dfcK4x64vb` — only linked
+  from `gt3forc3.html`'s hero CTA now. It used to be a "Discord / GT3FORC3"
+  footer link on every page too; removed 2026-09-10 (see below).
+- **Footer Community column is FORC3MOD-only, labels are bare platform
+  names**: Facebook, Discord, X, Instagram (in that order). Until
+  2026-09-10 they read "Facebook / FORC3MOD" etc., with a "Discord /
+  GT3FORC3" entry alongside. The owner removed the GT3FORC3 one ("we only
+  show the FORC3MOD ones, so no need to precise it anymore"), which made
+  the " / FORC3MOD" suffix redundant, so it went too. Don't re-add a
+  suffix unless a second community's link comes back into this column.
 - Patreon: `https://www.patreon.com/cw/forc3mod/membership`
 - Buy Me a Coffee: `https://buymeacoffee.com/forc3mod` — added 2026-09-10 as
   the second option in the header "Support us" dropdown (see below), the
