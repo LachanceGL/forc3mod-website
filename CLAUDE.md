@@ -1014,13 +1014,23 @@ item, not compete visually with the Discord button next to it. It also keeps
 page.
 
 - **Cards, not a plain link list**: `.nav__menu--cards` switches the menu to
-  a horizontal flex row of `.nav__card` boxes (icon on top, label below,
-  bordered/backgrounded), instead of `.nav__menu`'s default vertical list of
-  plain text links ("Get support" still uses that default — it's the
-  generic case, `--cards` is the override). Reuse `.nav__card` for any future
-  dropdown that wants icon+label options instead of plain text; reuse
-  `.nav__menu--cards` on the wrapping `.nav__menu` to lay them out
-  side-by-side.
+  a horizontal flex row of `.nav__card` boxes (bordered/backgrounded),
+  instead of `.nav__menu`'s default vertical list of plain text links ("Get
+  support" still uses that default — it's the generic case, `--cards` is
+  the override). Reuse `.nav__card` for any future dropdown that wants
+  icon+label options instead of plain text; reuse `.nav__menu--cards` on
+  the wrapping `.nav__menu` to lay them out side-by-side.
+- **Each card's own icon+label is one line, side by side** (changed
+  2026-09-10, owner: "make so like if it was on a single line" — the
+  original had the icon stacked above the label, two lines per card, which
+  read as bulkier than a two-word label needed). `.nav__card` is
+  `flex-direction: row` with no fixed `width` any more — each card sizes to
+  its own label's natural width (`white-space: nowrap` stops it wrapping),
+  since "Buy A Beer" and "Patreon" aren't the same length and forcing a
+  shared fixed width would either clip the longer one or leave the shorter
+  one with dead space. If a future card's label is a lot longer, check it
+  doesn't force the menu wider than its container before shipping — nothing
+  currently caps the row's total width.
 - **Shipped with the wrong Patreon logo once — caught and fixed same-day
   (2026-09-10).** The first pass used the classic two-shape "bar + circle"
   Patreon mark; Patreon rebranded in 2023 to a single rounded drop-shape

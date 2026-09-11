@@ -388,14 +388,18 @@ h1, h2, h3, h4, h5 {
    a bare link. Reuses the exact same .nav__group/.nav__toggle mechanism —
    .nav__menu--cards only overrides the menu's own layout. */
 .nav__menu--cards { flex-direction: row; gap: 8px; padding: 10px; }
+/* Icon and label sit side by side on one line (owner: "make so like if it
+   was on a single line" — the original stacked icon-above-label layout,
+   two lines per card, read as bulkier than needed for a two-word label).
+   `white-space: nowrap` + auto width (no fixed `width` here any more) lets
+   each card size to its own label instead of both sharing one fixed box —
+   "Buy A Beer" and "Patreon" aren't the same length. */
 .nav__card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  width: 104px;
-  padding: 14px 10px;
+  padding: 10px 14px;
   border-radius: var(--radius-sm);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -404,8 +408,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
   font-size: 12.5px;
   letter-spacing: 0.02em;
-  text-align: center;
-  line-height: 1.25;
+  white-space: nowrap;
   transition: border-color .2s, color .2s, background .2s;
 }
 .nav__card:hover { color: #fff; border-color: var(--accent); background: var(--surface-2); }
@@ -566,7 +569,7 @@ h1, h2, h3, h4, h5 {
    re-asserting here since the generic `.nav.is-open .nav__menu a` rule above
    is more specific than the base `.nav__card` and would otherwise win. */
 .nav.is-open .nav__menu--cards { padding: 10px 16px; }
-.nav.is-open .nav__menu--cards a.nav__card { padding: 14px 10px; font-size: 12.5px; }
+.nav.is-open .nav__menu--cards a.nav__card { padding: 10px 14px; font-size: 12.5px; }
 
 /* ===== Hero ===== */
 .hero {
