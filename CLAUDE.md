@@ -993,12 +993,13 @@ uses (see "Nav dropdown system" below), so no JS changes were needed at all;
 picks up any number of groups automatically. The two links inside are:
 **Patreon** (`https://www.patreon.com/cw/forc3mod/membership`, with the
 Patreon logo as an inline SVG — Simple Icons' current 24x24 path, no local
-asset needed) and **Buy Beers** (`https://buymeacoffee.com/forc3mod`,
+asset needed) and **Buy A Beer** (`https://buymeacoffee.com/forc3mod`,
 plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn't
-need currentColor theming). Label shortened from "Buy us Beers" to "Buy
-Beers" on 2026-09-10, same day it shipped — the owner's original request
-phrasing ("Buy us Beers") is preserved verbatim just above since it's a
-quote of what was asked, not the card's label. **Card order is Buy Beers
+need currentColor theming). Label wording has moved twice, same day it
+shipped (2026-09-10): the owner's original request phrasing ("Buy us
+Beers") → "Buy Beers" → current "Buy A Beer". Treat the label as settled
+on whatever CLAUDE.md/the live markup currently say, not on any of the
+earlier quoted phrasings in this doc's history. **Card order is Buy A Beer
 first, Patreon second** (swapped 2026-09-10, on request — was Patreon
 first originally) in both the `.header__actions` and mobile-drawer copies,
 on all 4 pages.
@@ -1030,7 +1031,7 @@ page.
   right; don't hand-recall a logo path for a brand that might have
   rebranded since training data was cut. If another brand icon on this site
   ever looks off, re-derive it the same way instead of guessing a fix.
-- **Owner flagged the Patreon/Buy Beers pair as "not well aligned" —
+- **Owner flagged the Patreon/Buy A Beer pair as "not well aligned" —
   twice, same day (2026-09-10), two different real causes, neither a
   geometry bug.** Both times `getBoundingClientRect` confirmed the two
   cards' icon boxes and label positions were pixel-identical, so the fix in

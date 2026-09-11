@@ -427,7 +427,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   justify-content: center;
 }
-/* The Buy Beers emoji renders in its own full native color regardless of
+/* The Buy A Beer emoji renders in its own full native color regardless of
    `color`, so at the card's default dim text color the Patreon mark (an SVG,
    fill: currentColor) came out a washed-out grey blob next to it — same
    shape, same bbox-centering, but far less visual weight, reading as
