@@ -594,7 +594,7 @@ h1, h2, h3, h4, h5 {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 60px 0 40px;
+  padding: 30px 0 40px;
   background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
