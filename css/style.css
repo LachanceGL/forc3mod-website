@@ -24,6 +24,12 @@
      header defines it, and every other logo (footer included) reads
      from this instead of setting its own height, so they can never drift. */
   --logo-h: 26px;
+  /* Distance from the container's content edge to where the nav starts:
+     header logo width (from the SVG's own viewBox ratio) + .header__inner's
+     24px gap. The hero text and the contact card's text start on this line
+     while the full nav is showing (min-width: 1121px), so it has to track
+     --logo-h and that gap. */
+  --nav-line: calc(var(--logo-h) * 589.37706 / 70.02344 + 24px);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -594,6 +600,13 @@ h1, h2, h3, h4, h5 {
   background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
+/* With the full nav showing, hero text starts where the nav starts (owner,
+   2026-09-12) instead of in a centred 760px column. Below 1121px the nav
+   collapses to the hamburger, so there's no line to meet and the centred
+   column stays. */
+@media (min-width: 1121px) {
+  .hero__inner { max-width: var(--container); padding-left: calc(24px + var(--nav-line)); }
+}
 .hero__icon-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
 .hero__app-icon {
   width: 64px;
@@ -819,6 +832,11 @@ h1, h2, h3, h4, h5 {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   overflow: hidden;
+}
+/* Contact text starts on the nav line too; the card box is still on the
+   container edge, so its left padding is exactly --nav-line. */
+@media (min-width: 1121px) {
+  .cta { padding-left: var(--nav-line); }
 }
 .cta__content { position: relative; z-index: 1; align-self: center; }
 .cta__content h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 16px; text-transform: uppercase; }

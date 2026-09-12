@@ -1334,6 +1334,18 @@ cache invalidation while doing nothing.
   `.header__inner` height), matching the mobile drawer's pre-JS `top: 82px`
   fallback. The homepage contact card (`.cta`) lost its 1px outline the
   same day ("here too"); it's set apart by its `--surface` background alone.
+- **The nav line** (owner, 2026-09-12: "rearrange the site so everything
+  fit better on that line", marking where the nav starts). While the full
+  nav shows (`min-width: 1121px`), the hero text on every page and the
+  homepage contact card's text start exactly where the nav starts. Driven
+  by `--nav-line` in `:root` = logo width (computed from the SVG viewBox
+  ratio 589.37706 / 70.02344 times `--logo-h`) + the header's 24px gap.
+  The hero drops its centred 760px column for `padding-left: 24px +
+  --nav-line`; `.cta` gets `padding-left: --nav-line` (card box and form
+  stay on the container edge). Below 1121px the nav is a hamburger, so the
+  old layout stays. If the logo file, `--logo-h` or `.header__inner`'s gap
+  changes, update `--nav-line` — verified by measuring `.nav` left against
+  the hero/contact text left at 1920/1678/1280px (exact match).
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
