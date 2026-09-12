@@ -661,6 +661,15 @@ h1, h2, h3, h4, h5 {
 }
 .about--solo { grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; text-align: center; }
 .about--solo .feature-list { text-align: left; }
+/* Nav line (see --nav-line): with the full nav showing, section content
+   starts where the nav starts. Two-column sections (product pages) shift
+   their whole grid, photo card included; the centred solo section (Support
+   Us) becomes left-aligned on the line. */
+@media (min-width: 1121px) {
+  .container.about { padding-left: calc(24px + var(--nav-line)); }
+  .about--solo { max-width: var(--container); text-align: left; }
+  .about--solo .about__body { max-width: 720px; }
+}
 .about__media { position: relative; }
 .about__card {
   background: linear-gradient(160deg, var(--surface), var(--surface-2));
@@ -833,10 +842,12 @@ h1, h2, h3, h4, h5 {
   gap: 40px;
   overflow: hidden;
 }
-/* Contact text starts on the nav line too; the card box is still on the
-   container edge, so its left padding is exactly --nav-line. */
+/* Contact text starts on the nav line too. The card box starts its own 48px
+   padding before the line, rather than staying on the container edge with
+   --nav-line of padding, which left a large empty block on its left
+   (owner: "adjust the spacing here"). */
 @media (min-width: 1121px) {
-  .cta { padding-left: var(--nav-line); }
+  .cta { margin-left: calc(var(--nav-line) - 48px); }
 }
 .cta__content { position: relative; z-index: 1; align-self: center; }
 .cta__content h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 16px; text-transform: uppercase; }

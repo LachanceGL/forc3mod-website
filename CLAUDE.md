@@ -1341,8 +1341,16 @@ cache invalidation while doing nothing.
   by `--nav-line` in `:root` = logo width (computed from the SVG viewBox
   ratio 589.37706 / 70.02344 times `--logo-h`) + the header's 24px gap.
   The hero drops its centred 760px column for `padding-left: 24px +
-  --nav-line`; `.cta` gets `padding-left: --nav-line` (card box and form
-  stay on the container edge). Below 1121px the nav is a hamburger, so the
+  --nav-line`. `.cta` gets `margin-left: --nav-line - 48px`, so the card
+  box starts one padding-width before the line and its text sits on it
+  (first version padded the card by the full --nav-line instead, which
+  left a big empty block on its left — owner: "adjust the spacing here").
+  Extended to the other pages' sections the same day ("do the same for the
+  other pages sections"): `.container.about` (FORC3 Designer / GT3FORC3,
+  photo card + text) shifts its whole grid onto the line, which makes the
+  photo cards smaller (~366px wide at 1280-1678px); the centred solo
+  section on Support Us becomes left-aligned on the line with a 720px text
+  column. Below 1121px the nav is a hamburger, so the
   old layout stays. If the logo file, `--logo-h` or `.header__inner`'s gap
   changes, update `--nav-line` — verified by measuring `.nav` left against
   the hero/contact text left at 1920/1678/1280px (exact match).
