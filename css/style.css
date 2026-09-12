@@ -24,12 +24,10 @@
      header defines it, and every other logo (footer included) reads
      from this instead of setting its own height, so they can never drift. */
   --logo-h: 26px;
-  /* Distance from the container's content edge to where the nav starts:
-     header logo width (from the SVG's own viewBox ratio) + .header__inner's
-     24px gap. The hero text and the contact card's text start on this line
-     while the full nav is showing (min-width: 1121px), so it has to track
-     --logo-h and that gap. */
-  --nav-line: calc(var(--logo-h) * 589.37706 / 70.02344 + 24px);
+  /* How far page content starts in from the logo's left edge (the
+     container's content edge) on desktop widths: hero text, the contact
+     card and the page sections all start here. */
+  --content-inset: 15px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -600,12 +598,10 @@ h1, h2, h3, h4, h5 {
   background: radial-gradient(ellipse at 70% 20%, #0d1626 0%, var(--bg) 55%);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
-/* With the full nav showing, hero text starts where the nav starts (owner,
-   2026-09-12) instead of in a centred 760px column. Below 1121px the nav
-   collapses to the hamburger, so there's no line to meet and the centred
-   column stays. */
-@media (min-width: 1121px) {
-  .hero__inner { max-width: var(--container); padding-left: calc(24px + var(--nav-line)); }
+/* Desktop: hero text starts --content-inset in from the logo's left edge
+   instead of in a centred 760px column (owner, 2026-09-12). */
+@media (min-width: 901px) {
+  .hero__inner { max-width: var(--container); padding-left: calc(24px + var(--content-inset)); }
 }
 .hero__icon-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
 .hero__app-icon {
@@ -661,12 +657,10 @@ h1, h2, h3, h4, h5 {
 }
 .about--solo { grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; text-align: center; }
 .about--solo .feature-list { text-align: left; }
-/* Nav line (see --nav-line): with the full nav showing, section content
-   starts where the nav starts. Two-column sections (product pages) shift
-   their whole grid, photo card included; the centred solo section (Support
-   Us) becomes left-aligned on the line. */
-@media (min-width: 1121px) {
-  .container.about { padding-left: calc(24px + var(--nav-line)); }
+/* Desktop: sections start --content-inset in from the logo's left edge.
+   The solo section (Support Us) is left-aligned there instead of centred. */
+@media (min-width: 901px) {
+  .container.about { padding-left: calc(24px + var(--content-inset)); }
   .about--solo { max-width: var(--container); text-align: left; }
   .about--solo .about__body { max-width: 720px; }
 }
@@ -842,12 +836,10 @@ h1, h2, h3, h4, h5 {
   gap: 40px;
   overflow: hidden;
 }
-/* Contact text starts on the nav line too. The card box starts its own 48px
-   padding before the line, rather than staying on the container edge with
-   --nav-line of padding, which left a large empty block on its left
-   (owner: "adjust the spacing here"). */
-@media (min-width: 1121px) {
-  .cta { margin-left: calc(var(--nav-line) - 48px); }
+/* Desktop: the contact card box starts --content-inset in from the logo's
+   left edge. */
+@media (min-width: 901px) {
+  .cta { margin-left: var(--content-inset); }
 }
 .cta__content { position: relative; z-index: 1; align-self: center; }
 .cta__content h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 16px; text-transform: uppercase; }

@@ -1334,26 +1334,20 @@ cache invalidation while doing nothing.
   `.header__inner` height), matching the mobile drawer's pre-JS `top: 82px`
   fallback. The homepage contact card (`.cta`) lost its 1px outline the
   same day ("here too"); it's set apart by its `--surface` background alone.
-- **The nav line** (owner, 2026-09-12: "rearrange the site so everything
-  fit better on that line", marking where the nav starts). While the full
-  nav shows (`min-width: 1121px`), the hero text on every page and the
-  homepage contact card's text start exactly where the nav starts. Driven
-  by `--nav-line` in `:root` = logo width (computed from the SVG viewBox
-  ratio 589.37706 / 70.02344 times `--logo-h`) + the header's 24px gap.
-  The hero drops its centred 760px column for `padding-left: 24px +
-  --nav-line`. `.cta` gets `margin-left: --nav-line - 48px`, so the card
-  box starts one padding-width before the line and its text sits on it
-  (first version padded the card by the full --nav-line instead, which
-  left a big empty block on its left — owner: "adjust the spacing here").
-  Extended to the other pages' sections the same day ("do the same for the
-  other pages sections"): `.container.about` (FORC3 Designer / GT3FORC3,
-  photo card + text) shifts its whole grid onto the line, which makes the
-  photo cards smaller (~366px wide at 1280-1678px); the centred solo
-  section on Support Us becomes left-aligned on the line with a 720px text
-  column. Below 1121px the nav is a hamburger, so the
-  old layout stays. If the logo file, `--logo-h` or `.header__inner`'s gap
-  changes, update `--nav-line` — verified by measuring `.nav` left against
-  the hero/contact text left at 1920/1678/1280px (exact match).
+- **Content starts 15px in from the logo's left edge** on desktop
+  (`min-width: 901px`), via `--content-inset: 15px` in `:root` (owner,
+  2026-09-12: "make so it's aligned here (with the logo) but leave like
+  15px"). Hero text on every page (`.hero__inner` drops its centred 760px
+  column), the homepage contact card box (`.cta { margin-left }`), the
+  photo-card sections on FORC3 Designer / GT3FORC3 (`.container.about`)
+  and the Support Us section (left-aligned, 720px text column) all start
+  there. Right edges stay on the container edge. Below 901px the stacked
+  mobile layout is unchanged (hero still a centred column at 641-900px).
+  - History, same day: it was first aligned to where the **nav** starts
+    (a `--nav-line` variable = logo width + header gap), then the contact
+    card was pulled left to remove a big empty block it left, then the
+    owner moved the whole thing to the logo edge + 15px. Don't bring back
+    the nav-start alignment.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
