@@ -1343,6 +1343,14 @@ cache invalidation while doing nothing.
   and the Support Us section (left-aligned, 720px text column) all start
   there. Right edges stay on the container edge. Below 901px the stacked
   mobile layout is unchanged (hero still a centred column at 641-900px).
+  - **Homepage hero buttons are centred on the page** (owner, 2026-09-13,
+    chose "only the buttons" over centring the whole hero), while the text
+    above stays on the inset line. `.hero__cta--centered` (index.html
+    only) adds `justify-content: center` plus, on desktop, `margin-left:
+    -var(--content-inset)` so the row centres on the container rather than
+    on the inset text column. Verified exact page centre at
+    1920/1466/1000/900/375px. The other pages' hero buttons are still
+    left-aligned.
   - The hero background glow (all three `radial-gradient(ellipse at
     30% 20%, ...)` rules: default, `.theme-designer`, `.theme-gt3`) was
     mirrored from 70% to 30% across the same day, so it sits behind the
