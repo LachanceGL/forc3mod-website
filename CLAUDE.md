@@ -1350,10 +1350,17 @@ cache invalidation while doing nothing.
     then "do the same for the other pages"), while the text above stays on
     the inset line. `.hero__cta--centered` adds `justify-content: center`
     plus, on desktop, `margin-left: -var(--content-inset)` so the row
-    centres on the container rather than on the inset text column. The
-    FORC3 Designer "Hosted on GitHub" caption (`.hero__cta--centered +
-    .hero__source`) is centred the same way under the buttons. Verified
-    exact page centre at 1920/1466/1000/900/375px on every page.
+    centres on the container rather than on the inset text column.
+    Verified exact page centre at 1920/1466/1000/900/375px on every page.
+  - **FORC3 Designer is different**: its buttons and "Hosted on GitHub"
+    caption are wrapped in `.hero__cta-group` (grid, one auto column,
+    `justify-content: center`, `justify-items: start`), which centres the
+    pair as one block and keeps the caption's icon exactly on the Download
+    button's left edge. Centring the caption on its own was reported as
+    misaligned (2026-09-13). Below 543px the buttons wrap to two lines, so
+    a `max-width: 542px` rule centres buttons and caption instead — that
+    breakpoint is the measured wrap width; re-measure if the button labels
+    change.
   - The hero background glow (all three `radial-gradient(ellipse at
     30% 20%, ...)` rules: default, `.theme-designer`, `.theme-gt3`) was
     mirrored from 70% to 30% across the same day, so it sits behind the
@@ -1422,4 +1429,11 @@ cache invalidation while doing nothing.
 
 ## Pending / open items
 
-- *(none right now — add items here as they come up, and remove them once resolved)*
+- **Header overflows at ~543-641px viewport** (found 2026-09-13, not yet
+  reported by the owner): `.header__actions` (hamburger, 3 social icons,
+  Discord button, "Support us") ends 24-58px past the viewport's right
+  edge, so "Support us" is clipped (hidden by `body { overflow-x: hidden }`
+  rather than scrolling). Same on every page. Likely from the Discord icon
+  size bumps and/or the "Support us" dropdown, against the 450px /
+  520px / 640px breakpoints tuned earlier. Re-measure and raise the
+  relevant breakpoint.

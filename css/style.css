@@ -638,13 +638,24 @@ h1, h2, h3, h4, h5 {
    stays left-aligned (owner, 2026-09-13). On desktop .hero__inner's content
    box starts --content-inset further right than it ends, so the row reaches
    back by that much to centre on the container rather than on the text
-   column. The FORC3 Designer "Hosted on GitHub" caption right after the row
-   is centred the same way so it stays under the buttons. */
+   column. */
 .hero__cta--centered { justify-content: center; }
-.hero__cta--centered + .hero__source { display: flex; justify-content: center; }
+/* FORC3 Designer: buttons + "Hosted on GitHub" caption centred together as
+   one group, caption left-aligned under the Download button's left edge
+   (centring the caption on its own put it off that edge — owner:
+   "this is misaligned"). The single auto grid column sizes to the button
+   row; justify-content centres that column. */
+.hero__cta-group { display: grid; grid-template-columns: auto; justify-content: center; justify-items: start; }
+/* Phones: below 543px viewport the two buttons wrap onto two lines
+   (measured) and the group fills the width, so there's no single left edge
+   to hang the caption from; centre the buttons and the caption instead. */
+@media (max-width: 542px) {
+  .hero__cta-group { justify-items: center; }
+  .hero__cta-group .hero__cta { justify-content: center; }
+}
 @media (min-width: 901px) {
   .hero__cta--centered,
-  .hero__cta--centered + .hero__source { margin-left: calc(-1 * var(--content-inset)); }
+  .hero__cta-group { margin-left: calc(-1 * var(--content-inset)); }
 }
 .hero__source {
   display: inline-flex;
