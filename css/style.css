@@ -634,13 +634,17 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 24px;
 }
 .hero__cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
-/* Homepage: buttons centred on the page while the hero text above stays
-   left-aligned (owner, 2026-09-13). On desktop .hero__inner's content box
-   starts --content-inset further right than it ends, so the row reaches back
-   by that much to centre on the container rather than on the text column. */
+/* Hero buttons centred on the page on every page, while the hero text above
+   stays left-aligned (owner, 2026-09-13). On desktop .hero__inner's content
+   box starts --content-inset further right than it ends, so the row reaches
+   back by that much to centre on the container rather than on the text
+   column. The FORC3 Designer "Hosted on GitHub" caption right after the row
+   is centred the same way so it stays under the buttons. */
 .hero__cta--centered { justify-content: center; }
+.hero__cta--centered + .hero__source { display: flex; justify-content: center; }
 @media (min-width: 901px) {
-  .hero__cta--centered { margin-left: calc(-1 * var(--content-inset)); }
+  .hero__cta--centered,
+  .hero__cta--centered + .hero__source { margin-left: calc(-1 * var(--content-inset)); }
 }
 .hero__source {
   display: inline-flex;
