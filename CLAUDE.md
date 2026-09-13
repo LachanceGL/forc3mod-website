@@ -1343,6 +1343,10 @@ cache invalidation while doing nothing.
   and the Support Us section (left-aligned, 720px text column) all start
   there. Right edges stay on the container edge. Below 901px the stacked
   mobile layout is unchanged (hero still a centred column at 641-900px).
+  - The hero background glow (all three `radial-gradient(ellipse at
+    30% 20%, ...)` rules: default, `.theme-designer`, `.theme-gt3`) was
+    mirrored from 70% to 30% across the same day, so it sits behind the
+    now left-aligned hero text. Keep them in step if one moves.
   - History, same day: it was first aligned to where the **nav** starts
     (a `--nav-line` variable = logo width + header gap), then the contact
     card was pulled left to remove a big empty block it left, then the
