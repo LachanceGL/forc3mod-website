@@ -439,7 +439,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   justify-content: center;
 }
-/* The Buy A Beer emoji renders in its own full native color regardless of
+/* The Buy Us A Beer emoji renders in its own full native color regardless of
    `color`, so at the card's default dim text color the Patreon mark (an SVG,
    fill: currentColor) came out a washed-out grey blob next to it — same
    shape, same bbox-centering, but far less visual weight, reading as
@@ -449,7 +449,7 @@ h1, h2, h3, h4, h5 {
    The SVG has no wrapper, so it *is* the 26px slot: shrinking it to 20px
    needs a 3px margin to keep its outer box at 26px like the emoji's slot.
    Without it the Patreon card's content is 6px shorter and its label sat
-   3px higher than "Buy A Beer" in the stacked header cards. */
+   3px higher than "Buy Us A Beer" in the stacked header cards. */
 .nav__card-icon.ico { width: 20px; height: 20px; margin: 3px; color: var(--text); }
 .nav__card-icon--emoji { font-size: 20px; line-height: 1; }
 /* This dropdown is the last item in the header (either end of .nav or

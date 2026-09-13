@@ -1002,16 +1002,18 @@ uses (see "Nav dropdown system" below), so no JS changes were needed at all;
 picks up any number of groups automatically. The two links inside are:
 **Patreon** (`https://www.patreon.com/cw/forc3mod/membership`, with the
 Patreon logo as an inline SVG — Simple Icons' current 24x24 path, no local
-asset needed) and **Buy A Beer** (`https://buymeacoffee.com/forc3mod`,
+asset needed) and **Buy Us A Beer** (`https://buymeacoffee.com/forc3mod`,
 plain 🍺 emoji, no SVG — simplest option for a single-glyph icon that doesn't
-need currentColor theming). Label wording has moved twice, same day it
-shipped (2026-09-10): the owner's original request phrasing ("Buy us
-Beers") → "Buy Beers" → current "Buy A Beer". Treat the label as settled
+need currentColor theming). Label wording has moved several times: the
+owner's original request phrasing ("Buy us Beers") → "Buy Beers" → "Buy A
+Beer" (all 2026-09-10) → current "Buy Us A Beer" (2026-09-13; still fits
+one line in the fixed 104px header card). Older mentions of "Buy A Beer"
+below refer to the same card. Treat the label as settled
 on whatever CLAUDE.md/the live markup currently say, not on any of the
 earlier quoted phrasings in this doc's history. **Card order differs by
 location, on purpose (both set by the owner, 2026-09-10):** header and
-mobile-drawer copies are **Buy A Beer, then Patreon**; the footer copy is
-**Patreon, then Buy A Beer** ("on the footer swap the Buy A Beer and
+mobile-drawer copies are **Buy Us A Beer, then Patreon**; the footer copy is
+**Patreon, then Buy Us A Beer** ("on the footer swap the Buy A Beer and
 Patreon positions"). Same on all 4 pages. Don't "fix" them to match. The
 footer's toggle line (`<button ... class="nav__toggle" ...>Support us</button>`,
 no `.nav__link`) is unique per page, so anchor footer-only markup edits on
