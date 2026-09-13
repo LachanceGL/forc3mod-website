@@ -595,7 +595,12 @@ h1, h2, h3, h4, h5 {
   position: relative;
   overflow: hidden;
   padding: 30px 0 40px;
-  background: radial-gradient(ellipse at 30% 20%, #0d1626 0%, var(--bg) 55%);
+  /* Glow size and centre are fixed in px, not left to scale with the hero:
+     heroes differ in height (FORC3 Designer 533px, others 418-469px), which
+     made the other pages' glows visibly smaller. These are the Designer
+     hero's own values (ellipse at 30% 20%, farthest-corner, 533px tall).
+     The .theme-designer and .theme-gt3 rules below must use the same. */
+  background: radial-gradient(ellipse 98.99% 603px at 30% 107px, #0d1626 0%, var(--bg) 55%);
 }
 .hero__inner { position: relative; z-index: 2; max-width: 760px; }
 /* Desktop: hero text starts --content-inset in from the logo's left edge
@@ -1011,7 +1016,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4);
 }
 .theme-designer .hero {
-  background: radial-gradient(ellipse at 30% 20%, #141a06 0%, var(--bg) 55%);
+  background: radial-gradient(ellipse 98.99% 603px at 30% 107px, #141a06 0%, var(--bg) 55%);
 }
 .theme-designer .btn--primary {
   box-shadow: 0 8px 24px rgba(212, 225, 0, 0.22);
@@ -1102,7 +1107,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4);
 }
 .theme-gt3 .hero {
-  background: radial-gradient(ellipse at 30% 20%, #1a0d0f 0%, var(--bg) 55%);
+  background: radial-gradient(ellipse 98.99% 603px at 30% 107px, #1a0d0f 0%, var(--bg) 55%);
 }
 .theme-gt3 .btn--primary {
   box-shadow: 0 8px 24px rgba(255, 46, 46, 0.28);

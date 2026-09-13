@@ -1347,6 +1347,14 @@ cache invalidation while doing nothing.
     30% 20%, ...)` rules: default, `.theme-designer`, `.theme-gt3`) was
     mirrored from 70% to 30% across the same day, so it sits behind the
     now left-aligned hero text. Keep them in step if one moves.
+  - Same day, the owner said the glows "must have a similar size to the
+    Designer one": they all scaled with their own hero's height, and the
+    Designer hero is tallest (533px vs 418px index/GT3FORC3, 469px Support
+    Us). All three now use fixed px geometry computed from the Designer
+    hero: `ellipse 98.99% 603px at 30% 107px`. If the Designer hero's
+    height changes a lot, recompute (ry = 0.8 × H × √2, cy = 0.2 × H).
+    Screenshots timed out when verifying this; the change was checked via
+    `getComputedStyle` only.
   - History, same day: it was first aligned to where the **nav** starts
     (a `--nav-line` variable = logo width + header gap), then the contact
     card was pulled left to remove a big empty block it left, then the
