@@ -835,7 +835,9 @@ h1, h2, h3, h4, h5 {
   position: relative;
   background: var(--surface);
   border-radius: 24px;
-  padding: 28px 48px;
+  /* Bottom is 6px more than top to cover the Send button's 6px underline
+     (box-shadow), so the visible gap above and below the form matches. */
+  padding: 28px 48px 34px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -901,6 +903,11 @@ h1, h2, h3, h4, h5 {
   color: var(--accent-2);
   min-height: 18px;
 }
+/* Takes no space until main.js writes a status message into it; otherwise
+   the empty line + grid gap left 32px more room under the form than above.
+   Pulled out of flow rather than display:none so the role="status" live
+   region stays in the accessibility tree and still gets announced. */
+.form-note:empty { position: absolute; width: 1px; height: 1px; min-height: 0; overflow: hidden; }
 
 @media (max-width: 900px) {
   .cta { grid-template-columns: 1fr; padding: 40px 28px; }
