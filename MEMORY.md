@@ -14,6 +14,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-14
 
+- **`grid.html`'s header now matches the other pages** (owner: "sync the
+  grid.html header with the other pages") — this **fixes the "Seen, not fixed"
+  item below**. Copied by script from `forc3designer.html` with its
+  `is-active` removed (identical to `gt3forc3.html`'s the same way), so: the
+  Support us dropdown in the header and its mobile-drawer twin replace the two
+  old plain Patreon links, and the self-linking "FORC3 Grid" tab is gone — no
+  other page has one while the page is unlinked, and its head comment has the
+  tab going back in everywhere at launch. `style.css?v=34` → `?v=58`, what every
+  other page loads; nothing else styled the old `.nav__link--support`. Measured
+  against `forc3designer.html` on a fresh port: identical header geometry at
+  1280 / 1100 / 700 (actions 838-1211 at 1280, where they had run to 1292), no
+  overflow or sideways scroll at any of them or at the 375px preset; the drawer
+  lists About / FORC3 Designer / GT3FORC3 / Get support / Support us with both
+  cards on screen; the header dropdown opens with both cards inside the window
+  and closes on Escape. CLAUDE.md now lists `grid.html` under the header rule
+  and the `?v=` rule. **Its footer is not synced** — still the plain "Support
+  us" Patreon link where other pages have the dropdown.
 - **`grid.html`: the car GUID paragraph is gone from "A livery can't just be
   copied."** (`6e3173f`), on the owner's request — the same paragraph they had
   just removed from FORC3 Grid's own "How it works". The paragraph after it said
@@ -23,7 +40,7 @@ explicitly rather than leaving the old entry looking still-current.
   saves the model, and FORC3 Grid puts it on your own car of that model. It
   keeps the `margin-bottom:20px` that spaces it from the button (measured 20px).
   Text-only, no `?v=` bump.
-- **Seen, not fixed:** `grid.html`'s header is an older copy of the site header
+- **Seen, not fixed — fixed later the same day, see the top entry:** `grid.html`'s header is an older copy of the site header
   — an extra "FORC3 Grid" nav link, and "Support us" as a plain Patreon link
   instead of the dropdown — and at a 1280px window its `.header__actions` ends
   22px past the viewport (hidden by `body { overflow-x: hidden }`), where
