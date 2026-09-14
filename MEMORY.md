@@ -22,7 +22,11 @@ explicitly rather than leaving the old entry looking still-current.
   old plain Patreon links, and the self-linking "FORC3 Grid" tab is gone — no
   other page has one while the page is unlinked, and its head comment has the
   tab going back in everywhere at launch. `style.css?v=34` → `?v=58`, what every
-  other page loads; nothing else styled the old `.nav__link--support`. Measured
+  other page loaded — then **→ `?v=59` (`f24b620`)**, because `c1e1fda` (another
+  session's hero-button change, committed meanwhile) bumped the four main pages
+  and not this one; that commit also carried this change's CLAUDE.md edits,
+  swept up from the shared worktree. Nothing else styled the old
+  `.nav__link--support`. Measured
   against `forc3designer.html` on a fresh port: identical header geometry at
   1280 / 1100 / 700 (actions 838-1211 at 1280, where they had run to 1292), no
   overflow or sideways scroll at any of them or at the 375px preset; the drawer
