@@ -1303,7 +1303,9 @@ building a second mechanism:
 Every page loads `css/style.css?v=N` and `js/main.js?v=N`. **When you change
 either file, bump `N` in all four pages in the same commit** — otherwise the
 version query is worse than useless, because it looks like it's handling
-cache invalidation while doing nothing.
+cache invalidation while doing nothing. **And in `grid.html`**, which loads
+the same two files: "all four pages" left it at `style.css?v=34` while the rest
+reached 58, until its header was synced on 2026-09-14.
 
 - Why it exists: GitHub Pages serves these with `Cache-Control: max-age=600`
   (10 min) plus an ETag, so visitors *do* self-heal within ~10 minutes. The
@@ -1347,22 +1349,18 @@ cache invalidation while doing nothing.
   and the Support Us section (left-aligned, 720px text column) all start
   there. Right edges stay on the container edge. Below 901px the stacked
   mobile layout is unchanged (hero still a centred column at 641-900px).
-  - **Hero buttons are centred on the page on all four pages** (owner,
-    2026-09-13, chose "only the buttons" over centring the whole hero,
-    then "do the same for the other pages"), while the text above stays on
-    the inset line. `.hero__cta--centered` adds `justify-content: center`
-    plus, on desktop, `margin-left: -var(--content-inset)` so the row
-    centres on the container rather than on the inset text column.
-    Verified exact page centre at 1920/1466/1000/900/375px on every page.
-  - **FORC3 Designer is different**: its buttons and "Hosted on GitHub"
-    caption are wrapped in `.hero__cta-group` (grid, one auto column,
-    `justify-content: center`, `justify-items: start`), which centres the
-    pair as one block and keeps the caption's icon exactly on the Download
-    button's left edge. Centring the caption on its own was reported as
-    misaligned (2026-09-13). Below 543px the buttons wrap to two lines, so
-    a `max-width: 542px` rule centres buttons and caption instead — that
-    breakpoint is the measured wrap width; re-measure if the button labels
-    change.
+  - **Hero buttons start 100px right of the hero text on desktop**
+    (`--hero-cta-offset: 100px` in `:root`, `.hero__cta--offset`, all four
+    pages; owner, 2026-09-14, marked the spot on a screenshot — converted
+    from screenshot px using the logo's known 218.8px width). Before that
+    (2026-09-13) they were centred on the page. Below 901px they're still
+    centred. FORC3 Designer wraps its buttons and "Hosted on GitHub"
+    caption in `.hero__cta-group` (grid, one auto column,
+    `justify-items: start`) so the caption's icon stays on the Download
+    button's left edge wherever the group sits (centring the caption on its
+    own was reported as misaligned). Below 543px those buttons wrap to two
+    lines, so a `max-width: 542px` rule centres buttons and caption — the
+    measured wrap width; re-measure if the labels change.
   - The hero background glow (all three `radial-gradient(ellipse at
     30% 20%, ...)` rules: default, `.theme-designer`, `.theme-gt3`) was
     mirrored from 70% to 30% across the same day, so it sits behind the
@@ -1395,6 +1393,13 @@ cache invalidation while doing nothing.
   content pages (`index.html`, `forc3designer.html`, `gt3forc3.html`,
   `SupportUs.html`). When you change one page's header/footer, mirror the
   change to the other three in the same turn.
+  - **`grid.html` carries the same header too, since 2026-09-14** (owner:
+    "sync the grid.html header with the other pages") — copied from
+    `forc3designer.html`'s with no nav item active, and no "FORC3 Grid" tab,
+    since no other page has one while the page is unlinked. Mirror header
+    changes into it as well. It had drifted to an old copy (plain "Support us"
+    links, an extra tab) that ran 22px past a 1280px window. **Its footer was
+    not synced**: its "Support us" is still the old plain Patreon link.
 
 ## Working conventions for this project
 

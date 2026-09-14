@@ -28,6 +28,8 @@
      container's content edge) on desktop widths: hero text, the contact
      card and the page sections all start here. */
   --content-inset: 0px;
+  /* Desktop: how far right of the hero text the hero button row starts. */
+  --hero-cta-offset: 100px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -634,17 +636,14 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 24px;
 }
 .hero__cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
-/* Hero buttons centred on the page on every page, while the hero text above
-   stays left-aligned (owner, 2026-09-13). On desktop .hero__inner's content
-   box starts --content-inset further right than it ends, so the row reaches
-   back by that much to centre on the container rather than on the text
-   column. */
-.hero__cta--centered { justify-content: center; }
-/* FORC3 Designer: buttons + "Hosted on GitHub" caption centred together as
-   one group, caption left-aligned under the Download button's left edge
-   (centring the caption on its own put it off that edge — owner:
-   "this is misaligned"). The single auto grid column sizes to the button
-   row; justify-content centres that column. */
+/* Hero buttons: on desktop the row starts --hero-cta-offset right of the hero
+   text (owner, 2026-09-14, marked the spot on a screenshot). Below 901px
+   they stay centred. */
+.hero__cta--offset { justify-content: center; }
+/* FORC3 Designer: buttons + "Hosted on GitHub" caption move as one group,
+   caption left-aligned under the Download button's left edge (owner:
+   "this is misaligned" when the caption was centred on its own). The single
+   auto grid column sizes to the button row. */
 .hero__cta-group { display: grid; grid-template-columns: auto; justify-content: center; justify-items: start; }
 /* Phones: below 543px viewport the two buttons wrap onto two lines
    (measured) and the group fills the width, so there's no single left edge
@@ -654,8 +653,10 @@ h1, h2, h3, h4, h5 {
   .hero__cta-group .hero__cta { justify-content: center; }
 }
 @media (min-width: 901px) {
-  .hero__cta--centered,
-  .hero__cta-group { margin-left: calc(-1 * var(--content-inset)); }
+  .hero__cta--offset { justify-content: flex-start; }
+  .hero__cta-group { justify-content: start; }
+  .hero__cta--offset,
+  .hero__cta-group { margin-left: var(--hero-cta-offset); }
 }
 .hero__source {
   display: inline-flex;
