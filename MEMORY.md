@@ -14,6 +14,18 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-14
 
+- **`grid.html`'s footer now matches the other pages too** (owner: "sync the
+  footer too") — superseding the "Its footer is not synced" note in the entry
+  below. Copied by script from `forc3designer.html`'s footer, which
+  `gt3forc3.html`'s and `SupportUs.html`'s equal exactly (`index.html`'s differs
+  only in its `#top` / `#contact` anchors): the "Projects" column's plain
+  "Support us" Patreon link becomes the dropdown, Patreon then Buy Us A Beer.
+  The header was re-checked against the other pages after `95414f7` and was
+  still identical (that commit had updated `grid.html` too); `?v=61` on every
+  page. Measured against `forc3designer.html` on a fresh port: identical footer
+  geometry at 1280, 700 and 375px — columns, the toggle at the column's 29px
+  rhythm (73 / 102 / 131 at 1280), the one-line cards opening inside the window
+  — no sideways scroll, closes on Escape.
 - **`grid.html`'s header now matches the other pages** (owner: "sync the
   grid.html header with the other pages") — this **fixes the "Seen, not fixed"
   item below**. Copied by script from `forc3designer.html` with its
@@ -34,7 +46,8 @@ explicitly rather than leaving the old entry looking still-current.
   cards on screen; the header dropdown opens with both cards inside the window
   and closes on Escape. CLAUDE.md now lists `grid.html` under the header rule
   and the `?v=` rule. **Its footer is not synced** — still the plain "Support
-  us" Patreon link where other pages have the dropdown.
+  us" Patreon link where other pages have the dropdown. *(Synced later the same
+  day — see the entry above.)*
 - **`grid.html`: the car GUID paragraph is gone from "A livery can't just be
   copied."** (`6e3173f`), on the owner's request — the same paragraph they had
   just removed from FORC3 Grid's own "How it works". The paragraph after it said

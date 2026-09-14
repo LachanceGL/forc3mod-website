@@ -1404,13 +1404,13 @@ reached 58, until its header was synced on 2026-09-14.
   content pages (`index.html`, `forc3designer.html`, `gt3forc3.html`,
   `SupportUs.html`). When you change one page's header/footer, mirror the
   change to the other three in the same turn.
-  - **`grid.html` carries the same header too, since 2026-09-14** (owner:
-    "sync the grid.html header with the other pages") — copied from
-    `forc3designer.html`'s with no nav item active, and no "FORC3 Grid" tab,
-    since no other page has one while the page is unlinked. Mirror header
-    changes into it as well. It had drifted to an old copy (plain "Support us"
-    links, an extra tab) that ran 22px past a 1280px window. **Its footer was
-    not synced**: its "Support us" is still the old plain Patreon link.
+  - **`grid.html` carries the same header and footer too, since 2026-09-14**
+    (owner: "sync the grid.html header with the other pages", then "sync the
+    footer too") — both copied from `forc3designer.html`'s, the header with no
+    nav item active and no "FORC3 Grid" tab, since no other page has one while
+    the page is unlinked. Mirror header and footer changes into it as well. It
+    had drifted to old copies (plain "Support us" links, an extra tab) whose
+    header ran 22px past a 1280px window.
 
 ## Working conventions for this project
 
