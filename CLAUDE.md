@@ -1381,6 +1381,14 @@ reached 58, until its header was synced on 2026-09-14.
     card was pulled left to remove a big empty block it left, then the
     owner moved the whole thing to the logo edge + 15px. Don't bring back
     the nav-start alignment.
+- **Content width** (`--container`): 1100px, 1200px at `min-width:
+  1800px`, 1440px at `min-width: 2600px` — narrowed 2026-09-14 from
+  1200/1440/1720 (owner: "reduce the width of the site, we have a lot of
+  wasted space", then chose a narrower column over a wider one). The
+  header sets the floor: logo 219 + nav 390 + actions 373 + 2×24px gaps =
+  1030px of content, so the 1100px container leaves 22px of slack at the
+  1121px nav breakpoint. Re-measure before narrowing further or adding a
+  header item.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
@@ -1446,4 +1454,6 @@ reached 58, until its header was synced on 2026-09-14.
   rather than scrolling). Same on every page. Likely from the Discord icon
   size bumps and/or the "Support us" dropdown, against the 450px /
   520px / 640px breakpoints tuned earlier. Re-measure and raise the
-  relevant breakpoint.
+  relevant breakpoint. Also seen 2026-09-14 at a 451px viewport *with a
+  classic scrollbar* (441px usable): the 450px social-icon breakpoint
+  counts the scrollbar, so the icons show with too little room.

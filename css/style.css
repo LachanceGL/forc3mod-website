@@ -19,7 +19,11 @@
   --shadow: 0 20px 60px rgba(0,0,0,.45);
   --font: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
   --font-head: 'Rajdhani', 'Inter', sans-serif;
-  --container: 1200px;
+  /* Narrowed 2026-09-14 (owner: "reduce the width... a lot of wasted space").
+     Floor is the header: logo + nav + actions need 1030px of content width
+     (1078px container) on one line, so don't go below ~1100px without
+     reworking the header or raising the 1120px nav breakpoint. */
+  --container: 1100px;
   /* Single source of truth for the FORC3MOD logo mark's size — the
      header defines it, and every other logo (footer included) reads
      from this instead of setting its own height, so they can never drift. */
@@ -85,10 +89,10 @@ ul { list-style: none; }
    so the page doesn't shrink to a small centered strip on very large
    screens. */
 @media (min-width: 1800px) {
-  :root { --container: 1440px; }
+  :root { --container: 1200px; }
 }
 @media (min-width: 2600px) {
-  :root { --container: 1720px; }
+  :root { --container: 1440px; }
   body { font-size: 18px; }
 }
 
