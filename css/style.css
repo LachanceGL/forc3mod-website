@@ -459,6 +459,11 @@ h1, h2, h3, h4, h5 {
    default `left: 0` would grow two ~104px cards off the right edge of the
    viewport at that position — anchor to the toggle's right edge instead. */
 .nav__menu--right { left: auto; right: 0; }
+/* Header "Support us" dropdown stacks its two cards vertically, Patreon on
+   top (owner, 2026-09-14). Footer and mobile-drawer copies stay in a row. */
+/* min-width: 0 drops .nav__menu's 190px floor, which left the 104px cards
+   hugging the left of a wider panel. */
+.header__actions .nav__menu--cards { flex-direction: column; min-width: 0; }
 
 /* "Support us" lives in .header__actions (next to the Discord button) as a
    .nav__group--support, rather than in .nav, but keeps plain .nav__link

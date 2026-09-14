@@ -1012,9 +1012,12 @@ below refer to the same card. Treat the label as settled
 on whatever CLAUDE.md/the live markup currently say, not on any of the
 earlier quoted phrasings in this doc's history. **Card order differs by
 location, on purpose (both set by the owner, 2026-09-10):** header and
-mobile-drawer copies are **Buy Us A Beer, then Patreon**; the footer copy is
-**Patreon, then Buy Us A Beer** ("on the footer swap the Buy A Beer and
-Patreon positions"). Same on all 4 pages. Don't "fix" them to match. The
+mobile-drawer copies were Buy A Beer first until 2026-09-14, when the owner
+asked for Buy Us A Beer "under instead" in the header dropdown: **all three
+copies are now Patreon first, then Buy Us A Beer**. The header dropdown
+stacks its cards vertically (`.header__actions .nav__menu--cards {
+flex-direction: column; min-width: 0 }`); the drawer and footer copies stay
+side by side. Same on all pages including `grid.html`'s header. The
 footer's toggle line (`<button ... class="nav__toggle" ...>Support us</button>`,
 no `.nav__link`) is unique per page, so anchor footer-only markup edits on
 it — the drawer copy's `.nav__menu nav__menu--cards` line is identical to
