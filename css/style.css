@@ -27,7 +27,7 @@
   /* How far page content starts in from the logo's left edge (the
      container's content edge) on desktop widths: hero text, the contact
      card and the page sections all start here. */
-  --content-inset: 15px;
+  --content-inset: 0px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

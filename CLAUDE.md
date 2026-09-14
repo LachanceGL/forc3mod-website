@@ -1336,10 +1336,12 @@ cache invalidation while doing nothing.
   `.header__inner` height), matching the mobile drawer's pre-JS `top: 82px`
   fallback. The homepage contact card (`.cta`) lost its 1px outline the
   same day ("here too"); it's set apart by its `--surface` background alone.
-- **Content starts 15px in from the logo's left edge** on desktop
-  (`min-width: 901px`), via `--content-inset: 15px` in `:root` (owner,
-  2026-09-12: "make so it's aligned here (with the logo) but leave like
-  15px"). Hero text on every page (`.hero__inner` drops its centred 760px
+- **Content starts exactly on the logo's left edge** on desktop
+  (`min-width: 901px`), via `--content-inset: 0px` in `:root`. It was 15px
+  (owner, 2026-09-12: "aligned here (with the logo) but leave like 15px"),
+  then set to 0 on 2026-09-13 ("actually make so it's aligned with the
+  logo"). The inset rules below are kept, reading the variable, so a
+  future nudge is a one-value change. Hero text on every page (`.hero__inner` drops its centred 760px
   column), the homepage contact card box (`.cta { margin-left }`), the
   photo-card sections on FORC3 Designer / GT3FORC3 (`.container.about`)
   and the Support Us section (left-aligned, 720px text column) all start
