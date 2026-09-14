@@ -12,6 +12,24 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-14
+
+- **`grid.html`: the car GUID paragraph is gone from "A livery can't just be
+  copied."** (`6e3173f`), on the owner's request — the same paragraph they had
+  just removed from FORC3 Grid's own "How it works". The paragraph after it said
+  the pack "records the car's model *instead*" and "rewrites *the binding*",
+  both leaning on the removed text, so it is reworded to stand alone, matching
+  the app's new copy: a livery is tied to one car in your garage; a `.grid`
+  saves the model, and FORC3 Grid puts it on your own car of that model. It
+  keeps the `margin-bottom:20px` that spaces it from the button (measured 20px).
+  Text-only, no `?v=` bump.
+- **Seen, not fixed:** `grid.html`'s header is an older copy of the site header
+  — an extra "FORC3 Grid" nav link, and "Support us" as a plain Patreon link
+  instead of the dropdown — and at a 1280px window its `.header__actions` ends
+  22px past the viewport (hidden by `body { overflow-x: hidden }`), where
+  `index.html`'s ends 59px inside. Separate from the 543-641px overflow in
+  CLAUDE.md's open items. The page is still `noindex` and unlinked.
+
 ## 2026-09-11
 
 - **`grid.html`: `.fmgrid` → `.grid`**, the three places the page names the
