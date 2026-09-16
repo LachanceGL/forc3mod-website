@@ -1402,6 +1402,16 @@ reached 58, until its header was synced on 2026-09-14.
   `forc3-designer-download/index.html` a folder deep. Six pages carry it
   (the five site pages plus that shim). Browsers also auto-request
   `/favicon.ico`, so the file's location is doing double duty.
+- **`index.html`'s `<title>` is the brand line, not a keyword string**:
+  `FORC3MOD // AC EVO DEVELOPMENT` (set 2026-09-15, owner request from a
+  screenshot of the browser tab). It matches the logo's tagline and uses the
+  site's usual `//` separator. It replaced
+  `EVO Livery Painting Tool — FORC3 Designer | FORC3MOD`, which was
+  keyword-led and got truncated in the tab anyway. Accepted tradeoff: the
+  homepage title no longer carries search keywords — the `<meta
+  name="description">` still does, and the other pages keep their own
+  keyword-led `Thing — What it is | FORC3MOD` titles, so this is a
+  homepage-only exception, not a new title format to copy.
 - **Site version label** is the `// V 0.3` text in each page's
   `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
   from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
