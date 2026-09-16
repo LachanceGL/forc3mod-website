@@ -99,6 +99,7 @@ than rewriting it from scratch.
 | `video/forc3designer-demo-03.mp4` | **Currently active** owner-provided demo video (1960×1080, ~68s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
+| `favicon.ico` | Site favicon, one multi-size ICO (16/32/64/128/256). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Each frame is the artist's own file, packed as-is — **don't rebuild it by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -1396,6 +1397,11 @@ reached 58, until its header was synced on 2026-09-14.
   logo's edges and small counters (Discord's eyes) smear across pixels.
   Round to the nearest whole px (16px there) and say so. The Facebook
   icon's 18.39px is an existing exception that hasn't been reported.
+- **Favicon**: every page links `<link rel="icon" href="/favicon.ico" sizes="any" />`
+  — root-absolute, so the one file also serves
+  `forc3-designer-download/index.html` a folder deep. Six pages carry it
+  (the five site pages plus that shim). Browsers also auto-request
+  `/favicon.ico`, so the file's location is doing double duty.
 - **Site version label** is the `// V 0.3` text in each page's
   `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
   from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
