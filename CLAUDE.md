@@ -716,7 +716,7 @@ don't reach for a custom JS toggle here. Shape for each entry:
 
 ```html
 <details class="modal__entry">
-  <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">— Mon D, YYYY</span></span></summary>
+  <summary class="modal__version"><span class="modal__version-text">vX.Y.Z <span class="modal__date">// Mon D, YYYY</span></span></summary>
   <div class="modal__entry-body">
     <p>Intro paragraph.</p>
     <h4>Optional grouping</h4>
@@ -729,7 +729,8 @@ don't reach for a custom JS toggle here. Shape for each entry:
   theres no title like that, only the date" — a screenshot marked every
   entry's summary text in red strikethrough). Was `vX.Y.Z — Short summary
   // Mon D, YYYY`; the `— Short summary //` part is gone, leaving
-  `vX.Y.Z — Mon D, YYYY`. Applied to all 9 existing entries, not just the
+  `vX.Y.Z // Mon D, YYYY` (the separator was an em dash until 2026-09-15 —
+  see "No em dashes in visible copy" below). Applied to all 9 existing entries, not just the
   newest — this is a title-format change, not a per-release decision.
   `docs/DESIGNER-CHANGELOG.md`'s one-line summary is now doc-only (still
   worth writing for anyone skimming that file) — it no longer gets
@@ -1334,6 +1335,16 @@ reached 58, until its header was synced on 2026-09-14.
   gradient), `.btn--ghost` (outline), `.btn--lg` (large hero CTA sizing),
   `.btn--discord` (Discord purple), `.btn--sm` (compact, e.g. the Changelog
   button). Avoid inventing new one-off button styles.
+- **No em dashes in visible copy — `//` everywhere instead** (owner,
+  2026-09-15: "replace any — by //"). Every `—` and `&mdash;` in
+  visitor-facing text was swapped for `//` in one pass: page `<title>`s and
+  `<meta name="description">`s, hero/section body copy, changelog entry
+  dates and bullets, and the contact form's two JS status messages. The
+  sweep deliberately skipped HTML/CSS/JS **comments** and this repo's own
+  docs — nobody reads those as site copy. `docs/DESIGNER-CHANGELOG.md`'s
+  entry sections were updated too, to keep the doc and the modal in sync.
+  Write new copy with `//` from the start; if you ever find an em dash in
+  something a visitor can see, it's a leftover, not a deliberate choice.
 - `//` is used deliberately as a clause separator in body copy (a stylistic
   choice, not a typo) — preserve it when editing existing copy unless told
   otherwise.

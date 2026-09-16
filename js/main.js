@@ -350,7 +350,7 @@
     const mailtoFallback = (name, email, type, message) => {
       const subject = `[FORC3MOD] ${type} from ${name}`;
       const body = `From: ${name} (${email})\n\n${message}`;
-      setNote('Couldn’t reach us directly — opening your email app instead…', '#ffb454');
+      setNote('Couldn’t reach us directly // opening your email app instead…', '#ffb454');
       window.location.href =
         `mailto:${FORC3_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
@@ -389,7 +389,7 @@
         });
         if (!res.ok) throw new Error(`Worker returned ${res.status}`);
 
-        setNote('Message sent — thanks! We’ll get back to you.', 'var(--accent-2)');
+        setNote('Message sent // thanks! We’ll get back to you.', 'var(--accent-2)');
         contactForm.reset();
       } catch (err) {
         mailtoFallback(name, email, type, message);

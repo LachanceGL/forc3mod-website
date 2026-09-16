@@ -28,18 +28,19 @@ accordion rows.
 
 ## Entry format
 
-Newest entry first. Each entry is a `## vVERSION — Mon D, YYYY` heading,
+Newest entry first. Each entry is a `## vVERSION // Mon D, YYYY` heading,
 followed by:
 1. A **one-line summary** (own paragraph, right after the heading). No
    trailing period, terse style.
 
    ⚠ **Doc-only as of 2026-09-05 — this no longer appears on the site.**
    The collapsed dropdown's title line used to be `vVERSION — summary //
-   date`; owner asked for the summary dropped so it's just `vVERSION —
+   date`; owner asked for the summary dropped so it's just `vVERSION //
    date` now (see `CLAUDE.md`'s "Changelog modal content" section, the
-   "Collapsed title is date-only" note). Keep writing one here anyway —
-   it's still useful for anyone skimming this file — just know it won't be
-   propagated into the `<summary>` markup anymore.
+   "Collapsed title is date-only" note). The separator itself became `//`
+   on 2026-09-15, when every em dash in the site's visible copy did.
+   Keep writing one here anyway — it's still useful for anyone
+   skimming this file — just know it won't be propagated into the `<summary>` markup anymore.
 2. The **full changelog body** — plain paragraphs, and optional `###`
    subheadings with bullet lists for grouped changes (Fixes / Layers /
    Elsewhere, etc., matching however the release itself grouped them). This
@@ -77,7 +78,7 @@ asset URL, don't re-host it in this repo).
 
 ---
 
-## v0.6.0 — Sep 9, 2026
+## v0.6.0 // Sep 9, 2026
 
 New Triplanar tool, localized gradients, and a paint-through fix
 
@@ -88,13 +89,13 @@ New Triplanar tool, localized gradients, and a paint-through fix
   [Video: localized gradients](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/LocalizedGradients.mp4)
 - Improved basic Shapes decals library.
   [Video: the new Shapes library](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/ImprovedBasicShapes.mp4)
-- Brands library removed — will be added back later as an addon.
+- Brands library removed // will be added back later as an addon.
 - Layers menu: Delete Layer moved to the bottom of the menu.
 
 ### Fixes
 - Paint Through now works properly by painting on backface areas (e.g. on a wing).
   [Video: paint through on a wing](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.6.0/PaintThroughFix.mp4)
-- Export Livery now finds your saved cars properly — some were never showing up in the list (e.g. Dallara Stradale).
+- Export Livery now finds your saved cars properly // some were never showing up in the list (e.g. Dallara Stradale).
 - Bezier Tool: Anchor tool now breaks a point correctly.
 - Fill Tool: Shift+drag selection now follows Symmetry.
 - Orthographic View: middle mouse pan now moves on both axes in the Top view.
@@ -102,7 +103,7 @@ New Triplanar tool, localized gradients, and a paint-through fix
 - Layers: a layer can now be dropped between two folders.
 - Overall performance and UI/UX fixes.
 
-## v0.5.0 — Sep 5, 2026
+## v0.5.0 // Sep 5, 2026
 
 72 cars, manufacturer decals, and a custom theme color
 
@@ -138,14 +139,14 @@ Mazda RX-7 FD Spirit R.
 ### Other
 - Shift+Space shows and hides the Decals Libraries shelf.
 
-## v0.4.0 — Sep 2, 2026
+## v0.4.0 // Sep 2, 2026
 
 69 cars now, including the first mod car
 
 Every car in Assetto Corsa EVO is now in the app, plus a first mod car.
 Skipped the "Coming from a previous version?" recap at the end of the
 release body (opacity slider, car-picker search, decal outline, effects
-panel rework, shadow/stroke fixes, performance) — all already covered by
+panel rework, shadow/stroke fixes, performance) // all already covered by
 the v0.3.0/v0.3.1 entries below.
 
 ### Cars
@@ -172,7 +173,7 @@ the v0.3.0/v0.3.1 entries below.
 - Abarth 695 Biposto, Alfa Romeo Junior Veloce, Hyundai i30 N Hatchback.
 
 ### MODS
-- Mazda 787B — the first mod car.
+- Mazda 787B // the first mod car.
 
 ### Other
 - The Layers panel drops to icons when you make it narrow, instead of
@@ -180,12 +181,12 @@ the v0.3.0/v0.3.1 entries below.
 - Fixed the Frame View and Turntable tooltips being covered by the Decals
   shelf.
 
-## v0.3.1 — Aug 31, 2026
+## v0.3.1 // Aug 31, 2026
 
 Opacity slider for Brush & Eraser
 
 The release body also recaps everything from 0.3.0 ("Coming from 0.2.1?
-Everything below shipped in 0.3.0 as well") — that's for people who skipped
+Everything below shipped in 0.3.0 as well") // that's for people who skipped
 straight to 0.3.1 on the releases page. Skip it here: 0.3.0 is already its
 own entry directly below, so only the genuinely new part goes in this one.
 
@@ -195,7 +196,7 @@ own entry directly below, so only the genuinely new part goes in this one.
   value you set. Go over an area again with a second stroke to build it up.
 - Works with a soft brush, with the PBR channels, and when painting a mask.
 
-## v0.3.0 — Aug 31, 2026
+## v0.3.0 // Aug 31, 2026
 
 More cars, refined shadows and strokes
 
@@ -237,7 +238,7 @@ More cars, refined shadows and strokes
 - Straight lines can be clicked point to point, not only dragged.
 - Opacity, blur, stroke and shadow adjust much faster on a big livery.
 
-## v0.2.1 — Aug 29, 2026
+## v0.2.1 // Aug 29, 2026
 
 More cars and a reworked Decals Libraries
 
@@ -259,7 +260,7 @@ Five more cars, two new classes, and the Decals Libraries reworked.
 ### Elsewhere
 - The top bar is a little shorter, which gives the 3D view more room.
 
-## v0.2.0 — Aug 28, 2026
+## v0.2.0 // Aug 28, 2026
 
 Layer masks, effects, and more cars
 
@@ -277,7 +278,7 @@ a lot less waiting.
 - The 3D Channel View dropdown gained a Mask entry.
 
 ### Layer effects
-- Stroke and Drop Shadow, both live — nothing is baked into the layer, so
+- Stroke and Drop Shadow, both live // nothing is baked into the layer, so
   you can keep adjusting or remove them.
 - The drop shadow is aimed with a dial, and now falls the same way on every
   panel of the car. It used to come out mirrored on one side.
@@ -315,7 +316,7 @@ a lot less waiting.
 ### Fixes
 - The brush edge is properly antialiased in the 3D view. It was a hard,
   stair-stepped circle at full hardness.
-- About FORC3 Designer opens again — it did nothing in 0.1.2.
+- About FORC3 Designer opens again // it did nothing in 0.1.2.
 - The layer right-click menu no longer opens off the edge of the window.
 - The Top orthographic view lays the car out sideways, so the whole car
   fits instead of being cut off at the nose and tail.
@@ -323,7 +324,7 @@ a lot less waiting.
 - M returns the 3D Channel View to Final Result; , and . cycle through the
   channels.
 
-## v0.1.2 — Aug 23, 2026
+## v0.1.2 // Aug 23, 2026
 
 Performance improvements and fixes
 
@@ -355,17 +356,17 @@ while you work.
 - An "Update available" badge appears in the header when there is one, and
   Check for Updates moved to the Settings menu.
 
-## v0.1.1 — Aug 21, 2026
+## v0.1.1 // Aug 21, 2026
 
 Installer improvement
 
 Fixes the installer's final page, where the "Run FORC3 Designer" and
-"Create desktop shortcut" checkboxes were almost invisible — dark text on a
+"Create desktop shortcut" checkboxes were almost invisible // dark text on a
 dark background.
 
 The app itself is unchanged from 0.1.0.
 
-## v0.1.0 — Aug 21, 2026
+## v0.1.0 // Aug 21, 2026
 
 Initial release
 
