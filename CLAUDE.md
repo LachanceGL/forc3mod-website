@@ -112,7 +112,23 @@ than rewriting it from scratch.
 - `forc3designer.html` → `body.theme-designer` → **lime** accent.
 - `grid.html` → `body.theme-grid` → **orange** accent (added 2026-09-16,
   owner: "theme is orangeish this time"; the page borrowed
-  `theme-designer`'s lime until then).
+  `theme-designer`'s lime until then). Its "What it does" section is laid
+  out to match `forc3designer.html`'s (owner, 2026-09-16: "this here should
+  look similar to the designer one"): `.about__media` is the **first** child
+  of `.about`, so the card takes the narrower 0.85fr column on the left and
+  the text the wider 1.15fr on the right, and
+  `.theme-grid .about__card` puts the heading in the card's bottom-right at
+  22px, mirroring `.theme-designer .about__card--photo`. Measured identical
+  to FORC3 Designer's at 1400px: media 469.2px at x=124, body 634.8px at
+  x=641.2, heading 41px in from both the card's right and bottom edge. The
+  one thing that does NOT match is the card's height — FORC3 Designer's is a
+  real screenshot at the file's own 824/485 ratio, Grid has no screenshot
+  asset yet, so its card is the plain gradient one at the site-default 4/3
+  (469×352 vs 469×276). Give it a `--about-photo` when an image exists and
+  it'll match properly; **don't** copy the `824 / 485` ratio onto a photoless
+  card to fake it (that number is one file's pixel dimensions, not a design
+  constant). A new photo card here would also need its own
+  `.theme-grid .about__card--photo::before` override — see "Photo cards".
 - `gt3forc3.html` → `body.theme-gt3` → **red** accent.
 - **Important**: on both themed pages, `.theme-designer .header` and
   `.theme-gt3 .header` explicitly re-pin the header's accent vars back to

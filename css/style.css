@@ -1247,6 +1247,16 @@ h1, h2, h3, h4, h5 {
 .theme-grid .about__card::before {
   background: radial-gradient(circle at 20% 15%, rgba(255, 122, 24, .22), transparent 55%);
 }
+/* Same composition as .theme-designer's photo card: the media column sits on
+   the LEFT of this section, so the heading is pulled to the card's
+   bottom-right, pointing back at the text column beside it. align-items moves
+   the box itself (cross-axis of the column flex container), text-align
+   right-aligns the h3's own wrapped lines within it; the bottom-anchoring is
+   inherited from .about__card's own justify-content: flex-end. 22px matches
+   theme-designer's card too — the shared 28px default reads oversized at
+   this column's width. */
+.theme-grid .about__card { align-items: flex-end; }
+.theme-grid .about__card h3 { font-size: 22px; text-align: right; }
 .theme-grid .card:hover { border-color: rgba(255, 122, 24, .4); }
 .theme-grid .card--featured { border-color: rgba(255, 122, 24, .35); }
 

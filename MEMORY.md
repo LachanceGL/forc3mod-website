@@ -41,6 +41,17 @@ explicitly rather than leaving the old entry looking still-current.
     was deleted. This partly undoes the 2026-09-14 narrowing the owner asked
     for; getting that back means dropping a nav item, not just shrinking
     `--container`. Flagged to the owner rather than assumed.
+  - Follow-ups the same day: the owner cut the whole "A livery can't just be
+    copied" section (`17244d0`) — which was the only place explaining *why*
+    a `.grid` pack survives being sent to another PC; flagged, not
+    re-added — and asked for the remaining "What it does" section to "look
+    similar to the designer one, keep open forc3 grid". Done by moving
+    `.about__media` to be the first child (card left in the narrow 0.85fr
+    column, text right in the wide 1.15fr one) and giving
+    `.theme-grid .about__card` a bottom-right 22px heading like
+    `theme-designer`'s photo card. Measured identical to FORC3 Designer's at
+    1400px except card height, since Grid has no screenshot asset and keeps
+    the plain 4/3 gradient card. `style.css?v=63`.
   - `grid.html`'s hero CTA + "Runs in your browser" caption were also wrapped
     in `.hero__cta-group`, matching `forc3designer.html`, so it picks up the
     desktop 100px `--hero-cta-offset` the other pages have.
