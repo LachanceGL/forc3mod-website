@@ -14,6 +14,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-16
 
+- **…and hidden again the same day** (owner: "Hide the FORC3 Grid page for
+  now, we are still working on it (WIP)"). Everything in the entry below
+  stays — the page, its orange theme, the matched section layout, the
+  relabelled buttons — it's just gated again: `noindex, nofollow` back on
+  `grid.html`, the "FORC3 Grid" tab removed from the header nav and the
+  footer's Projects column on all five pages. **`--container` went back to
+  1100px and the nav breakpoint back to 1120px** at the same time: 1200/1220
+  was only ever forced by the 4th nav tab, and 1100px is the width the owner
+  picked on 2026-09-14, so hiding the tab hands it back. The
+  `min-width: 1800px` → 1200px step came back with it. The four
+  `.header__actions` thresholds (740/670/570/480) were left alone — they all
+  sit below 1120px where `.nav` is already a hamburger, so the nav item count
+  never touched them. Re-verified 5 pages × 24 widths, 321-1920px, with the
+  17px scrollbar penalty: zero overflow, nav flipping exactly between 1120
+  and 1121, container ladder 1100/1200@1800/1440@2600 intact. `style.css?v=65`.
+  `CLAUDE.md` has an "Unhiding FORC3 Grid" section with the three edits that
+  have to go back together.
 - **FORC3 Grid is a real page on the site now** (owner: "let's add a new
   FORC3 Grid page, next to FORC3 Designer, theme is orangeish this time").
   `grid.html` already existed, fully written but URL-only; this linked it in

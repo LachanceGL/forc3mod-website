@@ -88,7 +88,7 @@ than rewriting it from scratch.
 |---|---|
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
-| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). Linked from the nav since 2026-09-16 — before that it was URL-only and `noindex`. |
+| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Hidden (WIP)** — `noindex, nofollow`, linked from nowhere, reachable by URL only. It was briefly linked from the nav on 2026-09-16 and hidden again the same day (owner: "we are still working on it"). The page itself is complete; see "Unhiding FORC3 Grid" for the exact steps to put it back. |
 | `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
@@ -1348,22 +1348,45 @@ building a second mechanism:
 - The scroll-spy is safe here for free: it only tracks links whose `href`
   starts with `#`, and the toggle is a `<button>` with no `href` at all.
 
-### Nav width — re-measure before adding items
+#### Unhiding FORC3 Grid — three edits, they go together
 
-- **Measured (2026-09-16, adding the FORC3 Grid tab — 4 nav items now)**:
+The page is finished and just gated. To put it back:
+
+1. Delete the `<meta name="robots" content="noindex, nofollow">` and its
+   comment from `grid.html`.
+2. Add `<a href="grid.html" class="nav__link">FORC3 Grid</a>` after the
+   FORC3 Designer link in the header nav, and `<a href="grid.html">FORC3
+   Grid</a>` after it in the footer's Projects column, on **all five**
+   pages — with `is-active` on `grid.html`'s own nav copy.
+3. **Widen the header to fit it**: `--container` 1100 → 1200px (deleting the
+   now-redundant `min-width: 1800px` step, which sets 1200) and the nav
+   collapse breakpoint 1120 → 1220px. Step 2 without step 3 is the overflow
+   bug — the tab costs ~101.5px of nav width, taking the row from 1030 to
+   1131px of content.
+
+All three shipped together on 2026-09-16 and were reverted together the
+same day. Re-measure rather than trusting these numbers if anything else in
+the header changed in between.
+
+## Nav width — re-measure before adding items
+
+- **Live values: `--container: 1100px`, nav collapses at `max-width:
+  1120px`** — three nav links plus the "Get support" dropdown, needing
+  logo 218.8 + nav 390 + actions 372.7 + 2×24px gaps = 1030px of content
+  (1078px of client width). Re-verified 2026-09-16 after the FORC3 Grid tab
+  was removed again: 5 pages × 24 widths, 321-1920px, each with the 17px
+  scrollbar penalty — zero overflow, nav flipping exactly between 1120 and
+  1121, and the 1100 / 1200@1800 / 1440@2600 container ladder intact.
+- **Measured (2026-09-16, with a FORC3 Grid tab as a 4th nav link)**:
   the tab costs **101.5px** of nav width (390 → 491.5), which put the row
-  1131px wide (logo 218.8 + nav 491.5 + actions 372.7 + 2×24px gaps) against
-  a 1052px content box — it overflowed the viewport outright below ~1210px
-  and breached the container gutter above it. Fixed by raising **both**
-  `--container` (1100 → 1200px) and the nav breakpoint (1120 → **1220px**)
-  in the same commit: the two are now the same number, and raising one
-  without the other reintroduces the overflow. Verified by hidden-iframe
-  sweep at 1920 / 1440 / 1280 / 1240 / 1201 / 1200 / 1120 / 1000px on all
-  five pages — zero header or document overflow, nothing past the
-  container's own content edge, nav flipping to the hamburger exactly
-  between 1201 and 1200. Consequence: 1152px-class laptops now get the
-  hamburger where they used to get the full nav; 1280px and up are
-  unaffected.
+  1131px wide against a 1052px content box — it overflowed the viewport
+  outright below ~1210px and breached the container gutter above it. Fixed
+  by raising **both** `--container` (1100 → 1200px) and the nav breakpoint
+  (1120 → 1220px): raising one without the other reintroduces the overflow.
+  That pair was reverted with the tab when the page was hidden again, but
+  the numbers hold — reuse them verbatim when Grid (or any 5th item) comes
+  back. Consequence to expect then: 1152px-class laptops get the hamburger
+  where they currently get the full nav; 1280px and up are unaffected.
 - **Measured (2026-08-31, after adding the header Facebook icon — 3 social
   icons now)**: **verified no overflow at 1121px**, right at the breakpoint
   edge, same as with 2 icons — the `estimatedRequiredWidth` heuristic used
@@ -1482,18 +1505,17 @@ redirect shim nobody sees, so it has never been kept in step.)
     card was pulled left to remove a big empty block it left, then the
     owner moved the whole thing to the logo edge + 15px. Don't bring back
     the nav-start alignment.
-- **Content width** (`--container`): 1200px, 1440px at `min-width: 2600px`.
-  History: 1200/1440/1720 → narrowed 2026-09-14 to 1100/1200@1800/1440@2600
-  (owner: "reduce the width of the site, we have a lot of wasted space",
-  then chose a narrower column over a wider one) → base widened back to
-  1200px on 2026-09-16 because the FORC3 Grid nav tab no longer fit
-  (see "Nav width" above). The old `min-width: 1800px` step was deleted
-  rather than left in place: it set 1200px, which is now the base. The
-  header still sets the floor — logo 219 + nav 492 + actions 373 + 2×24px
-  gaps = 1131px of content, so the 1220px nav breakpoint leaves ~21px of
-  slack at a 1221px window even after a 17px scrollbar. **This is a forced width, not a chosen one**: if the
-  owner wants the narrower column back, a nav item has to go (or the
-  header needs reworking), not just a smaller `--container`.
+- **Content width** (`--container`): **1100px**, 1200px at `min-width:
+  1800px`, 1440px at `min-width: 2600px`. History: 1200/1440/1720 →
+  narrowed 2026-09-14 to the current ladder (owner: "reduce the width of
+  the site, we have a lot of wasted space", then chose a narrower column
+  over a wider one) → base forced to 1200px on 2026-09-16 when the FORC3
+  Grid nav tab stopped fitting → straight back to 1100px hours later when
+  that tab was hidden again. **1100px is the owner's choice; 1200px is what
+  a 5th nav item costs.** The header sets the floor: logo 219 + nav 390 +
+  actions 373 + 2×24px gaps = 1030px of content, so 1100px leaves 22px of
+  slack at the 1121px nav breakpoint even after a 17px scrollbar. Don't
+  narrow further, and don't widen it without a header item to justify it.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
@@ -1527,14 +1549,11 @@ redirect shim nobody sees, so it has never been kept in step.)
   - `grid.html` was synced into this set on 2026-09-14 (owner: "sync the
     grid.html header with the other pages", then "sync the footer too") after
     drifting to old copies (plain "Support us" links, an extra tab) whose
-    header ran 22px past a 1280px window. It's no longer a special case: as
-    of 2026-09-16 it's a **linked page like any other** — a "FORC3 Grid" nav
-    tab sits between "FORC3 Designer" and "GT3FORC3" in the header nav and
-    the footer's Projects column on all five pages, `is-active` on its own
-    page, and its `noindex, nofollow` tag is gone (that tag's own comment
-    said to remove it "when FORC3 Grid launches and the nav link goes back
-    in" — linking it from every page is what makes it public, so leaving the
-    tag would have been incoherent rather than protective).
+    header ran 22px past a 1280px window. **Keep mirroring header/footer
+    changes into it even though the page itself is hidden** — that drift is
+    exactly what happened last time it sat unlinked, and it's cheap to
+    avoid. Its header carries no active nav item, and no page (itself
+    included) links to it while it's gated — see "Unhiding FORC3 Grid".
 
 ## Working conventions for this project
 
@@ -1578,8 +1597,9 @@ live here was fixed on 2026-09-16 — see "Header breakpoint ladder" below.)*
 
 `.header__actions` sheds its lowest-priority item at each of four
 thresholds: **740px** Discord's label, **670px** "Support us", **570px**
-the three social icons, **480px** the logo size and gaps. Plus **1220px**
-for the nav itself. The live numbers and arithmetic are in `css/style.css`
+the three social icons, **480px** the logo size and gaps. Plus **1120px**
+for the nav itself (1220px whenever a 5th nav item is present — see
+"Nav width"). The live numbers and arithmetic are in `css/style.css`
 under the same heading; the point to carry here is *why they moved*.
 
 - **Every one of them used to be measured only at its own edge**, against a
@@ -1597,11 +1617,16 @@ under the same heading; the point to carry here is *why they moved*.
   whole ladder at once (640→740, 520→670, 450→570), not one line of it.
 - **A media query counts the classic scrollbar; the content can't use it.**
   Budget 17px on top of every requirement. That gap is what made the
-  1201px-window case only ~5px of slack and pushed the nav breakpoint from
-  1200 to 1220.
+  1201px-window case only ~5px of slack while the FORC3 Grid tab was in,
+  pushing the nav breakpoint from 1200 to 1220 for as long as it lasted.
 - **Verified** across 5 pages × 32 widths from 321px to 1920px, each
-  checked with the 17px scrollbar penalty applied: zero overflow anywhere,
-  the nav flipping exactly between 1220 and 1221, and the header/drawer
-  "Support us" pair never both-on or both-off.
+  checked with the 17px scrollbar penalty applied: zero overflow anywhere
+  and the header/drawer "Support us" pair never both-on or both-off.
+  Re-verified over 24 widths after the Grid tab came back out, with the nav
+  flipping exactly between 1120 and 1121. The four `.header__actions`
+  thresholds are independent of how many nav links there are — every one of
+  them sits below 1120px, where `.nav` is already a hamburger — so removing
+  or adding a nav tab doesn't disturb this ladder, only `--container` and
+  the nav breakpoint.
 - **Before adding anything to the header**, recompute the whole table in
   `style.css`, not just the breakpoint nearest your change.

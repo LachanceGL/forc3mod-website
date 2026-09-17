@@ -19,12 +19,15 @@
   --shadow: 0 20px 60px rgba(0,0,0,.45);
   --font: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
   --font-head: 'Rajdhani', 'Inter', sans-serif;
-  /* Narrowed 2026-09-14 (owner: "reduce the width... a lot of wasted space")
-     to 1100px, then widened to 1200px on 2026-09-16 when the FORC3 Grid nav
-     tab was added. Floor is the header: logo 219 + nav 492 + actions 373 +
-     2x24px gaps = 1131px of content on one line, so the column can't go
-     below ~1180px without dropping a nav item or reworking the header. */
-  --container: 1200px;
+  /* 1100px is the owner's chosen width (2026-09-14: "reduce the width... a
+     lot of wasted space"). It went to 1200px on 2026-09-16 when the FORC3
+     Grid nav tab was added, purely because the header stopped fitting, and
+     came straight back here when that tab was hidden again the same day.
+     Floor is the header: logo 219 + nav 390 + actions 373 + 2x24px gaps =
+     1030px of content on one line. **A fifth nav tab pushes that to 1131px
+     and forces this back to 1200px** (and the nav breakpoint to 1220px) —
+     they move together, see the nav-collapse rule below. */
+  --container: 1100px;
   /* Single source of truth for the FORC3MOD logo mark's size — the
      header defines it, and every other logo (footer included) reads
      from this instead of setting its own height, so they can never drift. */
@@ -88,8 +91,10 @@ ul { list-style: none; }
 
 /* Wide/4K displays: widen the content column and bump the base font
    so the page doesn't shrink to a small centered strip on very large
-   screens. There used to be a 1800px step to 1200px as well; it went away
-   when the base column itself became 1200px (see :root). */
+   screens. */
+@media (min-width: 1800px) {
+  :root { --container: 1200px; }
+}
 @media (min-width: 2600px) {
   :root { --container: 1440px; }
   body { font-size: 18px; }
@@ -581,17 +586,20 @@ h1, h2, h3, h4, h5 {
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
-/* Nav collapses to the hamburger here. Measured 2026-09-16, with the FORC3
-   Grid tab added: logo 218.8 + nav 491.5 + actions 372.7 + 2x24px gaps =
-   1131px of content, + 48px of container padding = 1179px of *client* width
-   for the row to fit. 1220px rather than 1200px because a media query counts
-   the classic scrollbar the content can't use: at a 1201px window that left
-   only ~5px of slack, too thin to trust against font-rendering variance;
-   1221px gives ~21px. Was 1120px (1081px required) with one fewer tab, and
-   1080px before that, which overflowed the moment the Support dropdown's
-   caret was added. Re-measure (logo + nav + actions + 2*gap + container
-   padding) and raise this again before adding another nav item. */
-@media (max-width: 1220px) {
+/* Nav collapses to the hamburger here. With four nav items (About / FORC3
+   Designer / GT3FORC3 / Get support) the row is logo 218.8 + nav 390 +
+   actions 372.7 + 2x24px gaps = 1030px of content, + 48px of container
+   padding = 1078px of *client* width, so a 1121px window clears it by ~26px
+   even after the 17px classic scrollbar a media query counts but the
+   content can't use.
+   ⚠️ This and --container move TOGETHER. Adding a fifth tab costs ~101px
+   (measured with "FORC3 Grid" on 2026-09-16) and needs 1200/1220 instead;
+   that pair shipped, then reverted when the Grid tab was hidden again the
+   same day. History below that: 1080px, which overflowed the moment the
+   Support dropdown's caret was added. Re-measure
+   (logo + nav + actions + 2*gap + container padding) and raise both before
+   adding another nav item. */
+@media (max-width: 1120px) {
   .nav { display: none; }
   .hamburger { display: flex; }
 }
