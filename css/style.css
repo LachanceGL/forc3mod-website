@@ -258,7 +258,14 @@ h1, h2, h3, h4, h5 {
 }
 .btn__members[hidden] { display: none; }
 
-@media (max-width: 640px) {
+/* Discord's label collapses to the icon here. 740px, not the 640px this
+   used to be: the label only has to disappear before the WIDEST header
+   configuration stops fitting, and that config (logo 218.8 + gap 24 +
+   hamburger/3 icons/Discord-with-label/Support us 422.7 + 48px padding =
+   713.5px) needs 730px once a 17px classic scrollbar is subtracted from the
+   viewport the media query measures. See "Header breakpoint ladder" below —
+   these thresholds are a chain, don't retune one alone. */
+@media (max-width: 740px) {
   .btn--discord span { display: none; }
 }
 
@@ -476,12 +483,18 @@ h1, h2, h3, h4, h5 {
    copy hides and a second .nav__group--support-mobile copy inside .nav takes
    over inside the hamburger drawer instead (flattened by the
    `.nav.is-open .nav__group` rule below, same as "Get support").
-   Measured: it stops fitting at ~494px; 520px leaves a little slack.
+   670px, not the 520px this used to be. The old number came from measuring
+   the row with the Discord button ALREADY collapsed to its icon (~494px
+   needed) — but that collapse only happens below 740px, so between 521 and
+   640px the row was carrying a full-width Discord button AND this dropdown
+   and ran off the screen. What actually has to fit here is
+   logo 218.8 + gap 24 + hamburger/3 icons/Discord-icon/Support us 347.9 +
+   48px padding = 638.7px, i.e. 656px allowing for a 17px scrollbar.
    These two rules are exact complements of one breakpoint — never change one
    without the other, or Support us will either overflow the header row or
    disappear from the page entirely. */
 .nav__group--support-mobile { display: none; }
-@media (max-width: 520px) {
+@media (max-width: 670px) {
   .header__actions .nav__group--support { display: none; }
   .nav__group--support-mobile { display: inline-flex; }
 }
@@ -528,20 +541,42 @@ h1, h2, h3, h4, h5 {
 
 /* The Facebook/X/Instagram header icons are the newest, lowest-priority
    items in .header__actions — same "hide before the row overflows"
-   treatment as the Discord button's label text (640px) and the Support us
-   link (520px) below. Measured (2026-08-31, after adding Facebook as a
-   third icon): logo + hamburger + 3 social icons + Discord icon + gaps
-   needs ~443px even with the existing 480px-breakpoint gap/logo reductions
-   already applied — up from ~401px with two icons, confirming the CLAUDE.md
-   warning that a third icon needs more room. Breakpoint raised to 450px (a
-   few px of buffer above the 443px measurement, same margin logic as
-   before) — was 410px for two icons, that overflowed by 32px once a third
-   was added. Still fits most phones in the 375-430px range without these
-   (iPhone 12/13 at 390px included); reachable via the footer's Community
-   column on every page regardless. */
-@media (max-width: 450px) {
+   treatment as the Discord button's label text (740px) and the Support us
+   link (670px) above. 570px, not the 450px this used to be, for the same
+   reason the other two moved: 450px came from measuring a row that already
+   had the 480px-breakpoint gap/logo reductions applied (~443px needed), but
+   the icons stay visible well above 480px, where the logo and gaps are
+   full-size. The config that has to fit is logo 218.8 + gap 24 +
+   hamburger/3 icons/Discord-icon 250 + 48px padding = 540.8px, i.e. 558px
+   allowing for a 17px scrollbar. History: 410px for two icons, raised to
+   450px on 2026-08-31 when Facebook made it three. Phones in the 375-430px
+   range never had these anyway (iPhone 12/13 at 390px included); they're
+   reachable via the footer's Community column on every page regardless. */
+@media (max-width: 570px) {
   .header__social { display: none; }
 }
+
+/* ===== Header breakpoint ladder — read this before touching any of them ===
+   The three rules above (740px Discord label, 670px Support us, 570px social
+   icons) plus the 480px gap/logo reduction are ONE chain, each dropping the
+   next-lowest-priority item before the row it leaves behind stops fitting.
+   Every one of them was originally measured only at its own edge, against a
+   row that already had the *narrower* rules applied — which is exactly the
+   bug fixed on 2026-09-16: the header ran 5-59px past the viewport's right
+   edge across roughly 451-713px, on every page, with "Support us" and the
+   social icons clipped by `body { overflow-x: hidden }` rather than
+   scrolling. What each threshold has to clear is the width of the
+   configuration ABOVE it, not its own:
+
+     >740px  logo 218.8 + 24 + actions 422.7 + 48 = 713.5  (needs 730)
+     671-740 logo 218.8 + 24 + actions 347.9 + 48 = 638.7  (needs 656)
+     571-670 logo 218.8 + 24 + actions 250   + 48 = 540.8  (needs 558)
+     481-570 logo 218.8 + 24 + actions  98   + 48 = 388.8  (needs 406)
+     <=480   logo 168.3 + 12 + actions  98   + 48 = 326.3  (needs 344)
+
+   ("needs" = required + 17px for a classic scrollbar, which the media query
+   counts but the content can't use.) Re-derive the whole ladder, not one
+   line of it, whenever anything is added to or removed from the header. */
 
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
@@ -549,13 +584,14 @@ h1, h2, h3, h4, h5 {
 /* Nav collapses to the hamburger here. Measured 2026-09-16, with the FORC3
    Grid tab added: logo 218.8 + nav 491.5 + actions 372.7 + 2x24px gaps =
    1131px of content, + 48px of container padding = 1179px of *client* width
-   for the row to fit. 1200px leaves ~21px of slack once a 17px scrollbar is
-   subtracted. Was 1120px (1081px required) with one fewer tab, and 1080px
-   before that, which overflowed the moment the Support dropdown's caret was
-   added. Re-measure (logo + nav + actions + 2*gap + container padding) and
-   raise this again before adding another nav item — and note this now sits
-   at the same value as --container, so raising one means raising the other. */
-@media (max-width: 1200px) {
+   for the row to fit. 1220px rather than 1200px because a media query counts
+   the classic scrollbar the content can't use: at a 1201px window that left
+   only ~5px of slack, too thin to trust against font-rendering variance;
+   1221px gives ~21px. Was 1120px (1081px required) with one fewer tab, and
+   1080px before that, which overflowed the moment the Support dropdown's
+   caret was added. Re-measure (logo + nav + actions + 2*gap + container
+   padding) and raise this again before adding another nav item. */
+@media (max-width: 1220px) {
   .nav { display: none; }
   .hamburger { display: flex; }
 }

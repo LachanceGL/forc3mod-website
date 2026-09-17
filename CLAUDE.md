@@ -1012,7 +1012,10 @@ share the `.header__social` class, a circular `.icon-btn` each.
   against the local dev server — the served HTML already had 3 icons — while
   a freshly opened Browser-pane tab still rendered only 2; a cache-busting
   query string on the URL was what finally forced a true reload. Breakpoint
-  raised from 410px to **450px** (still a few px of buffer above the 443px
+  raised from 410px to 450px (**570px** since 2026-09-16 — that 443px
+  figure was measured with the 480px logo/gap reductions already applied,
+  which don't apply across most of the range the icons are visible in; see
+  "Header breakpoint ladder") (still a few px of buffer above the 443px
   measurement, same margin logic as the original fix). Verified no overflow
   at 450px (hidden) and 451px (all 3 visible) right at the edge, and no
   overflow at 375px.
@@ -1189,12 +1192,15 @@ page.
   explicitly rejected; it stays nav-link styled.
 - **Responsive swap, mechanism unchanged from the old plain-link version**:
   unlike the Discord button (which has an icon and hides its text below
-  640px via `.btn--discord span { display:none }`), this toggle is
+  740px via `.btn--discord span { display:none }`), this toggle is
   text-only — there's nothing to collapse to. Left unconditional, the header
   row (logo + hamburger + Discord + this dropdown) stops fitting the
   container gutter at **~494px** and starts breaching it, then overflows
   outright further down.
-- **Fix in place**: both halves live in one `@media (max-width: 520px)`
+- **Fix in place** (the breakpoint is **670px** since 2026-09-16, not the
+  520px described below — the old number assumed the Discord button had
+  already collapsed to its icon, which doesn't happen until 740px; see
+  "Header breakpoint ladder"): both halves live in one media query
   block — `.header__actions .nav__group--support` (the whole group, not just
   the toggle, so an already-open menu doesn't get orphaned) is hidden, and
   the `.nav__group--support-mobile` duplicate inside `.nav` (hidden
@@ -1349,7 +1355,7 @@ building a second mechanism:
   1131px wide (logo 218.8 + nav 491.5 + actions 372.7 + 2×24px gaps) against
   a 1052px content box — it overflowed the viewport outright below ~1210px
   and breached the container gutter above it. Fixed by raising **both**
-  `--container` (1100 → 1200px) and the nav breakpoint (1120 → **1200px**)
+  `--container` (1100 → 1200px) and the nav breakpoint (1120 → **1220px**)
   in the same commit: the two are now the same number, and raising one
   without the other reintroduces the overflow. Verified by hidden-iframe
   sweep at 1920 / 1440 / 1280 / 1240 / 1201 / 1200 / 1120 / 1000px on all
@@ -1365,10 +1371,10 @@ building a second mechanism:
   run-to-run variance from font rendering that it's not worth chasing to
   the pixel; treat the actual `header.scrollWidth > header.clientWidth`
   check at the breakpoint edge as the authoritative test, not the estimate.
-  `.nav` collapsed at `max-width: 1120px` at the time (1200px now). Below it a *separate*
+  `.nav` collapsed at `max-width: 1120px` at the time (1220px now). Below it a *separate*
   overflow surfaced instead (the collapsed/hamburger layout, not this nav
   breakpoint) — see "Header social icons — an overflow gotcha" for that one;
-  it's a different fix (`.header__social` now hides below 450px, was 410px
+  it's a different fix (`.header__social` hid below 450px then, 570px now, was 410px
   for 2 icons) at a different width entirely, not a nav-breakpoint change.
   If you want the full nav on 1024px-wide laptops, lowering the breakpoint
   to ~1023px is *probably* still safe but re-verify with the same
@@ -1484,8 +1490,8 @@ redirect shim nobody sees, so it has never been kept in step.)
   (see "Nav width" above). The old `min-width: 1800px` step was deleted
   rather than left in place: it set 1200px, which is now the base. The
   header still sets the floor — logo 219 + nav 492 + actions 373 + 2×24px
-  gaps = 1131px of content, so 1200px leaves 21px of slack at the 1201px
-  nav breakpoint. **This is a forced width, not a chosen one**: if the
+  gaps = 1131px of content, so the 1220px nav breakpoint leaves ~21px of
+  slack at a 1221px window even after a 17px scrollbar. **This is a forced width, not a chosen one**: if the
   owner wants the narrower column back, a nav item has to go (or the
   header needs reworking), not just a smaller `--container`.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
@@ -1565,13 +1571,37 @@ redirect shim nobody sees, so it has never been kept in step.)
 
 ## Pending / open items
 
-- **Header overflows at ~543-641px viewport** (found 2026-09-13, not yet
-  reported by the owner): `.header__actions` (hamburger, 3 social icons,
-  Discord button, "Support us") ends 24-58px past the viewport's right
-  edge, so "Support us" is clipped (hidden by `body { overflow-x: hidden }`
-  rather than scrolling). Same on every page. Likely from the Discord icon
-  size bumps and/or the "Support us" dropdown, against the 450px /
-  520px / 640px breakpoints tuned earlier. Re-measure and raise the
-  relevant breakpoint. Also seen 2026-09-14 at a 451px viewport *with a
-  classic scrollbar* (441px usable): the 450px social-icon breakpoint
-  counts the scrollbar, so the icons show with too little room.
+*(Nothing open right now. The long-standing header overflow that used to
+live here was fixed on 2026-09-16 — see "Header breakpoint ladder" below.)*
+
+## Header breakpoint ladder — the one thing to re-derive as a whole
+
+`.header__actions` sheds its lowest-priority item at each of four
+thresholds: **740px** Discord's label, **670px** "Support us", **570px**
+the three social icons, **480px** the logo size and gaps. Plus **1220px**
+for the nav itself. The live numbers and arithmetic are in `css/style.css`
+under the same heading; the point to carry here is *why they moved*.
+
+- **Every one of them used to be measured only at its own edge**, against a
+  row that already had the *narrower* rules applied. That's a silent trap:
+  each config stays active across a whole range, and what a threshold has
+  to clear is the width of the configuration **above** it, not its own. The
+  450px social-icon breakpoint, for instance, was derived from a 443px
+  measurement taken with the 480px logo/gap reductions in effect — but the
+  icons stayed visible up to 520px+, at full logo size, needing 541px.
+- **Result, found 2026-09-13 and fixed 2026-09-16**: the header ran 5-59px
+  past the viewport's right edge across roughly **451-713px**, on every
+  page, with "Support us" and the social icons clipped by
+  `body { overflow-x: hidden }` rather than scrolling — a much wider band
+  than the "~543-641px" this doc originally recorded. Fixed by raising the
+  whole ladder at once (640→740, 520→670, 450→570), not one line of it.
+- **A media query counts the classic scrollbar; the content can't use it.**
+  Budget 17px on top of every requirement. That gap is what made the
+  1201px-window case only ~5px of slack and pushed the nav breakpoint from
+  1200 to 1220.
+- **Verified** across 5 pages × 32 widths from 321px to 1920px, each
+  checked with the 17px scrollbar penalty applied: zero overflow anywhere,
+  the nav flipping exactly between 1220 and 1221, and the header/drawer
+  "Support us" pair never both-on or both-off.
+- **Before adding anything to the header**, recompute the whole table in
+  `style.css`, not just the breakpoint nearest your change.

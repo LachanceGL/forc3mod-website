@@ -66,6 +66,35 @@ explicitly rather than leaving the old entry looking still-current.
     1000px across all five pages: zero header or document overflow, nothing
     past the container's content edge, nav flipping exactly between 1201 and
     1200. `style.css?v=62` everywhere.
+- **Fixed the header overflow** (owner: "fix the header overflow") — the
+  pending item that had been sitting in `CLAUDE.md` since 2026-09-13. It was
+  worse than recorded: not "~543-641px" but roughly **451-713px**, 5-59px
+  past the viewport's right edge on every page, clipping "Support us" and
+  the social icons via `body { overflow-x: hidden }`.
+  - **Root cause was a measurement habit, not any one number.** Each header
+    breakpoint had been derived at its own edge, against a row that already
+    had the *narrower* rules applied — but a config stays active across a
+    whole range, so what a threshold has to clear is the width of the config
+    **above** it. The 450px social-icon breakpoint came from a 443px figure
+    measured with the 480px logo/gap reductions in effect; the icons were
+    actually visible up to 520px+ at full logo size, needing 541px. Same
+    mistake in the 520px "Support us" threshold (measured with Discord
+    already collapsed, which only happens below 640px).
+  - **Fixed by raising the whole ladder at once**: Discord label 640 → 740,
+    "Support us" 520 → 670, social icons 450 → 570. The nav breakpoint also
+    went 1200 → 1220, because a media query counts the 17px classic
+    scrollbar the content can't use and a 1201px window left only ~5px of
+    slack. The arithmetic table now lives in `css/style.css` under "Header
+    breakpoint ladder" so the next person recomputes all of it, not one line.
+  - **Verified** on 5 pages × 32 widths, 321px → 1920px, each with the 17px
+    scrollbar penalty applied: zero overflow, nav flipping exactly between
+    1220 and 1221, and the header/drawer "Support us" pair never both-on or
+    both-off. `style.css?v=64`.
+  - Visible trade-off: the Discord label, "Support us" and the social icons
+    each disappear from the header at a wider viewport than before. They
+    were being clipped in those ranges anyway, and all of them stay reachable
+    (the hamburger drawer for Support us, the footer Community column for the
+    social links).
 - **Replaced every em dash in visitor-facing copy with `//`** (owner:
   "replace any — by //") — 28 of them, plus three `&mdash;` entities: page
   titles, meta descriptions, body copy, all nine changelog entries' dates and
