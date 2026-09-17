@@ -52,6 +52,13 @@ explicitly rather than leaving the old entry looking still-current.
     `theme-designer`'s photo card. Measured identical to FORC3 Designer's at
     1400px except card height, since Grid has no screenshot asset and keeps
     the plain 4/3 gradient card. `style.css?v=63`.
+  - Hero buttons relabelled to **"Download the app"** / **"Open web version"**
+    (owner). The ghost button now points at `grid.forc3mod.com` (it used to
+    send people to `forc3designer.html`), and the primary one at
+    `forc3-grid-releases`' latest-release `.exe` — a **404 today**, since
+    that repo has no published releases; the owner confirmed the build isn't
+    out yet. Asset filename `FORC3-Grid-Setup.exe` is a guess copied from the
+    Designer convention — verify it against the first real release.
   - `grid.html`'s hero CTA + "Runs in your browser" caption were also wrapped
     in `.hero__cta-group`, matching `forc3designer.html`, so it picks up the
     desktop 100px `--hero-cta-offset` the other pages have.

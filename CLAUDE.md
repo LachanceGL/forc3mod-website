@@ -504,6 +504,37 @@ screenshot marking the empty space under the hero buttons.
   page wants the same "hosted on GitHub" credibility signal, `.hero__source`
   is generic enough to reuse as-is.
 
+### FORC3 Grid's two hero buttons — one of them is dead until a build ships
+
+`grid.html`'s hero has **"Download the app"** and **"Open web version"**
+(owner, 2026-09-16; they were "Open FORC3 Grid" / "Paint one first", the
+second of which pointed at `forc3designer.html`).
+
+- **"Open web version"** → `https://grid.forc3mod.com`, the browser app.
+  That's the one that actually works today.
+- **"Download the app"** →
+  `https://github.com/LachanceGL/forc3-grid-releases/releases/latest/download/FORC3-Grid-Setup.exe`
+  — same "latest release" pattern as FORC3 Designer's button, and a
+  **fourth** repo to keep straight (`forc3-grid-releases`, GitHub, built
+  installers only). ⚠️ **It returns 404 as of 2026-09-16**: the repo exists
+  but has **zero published releases**. Confirmed with the GitHub API and
+  `curl` at the time of writing, and confirmed with the owner, who said
+  "it will be the Github download link to the .exe, but it's not available
+  yet" — so this is expected, not a bug to chase. It starts working on its
+  own the moment a release is published *whose installer asset is named
+  exactly `FORC3-Grid-Setup.exe`* — that filename is this doc's guess,
+  copied from the Designer convention, not something read off a real
+  release. **Check it against the first real release** rather than assuming.
+- There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
+  the same way if a shareable `forc3mod.com` download URL is ever wanted.
+- Two things went stale when the labels changed and were left alone
+  deliberately, not missed: the `.hero__source` caption still reads "Runs in
+  your browser. Chrome or Edge, on desktop." (true of the web version, not
+  of a downloaded app, and it now sits under both buttons), and the "What it
+  does" section's CTA still says "Open FORC3 Grid" without saying which one.
+  Both were flagged to the owner; revisit them together with whatever the
+  real app/web split turns out to be.
+
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 
 `forc3-designer-download/index.html` is a static redirect shim
