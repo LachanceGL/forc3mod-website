@@ -10,7 +10,9 @@ one). Treat this as a living doc, not a one-time snapshot.
 
 Static marketing site for FORC3MOD — an unofficial modding/livery-tool studio
 for Assetto Corsa EVO. Flagship product is **FORC3 Designer** (a livery
-painting app, still in development — not released yet). The site also
+painting app, still in development — not released yet), alongside **FORC3
+Grid** (a browser-based livery manager/sharing tool at
+`grid.forc3mod.com`, linked from the nav since 2026-09-16). The site also
 promotes the **GT3FORC3** sim racing community and a Patreon support page.
 
 No framework, no build step. Plain HTML/CSS/JS, hand-edited and pushed
@@ -86,6 +88,7 @@ than rewriting it from scratch.
 |---|---|
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
+| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). Linked from the nav since 2026-09-16 — before that it was URL-only and `noindex`. |
 | `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
@@ -107,6 +110,9 @@ than rewriting it from scratch.
 - `:root` defines the default **blue** theme via CSS vars (`--accent`,
   `--accent-2`, `--accent-soft`, etc.).
 - `forc3designer.html` → `body.theme-designer` → **lime** accent.
+- `grid.html` → `body.theme-grid` → **orange** accent (added 2026-09-16,
+  owner: "theme is orangeish this time"; the page borrowed
+  `theme-designer`'s lime until then).
 - `gt3forc3.html` → `body.theme-gt3` → **red** accent.
 - **Important**: on both themed pages, `.theme-designer .header` and
   `.theme-gt3 .header` explicitly re-pin the header's accent vars back to
@@ -114,6 +120,18 @@ than rewriting it from scratch.
   page's own accent color. Preserve this if you touch header colors.
 - Footer link hover color is **hardcoded blue** (`#4fb3ff`), not themed —
   same reasoning: the footer should always read as FORC3MOD-blue.
+- **A bright accent needs a dark `.btn--primary` label; a dark one keeps
+  white.** `.btn--primary`'s fill is `linear-gradient(135deg, --accent-2,
+  --accent)`, so the label's contrast is set by the *lighter* end. Lime and
+  orange both fail white (measured: `#d4e100` 1.4:1, `#ffab33` 1.9:1), so
+  `.theme-designer` and `.theme-grid` each override `color` to near-black
+  (8.4:1 / 9.9:1); red passes at 3.1:1 and `.theme-gt3` leaves it alone.
+  `.btn--lg` is the exception in both — its fill is translucent
+  `--accent-soft` over the dark page, not the gradient — so each of those
+  themes puts white back, in a rule placed **after** the `.btn--primary` one
+  (equal specificity, so source order decides which wins on the hero button,
+  which carries both classes). Measure a new accent before picking; don't
+  copy whichever neighbouring theme happens to be above it.
 
 ## Logo system
 
@@ -1279,6 +1297,20 @@ building a second mechanism:
 
 ### Nav width — re-measure before adding items
 
+- **Measured (2026-09-16, adding the FORC3 Grid tab — 4 nav items now)**:
+  the tab costs **101.5px** of nav width (390 → 491.5), which put the row
+  1131px wide (logo 218.8 + nav 491.5 + actions 372.7 + 2×24px gaps) against
+  a 1052px content box — it overflowed the viewport outright below ~1210px
+  and breached the container gutter above it. Fixed by raising **both**
+  `--container` (1100 → 1200px) and the nav breakpoint (1120 → **1200px**)
+  in the same commit: the two are now the same number, and raising one
+  without the other reintroduces the overflow. Verified by hidden-iframe
+  sweep at 1920 / 1440 / 1280 / 1240 / 1201 / 1200 / 1120 / 1000px on all
+  five pages — zero header or document overflow, nothing past the
+  container's own content edge, nav flipping to the hamburger exactly
+  between 1201 and 1200. Consequence: 1152px-class laptops now get the
+  hamburger where they used to get the full nav; 1280px and up are
+  unaffected.
 - **Measured (2026-08-31, after adding the header Facebook icon — 3 social
   icons now)**: **verified no overflow at 1121px**, right at the breakpoint
   edge, same as with 2 icons — the `estimatedRequiredWidth` heuristic used
@@ -1286,7 +1318,7 @@ building a second mechanism:
   run-to-run variance from font rendering that it's not worth chasing to
   the pixel; treat the actual `header.scrollWidth > header.clientWidth`
   check at the breakpoint edge as the authoritative test, not the estimate.
-  `.nav` still collapses at `max-width: 1120px`. Below 1120px a *separate*
+  `.nav` collapsed at `max-width: 1120px` at the time (1200px now). Below it a *separate*
   overflow surfaced instead (the collapsed/hamburger layout, not this nav
   breakpoint) — see "Header social icons — an overflow gotcha" for that one;
   it's a different fix (`.header__social` now hides below 450px, was 410px
@@ -1306,11 +1338,15 @@ building a second mechanism:
 ## Asset cache-busting — bump `?v=` when you edit CSS or JS
 
 Every page loads `css/style.css?v=N` and `js/main.js?v=N`. **When you change
-either file, bump `N` in all four pages in the same commit** — otherwise the
+either file, bump `N` in all five pages in the same commit** — otherwise the
 version query is worse than useless, because it looks like it's handling
-cache invalidation while doing nothing. **And in `grid.html`**, which loads
-the same two files: "all four pages" left it at `style.css?v=34` while the rest
-reached 58, until its header was synced on 2026-09-14.
+cache invalidation while doing nothing. "All five" means `index.html`,
+`forc3designer.html`, `grid.html`, `gt3forc3.html`, `SupportUs.html`. An
+older "all four pages" phrasing here left `grid.html` on `style.css?v=34`
+while the rest reached 58, until its header was synced on 2026-09-14 —
+don't drop it from the list again. (`forc3-designer-download/index.html`
+loads the stylesheet too and is still on its own stale `?v=32`; it's a
+redirect shim nobody sees, so it has never been kept in step.)
 
 - Why it exists: GitHub Pages serves these with `Cache-Control: max-age=600`
   (10 min) plus an ETag, so visitors *do* self-heal within ~10 minutes. The
@@ -1393,14 +1429,18 @@ reached 58, until its header was synced on 2026-09-14.
     card was pulled left to remove a big empty block it left, then the
     owner moved the whole thing to the logo edge + 15px. Don't bring back
     the nav-start alignment.
-- **Content width** (`--container`): 1100px, 1200px at `min-width:
-  1800px`, 1440px at `min-width: 2600px` — narrowed 2026-09-14 from
-  1200/1440/1720 (owner: "reduce the width of the site, we have a lot of
-  wasted space", then chose a narrower column over a wider one). The
-  header sets the floor: logo 219 + nav 390 + actions 373 + 2×24px gaps =
-  1030px of content, so the 1100px container leaves 22px of slack at the
-  1121px nav breakpoint. Re-measure before narrowing further or adding a
-  header item.
+- **Content width** (`--container`): 1200px, 1440px at `min-width: 2600px`.
+  History: 1200/1440/1720 → narrowed 2026-09-14 to 1100/1200@1800/1440@2600
+  (owner: "reduce the width of the site, we have a lot of wasted space",
+  then chose a narrower column over a wider one) → base widened back to
+  1200px on 2026-09-16 because the FORC3 Grid nav tab no longer fit
+  (see "Nav width" above). The old `min-width: 1800px` step was deleted
+  rather than left in place: it set 1200px, which is now the base. The
+  header still sets the floor — logo 219 + nav 492 + actions 373 + 2×24px
+  gaps = 1131px of content, so 1200px leaves 21px of slack at the 1201px
+  nav breakpoint. **This is a forced width, not a chosen one**: if the
+  owner wants the narrower column back, a nav item has to go (or the
+  header needs reworking), not just a smaller `--container`.
 - **Keep solid icon sizes whole CSS pixels** when a request ends in a
   fraction (e.g. "+10% then +15%" gave the header Discord icon 16.45px).
   The owner said 16.45px "does not seem to appear clean": it isn't a whole
@@ -1427,17 +1467,21 @@ reached 58, until its header was synced on 2026-09-14.
   `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
   from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
   anything; change it on every page at once, including `grid.html`.
-- Keep the header and footer markup/behavior **identical** across all real
-  content pages (`index.html`, `forc3designer.html`, `gt3forc3.html`,
-  `SupportUs.html`). When you change one page's header/footer, mirror the
-  change to the other three in the same turn.
-  - **`grid.html` carries the same header and footer too, since 2026-09-14**
-    (owner: "sync the grid.html header with the other pages", then "sync the
-    footer too") — both copied from `forc3designer.html`'s, the header with no
-    nav item active and no "FORC3 Grid" tab, since no other page has one while
-    the page is unlinked. Mirror header and footer changes into it as well. It
-    had drifted to old copies (plain "Support us" links, an extra tab) whose
-    header ran 22px past a 1280px window.
+- Keep the header and footer markup/behavior **identical** across all five
+  content pages (`index.html`, `forc3designer.html`, `grid.html`,
+  `gt3forc3.html`, `SupportUs.html`). When you change one page's
+  header/footer, mirror the change to the other four in the same turn.
+  - `grid.html` was synced into this set on 2026-09-14 (owner: "sync the
+    grid.html header with the other pages", then "sync the footer too") after
+    drifting to old copies (plain "Support us" links, an extra tab) whose
+    header ran 22px past a 1280px window. It's no longer a special case: as
+    of 2026-09-16 it's a **linked page like any other** — a "FORC3 Grid" nav
+    tab sits between "FORC3 Designer" and "GT3FORC3" in the header nav and
+    the footer's Projects column on all five pages, `is-active` on its own
+    page, and its `noindex, nofollow` tag is gone (that tag's own comment
+    said to remove it "when FORC3 Grid launches and the nav link goes back
+    in" — linking it from every page is what makes it public, so leaving the
+    tag would have been incoherent rather than protective).
 
 ## Working conventions for this project
 

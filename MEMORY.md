@@ -12,6 +12,57 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-16
+
+- **FORC3 Grid is a real page on the site now** (owner: "let's add a new
+  FORC3 Grid page, next to FORC3 Designer, theme is orangeish this time").
+  `grid.html` already existed, fully written but URL-only; this linked it in
+  and gave it its own colour. Three parts:
+  - A **"FORC3 Grid" nav tab between "FORC3 Designer" and "GT3FORC3"** in the
+    header nav and the footer's Projects column, on all five pages,
+    `is-active` on its own page. Its `noindex, nofollow` tag was removed at
+    the same time — that tag's own comment said to drop it when the nav link
+    went in, and linking a page from every header is what makes it public
+    anyway.
+  - A new **`.theme-grid` orange theme** (`--accent: #ff7a18`,
+    `--accent-2: #ffab33`), the third product colour after Designer's lime
+    and GT3FORC3's red. The page had been borrowing `theme-designer`'s lime.
+    Header stays blue-branded like every other themed page. `.btn--primary`
+    gets a near-black label (white measures 1.9:1 on the gradient's light
+    end, 9.9:1 black) while `.btn--lg` keeps white, since its fill is the
+    translucent `--accent-soft` over the dark page — same split, and same
+    source-order dependency, as `theme-designer`.
+  - **The site got wider again, not by choice.** The 4th nav tab costs
+    101.5px, putting the header row at 1131px of content against a 1052px
+    box: it overflowed the viewport below ~1210px and breached the container
+    gutter above it. `--container` went 1100 → 1200px and the nav breakpoint
+    1120 → 1200px (they have to move together now), and the dead
+    `min-width: 1800px` step — which set the 1200px that is now the base —
+    was deleted. This partly undoes the 2026-09-14 narrowing the owner asked
+    for; getting that back means dropping a nav item, not just shrinking
+    `--container`. Flagged to the owner rather than assumed.
+  - `grid.html`'s hero CTA + "Runs in your browser" caption were also wrapped
+    in `.hero__cta-group`, matching `forc3designer.html`, so it picks up the
+    desktop 100px `--hero-cta-offset` the other pages have.
+  - Verified by hidden-iframe sweep at 1920/1440/1280/1240/1201/1200/1120/
+    1000px across all five pages: zero header or document overflow, nothing
+    past the container's content edge, nav flipping exactly between 1201 and
+    1200. `style.css?v=62` everywhere.
+- **Replaced every em dash in visitor-facing copy with `//`** (owner:
+  "replace any — by //") — 28 of them, plus three `&mdash;` entities: page
+  titles, meta descriptions, body copy, all nine changelog entries' dates and
+  bullets, and the contact form's two JS status messages (`main.js?v=27`).
+  Comments and repo docs were deliberately left alone;
+  `docs/DESIGNER-CHANGELOG.md`'s entry sections were updated so the doc and
+  the modal don't drift (`99036e2`).
+- **Homepage `<title>` is now the brand line**, `FORC3MOD // AC EVO
+  DEVELOPMENT`, from a screenshot of the browser tab (`d8a3cb5`). Replaced a
+  keyword-led title that was being truncated in the tab anyway; the tradeoff
+  (no search keywords in the homepage title) was flagged, and the other
+  pages keep their keyword-led ones.
+
+---
+
 ## 2026-09-14
 
 - **`grid.html`'s footer now matches the other pages too** (owner: "sync the

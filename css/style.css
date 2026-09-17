@@ -19,11 +19,12 @@
   --shadow: 0 20px 60px rgba(0,0,0,.45);
   --font: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
   --font-head: 'Rajdhani', 'Inter', sans-serif;
-  /* Narrowed 2026-09-14 (owner: "reduce the width... a lot of wasted space").
-     Floor is the header: logo + nav + actions need 1030px of content width
-     (1078px container) on one line, so don't go below ~1100px without
-     reworking the header or raising the 1120px nav breakpoint. */
-  --container: 1100px;
+  /* Narrowed 2026-09-14 (owner: "reduce the width... a lot of wasted space")
+     to 1100px, then widened to 1200px on 2026-09-16 when the FORC3 Grid nav
+     tab was added. Floor is the header: logo 219 + nav 492 + actions 373 +
+     2x24px gaps = 1131px of content on one line, so the column can't go
+     below ~1180px without dropping a nav item or reworking the header. */
+  --container: 1200px;
   /* Single source of truth for the FORC3MOD logo mark's size — the
      header defines it, and every other logo (footer included) reads
      from this instead of setting its own height, so they can never drift. */
@@ -87,10 +88,8 @@ ul { list-style: none; }
 
 /* Wide/4K displays: widen the content column and bump the base font
    so the page doesn't shrink to a small centered strip on very large
-   screens. */
-@media (min-width: 1800px) {
-  :root { --container: 1200px; }
-}
+   screens. There used to be a 1800px step to 1200px as well; it went away
+   when the base column itself became 1200px (see :root). */
 @media (min-width: 2600px) {
   :root { --container: 1440px; }
   body { font-size: 18px; }
@@ -547,14 +546,16 @@ h1, h2, h3, h4, h5 {
 .hamburger { display: none; flex-direction: column; gap: 4px; }
 .hamburger span { width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
-/* Nav collapses to the hamburger here. Measured: the full header row (logo +
-   5 nav items incl. the Support dropdown + header actions) needs 1081px of
-   *client* width, so this threshold must stay comfortably above that once a
-   scrollbar is subtracted — 1120px leaves ~20px of slack on a 17px scrollbar.
-   Was 1080px, which overflowed the moment the Support dropdown's caret was
+/* Nav collapses to the hamburger here. Measured 2026-09-16, with the FORC3
+   Grid tab added: logo 218.8 + nav 491.5 + actions 372.7 + 2x24px gaps =
+   1131px of content, + 48px of container padding = 1179px of *client* width
+   for the row to fit. 1200px leaves ~21px of slack once a 17px scrollbar is
+   subtracted. Was 1120px (1081px required) with one fewer tab, and 1080px
+   before that, which overflowed the moment the Support dropdown's caret was
    added. Re-measure (logo + nav + actions + 2*gap + container padding) and
-   raise this again before adding another nav item. */
-@media (max-width: 1120px) {
+   raise this again before adding another nav item — and note this now sits
+   at the same value as --container, so raising one means raising the other. */
+@media (max-width: 1200px) {
   .nav { display: none; }
   .hamburger { display: flex; }
 }
@@ -1192,6 +1193,62 @@ h1, h2, h3, h4, h5 {
 }
 .theme-gt3 .card:hover { border-color: rgba(255, 46, 46, .4); }
 .theme-gt3 .card--featured { border-color: rgba(255, 46, 46, .35); }
+
+/* =========================================================
+   FORC3 Grid page theme — orange accent, the third product
+   colour after FORC3 Designer's lime and GT3FORC3's red
+   (all three distinct from the site-wide blue brand).
+   ========================================================= */
+.theme-grid {
+  --accent: #ff7a18;
+  --accent-2: #ffab33;
+  --accent-soft: rgba(255, 122, 24, 0.14);
+}
+/* The header/nav bar keeps the site-wide blue brand untouched, even
+   on this page's otherwise orange-themed content. */
+.theme-grid .header {
+  --accent: #2f6fff;
+  --accent-2: #4fb3ff;
+  --accent-soft: rgba(47, 111, 255, 0.12);
+}
+.theme-grid .header .btn--primary {
+  box-shadow: 0 8px 24px rgba(47, 111, 255, 0.28);
+  color: #fff;
+}
+.theme-grid .header .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(47, 111, 255, 0.4);
+}
+.theme-grid .hero {
+  background: radial-gradient(ellipse 98.99% 603px at 30% 107px, #1c1205 0%, var(--bg) 55%);
+}
+/* Dark label on the solid orange fill, not white — same call
+   theme-designer makes for lime, for the same measured reason. White on
+   #ff7a18 is 2.6:1 (1.9:1 on the gradient's lighter #ffab33 end); near-black
+   is 7.2:1 / 9.9:1. GT3FORC3's red is dark enough to carry white text,
+   orange is not. */
+.theme-grid .btn--primary {
+  box-shadow: 0 8px 24px rgba(255, 122, 24, 0.28);
+  color: #0a0b0e;
+}
+.theme-grid .btn--primary:hover {
+  box-shadow: 0 12px 30px rgba(255, 122, 24, 0.4);
+}
+/* Must stay AFTER the rule above: the hero button carries both classes, and
+   .btn--lg's fill is translucent --accent-soft over the dark page, not the
+   solid gradient — so its label goes back to white. Equal specificity, so
+   source order is what decides it (theme-designer is ordered the same way). */
+.theme-grid .btn--lg {
+  color: #fff;
+  box-shadow: 0 6px 0 var(--accent);
+}
+.theme-grid .btn--lg:hover {
+  box-shadow: 0 8px 0 var(--accent-2);
+}
+.theme-grid .about__card::before {
+  background: radial-gradient(circle at 20% 15%, rgba(255, 122, 24, .22), transparent 55%);
+}
+.theme-grid .card:hover { border-color: rgba(255, 122, 24, .4); }
+.theme-grid .card--featured { border-color: rgba(255, 122, 24, .35); }
 
 /* ===== Modal (e.g. Changelog) ===== */
 .modal-overlay {
