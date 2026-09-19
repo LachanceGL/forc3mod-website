@@ -12,6 +12,34 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-19
+
+- **Added a 96x96 frame to `favicon.ico`** (owner: "add the 96px frame"),
+  after they asked why Google shows no icon for the site. Google wants a
+  favicon frame that's a multiple of 48px and the artist's source set
+  (16/32/64/128/256) has none. No 96 exists in `v2_Icons`, so this one is
+  **generated** — a LANCZOS downscale of the 256 — making it the only frame
+  in the file that isn't the artist's own pixels. The other five were
+  re-packed byte-for-byte and diffed against the previous `favicon.ico` to
+  prove they were untouched; the rebuilt file decodes fine in a real browser.
+  32,073 bytes, six frames.
+- **The missing Google icon was not a bug.** The search snippet's own title
+  ("… Free Livery Maker for …") was last live on 2026-08-17, while
+  `favicon.ico` only landed 2026-09-15 — so Google's crawl predated the file
+  by a month and was showing its generic placeholder. Before that date the
+  site's only favicon was a `data:` URI, which Google cannot use at all.
+  Everything else checked out: 200 on `/favicon.ico`, no `robots.txt`, link
+  tag present on every page. Written up in `CLAUDE.md` under "Favicon and
+  Google search results", including the timing expectations (title refreshes
+  in days-to-weeks, icon on a separate and much slower crawl).
+- **Search Console turned out to be already verified**, by Cloudflare DNS TXT
+  — I'd guessed from grepping the repo that it had never been set up, which
+  was the wrong inference: the DNS method leaves nothing in the repo. Noted
+  in `CLAUDE.md` so the next session doesn't add a redundant verification
+  meta tag.
+
+---
+
 ## 2026-09-16
 
 - **…and hidden again the same day** (owner: "Hide the FORC3 Grid page for

@@ -102,7 +102,7 @@ than rewriting it from scratch.
 | `video/forc3designer-demo-03.mp4` | **Currently active** owner-provided demo video (1960×1080, ~68s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
-| `favicon.ico` | Site favicon, one multi-size ICO (16/32/64/128/256). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Each frame is the artist's own file, packed as-is — **don't rebuild it by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
+| `favicon.ico` | Site favicon, one multi-size ICO (**16/32/64/96/128/256**). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Five of the six frames are the artist's own files, packed byte-for-byte — **don't rebuild those by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. **The 96 is the one exception**: it's generated (LANCZOS downscale of the 256), added 2026-09-19 because Google wants a favicon frame that's a multiple of 48px and the source set has none — see "Favicon and Google search results". If the owner ever supplies a real hand-drawn 96, swap it in and drop the generated one. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -1554,6 +1554,58 @@ redirect shim nobody sees, so it has never been kept in step.)
     exactly what happened last time it sat unlinked, and it's cheap to
     avoid. Its header carries no active nav item, and no page (itself
     included) links to it while it's gated — see "Unhiding FORC3 Grid".
+
+## Favicon and Google search results
+
+The owner asked on 2026-09-19 why `forc3mod.com` shows a blank placeholder
+icon in Google results. **Nothing was broken** — diagnosis worth keeping,
+because the same question will come back:
+
+- **The search snippet's own title dated it.** It read "FORC3MOD | FORC3
+  Designer — Free Livery Maker for …", a title the homepage last carried on
+  **2026-08-17**. `favicon.ico` only landed 2026-09-15. So Google's crawl
+  predated the file by a month, and the icon in the result was Google's
+  generic placeholder, not a broken one of ours. **Check the snippet's title
+  against git history before debugging a favicon** — it tells you how old the
+  crawl is for free.
+- **Before 2026-09-15 there was nothing for Google to fetch at all**: the
+  favicon was an inline `data:image/svg+xml` URI, and Google can't use a
+  `data:` URI favicon — it needs a real crawlable URL. Don't ever go back to
+  an inline one.
+- Verified at the time: `/favicon.ico` returns 200 `image/vnd.microsoft.icon`,
+  there is no `robots.txt` (404, so nothing blocks Googlebot), and every page
+  declares `<link rel="icon" href="/favicon.ico" sizes="any" />`.
+- **Google wants favicon frames that are a multiple of 48px** (48, 96,
+  144…). The original 16/32/64/128/256 set contained none, so a **96** was
+  added 2026-09-19 — the only generated frame in the file (see the file map
+  row). The other five are still byte-identical to the artist's PNGs;
+  verified by diffing them against the previous `favicon.ico` after the
+  repack.
+- **Timing, so nobody chases this again**: page title/snippet refreshes on
+  the next normal recrawl (days to weeks; **Request Indexing** in Search
+  Console makes it ~a day). The **favicon is fetched on a separate, much
+  slower schedule** — weeks is normal and there's no way to force it.
+  Request Indexing does not speed the icon up.
+
+### Google Search Console — already verified, via Cloudflare DNS
+
+`forc3mod.com`'s nameservers are Cloudflare (`dana`/`alexis.ns.cloudflare.com`)
+and the domain already carries
+`google-site-verification=7nJIkg9iK5RJJKji2jibQJthEBC6hGObTZz3NmgvbjM` as a
+TXT record — i.e. a **Domain property already exists**. Don't add a
+`google-site-verification` meta tag or `googleXXXX.html` file to this repo;
+neither is needed, and their absence is NOT evidence the site is unverified
+(that's the wrong conclusion to draw from grepping the repo — the DNS method
+leaves no trace here). A Domain property covers the apex, `www` and every
+subdomain, so `grid.forc3mod.com` is in scope too.
+
+URL Inspection is the search bar across the top of
+[Search Console](https://search.google.com/search-console) once the property
+is selected — it is not in Chrome DevTools, which is where the owner looked
+first.
+
+**There is no `sitemap.xml`.** Offered twice, not taken up yet. If one is
+ever added, remember `grid.html` is deliberately `noindex` while it's WIP.
 
 ## Working conventions for this project
 
