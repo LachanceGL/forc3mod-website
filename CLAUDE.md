@@ -103,6 +103,7 @@ than rewriting it from scratch.
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
 | `favicon.ico` | Site favicon, one multi-size ICO (**16/32/64/96/128/256**). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Five of the six frames are the artist's own files, packed byte-for-byte — **don't rebuild those by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. **The 96 is the one exception**: it's generated (LANCZOS downscale of the 256), added 2026-09-19 because Google wants a favicon frame that's a multiple of 48px and the source set has none — see "Favicon and Google search results". If the owner ever supplies a real hand-drawn 96, swap it in and drop the generated one. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
+| `sitemap.xml` | Hand-maintained sitemap (added 2026-09-19). Lists only the four public pages; `grid.html` is deliberately out while it's `noindex`, as are the two redirect shims. See "Sitemap" below before editing it. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -1604,8 +1605,34 @@ URL Inspection is the search bar across the top of
 is selected — it is not in Chrome DevTools, which is where the owner looked
 first.
 
-**There is no `sitemap.xml`.** Offered twice, not taken up yet. If one is
-ever added, remember `grid.html` is deliberately `noindex` while it's WIP.
+### Sitemap
+
+`sitemap.xml` (added 2026-09-19, on request) lists the four public pages:
+`/`, `/forc3designer.html`, `/gt3forc3.html`, `/SupportUs.html`.
+
+- **It is hand-maintained** — no build step generates it. Add a `<url>` when
+  a new public page ships; update a `<lastmod>` when that page's *content*
+  changes, not when a `?v=` bump or a CSS tweak touches the file.
+- **`grid.html` is deliberately excluded** while it carries `noindex`.
+  Listing a noindex page contradicts the sitemap and Search Console reports
+  it as an error — so adding it here belongs in the same change that unhides
+  the page (see "Unhiding FORC3 Grid", which is why that checklist and this
+  file have to move together).
+- **The redirect shims are excluded too** (`designer.html`,
+  `forc3-designer-download/`). A sitemap is for URLs that answer 200 with
+  their own content, not for redirects.
+- **No `<changefreq>` or `<priority>`** — Google ignores both, and a wrong
+  value is worse than none. Don't "improve" the file by adding them.
+- **URL forms**: the homepage is listed as bare `/`; the others keep their
+  `.html`, matching every internal link on the site. GitHub Pages happens to
+  answer 200 on the extensionless form too (`/forc3designer` works), but
+  nothing links that way, so the `.html` form is the one to list — don't mix
+  both, that's two URLs for one page.
+- **Registering it**: Search Console → Sitemaps → submit
+  `https://www.forc3mod.com/sitemap.xml`. There is still no `robots.txt`
+  (404), which is the other place a sitemap is normally advertised — adding
+  a two-line one is the obvious follow-up if wanted, but a Search Console
+  submission alone is enough for Google.
 
 ## Working conventions for this project
 

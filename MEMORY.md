@@ -14,6 +14,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-19
 
+- **Added `sitemap.xml`** (owner: "add the sitemap"), hand-maintained since
+  there's no build step. Four public pages only — `/`,
+  `/forc3designer.html`, `/gt3forc3.html`, `/SupportUs.html`. `grid.html` is
+  left out on purpose while it's `noindex` (listing a noindex page is a
+  Search Console error, so it goes in with the unhide, not before), and so
+  are the two redirect shims. No `changefreq`/`priority` — Google ignores
+  both. Verified: parses with the right namespace, and all four URLs return
+  200 with no robots meta tag. Still needs submitting in Search Console →
+  Sitemaps; there's no `robots.txt` to advertise it from.
 - **Added a 96x96 frame to `favicon.ico`** (owner: "add the 96px frame"),
   after they asked why Google shows no icon for the site. Google wants a
   favicon frame that's a multiple of 48px and the artist's source set

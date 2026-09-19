@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-maintained: this site has no build step, so nothing generates this
+  file. Add a <url> here whenever a new public page ships, and update the
+  matching <lastmod> when a page's content actually changes (not for a CSS
+  or cache-buster touch).
+
+  Deliberately NOT listed:
+    - grid.html ................ WIP, carries <meta name="robots"
+                                 content="noindex, nofollow">. Listing a
+                                 noindex page contradicts the sitemap and
+                                 Search Console reports it as an error.
+                                 Add it here in the same change that
+                                 unhides the page.
+    - designer.html ............ legacy redirect shim -> forc3designer.html
+    - forc3-designer-download/ . redirect shim -> the GitHub release
+  Redirects don't belong in a sitemap; only pages that answer 200 with
+  their own content do.
+
+  No <changefreq> or <priority>: Google ignores both outright, and a
+  wrong value is worse than none.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.forc3mod.com/</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://www.forc3mod.com/forc3designer.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://www.forc3mod.com/gt3forc3.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://www.forc3mod.com/SupportUs.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+</urlset>
