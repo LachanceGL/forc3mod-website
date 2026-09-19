@@ -1,0 +1,19 @@
+# FORC3MOD — https://www.forc3mod.com
+#
+# Everything is crawlable. The only point of this file is the Sitemap line
+# below; before it existed the site returned 404 here, which already meant
+# "crawl everything", so nothing about crawling has changed.
+#
+# ⚠️ Do NOT add "Disallow: /grid.html" here while that page is WIP, even
+# though it is meant to stay out of search. Disallow blocks CRAWLING, and a
+# page Google cannot crawl is a page whose <meta name="robots"
+# content="noindex"> Google can never read — so it can still end up indexed
+# from an external link, just with no title or description. Blocking it here
+# would make the situation worse, not better. Allowing the crawl and letting
+# the noindex tag be read is what actually keeps it out. Same reasoning for
+# any future hidden page.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.forc3mod.com/sitemap.xml

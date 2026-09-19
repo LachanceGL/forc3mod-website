@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-19
 
+- **Added `robots.txt`** (owner: "add the robots.txt too"). Allows
+  everything and carries the `Sitemap:` line — that line is the whole point;
+  the previous 404 already meant "crawl everything", so crawling is
+  unchanged. Deliberately **no `Disallow` for `grid.html`**, despite it
+  being the hidden page: `Disallow` blocks crawling, which would stop Google
+  ever reading that page's `noindex` tag and could leave it indexed with no
+  title or snippet — worse than now. That trap is spelled out both in
+  `robots.txt` itself and in `CLAUDE.md`.
 - **Added `sitemap.xml`** (owner: "add the sitemap"), hand-maintained since
   there's no build step. Four public pages only — `/`,
   `/forc3designer.html`, `/gt3forc3.html`, `/SupportUs.html`. `grid.html` is

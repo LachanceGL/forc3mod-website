@@ -103,6 +103,7 @@ than rewriting it from scratch.
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
 | `favicon.ico` | Site favicon, one multi-size ICO (**16/32/64/96/128/256**). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Five of the six frames are the artist's own files, packed byte-for-byte — **don't rebuild those by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. **The 96 is the one exception**: it's generated (LANCZOS downscale of the 256), added 2026-09-19 because Google wants a favicon frame that's a multiple of 48px and the source set has none — see "Favicon and Google search results". If the owner ever supplies a real hand-drawn 96, swap it in and drop the generated one. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
+| `robots.txt` | Added 2026-09-19. Allows everything and points at the sitemap — that Sitemap line is its only real job. **Never add a `Disallow` for a hidden page here**; see "Sitemap and robots.txt" below for why that backfires. |
 | `sitemap.xml` | Hand-maintained sitemap (added 2026-09-19). Lists only the four public pages; `grid.html` is deliberately out while it's `noindex`, as are the two redirect shims. See "Sitemap" below before editing it. |
 | `CNAME` | GitHub Pages custom domain config. |
 
@@ -1605,7 +1606,7 @@ URL Inspection is the search bar across the top of
 is selected — it is not in Chrome DevTools, which is where the owner looked
 first.
 
-### Sitemap
+### Sitemap and robots.txt
 
 `sitemap.xml` (added 2026-09-19, on request) lists the four public pages:
 `/`, `/forc3designer.html`, `/gt3forc3.html`, `/SupportUs.html`.
@@ -1629,10 +1630,26 @@ first.
   nothing links that way, so the `.html` form is the one to list — don't mix
   both, that's two URLs for one page.
 - **Registering it**: Search Console → Sitemaps → submit
-  `https://www.forc3mod.com/sitemap.xml`. There is still no `robots.txt`
-  (404), which is the other place a sitemap is normally advertised — adding
-  a two-line one is the obvious follow-up if wanted, but a Search Console
-  submission alone is enough for Google.
+  `https://www.forc3mod.com/sitemap.xml`.
+
+`robots.txt` (added 2026-09-19, right after) exists almost entirely for its
+`Sitemap:` line. It allows everything — which is exactly what the previous
+404 already meant — so it changed nothing about crawling.
+
+- ⚠️ **Never `Disallow` a page you want kept out of search.** It's the
+  obvious-looking move for `grid.html` and it backfires: `Disallow` blocks
+  **crawling**, and a page Google can't crawl is a page whose
+  `<meta name="robots" content="noindex">` Google can never read. It can
+  still get indexed from an external link, just with no title or
+  description — strictly worse than the current state. Allowing the crawl so
+  the noindex tag *is* read is what actually keeps a page out. The same
+  applies to any future hidden page. This reasoning is repeated inside
+  `robots.txt` itself, because that's where someone will be standing when
+  they get the idea.
+- Consequence worth knowing: `grid.html` is crawlable and always has been.
+  That's intentional. Its exclusion from search rests entirely on the
+  `noindex` meta tag — so if that tag is ever dropped without the nav links
+  going back in, the page quietly becomes indexable.
 
 ## Working conventions for this project
 
