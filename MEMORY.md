@@ -12,6 +12,22 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-21
+
+- **FORC3 Grid relinked** (owner: "put back the FORC3 Grid section online so
+  we can work on it") — undoing the 2026-09-16 hide. Four edits in one
+  commit: dropped `grid.html`'s `noindex` meta; restored the "FORC3 Grid" nav
+  tab and footer Projects link on all five pages (`is-active` on its own);
+  `--container` 1100 → 1200px with the `min-width: 1800px` step removed, nav
+  breakpoint 1120 → 1220px; and `grid.html` added to `sitemap.xml` (it had
+  to stay out while `noindex`). `style.css?v=66`. Re-verified 5 pages × 17
+  widths, 321-1920px, 17px scrollbar penalty: zero overflow, nav flipping
+  exactly between 1220 and 1221, correct active tab on every page, no robots
+  meta anywhere. `CLAUDE.md`'s old "Unhiding" steps became a two-way "Showing
+  / hiding FORC3 Grid" table, since this has now flipped twice.
+
+---
+
 ## 2026-09-19
 
 - **Added `robots.txt`** (owner: "add the robots.txt too"). Allows

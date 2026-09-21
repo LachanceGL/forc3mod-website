@@ -88,7 +88,7 @@ than rewriting it from scratch.
 |---|---|
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
-| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Hidden (WIP)** — `noindex, nofollow`, linked from nowhere, reachable by URL only. It was briefly linked from the nav on 2026-09-16 and hidden again the same day (owner: "we are still working on it"). The page itself is complete; see "Unhiding FORC3 Grid" for the exact steps to put it back. |
+| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Linked and public** since 2026-09-21 (owner: "put back the FORC3 Grid section online so we can work on it"). History: linked 2026-09-16, hidden the same day as WIP, relinked 2026-09-21. See "Showing / hiding FORC3 Grid" for the edits that go together in either direction. |
 | `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
@@ -1350,35 +1350,38 @@ building a second mechanism:
 - The scroll-spy is safe here for free: it only tracks links whose `href`
   starts with `#`, and the toggle is a `<button>` with no `href` at all.
 
-#### Unhiding FORC3 Grid — three edits, they go together
+#### Showing / hiding FORC3 Grid — four edits, they go together
 
-The page is finished and just gated. To put it back:
+**Currently shown** (relinked 2026-09-21). It has flipped twice already
+(linked 2026-09-16, hidden as WIP the same day, relinked 2026-09-21), so
+expect it again. Either direction is these four edits in one commit:
 
-1. Delete the `<meta name="robots" content="noindex, nofollow">` and its
-   comment from `grid.html`.
-2. Add `<a href="grid.html" class="nav__link">FORC3 Grid</a>` after the
-   FORC3 Designer link in the header nav, and `<a href="grid.html">FORC3
-   Grid</a>` after it in the footer's Projects column, on **all five**
-   pages — with `is-active` on `grid.html`'s own nav copy.
-3. **Widen the header to fit it**: `--container` 1100 → 1200px (deleting the
-   now-redundant `min-width: 1800px` step, which sets 1200) and the nav
-   collapse breakpoint 1120 → 1220px. Step 2 without step 3 is the overflow
-   bug — the tab costs ~101.5px of nav width, taking the row from 1030 to
-   1131px of content.
+| | Shown (now) | Hidden |
+|---|---|---|
+| `grid.html` robots meta | none | `<meta name="robots" content="noindex, nofollow">` |
+| Nav tab + footer Projects link, all five pages | present (`is-active` on `grid.html`) | absent |
+| `--container` / nav breakpoint | **1200px / 1220px**, no 1800px step | 1100px / 1120px, plus `min-width: 1800px { --container: 1200px }` |
+| `sitemap.xml` | lists `grid.html` | doesn't |
 
-All three shipped together on 2026-09-16 and were reverted together the
-same day. Re-measure rather than trusting these numbers if anything else in
-the header changed in between.
+- The width pair is the one that bites: the tab costs ~101.5px, taking the
+  header row from 1030 to 1131px of content. Adding the tab without widening
+  is the overflow bug; removing it without narrowing leaves the site wider
+  than the owner's chosen 1100px for no reason.
+- The sitemap and the robots meta have to agree — a `noindex` page listed
+  in a sitemap is a Search Console error.
+- Bump `style.css?v=` on all five pages (the width change touches the CSS).
+- Re-measure rather than trusting these numbers if anything else in the
+  header changed in between. Relinking on 2026-09-21 re-verified them: 5
+  pages × 17 widths, 321-1920px, 17px scrollbar penalty, zero overflow, nav
+  flipping exactly between 1220 and 1221.
 
 ## Nav width — re-measure before adding items
 
-- **Live values: `--container: 1100px`, nav collapses at `max-width:
-  1120px`** — three nav links plus the "Get support" dropdown, needing
-  logo 218.8 + nav 390 + actions 372.7 + 2×24px gaps = 1030px of content
-  (1078px of client width). Re-verified 2026-09-16 after the FORC3 Grid tab
-  was removed again: 5 pages × 24 widths, 321-1920px, each with the 17px
-  scrollbar penalty — zero overflow, nav flipping exactly between 1120 and
-  1121, and the 1100 / 1200@1800 / 1440@2600 container ladder intact.
+- **Live values: `--container: 1200px`, nav collapses at `max-width:
+  1220px`** — four nav links (About / FORC3 Designer / FORC3 Grid /
+  GT3FORC3) plus "Get support", needing 1131px of content. Relinked and
+  re-verified 2026-09-21. Without the Grid tab the pair is 1100 / 1120 (the
+  row is 1030px) — see "Showing / hiding FORC3 Grid".
 - **Measured (2026-09-16, with a FORC3 Grid tab as a 4th nav link)**:
   the tab costs **101.5px** of nav width (390 → 491.5), which put the row
   1131px wide against a 1052px content box — it overflowed the viewport
@@ -1507,8 +1510,9 @@ redirect shim nobody sees, so it has never been kept in step.)
     card was pulled left to remove a big empty block it left, then the
     owner moved the whole thing to the logo edge + 15px. Don't bring back
     the nav-start alignment.
-- **Content width** (`--container`): **1100px**, 1200px at `min-width:
-  1800px`, 1440px at `min-width: 2600px`. History: 1200/1440/1720 →
+- **Content width** (`--container`): **1200px**, 1440px at `min-width:
+  2600px` — forced by the FORC3 Grid nav tab; it's 1100 / 1200@1800 /
+  1440@2600 whenever that tab is out. History: 1200/1440/1720 →
   narrowed 2026-09-14 to the current ladder (owner: "reduce the width of
   the site, we have a lot of wasted space", then chose a narrower column
   over a wider one) → base forced to 1200px on 2026-09-16 when the FORC3
@@ -1551,11 +1555,10 @@ redirect shim nobody sees, so it has never been kept in step.)
   - `grid.html` was synced into this set on 2026-09-14 (owner: "sync the
     grid.html header with the other pages", then "sync the footer too") after
     drifting to old copies (plain "Support us" links, an extra tab) whose
-    header ran 22px past a 1280px window. **Keep mirroring header/footer
-    changes into it even though the page itself is hidden** — that drift is
-    exactly what happened last time it sat unlinked, and it's cheap to
-    avoid. Its header carries no active nav item, and no page (itself
-    included) links to it while it's gated — see "Unhiding FORC3 Grid".
+    header ran 22px past a 1280px window. It's a normal linked page again
+    since 2026-09-21 (its own nav tab `is-active`). **If it's ever hidden
+    again, keep mirroring header/footer changes into it anyway** — that drift
+    is exactly what happened the first time it sat unlinked.
 
 ## Favicon and Google search results
 
@@ -1608,17 +1611,17 @@ first.
 
 ### Sitemap and robots.txt
 
-`sitemap.xml` (added 2026-09-19, on request) lists the four public pages:
-`/`, `/forc3designer.html`, `/gt3forc3.html`, `/SupportUs.html`.
+`sitemap.xml` (added 2026-09-19, on request) lists the five public pages:
+`/`, `/forc3designer.html`, `/grid.html`, `/gt3forc3.html`,
+`/SupportUs.html`.
 
 - **It is hand-maintained** — no build step generates it. Add a `<url>` when
   a new public page ships; update a `<lastmod>` when that page's *content*
   changes, not when a `?v=` bump or a CSS tweak touches the file.
-- **`grid.html` is deliberately excluded** while it carries `noindex`.
-  Listing a noindex page contradicts the sitemap and Search Console reports
-  it as an error — so adding it here belongs in the same change that unhides
-  the page (see "Unhiding FORC3 Grid", which is why that checklist and this
-  file have to move together).
+- **`grid.html` is listed** (since it was relinked on 2026-09-21). If it's
+  ever hidden again with `noindex`, its `<url>` comes out in the same
+  change — a noindex page in a sitemap is a Search Console error. Part of
+  the "Showing / hiding FORC3 Grid" checklist.
 - **The redirect shims are excluded too** (`designer.html`,
   `forc3-designer-download/`). A sitemap is for URLs that answer 200 with
   their own content, not for redirects.
@@ -1646,10 +1649,9 @@ first.
   applies to any future hidden page. This reasoning is repeated inside
   `robots.txt` itself, because that's where someone will be standing when
   they get the idea.
-- Consequence worth knowing: `grid.html` is crawlable and always has been.
-  That's intentional. Its exclusion from search rests entirely on the
-  `noindex` meta tag — so if that tag is ever dropped without the nav links
-  going back in, the page quietly becomes indexable.
+- Consequence worth knowing: whenever a page is hidden with `noindex`, its
+  exclusion from search rests entirely on that meta tag — the page stays
+  crawlable on purpose.
 
 ## Working conventions for this project
 
@@ -1693,8 +1695,8 @@ live here was fixed on 2026-09-16 — see "Header breakpoint ladder" below.)*
 
 `.header__actions` sheds its lowest-priority item at each of four
 thresholds: **740px** Discord's label, **670px** "Support us", **570px**
-the three social icons, **480px** the logo size and gaps. Plus **1120px**
-for the nav itself (1220px whenever a 5th nav item is present — see
+the three social icons, **480px** the logo size and gaps. Plus **1220px**
+for the nav itself (1120px whenever the FORC3 Grid tab is out — see
 "Nav width"). The live numbers and arithmetic are in `css/style.css`
 under the same heading; the point to carry here is *why they moved*.
 
