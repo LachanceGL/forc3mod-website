@@ -508,9 +508,15 @@ screenshot marking the empty space under the hero buttons.
 
 ### FORC3 Grid's two hero buttons — one of them is dead until a build ships
 
-`grid.html`'s hero has **"Download the app"** and **"Open web version"**
-(owner, 2026-09-16; they were "Open FORC3 Grid" / "Paint one first", the
-second of which pointed at `forc3designer.html`).
+`grid.html`'s hero has **"Download the app"** and **"Open the web version"**,
+both with the same trailing arrow icon (owner, 2026-09-16 then 2026-09-21;
+originally "Open FORC3 Grid" / "Paint one first", the second of which
+pointed at `forc3designer.html`). The "Runs in your browser. Chrome or
+Edge, on desktop." caption under them was removed 2026-09-21 on request, so
+the buttons now sit in a plain `.hero__cta.hero__cta--offset` row like the
+other pages — the `.hero__cta-group` wrapper only existed to keep that
+caption aligned and went with it. `.hero__source` is still used by
+`forc3designer.html`'s "Hosted on GitHub", so its CSS stays.
 
 - **"Open web version"** → `https://grid.forc3mod.com`, the browser app.
   That's the one that actually works today.
@@ -529,13 +535,9 @@ second of which pointed at `forc3designer.html`).
   release. **Check it against the first real release** rather than assuming.
 - There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
   the same way if a shareable `forc3mod.com` download URL is ever wanted.
-- Two things went stale when the labels changed and were left alone
-  deliberately, not missed: the `.hero__source` caption still reads "Runs in
-  your browser. Chrome or Edge, on desktop." (true of the web version, not
-  of a downloaded app, and it now sits under both buttons), and the "What it
-  does" section's CTA still says "Open FORC3 Grid" without saying which one.
-  Both were flagged to the owner; revisit them together with whatever the
-  real app/web split turns out to be.
+- Still open: the "What it does" section's CTA says "Open FORC3 Grid"
+  (it goes to the web app) without saying which version. Flagged to the
+  owner, not changed.
 
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 

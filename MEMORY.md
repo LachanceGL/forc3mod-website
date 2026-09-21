@@ -14,6 +14,12 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- `grid.html` hero: the ghost button is now **"Open the web version"** with
+  the same arrow as "Download the app", and the "Runs in your browser"
+  caption is gone (owner). The `.hero__cta-group` wrapper went with the
+  caption; the row is a plain `.hero__cta--offset` now. Checked 375-1440px:
+  100px desktop offset kept, buttons stack and centre on narrow screens, no
+  overflow.
 - **FORC3 Grid relinked** (owner: "put back the FORC3 Grid section online so
   we can work on it") — undoing the 2026-09-16 hide. Four edits in one
   commit: dropped `grid.html`'s `noindex` meta; restored the "FORC3 Grid" nav
