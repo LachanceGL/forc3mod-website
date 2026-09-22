@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **FORC3 Grid relinked again**, hours later (owner: "put back the FORC3
+  grid section online") — the same four edits reversed once more: noindex
+  off, nav tab + footer link back on all five pages, `--container` 1100 →
+  1200 with the 1800px step dropped, nav breakpoint 1120 → 1220, `grid.html`
+  back in `sitemap.xml`. `style.css?v=71`. Re-verified 5 pages × 17 widths
+  with the 17px scrollbar penalty: zero overflow, nav flipping between 1220
+  and 1221, right tab active per page, no robots meta anywhere. That's the
+  fourth flip; the CLAUDE.md table is the checklist, and it held exactly.
 - **FORC3 Grid hidden again** (owner: "hide the FORC3 Designer page again",
   confirmed on asking to mean FORC3 Grid). Same four edits as the 2026-09-21
   relink, reversed, in one commit: `noindex` back on `grid.html`; nav tab and
