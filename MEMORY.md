@@ -12,6 +12,20 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-22
+
+- **FORC3 Grid hidden again** (owner: "hide the FORC3 Designer page again",
+  confirmed on asking to mean FORC3 Grid). Same four edits as the 2026-09-21
+  relink, reversed, in one commit: `noindex` back on `grid.html`; nav tab and
+  footer link removed from all five pages; `--container` 1200 → 1100 with the
+  1800px step restored, nav breakpoint 1220 → 1120; `grid.html` out of
+  `sitemap.xml`. `style.css?v=70`. Verified 5 pages × 17 widths with the 17px
+  scrollbar penalty: zero overflow, nav flipping between 1120 and 1121. All
+  the page content work from 2026-09-21 (icon row, changelog, photo card,
+  copy) stays on `grid.html`, just unlinked.
+
+---
+
 ## 2026-09-21
 
 - New first bullet on `grid.html`'s feature list (owner): "Create and export
