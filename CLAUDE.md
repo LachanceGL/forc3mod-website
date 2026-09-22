@@ -535,6 +535,22 @@ caption aligned and went with it. `.hero__source` is still used by
   release. **Check it against the first real release** rather than assuming.
 - There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
   the same way if a shareable `forc3mod.com` download URL is ever wanted.
+- **Source of truth for what the app does is the Grid repo itself** —
+  `G:\FORC3MODorc3-grid` (`README.md`, `CLAUDE.md`, `docs/ROADMAP.md`,
+  `MEMORY.md`), not this page's old copy. On 2026-09-21 the hero lead was
+  rewritten from it: the old line said packs install "re-linked to your own
+  cars", which that project found on 2026-09-20 is the *wrong* behaviour —
+  re-linking makes a livery drivable but invisible to other players, so a
+  pack now carries the author's saved car and re-linking is only a fallback
+  for old packs. The new lead also mentions the Community Grid (live on
+  `grid.forc3mod.com`, Discord sign-in, uploads). Re-read those docs before
+  writing any new Grid copy here; the app moves faster than this page.
+- **Still stale on `grid.html`, flagged but not changed** (owner asked for
+  the hero line only): the meta description still says "re-linked to your
+  own cars automatically"; the feature bullet "Automatically linked to the
+  right car in your garage" describes the old re-link; and "Nothing uploaded
+  // your folder is read in your browser" is no longer the whole story now
+  that the Community Grid takes uploads.
 - Still open: the "What it does" section's CTA says "Open FORC3 Grid"
   (it goes to the web app) without saying which version. Flagged to the
   owner, not changed.

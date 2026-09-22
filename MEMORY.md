@@ -14,6 +14,13 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- `grid.html` hero lead rewritten from the Grid repo's own docs (owner:
+  "closer to what we know the app does"). The old copy promised packs
+  "re-linked to your own cars" — exactly the behaviour the Grid project
+  measured as broken on 2026-09-20 (drivable, invisible to other players).
+  Now: packs carry the author's car so the livery shows up as it was made,
+  plus a mention of the live Community Grid. Meta description and two
+  feature bullets still carry the old claims; flagged, not changed.
 - `grid.html` hero: the ghost button is now **"Open the web version"** with
   the same arrow as "Download the app", and the "Runs in your browser"
   caption is gone (owner). The `.hero__cta-group` wrapper went with the
