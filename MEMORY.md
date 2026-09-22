@@ -14,6 +14,8 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- New first bullet on `grid.html`'s feature list (owner): "Create and export
+  liveries directly from FORC3 Designer". Five bullets now.
 - Fixed the page shifting ~5px right whenever a modal opened (owner
   reported it on the Grid changelog; it hit every modal on the site). The
   scroll lock hid the scrollbar and the page widened into its space;
