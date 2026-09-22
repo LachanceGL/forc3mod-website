@@ -14,6 +14,13 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- `grid.html`'s "What it does" card is now a photo card showing the owner's
+  FORC3 Grid screenshot (`img/FG_SitePreview.jpg`, 1259×823, copied
+  byte-identical from `LOCAL_forc3-grid`). Needed its own
+  `.theme-grid .about__card--photo::before` override — without it the
+  theme's plain-card gradient out-ranks the photo and it silently vanishes
+  (the documented photo-card trap) — and `aspect-ratio: 1259 / 823` so the
+  whole screenshot shows uncropped. Checked 375-1440px. `style.css?v=68`.
 - Removed `grid.html`'s bottom "Open FORC3 Grid" button (owner). Added
   `.feature-list:last-child { margin-bottom: 0 }` so the now-trailing list
   doesn't leave 26px of dead space pushing the text off centre beside the

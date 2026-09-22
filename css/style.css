@@ -1303,6 +1303,28 @@ h1, h2, h3, h4, h5 {
    this column's width. */
 .theme-grid .about__card { align-items: flex-end; }
 .theme-grid .about__card h3 { font-size: 22px; text-align: right; }
+/* The "What it does" card shows FG_SitePreview.jpg, the owner's own app
+   screenshot, used as-is (same rule as FD_SitePreview.jpg: real file, no
+   derivative crop). Two things are required, same as theme-designer:
+   1. This ::before override. `.theme-grid .about__card::before` above out-ranks
+      the base `.about__card--photo::before`, so without it the photo silently
+      falls back to the plain orange gradient (see CLAUDE.md, "Photo cards").
+      The dark pool sits in the bottom-right corner, where the heading is.
+   2. aspect-ratio = the file's real pixel size, so `cover` shows the whole
+      screenshot with no crop at every width. If the image is replaced,
+      re-read its dimensions; min-height: 0 cancels the mobile 330px floor,
+      which would otherwise fight the ratio and widen the box. */
+.theme-grid .about__card--photo::before {
+  background:
+    linear-gradient(to top left, rgba(0,0,0,.9) 0%, rgba(0,0,0,.55) 30%, transparent 65%),
+    var(--about-photo);
+  background-size: cover;
+  background-position: center;
+}
+.theme-grid .about__card--photo {
+  aspect-ratio: 1259 / 823;
+  min-height: 0;
+}
 .theme-grid .card:hover { border-color: rgba(255, 122, 24, .4); }
 .theme-grid .card--featured { border-color: rgba(255, 122, 24, .35); }
 

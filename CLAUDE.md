@@ -98,6 +98,7 @@ than rewriting it from scratch.
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
 | `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
+| `img/FG_SitePreview.jpg` | Owner-provided FORC3 Grid screenshot (the app's "My Showroom" screen, 1259×823), copied byte-for-byte from `G:\FORC3MOD\LOCAL_forc3-grid\Screenshot_1.jpg` on 2026-09-21. Photo background of `grid.html`'s "What it does" card; the card's `aspect-ratio: 1259 / 823` is this file's real size — update it if the image is ever replaced. Same "real file, no derivative" rule as `FD_SitePreview.jpg`. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
 | `video/forc3designer-demo-03.mp4` | **Currently active** owner-provided demo video (1960×1080, ~68s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
@@ -122,15 +123,18 @@ than rewriting it from scratch.
   `.theme-grid .about__card` puts the heading in the card's bottom-right at
   22px, mirroring `.theme-designer .about__card--photo`. Measured identical
   to FORC3 Designer's at 1400px: media 469.2px at x=124, body 634.8px at
-  x=641.2, heading 41px in from both the card's right and bottom edge. The
-  one thing that does NOT match is the card's height — FORC3 Designer's is a
-  real screenshot at the file's own 824/485 ratio, Grid has no screenshot
-  asset yet, so its card is the plain gradient one at the site-default 4/3
-  (469×352 vs 469×276). Give it a `--about-photo` when an image exists and
-  it'll match properly; **don't** copy the `824 / 485` ratio onto a photoless
-  card to fake it (that number is one file's pixel dimensions, not a design
-  constant). A new photo card here would also need its own
-  `.theme-grid .about__card--photo::before` override — see "Photo cards".
+  x=641.2, heading 41px in from both the card's right and bottom edge.
+  **Since 2026-09-21 it's a real photo card too** (owner: "use the image
+  inside G:\FORC3MOD\LOCAL_forc3-grid as the preview one"):
+  `img/FG_SitePreview.jpg`, with `.theme-grid .about__card--photo` at the
+  file's own `aspect-ratio: 1259 / 823` and its own
+  `.theme-grid .about__card--photo::before` override (bottom-right dark
+  pool, same stops as theme-designer's). Verified at 375-1440px: the ratio
+  holds at every width, the photo is in the `::before` layer, the heading
+  paints above it (`elementFromPoint` returns the H3), no overflow. The two
+  product pages' cards differ in height only because the two screenshots
+  are different shapes (1.53 vs 1.70) — which is correct; don't force one
+  ratio onto both.
 - `gt3forc3.html` → `body.theme-gt3` → **red** accent.
 - **Important**: on both themed pages, `.theme-designer .header` and
   `.theme-gt3 .header` explicitly re-pin the header's accent vars back to
@@ -191,9 +195,9 @@ element.
   base `.about__card--photo::before` rule, adding `--photo` to a themed page
   **silently falls back to the flat gradient and drops the photo entirely**
   unless that theme also has its own `.theme-X .about__card--photo::before`
-  override (copy the linear-gradient + `var(--about-photo)` block). Both
-  `.theme-gt3` and `.theme-designer` have this override now — if you add a
-  new theme, you'll need one too.
+  override (copy the linear-gradient + `var(--about-photo)` block).
+  `.theme-gt3`, `.theme-designer` and `.theme-grid` all have this override
+  now — if you add a new theme, you'll need one too.
 - **`url()` in a custom property resolves where it's *used*, not where it's
   *declared***: the inline `style="--about-photo: url('img/foo.jpg')"` lives
   in the HTML page (site root), but the actual `background: ..., var(--about-photo)`
