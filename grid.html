@@ -96,6 +96,10 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="container hero__inner">
+      <div class="hero__icon-row">
+        <img src="img/grid-icon.png" alt="FORC3 Grid" class="hero__app-icon" />
+        <button type="button" class="btn btn--ghost btn--sm hero__changelog-btn" data-modal-target="#changelog">Change Log</button>
+      </div>
       <p class="eyebrow"><span class="dot"></span> AC EVO LIVERY MANAGER</p>
       <h1 class="hero__title">Your liveries.<br />Shared with the <span class="grad">grid.</span></h1>
       <p class="hero__lead">
@@ -185,6 +189,29 @@
       <p class="footer__links">// V 0.3</p>
     </div>
   </footer>
+
+  <!-- ===== Changelog modal =====
+       Same markup as forc3designer.html's, driven by the generic modal system
+       in main.js (deep-linkable as grid.html#changelog, entries as #v0-1-0).
+       Kept to one placeholder entry on purpose: no FORC3 Grid release is
+       published yet, and the only notes that exist (the v0.1.0 draft on
+       forc3-grid-releases) predate and contradict how the app works now. -->
+  <div class="modal-overlay" id="changelog" aria-hidden="true">
+    <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="changelogTitle">
+      <div class="modal__header">
+        <h3 id="changelogTitle">Changelog</h3>
+        <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close changelog">&times;</button>
+      </div>
+      <div class="modal__body">
+        <details class="modal__entry" id="v0-1-0">
+          <summary class="modal__version"><span class="modal__version-text">v0.1.0 <span class="modal__date">// Coming soon</span></span></summary>
+          <div class="modal__entry-body">
+            <p>First beta build of FORC3 Grid. Release notes land here when it ships.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js?v=27"></script>
 </body>

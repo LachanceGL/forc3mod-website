@@ -14,6 +14,21 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- **Icons and a Grid changelog.** `grid.html`'s hero got the Designer page's
+  icon row: the v2 "3G" icon (`img/grid-icon.png`) and a Change Log button
+  opening a `#changelog` modal. Markup only, no CSS/JS. The changelog holds one
+  placeholder entry, "v0.1.0 // Coming soon": the only notes that exist are
+  in an unpublished draft (2026-09-17) that contradicts the app's current
+  behaviour, so none of it was copied. The same check found that draft already
+  ships an asset named `FORC3-Grid-Setup.exe`, so the download button should
+  work as soon as it's published. Mid-task the owner asked for the Designer
+  page's icon to be swapped too: it's now the v2 "3D" mark
+  (`img/designer-icon.png`). The old `img/icon.png` is kept, unreferenced. Both
+  icons are new filenames because images carry no cache-buster.
+  Preview-browser note: the modal read opacity 0 after opening on BOTH pages,
+  including the Designer one that works in production. Transitions don't run
+  in a background pane, so that reading isn't a bug; the class, URL hash,
+  Escape and deep link were checked instead.
 - Cut three `grid.html` feature bullets on request (author's car, broken/
   unlinked liveries, game folder stays on your PC). Four remain.
 - `grid.html`'s "What it does" card is now a photo card showing the owner's

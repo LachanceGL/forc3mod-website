@@ -96,7 +96,9 @@ than rewriting it from scratch.
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
 | `img/forc3mod-logo.svg` | FORC3MOD wordmark. Blue gradient is baked into the file itself. |
-| `img/icon.png` | FORC3 Designer app icon (blue-to-lime "FD" mark), shown inline in the hero on `forc3designer.html`. |
+| `img/designer-icon.png` | FORC3 Designer's hero icon since 2026-09-21 — the v2 "3D" mark, byte-for-byte `forc3designer_256.png` from `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons`. |
+| `img/grid-icon.png` | FORC3 Grid's hero icon (added 2026-09-21) — the v2 "3G" mark, byte-for-byte `forc3grid_256.png` from the same folder, which is also identical to the Grid app's own `src-tauri/icons/256x256.png`. |
+| `img/icon.png` | The **old** FORC3 Designer icon (blue-to-lime "FD" mark), unreferenced since 2026-09-21 when the v2 icon replaced it. Kept, same "owner-provided, don't delete" reasoning as the old screenshots and videos. New icons went in under new filenames rather than overwriting this one: images carry no `?v=` cache-buster, so reusing the name would have left some browsers on the old mark. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
 | `img/FG_SitePreview.jpg` | Owner-provided FORC3 Grid screenshot (the app's "My Showroom" screen, 1259×823), copied byte-for-byte from `G:\FORC3MOD\LOCAL_forc3-grid\Screenshot_1.jpg` on 2026-09-21. Photo background of `grid.html`'s "What it does" card; the card's `aspect-ratio: 1259 / 823` is this file's real size — update it if the image is ever replaced. Same "real file, no derivative" rule as `FD_SitePreview.jpg`. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
@@ -576,6 +578,39 @@ caption aligned and went with it. `.hero__source` is still used by
   spaced the list from a button; left in, it sat the text 13px above centre
   beside the card (measured 0px off centre after). Lists followed by a button
   (FORC3 Designer, Support Us) keep their 26px.
+
+### FORC3 Grid's hero icon row and changelog (added 2026-09-21)
+
+Owner: "just like the Designer page, add the Icon and changelog next to it".
+`grid.html`'s hero now opens with the same `.hero__icon-row` as
+`forc3designer.html`: `img/grid-icon.png` plus a "Change Log" button that
+opens a `#changelog` modal. All shared CSS and the generic modal system in
+`main.js`, so there are no CSS or JS changes. Measured identical to the Designer
+row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
+`grid.html#changelog` deep-links like the Designer's, and entries are
+`#v0-1-0` style.
+
+- ⚠️ **The changelog has one placeholder entry on purpose: "v0.1.0 //
+  Coming soon".** No FORC3 Grid release is published: `forc3-grid-releases`
+  has only a **draft** v0.1.0, created 2026-09-17. Its notes predate two of
+  the Grid project's own findings and now contradict the app and this page.
+  They call re-linking "the whole reason this exists", and they say
+  multiplayer visibility is "not verified". Since then, the 2026-09-18
+  two-machine run verified it, and on 2026-09-20 re-linking was demoted to a
+  fallback. Nor is it clear whether the v0.1.0 binary itself carries the
+  author's car or still re-links, so rewriting those notes here would risk
+  stating something false about that exact build. Fill the entry from the
+  release notes once v0.1.0 is actually published (and corrected), using the
+  Designer's entry markup.
+- **Good news for the download button:** that draft already carries an asset
+  named exactly `FORC3-Grid-Setup.exe`, alongside the versioned
+  `FORC3.Grid_0.1.0_x64-setup.exe`. So the hero's
+  `releases/latest/download/FORC3-Grid-Setup.exe` link should start working
+  the moment the draft is published, with no change here. That filename was a
+  guess until this check. Re-verify with `curl` after publishing, since only
+  published releases resolve through `latest`.
+- Checked via `gh api` (authenticated read) because unauthenticated API calls
+  don't show drafts — which is why earlier checks reported "zero releases".
 
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 
