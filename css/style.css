@@ -66,6 +66,12 @@ button {
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--surface-2) var(--bg);
+  /* Keep the scrollbar's space reserved even while a modal has locked the
+     page (main.js sets overflow: hidden on <html>/<body> when one opens).
+     Without it the scrollbar vanished on open, the page got ~10px wider and
+     every centred element jumped ~5px right (owner, 2026-09-21: "the whole
+     site slightly move to the right"). */
+  scrollbar-gutter: stable;
 }
 ::-webkit-scrollbar { width: 12px; height: 12px; }
 ::-webkit-scrollbar-track { background: var(--bg); }

@@ -14,6 +14,11 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- Fixed the page shifting ~5px right whenever a modal opened (owner
+  reported it on the Grid changelog; it hit every modal on the site). The
+  scroll lock hid the scrollbar and the page widened into its space;
+  `html { scrollbar-gutter: stable }` reserves it. 0px shift measured on all
+  three modals at 1440/375px. `style.css?v=69`.
 - **Icons and a Grid changelog.** `grid.html`'s hero got the Designer page's
   icon row: the v2 "3G" icon (`img/grid-icon.png`) and a Change Log button
   opening a `#changelog` modal. Markup only, no CSS/JS. The changelog holds one

@@ -684,6 +684,16 @@ building a new one:
   opens and pauses + rewinds to 0 when it closes (generic — applies to any
   future video modal too, not hardcoded to the demo one). See "Demo video
   modal" below for the current instance.
+- **Opening a modal no longer shifts the page** (fixed 2026-09-21; owner: "the
+  whole site slightly move to the right"). `openModal()` locks scrolling with
+  `overflow: hidden` on `<html>` and `<body>`, which removed the scrollbar:
+  the page got ~10px wider and every centred element jumped ~5px right.
+  `html { scrollbar-gutter: stable }` in `style.css` keeps the scrollbar's
+  space reserved while locked; measured 0px shift on all three modals at
+  1440 and 375px. Don't "fix" it instead by padding `<body>` in JS — the CSS
+  property needs no measuring and can't drift. Note `clientWidth` still
+  reports the old 1430 → 1440 change during a lock; measure element
+  positions, not `clientWidth`, to check this.
 - **Only one modal is ever open at a time.** Opening a modal closes any
   other currently-open one first. A mouse can't normally trigger this itself
   (an open modal's fixed-position overlay covers every trigger button on the
