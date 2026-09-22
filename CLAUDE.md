@@ -561,9 +561,13 @@ caption aligned and went with it. `.hero__source` is still used by
   re-link fallback would not. Keep the wording to "drivers with the same
   pack" — don't widen it to "everyone online sees your livery", which is
   not what was measured.
-- Still open: the "What it does" section's CTA says "Open FORC3 Grid"
-  (it goes to the web app) without saying which version. Flagged to the
-  owner, not changed.
+- The "What it does" section has **no button** since 2026-09-21 (owner:
+  "remove that bottom button" — it was an unlabelled "Open FORC3 Grid" to the
+  web app). The section now ends on its feature list, so a generic
+  `.feature-list:last-child { margin-bottom: 0 }` drops the 26px that only
+  spaced the list from a button; left in, it sat the text 13px above centre
+  beside the card (measured 0px off centre after). Lists followed by a button
+  (FORC3 Designer, Support Us) keep their 26px.
 
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 

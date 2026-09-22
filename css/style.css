@@ -834,6 +834,12 @@ h1, h2, h3, h4, h5 {
 }
 
 .feature-list { margin: 20px 0 26px; display: flex; flex-direction: column; gap: 12px; }
+/* The 26px bottom margin only exists to space the list from a CTA button
+   under it. When nothing follows (grid.html's "What it does", since its
+   button was removed 2026-09-21), it would just be dead space — and since
+   .about centres its columns vertically, it would sit the text 13px above
+   centre next to the card. */
+.feature-list:last-child { margin-bottom: 0; }
 .feature-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--text-dim); }
 .tick {
   flex-shrink: 0;

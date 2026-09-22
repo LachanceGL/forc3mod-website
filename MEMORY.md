@@ -14,6 +14,11 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- Removed `grid.html`'s bottom "Open FORC3 Grid" button (owner). Added
+  `.feature-list:last-child { margin-bottom: 0 }` so the now-trailing list
+  doesn't leave 26px of dead space pushing the text off centre beside the
+  card; other pages' lists still precede a button and are unaffected.
+  `style.css?v=67`.
 - `grid.html` hero lead rewritten from the Grid repo's own docs (owner:
   "closer to what we know the app does"). The old copy promised packs
   "re-linked to your own cars" — exactly the behaviour the Grid project
