@@ -536,7 +536,7 @@ caption aligned and went with it. `.hero__source` is still used by
 - There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
   the same way if a shareable `forc3mod.com` download URL is ever wanted.
 - **Source of truth for what the app does is the Grid repo itself** —
-  `G:\FORC3MODorc3-grid` (`README.md`, `CLAUDE.md`, `docs/ROADMAP.md`,
+  `G:\FORC3MOD\forc3-grid` (`README.md`, `CLAUDE.md`, `docs/ROADMAP.md`,
   `MEMORY.md`), not this page's old copy. On 2026-09-21 the hero lead was
   rewritten from it: the old line said packs install "re-linked to your own
   cars", which that project found on 2026-09-20 is the *wrong* behaviour —
