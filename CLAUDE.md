@@ -556,7 +556,11 @@ caption aligned and went with it. `.hero__source` is still used by
   you share it" replaced "Nothing uploaded" (the Community Grid takes
   uploads now), and a new bullet says **"Drivers with the same pack see it
   on each other's cars online"** (owner asked for something saying others
-  will see it).
+  will see it). Later that day the owner cut three of them — "Installs with
+  the author's car…", "Spot broken or unlinked liveries…" and "Your game
+  folder stays on your PC…" — leaving four: see every livery, pack into a
+  `.grid`, install by dropping, and the online-visibility line. The
+  author's-car point now lives only in the hero lead.
 - ⚠️ **That multiplayer claim rests on one measurement** —
   `forc3-grid`'s `docs/ACEVO_LIVERIES.md`, "SOLVED (2026-09-18)": two of the
   owner's machines, each with the pack installed carrying the author's saved

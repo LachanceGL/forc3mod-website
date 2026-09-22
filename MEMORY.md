@@ -14,6 +14,8 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-21
 
+- Cut three `grid.html` feature bullets on request (author's car, broken/
+  unlinked liveries, game folder stays on your PC). Four remain.
 - `grid.html`'s "What it does" card is now a photo card showing the owner's
   FORC3 Grid screenshot (`img/FG_SitePreview.jpg`, 1259×823, copied
   byte-identical from `LOCAL_forc3-grid`). Needed its own
