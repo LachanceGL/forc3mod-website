@@ -545,12 +545,22 @@ caption aligned and went with it. `.hero__source` is still used by
   for old packs. The new lead also mentions the Community Grid (live on
   `grid.forc3mod.com`, Discord sign-in, uploads). Re-read those docs before
   writing any new Grid copy here; the app moves faster than this page.
-- **Still stale on `grid.html`, flagged but not changed** (owner asked for
-  the hero line only): the meta description still says "re-linked to your
-  own cars automatically"; the feature bullet "Automatically linked to the
-  right car in your garage" describes the old re-link; and "Nothing uploaded
-  // your folder is read in your browser" is no longer the whole story now
-  that the Community Grid takes uploads.
+- The rest of the page was brought in line the same day, on request: the
+  meta description, and the "What it does" list — "Installs with the
+  author's car, so it looks the way they made it" replaced the re-link
+  bullet, "Your game folder stays on your PC // nothing is uploaded unless
+  you share it" replaced "Nothing uploaded" (the Community Grid takes
+  uploads now), and a new bullet says **"Drivers with the same pack see it
+  on each other's cars online"** (owner asked for something saying others
+  will see it).
+- ⚠️ **That multiplayer claim rests on one measurement** —
+  `forc3-grid`'s `docs/ACEVO_LIVERIES.md`, "SOLVED (2026-09-18)": two of the
+  owner's machines, each with the pack installed carrying the author's saved
+  car, both saw the livery on the other's car in a session. It holds
+  *because* both hold the same `car_guid`; a pack installed through the old
+  re-link fallback would not. Keep the wording to "drivers with the same
+  pack" — don't widen it to "everyone online sees your livery", which is
+  not what was measured.
 - Still open: the "What it does" section's CTA says "Open FORC3 Grid"
   (it goes to the web app) without saying which version. Flagged to the
   owner, not changed.

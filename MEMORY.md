@@ -19,8 +19,12 @@ explicitly rather than leaving the old entry looking still-current.
   "re-linked to your own cars" — exactly the behaviour the Grid project
   measured as broken on 2026-09-20 (drivable, invisible to other players).
   Now: packs carry the author's car so the livery shows up as it was made,
-  plus a mention of the live Community Grid. Meta description and two
-  feature bullets still carry the old claims; flagged, not changed.
+  plus a mention of the live Community Grid. Then, on request, the meta
+  description and the feature list followed: the re-link bullet became
+  "Installs with the author's car", "Nothing uploaded" became "nothing is
+  uploaded unless you share it", and a new bullet — "Drivers with the same
+  pack see it on each other's cars online" — was checked against the Grid
+  project's two-machine multiplayer run of 2026-09-18 before going in.
 - `grid.html` hero: the ghost button is now **"Open the web version"** with
   the same arrow as "Download the app", and the "Runs in your browser"
   caption is gone (owner). The `.hero__cta-group` wrapper went with the
