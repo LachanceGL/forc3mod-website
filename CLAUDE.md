@@ -533,15 +533,14 @@ caption aligned and went with it. `.hero__source` is still used by
   `https://github.com/LachanceGL/forc3-grid-releases/releases/latest/download/FORC3-Grid-Setup.exe`
   — same "latest release" pattern as FORC3 Designer's button, and a
   **fourth** repo to keep straight (`forc3-grid-releases`, GitHub, built
-  installers only). ⚠️ **It returns 404 as of 2026-09-16**: the repo exists
-  but has **zero published releases**. Confirmed with the GitHub API and
-  `curl` at the time of writing, and confirmed with the owner, who said
-  "it will be the Github download link to the .exe, but it's not available
-  yet" — so this is expected, not a bug to chase. It starts working on its
-  own the moment a release is published *whose installer asset is named
-  exactly `FORC3-Grid-Setup.exe`* — that filename is this doc's guess,
-  copied from the Designer convention, not something read off a real
-  release. **Check it against the first real release** rather than assuming.
+  installers only). **Live since v0.1.0 was published on 2026-09-23** —
+  verified end to end with `curl -L`: 302 → 302 → 200, ~2.96 MB. The release
+  ships BOTH `FORC3-Grid-Setup.exe` (the stable name this link depends on)
+  and the versioned `FORC3.Grid_0.1.0_x64-setup.exe` that Tauri's updater
+  uses; keep publishing the unversioned copy or this link 404s. It returned
+  404 from 2026-09-16 to 09-23, while only a draft existed — drafts don't
+  resolve through `latest`, and unauthenticated API calls don't show them at
+  all, which is why checks then reported "zero releases".
 - There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
   the same way if a shareable `forc3mod.com` download URL is ever wanted.
 - **Source of truth for what the app does is the Grid repo itself** —
@@ -603,27 +602,28 @@ row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
 `grid.html#changelog` deep-links like the Designer's, and entries are
 `#v0-1-0` style.
 
-- ⚠️ **The changelog has one placeholder entry on purpose: "v0.1.0 //
-  Coming soon".** No FORC3 Grid release is published: `forc3-grid-releases`
-  has only a **draft** v0.1.0, created 2026-09-17. Its notes predate two of
-  the Grid project's own findings and now contradict the app and this page.
-  They call re-linking "the whole reason this exists", and they say
-  multiplayer visibility is "not verified". Since then, the 2026-09-18
-  two-machine run verified it, and on 2026-09-20 re-linking was demoted to a
-  fallback. Nor is it clear whether the v0.1.0 binary itself carries the
-  author's car or still re-links, so rewriting those notes here would risk
-  stating something false about that exact build. Fill the entry from the
-  release notes once v0.1.0 is actually published (and corrected), using the
-  Designer's entry markup.
-- **Good news for the download button:** that draft already carries an asset
-  named exactly `FORC3-Grid-Setup.exe`, alongside the versioned
-  `FORC3.Grid_0.1.0_x64-setup.exe`. So the hero's
-  `releases/latest/download/FORC3-Grid-Setup.exe` link should start working
-  the moment the draft is published, with no change here. That filename was a
-  guess until this check. Re-verify with `curl` after publishing, since only
-  published releases resolve through `latest`.
-- Checked via `gh api` (authenticated read) because unauthenticated API calls
-  don't show drafts — which is why earlier checks reported "zero releases".
+- **The v0.1.0 entry is real as of 2026-09-23**, filled from the published
+  release notes (owner: "the .exe for downloading the FORC3 Grid app is now
+  available"). It held a "v0.1.0 // Coming soon" placeholder until then,
+  deliberately: the only notes that existed were on an unpublished draft
+  whose text predated two of the Grid project's own findings and contradicted
+  both the app and this page.
+- **The published notes were corrected before release**, which is what made
+  them safe to copy: they now say a pack carries the author's saved car (not
+  "re-linked to your own"), and they state the multiplayer result outright
+  rather than calling it unverified. Matches this page's own copy and
+  `forc3-grid`'s docs. **Still diff the release body against the Grid repo's
+  current docs before copying a future release** — that gap was real once.
+- Shape: three intro paragraphs, then `<h4>In this build</h4>` and
+  `<h4>Known, and worth saying up front</h4>` over `.feature-list` bullets —
+  the Designer's entry markup exactly. The release body's trailing
+  "the website does the same job in a browser" line was dropped as
+  release-page boilerplate; the page has an "Open the web version" button.
+  Em dashes converted to `//` per the site's copy rule.
+- **There is no `docs/GRID-CHANGELOG.md`.** FORC3 Designer keeps one as the
+  authoritative source for its modal; Grid's entry was written straight from
+  the GitHub release instead. Worth creating if Grid's changelog grows past
+  a couple of entries, so the two products work the same way.
 
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 

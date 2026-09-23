@@ -14,6 +14,17 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **FORC3 Grid v0.1.0 is published**, so the changelog placeholder became a
+  real entry (owner linked the release). Filled from the published notes:
+  three intro paragraphs plus "In this build" (11 bullets) and "Known, and
+  worth saying up front" (3), Designer entry markup, em dashes converted to
+  `//`. The trailing "website does the same job" line was dropped as
+  boilerplate. **The hero's "Download the app" button needed no change and
+  now works** — verified `curl -L` 302→302→200, ~2.96 MB, because the release
+  ships the unversioned `FORC3-Grid-Setup.exe` the link was betting on.
+  Checked the modal at 1440 and 375px: `#v0-1-0` deep-links, expands, nothing
+  past the modal edge. HTML-only, no `?v=` bump. Noted that Grid has no
+  `docs/GRID-CHANGELOG.md` equivalent yet.
 - **FORC3 Grid shown again** (owner: "put back FORC3 Grid section online") —
   sixth flip, same day as the fifth. Four-part checklist plus the hero button
   back to "Get FORC3 Grid" (the pair the owner picked on 09-22). **No CSS
