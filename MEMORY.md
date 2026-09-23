@@ -14,6 +14,16 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **FORC3 Grid shown again** (owner: "put back FORC3 Grid section online") —
+  sixth flip, same day as the fifth. Four-part checklist plus the hero button
+  back to "Get FORC3 Grid" (the pair the owner picked on 09-22). **No CSS
+  change and no `?v=` bump**: the row returns to 1035px, which the existing
+  1100/1120 pair already covers — only a nav carrying both Grid and GT3FORC3
+  needs 1200/1220. Verified 5 pages × 17 widths: zero overflow.
+  ⚠️ The doc-update script for this one failed on a stale string match and
+  the site commit went out without it (`848d3fa`), so CLAUDE.md/MEMORY.md
+  landed in a follow-up. The site itself was correct and verified live.
+  Chain doc edits to the commit, or check the script's output before pushing.
 - **FORC3 Grid hidden again** (owner: "hide force grid again") — fifth flip.
   Four-part checklist plus **a fifth edit the checklist doesn't list**: the
   homepage hero's "Get FORC3 Grid" button, added the day before, would have

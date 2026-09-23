@@ -1453,8 +1453,8 @@ building a second mechanism:
 
 #### Showing / hiding a product page — four edits, they go together
 
-**Current state (2026-09-23): BOTH product pages hidden** — `grid.html` and
-`gt3forc3.html`. The nav is down to About / FORC3 Designer / Get support.
+**Current state (2026-09-23): `grid.html` shown, `gt3forc3.html` hidden.**
+Grid has flipped six times; **check the live markup, never this line.**
 This flips constantly — Grid alone went linked 09-16, hidden 09-16, relinked
 09-21, hidden 09-22, relinked 09-22 — so **check the live markup, not this
 line**. Either direction, for either page, is these four edits in one commit:
@@ -1476,7 +1476,12 @@ the content can't use) rather than reusing a number from a previous flip:
 | About / Designer / Grid / GT3FORC3 / Get support | 1131px | 1200px / 1220px, no 1800px step |
 | About / Designer / GT3FORC3 / Get support | 1030px | 1100px / 1120px + the 1800px step |
 | About / Designer / Grid / Get support | 1035px | 1100px / 1120px + the 1800px step |
-| About / Designer / Get support (now) | 933px | 1100px / 1120px + the 1800px step — unchanged, 167px of slack |
+| About / Designer / Get support | 933px | 1100px / 1120px + the 1800px step — unchanged, 167px of slack |
+
+**The 1100 / 1120 pair covers every set except the five-link one.** Only a
+nav carrying both Grid and GT3FORC3 (1131px) needs 1200 / 1220. The two
+2026-09-23 flips needed no CSS change at all — measure first, and don't
+touch the pair out of habit.
 
 Note the last two differ by 5px despite both having four links — "FORC3
 Grid" is ~6px wider than "GT3FORC3". Close enough to share a pair here, but
@@ -1595,8 +1600,10 @@ from before FORC3 Grid existed.
   Grid" on 2026-09-22 when the hero was rebalanced; went **back to "See what
   it does"** on 2026-09-23 when Grid was hidden again, because a hero button
   is not covered by the hide checklist's nav/footer sweep and would have been
-  the only remaining path into a hidden page. Decide it explicitly each time
-  a product flips.
+  the only remaining path into a hidden page — then back to **"Get FORC3
+  Grid"** hours later when Grid returned. Decide it explicitly on every flip:
+  the owner's preference while Grid is visible is the two-"Get" pair, so
+  restore that on a show and fall back to the demo link on a hide.
 - The `<h1>` "Design liveries. Own the grid." was already a fit for both
   products and was left alone.
 - **The hero is a fifth edit the hide/show checklist doesn't cover.** A
