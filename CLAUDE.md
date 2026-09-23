@@ -841,12 +841,15 @@ demos are provided (see the file map's `video/` rows) — just update the
   may get silently blocked by the browser's autoplay policy, in which case
   the video just sits paused with visible `controls` for the visitor to
   press play themselves. This is expected, not a bug to chase.
-- **`index.html`'s own "See what it does" button doesn't duplicate the modal
-  or video reference** — it's a plain link to `forc3designer.html#demo`,
-  reusing the deep-link system instead. Single source of truth for the
-  modal markup; if a second page ever needs its own inline demo player,
-  duplicate the modal block there rather than trying to share one across
-  pages.
+- **`index.html` used to carry a "See what it does" button** linking to
+  `forc3designer.html#demo` — a plain link, reusing the deep-link system
+  rather than duplicating the modal. It was replaced on 2026-09-22 by
+  "Meet FORC3 Grid" when the homepage hero was rebalanced across both
+  products (see "Homepage hero"), so **the demo is no longer reachable from
+  the homepage** — only from the FORC3 Designer page's own hero. If it should
+  come back, `<a href="forc3designer.html#demo">` is all it takes; don't
+  duplicate the modal markup. Single source of truth for that modal; if a
+  second page ever needs its own inline player, duplicate the block there.
 
 ### Changelog modal content — sourced from a doc, and from GitHub releases
 
@@ -1567,6 +1570,34 @@ redirect shim nobody sees, so it has never been kept in step.)
 - The same staleness repeatedly hit *local* testing too — the preview browser
   serves a cached `js/main.js` across reloads. Starting the test server on a
   **different port** forces a clean fetch; that's faster than fighting it.
+
+## Homepage hero — two products, not one
+
+Rewritten 2026-09-22 (owner marked the lead + button row: "change this to
+reflect better FORC3 Grid addition"). It had described FORC3 Designer only,
+from before FORC3 Grid existed.
+
+- **Lead** now covers both: the studio line, Designer's beta, then
+  "// FORC3 Grid manages the liveries you make with it, and shares them with
+  the grid." Four lines on desktop instead of three. Also fixed a missing
+  comma after "livery painting application" while rewriting.
+- **Buttons are one per product**: "Get FORC3 Designer" (primary →
+  `forc3designer.html`) and "Meet FORC3 Grid" (ghost → `grid.html`), both
+  with the shared arrow icon. "Meet" rather than "Get" on purpose — it links
+  to a page, and Grid's own download isn't published yet, so "Get" would
+  promise a file.
+- ⚠️ This **replaced** the old "See what it does" demo-video link — see the
+  demo-modal section. That was a deliberate trade (the marked region included
+  both buttons, and a third button would crowd the row), not an oversight.
+- The `<h1>` "Design liveries. Own the grid." was already a fit for both
+  products and was left alone.
+- If either product page gets hidden (they flip often — see "Showing /
+  hiding a product page"), **this hero still links to it**. A hidden page is
+  unlinked from nav and footer but reachable by URL, so a hero button
+  pointing at it would quietly become the only path in. Check this section
+  whenever hiding a product.
+- Checked 321-1440px: no overflow, buttons wrap to a stacked column below
+  ~560px.
 
 ## Design conventions
 

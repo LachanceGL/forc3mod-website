@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **Homepage hero rebalanced across both products** (owner marked the lead
+  and buttons: "change this to reflect better FORC3 Grid addition"). The lead
+  now names FORC3 Grid alongside Designer, and the ghost button became
+  "Meet FORC3 Grid" → `grid.html`. That **replaced** the "See what it does"
+  link to the Designer demo video, so the demo is no longer reachable from
+  the homepage — deliberate (the marked region covered both buttons), flagged
+  to the owner, and written up in CLAUDE.md with how to restore it.
+  HTML-only. Checked 321-1440px: no overflow, buttons stack below ~560px.
 - **GT3FORC3 hidden** (owner: "hide the GT3FORC3 section") — same four-part
   pattern as the Grid flips: `noindex` on `gt3forc3.html`, nav tab + footer
   Projects link removed from all five pages, page out of `sitemap.xml`, and
