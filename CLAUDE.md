@@ -528,8 +528,11 @@ other pages — the `.hero__cta-group` wrapper only existed to keep that
 caption aligned and went with it. `.hero__source` is still used by
 `forc3designer.html`'s "Hosted on GitHub", so its CSS stays.
 
-- **"Open web version"** → `https://grid.forc3mod.com`, the browser app.
-  That's the one that actually works today.
+- **"Open the web version"** → `https://grid.forc3mod.com`, the browser app,
+  with `target="_blank" rel="noopener"` since 2026-09-23 (owner: "should open
+  in a new window"). It's a separate site on Azure Static Web Apps, so it
+  matches the site's convention for every other external link. It was the
+  only cross-site link on this site missing that pair.
 - **"Download the app"** →
   `https://github.com/LachanceGL/forc3-grid-releases/releases/latest/download/FORC3-Grid-Setup.exe`
   — same "latest release" pattern as FORC3 Designer's button, and a

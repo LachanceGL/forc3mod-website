@@ -14,6 +14,9 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- `grid.html`'s "Open the web version" button now opens in a new tab
+  (`target="_blank" rel="noopener"`, owner) — it was the only cross-site link
+  on the site without that pair.
 - **Created `docs/GRID-CHANGELOG.md`** (owner), the authoritative source for
   `grid.html`'s changelog modal, mirroring the Designer's. Holds the v0.1.0
   entry verbatim — a script cross-checked all 14 bullets against the rendered
