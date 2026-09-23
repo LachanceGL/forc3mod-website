@@ -550,7 +550,14 @@ caption aligned and went with it. `.hero__source` is still used by
   re-linking makes a livery drivable but invisible to other players, so a
   pack now carries the author's saved car and re-linking is only a fallback
   for old packs. The new lead also mentions the Community Grid (live on
-  `grid.forc3mod.com`, Discord sign-in, uploads). Re-read those docs before
+  `grid.forc3mod.com`, Discord sign-in, uploads). **On 2026-09-22 the owner
+  cut the author's-car clause from that lead** ("carrying the author's car
+  with it, so the livery shows up exactly as it was made"), leaving
+  "…installs the ones others share. Find more on the Community Grid." So the
+  page no longer explains the mechanism anywhere — only the feature bullet
+  "Drivers with the same pack see it on each other's cars online" hints at
+  the result. Don't re-add it unasked; the removal was deliberate, twice over
+  (the matching bullet went the day before). Re-read those docs before
   writing any new Grid copy here; the app moves faster than this page.
 - The rest of the page was brought in line the same day, on request: the
   meta description, and the "What it does" list — "Installs with the

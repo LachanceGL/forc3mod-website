@@ -14,6 +14,10 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- Cut the author's-car clause from `grid.html`'s hero lead (owner), so it now
+  reads "…installs the ones others share. Find more on the Community Grid."
+  The page no longer states the mechanism at all — the matching feature
+  bullet was removed the day before.
 - **FORC3 Grid relinked again**, hours later (owner: "put back the FORC3
   grid section online") — the same four edits reversed once more: noindex
   off, nav tab + footer link back on all five pages, `--container` 1100 →
