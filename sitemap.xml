@@ -13,8 +13,8 @@
 
   A page is listed here only while it is NOT hidden behind a noindex meta:
   a noindex page in a sitemap contradicts it and Search Console reports an
-  error. Both product pages are out as of 2026-09-23: gt3forc3.html since
-  09-22, grid.html since 09-23 (it has been in and out five times).
+  error. As of 2026-09-23 grid.html is in (six flips so far) and
+  gt3forc3.html is out (since 09-22).
 
   No <changefreq> or <priority>: Google ignores both outright, and a
   wrong value is worse than none.
@@ -27,6 +27,10 @@
   <url>
     <loc>https://www.forc3mod.com/forc3designer.html</loc>
     <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://www.forc3mod.com/grid.html</loc>
+    <lastmod>2026-09-22</lastmod>
   </url>
   <url>
     <loc>https://www.forc3mod.com/SupportUs.html</loc>
