@@ -14,7 +14,9 @@ painting app, still in development — not released yet), alongside **FORC3
 Grid** (a browser-based livery manager/sharing tool at
 `grid.forc3mod.com`; its page here is linked again — see "Showing /
 hiding FORC3 Grid", it flips often). The site also
-promotes the **GT3FORC3** sim racing community and a Patreon support page.
+promotes the **GT3FORC3** sim racing community (that page is hidden as of
+2026-09-22 — see "Showing / hiding a product page") and a Patreon support
+page.
 
 No framework, no build step. Plain HTML/CSS/JS, hand-edited and pushed
 directly.
@@ -90,7 +92,7 @@ than rewriting it from scratch.
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
 | `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Linked and public** again since 2026-09-22 (owner: "put back the FORC3 grid section online"). It has flipped four times now — linked 09-16, hidden 09-16, relinked 09-21, hidden 09-22, relinked 09-22 — so don't treat either state as settled; check the page itself. See "Showing / hiding FORC3 Grid" for the edits that go together in either direction. |
-| `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). |
+| `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). **Hidden** since 2026-09-22 (owner: "hide the GT3FORC3 section") — `noindex, nofollow`, linked from nowhere, reachable by URL. Its live driver pill still polls the GT3FORC3 Worker whenever someone opens it directly. |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
 | `forc3-designer-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
@@ -1446,24 +1448,34 @@ building a second mechanism:
 - The scroll-spy is safe here for free: it only tracks links whose `href`
   starts with `#`, and the toggle is a `<button>` with no `href` at all.
 
-#### Showing / hiding FORC3 Grid — four edits, they go together
+#### Showing / hiding a product page — four edits, they go together
 
-**Currently shown** (relinked 2026-09-22, hours after being hidden). It has
-flipped four times (linked 09-16, hidden 09-16, relinked 09-21, hidden
-09-22, relinked 09-22), so expect it again and check the live markup rather
-than this line. Either direction is these four edits in one commit:
+**Current state (2026-09-22): `grid.html` shown, `gt3forc3.html` hidden.**
+This flips constantly — Grid alone went linked 09-16, hidden 09-16, relinked
+09-21, hidden 09-22, relinked 09-22 — so **check the live markup, not this
+line**. Either direction, for either page, is these four edits in one commit:
 
-| | Shown (now) | Hidden |
+| | Shown | Hidden |
 |---|---|---|
-| `grid.html` robots meta | none | `<meta name="robots" content="noindex, nofollow">` |
-| Nav tab + footer Projects link, all five pages | present (`is-active` on `grid.html`) | absent |
-| `--container` / nav breakpoint | **1200px / 1220px**, no 1800px step | 1100px / 1120px, plus `min-width: 1800px { --container: 1200px }` |
-| `sitemap.xml` | lists `grid.html` | doesn't |
+| The page's robots meta | none | `<meta name="robots" content="noindex, nofollow">` |
+| Nav tab + footer Projects link, all five pages | present (`is-active` on its own page) | absent |
+| `--container` / nav breakpoint | see below — depends on how many nav links remain | |
+| `sitemap.xml` | lists the page | doesn't |
 
-- The width pair is the one that bites: the tab costs ~101.5px, taking the
-  header row from 1030 to 1131px of content. Adding the tab without widening
-  is the overflow bug; removing it without narrowing leaves the site wider
-  than the owner's chosen 1100px for no reason.
+**The width pair is what bites, and it is not a constant.** It depends on
+the total nav width, so **measure it** (`logo + nav + actions + 2*gap +
+container padding`, then add 17px for the scrollbar a media query counts but
+the content can't use) rather than reusing a number from a previous flip:
+
+| Nav links | Row content | Pair |
+|---|---|---|
+| About / Designer / Grid / GT3FORC3 / Get support | 1131px | 1200px / 1220px, no 1800px step |
+| About / Designer / GT3FORC3 / Get support | 1030px | 1100px / 1120px + the 1800px step |
+| About / Designer / Grid / Get support (now) | 1035px | 1100px / 1120px + the 1800px step |
+
+Note the last two differ by 5px despite both having four links — "FORC3
+Grid" is ~6px wider than "GT3FORC3". Close enough to share a pair here, but
+that is a measured coincidence, not a rule.
 - The sitemap and the robots meta have to agree — a `noindex` page listed
   in a sitemap is a Search Console error.
 - Bump `style.css?v=` on all five pages (the width change touches the CSS).
@@ -1474,16 +1486,28 @@ than this line. Either direction is these four edits in one commit:
   checked the same way: zero overflow, nav flipping between 1120 and 1121,
   `--container` 1100 up to 1799px and 1200 from 1800px. Relinking again the
   same day re-checked it once more (5 pages × 17 widths): zero overflow, nav
-  flipping between 1220 and 1221. **The flip is now routine enough to trust
-  this table** — but still run the sweep, since it's what caught the original
-  overflow.
+  flipping between 1220 and 1221. Hiding `gt3forc3.html` on 2026-09-22 was
+  checked the same way (5 pages × 17 widths): zero overflow, nav flipping
+  between 1120 and 1121, `--container` 1100 up to 1799px and 1200 from
+  1800px. **The flip is routine enough to trust this table** — but still run
+  the sweep, since it's what caught the original overflow.
+- ⚠️ **Bump `?v=` BEFORE loading the page to measure, or measure on a fresh
+  port.** Hiding GT3FORC3 bumped `?v=72` in the same script that removed the
+  links, then loaded the pages to measure the new nav width — which cached
+  `style.css?v=72` with the *old* CSS. The later width edit then appeared to
+  do nothing: the sweep reported `--container: 1200px` and the nav collapsed
+  at 1121px. Nothing was wrong with the CSS. Restarting the server on a new
+  port fixed it (the trick already noted under "Asset cache-busting"). If a
+  CSS change reads as having no effect, suspect this before debugging the
+  rule.
 
 ## Nav width — re-measure before adding items
 
-- **Live values: `--container: 1200px`, nav collapses at `max-width:
-  1220px`** — four nav links (About / FORC3 Designer / FORC3 Grid /
-  GT3FORC3) plus "Get support", needing 1131px of content. Without the Grid
-  tab the pair is 1100 / 1120 (1030px) — see "Showing / hiding FORC3 Grid".
+- **Live values: `--container: 1100px`, nav collapses at `max-width:
+  1120px`** — three nav links (About / FORC3 Designer / FORC3 Grid) plus
+  "Get support", measured 2026-09-22 at 1035px of content (logo 218.8 + nav
+  396.1 + actions 372 + 2×24px gaps). With GT3FORC3 back in as well, the
+  pair is 1200 / 1220 — see the table in "Showing / hiding a product page".
 - **Measured (2026-09-16, with a FORC3 Grid tab as a 4th nav link)**:
   the tab costs **101.5px** of nav width (390 → 491.5), which put the row
   1131px wide against a 1052px content box — it overflowed the viewport
@@ -1612,9 +1636,10 @@ redirect shim nobody sees, so it has never been kept in step.)
     card was pulled left to remove a big empty block it left, then the
     owner moved the whole thing to the logo edge + 15px. Don't bring back
     the nav-start alignment.
-- **Content width** (`--container`): **1200px**, 1440px at `min-width:
-  2600px` — what the FORC3 Grid nav tab forces. It returns to the owner's
-  chosen 1100 / 1200@1800 / 1440@2600 ladder whenever that tab is out. History: 1200/1440/1720 →
+- **Content width** (`--container`): **1100px**, 1200px at `min-width:
+  1800px`, 1440px at `min-width: 2600px` — the owner's chosen ladder. A
+  fourth nav link forces the base to 1200px (and the 1800px step out);
+  see "Showing / hiding a product page" for the measured table. History: 1200/1440/1720 →
   narrowed 2026-09-14 to the current ladder (owner: "reduce the width of
   the site, we have a lot of wasted space", then chose a narrower column
   over a wider one) → base forced to 1200px on 2026-09-16 when the FORC3
@@ -1714,17 +1739,16 @@ first.
 
 ### Sitemap and robots.txt
 
-`sitemap.xml` (added 2026-09-19, on request) lists the five public pages:
-`/`, `/forc3designer.html`, `/grid.html`, `/gt3forc3.html`,
-`/SupportUs.html`.
+`sitemap.xml` (added 2026-09-19, on request) currently lists four pages:
+`/`, `/forc3designer.html`, `/grid.html`, `/SupportUs.html`.
 
 - **It is hand-maintained** — no build step generates it. Add a `<url>` when
   a new public page ships; update a `<lastmod>` when that page's *content*
   changes, not when a `?v=` bump or a CSS tweak touches the file.
-- **`grid.html` is listed only while it's shown** (in again since
-  2026-09-22). A noindex page in a sitemap is a Search Console error, so it
-  goes in and out with the "Showing / hiding FORC3 Grid" checklist — four
-  round trips so far.
+- **A page is listed only while it's shown.** A noindex page in a sitemap is
+  a Search Console error, so pages go in and out with the "Showing / hiding
+  a product page" checklist. As of 2026-09-22 `grid.html` is in (four round
+  trips so far) and `gt3forc3.html` is out.
 - **The redirect shims are excluded too** (`designer.html`,
   `forc3-designer-download/`). A sitemap is for URLs that answer 200 with
   their own content, not for redirects.
@@ -1798,8 +1822,8 @@ live here was fixed on 2026-09-16 — see "Header breakpoint ladder" below.)*
 
 `.header__actions` sheds its lowest-priority item at each of four
 thresholds: **740px** Discord's label, **670px** "Support us", **570px**
-the three social icons, **480px** the logo size and gaps. Plus **1220px**
-for the nav itself (1120px whenever the FORC3 Grid tab is out — see
+the three social icons, **480px** the logo size and gaps. Plus **1120px**
+for the nav itself (1220px whenever a fourth nav link is in — see
 "Nav width"). The live numbers and arithmetic are in `css/style.css`
 under the same heading; the point to carry here is *why they moved*.
 

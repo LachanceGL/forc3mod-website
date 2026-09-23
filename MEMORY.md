@@ -14,6 +14,19 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **GT3FORC3 hidden** (owner: "hide the GT3FORC3 section") — same four-part
+  pattern as the Grid flips: `noindex` on `gt3forc3.html`, nav tab + footer
+  Projects link removed from all five pages, page out of `sitemap.xml`, and
+  the width pair narrowed. Only nav/footer linked to it — no homepage section
+  — so nothing else broke. **The width pair had to be re-measured, not
+  copied**: with Grid in and GT3FORC3 out the row is 1035px (nav 396.1), not
+  the 1030px of the old no-Grid set, because "FORC3 Grid" is ~6px wider than
+  "GT3FORC3". 1100 / 1120 still fits, with 17px of slack. `style.css?v=72`.
+  Verified 5 pages × 17 widths: zero overflow, nav flipping 1120/1121.
+  **Hit the cache trap doing it**: `?v=72` was bumped in the same script that
+  removed the links, and measuring loaded `style.css?v=72` before the width
+  edit existed — so the sweep showed the old 1200/1220 values and looked like
+  the CSS had failed. A fresh port fixed it; now written up in CLAUDE.md.
 - Cut the author's-car clause from `grid.html`'s hero lead (owner), so it now
   reads "…installs the ones others share. Find more on the Community Grid."
   The page no longer states the mechanism at all — the matching feature

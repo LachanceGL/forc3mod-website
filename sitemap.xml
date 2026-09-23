@@ -11,9 +11,10 @@
   Redirects don't belong in a sitemap; only pages that answer 200 with
   their own content do.
 
-  grid.html is listed only while it is NOT hidden. If it goes back behind
-  a noindex meta, take its <url> out in the same change: a noindex page in
-  a sitemap contradicts it and Search Console reports an error.
+  A page is listed here only while it is NOT hidden behind a noindex meta:
+  a noindex page in a sitemap contradicts it and Search Console reports an
+  error. grid.html has been in and out several times; gt3forc3.html is out
+  as of 2026-09-22.
 
   No <changefreq> or <priority>: Google ignores both outright, and a
   wrong value is worse than none.
@@ -30,10 +31,6 @@
   <url>
     <loc>https://www.forc3mod.com/grid.html</loc>
     <lastmod>2026-09-21</lastmod>
-  </url>
-  <url>
-    <loc>https://www.forc3mod.com/gt3forc3.html</loc>
-    <lastmod>2026-09-16</lastmod>
   </url>
   <url>
     <loc>https://www.forc3mod.com/SupportUs.html</loc>
