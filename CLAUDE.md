@@ -1582,10 +1582,12 @@ from before FORC3 Grid existed.
   the grid." Four lines on desktop instead of three. Also fixed a missing
   comma after "livery painting application" while rewriting.
 - **Buttons are one per product**: "Get FORC3 Designer" (primary →
-  `forc3designer.html`) and "Meet FORC3 Grid" (ghost → `grid.html`), both
-  with the shared arrow icon. "Meet" rather than "Get" on purpose — it links
-  to a page, and Grid's own download isn't published yet, so "Get" would
-  promise a file.
+  `forc3designer.html`) and "Get FORC3 Grid" (ghost → `grid.html`), both
+  with the shared arrow icon. It shipped as "Meet FORC3 Grid" for a few
+  minutes — reasoning being that it links to a page, not a file, and Grid's
+  installer isn't published — and the owner overruled it the same day
+  ("meet? Should be Get also"). The pair reads as one set now; keep both on
+  "Get" unless told otherwise.
 - ⚠️ This **replaced** the old "See what it does" demo-video link — see the
   demo-modal section. That was a deliberate trade (the marked region included
   both buttons, and a third button would crowd the row), not an oversight.

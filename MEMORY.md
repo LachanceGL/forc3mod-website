@@ -17,7 +17,8 @@ explicitly rather than leaving the old entry looking still-current.
 - **Homepage hero rebalanced across both products** (owner marked the lead
   and buttons: "change this to reflect better FORC3 Grid addition"). The lead
   now names FORC3 Grid alongside Designer, and the ghost button became
-  "Meet FORC3 Grid" → `grid.html`. That **replaced** the "See what it does"
+"Get FORC3 Grid" → `grid.html` (shipped as "Meet" first; owner
+  overruled within the hour — both buttons read "Get" now). That **replaced** the "See what it does"
   link to the Designer demo video, so the demo is no longer reachable from
   the homepage — deliberate (the marked region covered both buttons), flagged
   to the owner, and written up in CLAUDE.md with how to restore it.
