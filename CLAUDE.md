@@ -110,6 +110,7 @@ than rewriting it from scratch.
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
 | `favicon.ico` | Site favicon, one multi-size ICO (**16/32/64/96/128/256**). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Five of the six frames are the artist's own files, packed byte-for-byte — **don't rebuild those by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. **The 96 is the one exception**: it's generated (LANCZOS downscale of the 256), added 2026-09-19 because Google wants a favicon frame that's a multiple of 48px and the source set has none — see "Favicon and Google search results". If the owner ever supplies a real hand-drawn 96, swap it in and drop the generated one. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
 | `robots.txt` | Added 2026-09-19. Allows everything and points at the sitemap — that Sitemap line is its only real job. **Never add a `Disallow` for a hidden page here**; see "Sitemap and robots.txt" below for why that backfires. |
+| `docs/GRID-CHANGELOG.md` | Authoritative source for `grid.html`'s changelog modal, added 2026-09-23. Mirrors `docs/DESIGNER-CHANGELOG.md`; see that file's counterpart section for the one rule that differs (Grid keeps intro paragraphs). |
 | `sitemap.xml` | Hand-maintained sitemap (added 2026-09-19). Lists only the four public pages; `grid.html` is deliberately out while it's `noindex`, as are the two redirect shims. See "Sitemap" below before editing it. |
 | `CNAME` | GitHub Pages custom domain config. |
 
@@ -620,10 +621,18 @@ row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
   "the website does the same job in a browser" line was dropped as
   release-page boilerplate; the page has an "Open the web version" button.
   Em dashes converted to `//` per the site's copy rule.
-- **There is no `docs/GRID-CHANGELOG.md`.** FORC3 Designer keeps one as the
-  authoritative source for its modal; Grid's entry was written straight from
-  the GitHub release instead. Worth creating if Grid's changelog grows past
-  a couple of entries, so the two products work the same way.
+- **[`docs/GRID-CHANGELOG.md`](docs/GRID-CHANGELOG.md) is the authoritative
+  source for this modal** (created 2026-09-23, on request), the same handoff
+  as the Designer's. Edit it and the modal together, in one commit. It
+  carries the v0.1.0 entry verbatim, so the two start in sync; a script
+  cross-checked all 14 bullets against the rendered modal.
+- **It deliberately differs from the Designer's doc in one rule**: that one
+  forbids an opening summary paragraph, Grid's *keeps* them. Grid releases
+  open by explaining why a `.grid` exists at all (the car-binding problem,
+  and being seen online), which is the most useful part of the entry for
+  someone meeting the app for the first time. v0.1.0 has three such
+  paragraphs. The Grid doc also records the draft-vs-published trap and
+  which line to strip as boilerplate.
 
 ### `forc3mod.com/forc3-designer-download` — a shareable link
 

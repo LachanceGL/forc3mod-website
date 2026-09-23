@@ -14,6 +14,13 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **Created `docs/GRID-CHANGELOG.md`** (owner), the authoritative source for
+  `grid.html`'s changelog modal, mirroring the Designer's. Holds the v0.1.0
+  entry verbatim — a script cross-checked all 14 bullets against the rendered
+  modal, zero missing. It breaks one of the Designer doc's rules on purpose
+  (Grid entries keep their intro paragraphs, since they explain why a `.grid`
+  exists) and records the draft-vs-published trap plus the boilerplate line
+  to strip. Docs only, nothing on the site changed.
 - **FORC3 Grid v0.1.0 is published**, so the changelog placeholder became a
   real entry (owner linked the release). Filled from the published notes:
   three intro paragraphs plus "In this build" (11 bullets) and "Known, and
