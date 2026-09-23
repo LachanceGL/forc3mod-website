@@ -14,6 +14,15 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-22
 
+- **FORC3 Grid hidden again** (owner: "hide force grid again") — fifth flip.
+  Four-part checklist plus **a fifth edit the checklist doesn't list**: the
+  homepage hero's "Get FORC3 Grid" button, added the day before, would have
+  survived the nav/footer sweep and been the only way into a hidden page. It
+  went back to "See what it does" → the Designer demo. The hero lead still
+  names Grid (describes the studio, links nowhere) — left on purpose, flagged.
+  No CSS change and no `?v=` bump: with only About / FORC3 Designer left the
+  header row is 933px, far inside the existing 1100/1120 pair. Verified 5
+  pages × 15 widths: zero overflow. **Both product pages are now hidden.**
 - **Homepage hero rebalanced across both products** (owner marked the lead
   and buttons: "change this to reflect better FORC3 Grid addition"). The lead
   now names FORC3 Grid alongside Designer, and the ghost button became
