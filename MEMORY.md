@@ -12,6 +12,27 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-09-24
+
+- **FORC3 Designer v0.7.0 added to the changelog** (owner: "update the FORC3
+  Designer changelogs to the newest version"). Found by checking
+  `forc3-designer-releases` rather than waiting to be handed text, per the
+  standing instruction — published 2026-09-24, the site was still on v0.6.0.
+  `docs/DESIGNER-CHANGELOG.md` and the modal updated together: 16 Changes, 5
+  Fixes, id `v0-7-0`, boilerplate stripped (Download section, the Windows
+  "Unknown publisher" note, the footer blurb). Four release screenshots
+  hotlinked with real `width`/`height` — measured by downloading each file,
+  not guessed: 1200×400, 646×201, 922×685, 290×324. Confirmed they render
+  despite GitHub's `Content-Disposition: attachment` (each reported exactly
+  those naturalWidths), the entry sits first, nothing crosses the modal edge
+  at 1440 or 375px. HTML + doc only, no `?v=` bump.
+  Worth knowing: v0.7.0 drops the MODS section and the Mazda 787B, which the
+  site's v0.4.0 entry still introduces as "the first mod car". Left as
+  history — old entries describe their own release.
+  ⚠️ A MEMORY.md edit in this session asserted on one string and replaced a
+  different one, so it silently did nothing and had to be redone. Assert on
+  the exact string you are about to replace.
+
 ## 2026-09-22
 
 - `grid.html`'s "Open the web version" button now opens in a new tab

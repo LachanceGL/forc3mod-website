@@ -78,6 +78,48 @@ asset URL, don't re-host it in this repo).
 
 ---
 
+## v0.7.0 // Sep 24, 2026
+
+FORC3 Grid integration, a Layers rework, decal nudging and UV guides
+
+### Changes
+- FORC3 Grid: integration with the new FORC3 Grid livery manager.
+  ![The new FORC3 Grid Livery Manager](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.7.0/FORC3Grid.jpg)
+- Cars: MODS section removed, along with the Mazda 787B. Will be brought back
+  later as a Premium feature.
+- Cars: five more cars are flagged for the known AC EVO bug where the livery
+  never shows up in-game (Audi R8 V10 Performance Quattro, Dallara EXP,
+  Dallara Stradale, Honda S2000 AP1, Mazda RX-7 FD Spirit R).
+- Layers: UI and UX rework.
+- Decals: arrow keys move a decal while you place it, and the step can be
+  changed in Settings > Preferences.
+- Decals: holding Shift while dragging the rotate handle turns it in steps of
+  that same value, counted in degrees.
+  ![The decal step settings in Preferences](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.7.0/ArrowsKeysSnap.jpg)
+- Decals: Apply starts on New Layer.
+- Decals: the 3D View decal has its own Scale % field.
+- Shapes: the FORC3MOD logo has been added to the Shapes library.
+- Gradient Tool: now applies to the other channels too, with a switch to flip
+  it to black and white values.
+- 2D View: UV guides added, in a color you can change.
+  ![UV guides in the 2D View](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.7.0/NewUVguides.jpg)
+- Export Livery: says when none of your saved cars matches the car you are
+  painting, and offers LAUNCH EVO instead.
+- Symmetry: warns when the car has been turned off its axis, and squares it
+  back up in one click.
+- New Edit menu, with links to your local liveries, saved cars and save files.
+  ![The new Edit menu](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.7.0/NewEditLocalFolders.jpg)
+- New app icon.
+- Overall UI improvements.
+
+### Fixes
+- Cars: Lamborghini Countach LP5000 QV now has its rear spoiler.
+- Saved Cars: found again when your Saved Games folder has been moved to
+  another drive.
+- Decals: the scale field takes typed values properly, and the floor is 1%.
+- Updater: the download progress bar moves now.
+- File menu: Exit now closes the app.
+
 ## v0.6.0 // Sep 9, 2026
 
 New Triplanar tool, localized gradients, and a paint-through fix
