@@ -95,6 +95,7 @@ than rewriting it from scratch.
 | `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). **Hidden** since 2026-09-22 (owner: "hide the GT3FORC3 section") — `noindex, nofollow`, linked from nowhere, reachable by URL. Its live driver pill still polls the GT3FORC3 Worker whenever someone opens it directly. |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
+| `forc3-grid-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Grid, added 2026-09-24 on request. A byte-for-byte mirror of the Designer shim below apart from the product name, URL, canonical and `?v=`. |
 | `forc3-designer-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
 | `css/style.css` | Single shared stylesheet for every page. |
 | `js/main.js` | Shared JS: mobile nav, nav dropdown, scroll-spy, modal system, contact form (posts to Discord via the Worker), GT3 live driver/member counters. |
@@ -545,8 +546,20 @@ caption aligned and went with it. `.hero__source` is still used by
   404 from 2026-09-16 to 09-23, while only a draft existed — drafts don't
   resolve through `latest`, and unauthenticated API calls don't show them at
   all, which is why checks then reported "zero releases".
-- There's no `/forc3-grid-download` shim yet (the Designer has one). Add one
-  the same way if a shareable `forc3mod.com` download URL is ever wanted.
+- **`/forc3-grid-download` exists since 2026-09-24** (owner: "make a similar
+  download link but for FORC3 Grid app"), so
+  `https://www.forc3mod.com/forc3-grid-download` is the shareable form of the
+  Grid installer link. Built as an exact mirror of the Designer shim — same
+  markup, same **site-blue** chrome. That last part is deliberate: the
+  Designer shim is blue even though its product page is lime, so the Grid one
+  stays blue rather than going theme-grid orange. Don't "fix" it to match the
+  page's theme without deciding that for both shims at once.
+  It starts on `style.css?v=72` rather than inheriting the Designer shim's
+  stale `?v=32`; neither is kept in step with the real pages (see "Asset
+  cache-busting"), they just need *a* version that exists.
+  Neither product page links to its own shim — the on-page buttons go
+  straight to GitHub. The shim exists purely to hand out a `forc3mod.com`
+  URL.
 - **Source of truth for what the app does is the Grid repo itself** —
   `G:\FORC3MOD\forc3-grid` (`README.md`, `CLAUDE.md`, `docs/ROADMAP.md`,
   `MEMORY.md`), not this page's old copy. On 2026-09-21 the hero lead was

@@ -14,6 +14,13 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- **Added `/forc3-grid-download`** (owner: "make a similar download link but
+  for FORC3 Grid app"), mirroring `/forc3-designer-download`: meta-refresh to
+  the Grid installer's latest-release URL, plus a styled fallback button for
+  anyone whose browser blocks the redirect. Kept site-blue like the Designer
+  shim rather than theme-grid orange, on purpose. Verified the rendered page
+  in the preview browser (which never fires the redirect, so it's inspectable)
+  and against the live URL after deploy.
 - Dropped one v0.7.0 fix line from the Designer changelog (owner): "Updater:
   the download progress bar moves now", removed from both the modal and
   `docs/DESIGNER-CHANGELOG.md`. Four fixes left. The GitHub release still
