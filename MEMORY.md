@@ -14,6 +14,10 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- Dropped one v0.7.0 fix line from the Designer changelog (owner): "Updater:
+  the download progress bar moves now", removed from both the modal and
+  `docs/DESIGNER-CHANGELOG.md`. Four fixes left. The GitHub release still
+  lists it.
 - **Gutted the Grid v0.1.1 changelog entry to one sentence** (owner: "replace
   the whole FORC3 Grid 0.1.1 change log with simply saying this is the release
   of the FORC3 Grid beta"). Modal and `docs/GRID-CHANGELOG.md` both. The full

@@ -117,7 +117,6 @@ FORC3 Grid integration, a Layers rework, decal nudging and UV guides
 - Saved Cars: found again when your Saved Games folder has been moved to
   another drive.
 - Decals: the scale field takes typed values properly, and the floor is 1%.
-- Updater: the download progress bar moves now.
 - File menu: Exit now closes the app.
 
 ## v0.6.0 // Sep 9, 2026
