@@ -1632,9 +1632,15 @@ reflect better FORC3 Grid addition"). It had described FORC3 Designer only,
 from before FORC3 Grid existed.
 
 - **Lead** now covers both: the studio line, Designer's beta, then
-  "// FORC3 Grid manages the liveries you make with it, and shares them with
-  the grid." Four lines on desktop instead of three. Also fixed a missing
+  "// FORC3 Grid, our new livery manager and sharing tool, has just entered
+  beta too." Four lines on desktop instead of three. Also fixed a missing
   comma after "livery painting application" while rewriting.
+  The Grid clause was rephrased 2026-09-24 (owner: "say it's new also") to
+  mirror the Designer clause's shape — *product, our description, beta
+  status* — rather than only describing what Grid does. ⚠️ **"new" and "has
+  just entered beta" both go stale.** Grid's beta shipped 2026-09-23; revisit
+  this wording once it isn't news, the same way Designer's "now open for
+  beta testing" will need revisiting at 1.0.
 - **Buttons are one per product**: "Get FORC3 Designer" (primary →
   `forc3designer.html`) and "Get FORC3 Grid" (ghost → `forc3grid.html`), both
   with the shared arrow icon. It shipped as "Meet FORC3 Grid" for a few
@@ -1658,7 +1664,7 @@ from before FORC3 Grid existed.
   it survives that sweep and becomes the only path in. This caught 2026-09-23
   only because the note was here; keep checking it.
 - **The lead still names FORC3 Grid** even while that page is hidden
-  ("// FORC3 Grid manages the liveries you make with it..."). Left deliberately
+  ("// FORC3 Grid, our new livery manager and sharing tool..."). Left deliberately
   on 2026-09-23 and flagged to the owner: it describes what the studio
   makes rather than linking anywhere, so it isn't a dead end. Trim it if the
   owner would rather the homepage not mention an unreachable product.

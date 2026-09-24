@@ -14,6 +14,12 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- Homepage hero lead: the Grid clause now mirrors the Designer one's shape
+  (owner: "say it's new also") — "FORC3 Grid, our new livery manager and
+  sharing tool, has just entered beta too." was "FORC3 Grid manages the
+  liveries you make with it, and shares them with the grid." Still four lines
+  on desktop, no overflow 375-1440px. Flagged that "new" and "just entered
+  beta" will date.
 - **Renamed `grid.html` → `forc3grid.html`** (owner asked for changelog links
   at `https://www.forc3mod.com/forc3grid.html#v0-1-1`, a URL that 404'd — the
   deep links already worked, the filename just didn't match
