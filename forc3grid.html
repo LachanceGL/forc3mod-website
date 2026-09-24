@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FORC3MOD // AC EVO DEVELOPMENT</title>
-  <meta name="description" content="FORC3 Designer is a free EVO livery painting tool // paint, layer and export race-ready liveries for Assetto Corsa EVO with a fast, intuitive interface." />
+  <title>FORC3 Grid // Share Assetto Corsa EVO Liveries | FORC3MOD</title>
+  <meta name="description" content="FORC3 Grid manages your Assetto Corsa EVO liveries, packs them into shareable .grid files, and installs other people’s // with the author’s car, exactly as they made it." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Roboto:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=72" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
 </head>
-<body>
+<body class="theme-grid">
 
   <span id="top" aria-hidden="true"></span>
 
   <!-- ===== Header / Nav ===== -->
   <header class="header">
     <div class="container header__inner">
-      <a href="#top" class="logo" aria-label="FORC3MOD home">
+      <a href="index.html" class="logo" aria-label="FORC3MOD home">
         <span class="logo__stack">
           <img src="img/forc3mod-logo.svg" alt="FORC3MOD" class="logo__img" />
           <span class="logo__tagline">AC EVO DEVELOPMENT</span>
@@ -26,15 +26,15 @@
       </a>
 
       <nav class="nav" id="nav">
-        <a href="#top" class="nav__link is-active">About</a>
+        <a href="index.html" class="nav__link">About</a>
         <a href="forc3designer.html" class="nav__link">FORC3 Designer</a>
-        <a href="forc3grid.html" class="nav__link">FORC3 Grid</a>
+        <a href="forc3grid.html" class="nav__link is-active">FORC3 Grid</a>
         <div class="nav__group">
           <button type="button" class="nav__link nav__toggle" aria-haspopup="true" aria-expanded="false">
             Get support
           </button>
           <div class="nav__menu">
-            <a href="#contact">Contact us</a>
+            <a href="index.html#contact">Contact us</a>
             <a href="https://discord.com/channels/1534614323534499891/1534648749043879936" target="_blank" rel="noopener">Report a Bug</a>
             <a href="https://discord.com/channels/1534614323534499891/1534648689300341057" target="_blank" rel="noopener">Make a Suggestion</a>
           </div>
@@ -95,66 +95,55 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="container hero__inner">
-      <p class="eyebrow"><span class="dot"></span> AC EVO DEVELOPMENT &amp; MORE</p>
-      <h1 class="hero__title">Design liveries.<br />Own the <span class="grad">grid.</span></h1>
+      <div class="hero__icon-row">
+        <img src="img/grid-icon.png" alt="FORC3 Grid" class="hero__app-icon" />
+        <button type="button" class="btn btn--ghost btn--sm hero__changelog-btn" data-modal-target="#changelog">Change Log</button>
+      </div>
+      <p class="eyebrow"><span class="dot"></span> AC EVO LIVERY MANAGER</p>
+      <h1 class="hero__title">Your liveries.<br />Shared with the <span class="grad">grid.</span></h1>
       <p class="hero__lead">
-        FORC3MOD is an indie studio focused on developing tools and mods for
-        Assetto Corsa EVO. FORC3 Designer, our free 3D and 2D livery painting
-        application, is now open for beta testing // FORC3 Grid manages the
-        liveries you make with it, and shares them with the grid.
+        FORC3 Grid manages every AC EVO livery you have installed, packs any of
+        them into a shareable .grid file, and installs the ones others share.
+        Find more on the Community Grid.
       </p>
       <div class="hero__cta hero__cta--offset">
-        <a href="forc3designer.html" class="btn btn--primary btn--lg">Get FORC3 Designer
+        <a href="https://github.com/LachanceGL/forc3-grid-releases/releases/latest/download/FORC3-Grid-Setup.exe" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Download the app
           <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
         </a>
-        <a href="forc3grid.html" class="btn btn--ghost btn--lg">Get FORC3 Grid
+        <a href="https://grid.forc3mod.com" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">Open the web version
           <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ===== CTA / Contact ===== -->
-  <section class="section section--alt" id="contact">
-    <div class="container">
-      <div class="cta">
-        <div class="cta__content">
-          <h2>Got feedback or<br />a feature idea?</h2>
-          <p>Want to help us improve a feature? Have a car mod you'd like to see, or just a question? Feel free to contact us!</p>
+  <!-- ===== What it does ===== -->
+  <section class="section" id="features">
+    <div class="container about">
+      <div class="about__media">
+        <div class="about__card about__card--photo" style="--about-photo: url('/img/FG_SitePreview.jpg')">
+          <h3>Built for<br />the whole field.</h3>
         </div>
-        <form class="cta__form" id="contactForm" novalidate>
-          <div class="field">
-            <input type="text" name="name" placeholder="Your name" required />
-          </div>
-          <div class="field">
-            <input type="email" name="email" placeholder="Email address" required />
-          </div>
-          <div class="field field--full">
-            <select name="type" required>
-              <option value="" disabled selected>What's this about? :)</option>
-              <option>Feature request</option>
-              <option>Bug report</option>
-              <option>General question</option>
-              <option>Something else</option>
-            </select>
-          </div>
-          <div class="field field--full">
-            <textarea name="message" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn btn--primary btn--lg field--full">Send message
-            <svg viewBox="0 0 24 24" class="ico"><path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z"/></svg>
-          </button>
-          <p class="form-note" id="formNote" role="status"></p>
-        </form>
+      </div>
+      <div class="about__body">
+        <p class="eyebrow"><span class="dot"></span> What it does</p>
+        <h2 class="section__title">Build your own Showroom.</h2>
+        <ul class="feature-list">
+          <li><span class="tick">&#10003;</span> Create and export liveries directly from FORC3 Designer</li>
+          <li><span class="tick">&#10003;</span> See every livery you have installed, with previews</li>
+          <li><span class="tick">&#10003;</span> Pack any livery into a shareable <strong>.grid</strong> file</li>
+          <li><span class="tick">&#10003;</span> Install packs by dropping them on the page</li>
+          <li><span class="tick">&#10003;</span> Drivers with the same pack see it on each other&rsquo;s cars online</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ===== Footer ===== -->
+<!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="#top" class="logo" aria-label="FORC3MOD home">
+        <a href="index.html" class="logo" aria-label="FORC3MOD home">
           <span class="logo__stack">
             <span class="logo__img logo__img--mono" aria-hidden="true"></span>
             <span class="logo__tagline">AC EVO DEVELOPMENT</span>
@@ -181,7 +170,7 @@
       </div>
       <div class="footer__col">
         <h5>Get support</h5>
-        <a href="#contact">Contact us</a>
+        <a href="index.html#contact">Contact us</a>
         <a href="https://discord.com/channels/1534614323534499891/1534648749043879936" target="_blank" rel="noopener">Report a Bug</a>
         <a href="https://discord.com/channels/1534614323534499891/1534648689300341057" target="_blank" rel="noopener">Make a Suggestion</a>
       </div>
@@ -198,6 +187,31 @@
       <p class="footer__links">// V 0.3</p>
     </div>
   </footer>
+
+  <!-- ===== Changelog modal =====
+       Same markup as forc3designer.html's, driven by the generic modal system
+       in main.js (deep-linkable as forc3grid.html#changelog, entries as #v0-1-1).
+       Source of truth is docs/GRID-CHANGELOG.md — edit both together.
+       One entry on purpose: forc3-grid-releases has v0.1.0 and v0.1.1, but
+       v0.1.1 is cosmetic (identical app, restyled installer) and is what
+       releases/latest serves, so the site describes the app once, at the
+       version people actually download. -->
+  <div class="modal-overlay" id="changelog" aria-hidden="true">
+    <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="changelogTitle">
+      <div class="modal__header">
+        <h3 id="changelogTitle">Changelog</h3>
+        <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close changelog">&times;</button>
+      </div>
+      <div class="modal__body">
+        <details class="modal__entry" id="v0-1-1">
+          <summary class="modal__version"><span class="modal__version-text">v0.1.1 <span class="modal__date">// Sep 23, 2026</span></span></summary>
+          <div class="modal__entry-body">
+            <p>This is the release of the FORC3 Grid beta.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js?v=27"></script>
 </body>

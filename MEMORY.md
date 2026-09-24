@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- **Renamed `grid.html` → `forc3grid.html`** (owner asked for changelog links
+  at `https://www.forc3mod.com/forc3grid.html#v0-1-1`, a URL that 404'd — the
+  deep links already worked, the filename just didn't match
+  `forc3designer.html`/`gt3forc3.html`). `git mv`, 11 internal links
+  repointed, sitemap updated, and `grid.html` kept as a redirect shim like
+  `designer.html` — it had been the live URL for over a week and was in the
+  sitemap. Verified the owner's exact URL opens the changelog with the entry
+  expanded, and that no page still links to the old name.
 - **Added `/forc3-grid-download`** (owner: "make a similar download link but
   for FORC3 Grid app"), mirroring `/forc3-designer-download`: meta-refresh to
   the Grid installer's latest-release URL, plus a styled fallback button for

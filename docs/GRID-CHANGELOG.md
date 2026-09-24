@@ -1,7 +1,7 @@
 # FORC3 Grid — Changelog source
 
 This file is the **authoritative source** for the "Changelog" modal on
-`grid.html` (opens via the "Change Log" button next to the hero app icon).
+`forc3grid.html` (opens via the "Change Log" button next to the hero app icon).
 Edit entries here — Claude reads this file and updates the modal's HTML to
 match. Same handoff pattern as `docs/DESIGNER-CHANGELOG.md`, which is the
 file to read alongside this one; the two differ in a few places, and those
@@ -39,7 +39,7 @@ check the release body agrees with them before propagating anything here.
 
 **Strip release-page boilerplate.** For Grid that means the trailing "the
 website at https://grid.forc3mod.com does the same job in a browser" line —
-`grid.html` has an "Open the web version" button a few hundred pixels away.
+`forc3grid.html` has an "Open the web version" button a few hundred pixels away.
 Keep the "Known, and worth saying up front" section; that is real content,
 not boilerplate.
 
@@ -68,7 +68,7 @@ Version matches the actual GitHub release tag. Date format is `Mon D, YYYY`.
 On the site, entries render as `<details>/<summary>` accordions, **all
 collapsed by default** — see `CLAUDE.md`'s "Changelog modal content" section
 for the markup shape. Each entry gets its own `id` (dashes, not dots:
-`v0-1-1`), so `grid.html#v0-1-1` opens the changelog and jumps to it. Give
+`v0-1-1`), so `forc3grid.html#v0-1-1` opens the changelog and jumps to it. Give
 every new entry a matching id when you propagate it.
 
 **Em dashes become `//`** when this text reaches the site — that is a

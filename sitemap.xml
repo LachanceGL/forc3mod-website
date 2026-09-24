@@ -13,7 +13,7 @@
 
   A page is listed here only while it is NOT hidden behind a noindex meta:
   a noindex page in a sitemap contradicts it and Search Console reports an
-  error. As of 2026-09-23 grid.html is in (six flips so far) and
+  error. As of 2026-09-23 forc3grid.html is in (six flips so far) and
   gt3forc3.html is out (since 09-22).
 
   No <changefreq> or <priority>: Google ignores both outright, and a
@@ -29,7 +29,7 @@
     <lastmod>2026-09-16</lastmod>
   </url>
   <url>
-    <loc>https://www.forc3mod.com/grid.html</loc>
+    <loc>https://www.forc3mod.com/forc3grid.html</loc>
     <lastmod>2026-09-22</lastmod>
   </url>
   <url>

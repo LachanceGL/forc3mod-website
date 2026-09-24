@@ -91,10 +91,11 @@ than rewriting it from scratch.
 |---|---|
 | `index.html` | The site's real homepage — header/nav, hero, about, contact form. **Currently live** (see above). |
 | `forc3designer.html` | FORC3 Designer product page. Lime theme (`body.theme-designer`). |
-| `grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Linked and public** again since 2026-09-22 (owner: "put back the FORC3 grid section online"). It has flipped four times now — linked 09-16, hidden 09-16, relinked 09-21, hidden 09-22, relinked 09-22 — so don't treat either state as settled; check the page itself. See "Showing / hiding FORC3 Grid" for the edits that go together in either direction. |
+| `forc3grid.html` | FORC3 Grid product page. Orange theme (`body.theme-grid`). **Linked and public** again since 2026-09-22 (owner: "put back the FORC3 grid section online"). It has flipped four times now — linked 09-16, hidden 09-16, relinked 09-21, hidden 09-22, relinked 09-22 — so don't treat either state as settled; check the page itself. See "Showing / hiding FORC3 Grid" for the edits that go together in either direction. |
 | `gt3forc3.html` | GT3FORC3 community page. Red theme (`body.theme-gt3`). **Hidden** since 2026-09-22 (owner: "hide the GT3FORC3 section") — `noindex, nofollow`, linked from nowhere, reachable by URL. Its live driver pill still polls the GT3FORC3 Worker whenever someone opens it directly. |
 | `SupportUs.html` | Patreon support page. Default blue theme. Unlinked from nav/footer even while live — see "Discord / community reference IDs". |
 | `designer.html` | Legacy URL redirect shim → `forc3designer.html`. Leave alone. |
+| `grid.html` | Legacy URL redirect shim → `forc3grid.html`, added 2026-09-24 when the page was renamed. Same three-line shape as `designer.html`. Leave alone — the page lived at `grid.html` for over a week, was in the sitemap, and the owner had shared links to it. |
 | `forc3-grid-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Grid, added 2026-09-24 on request. A byte-for-byte mirror of the Designer shim below apart from the product name, URL, canonical and `?v=`. |
 | `forc3-designer-download/index.html` | Redirect shim → GitHub's "latest release" download URL for FORC3 Designer. Gives a `forc3mod.com` link to hand out directly (owner: "it needs to be a forc3mod.com url"). See "FORC3 Designer download button" below. |
 | `css/style.css` | Single shared stylesheet for every page. |
@@ -104,15 +105,15 @@ than rewriting it from scratch.
 | `img/grid-icon.png` | FORC3 Grid's hero icon (added 2026-09-21) — the v2 "3G" mark, byte-for-byte `forc3grid_256.png` from the same folder, which is also identical to the Grid app's own `src-tauri/icons/256x256.png`. |
 | `img/icon.png` | The **old** FORC3 Designer icon (blue-to-lime "FD" mark), unreferenced since 2026-09-21 when the v2 icon replaced it. Kept, same "owner-provided, don't delete" reasoning as the old screenshots and videos. New icons went in under new filenames rather than overwriting this one: images carry no `?v=` cache-buster, so reusing the name would have left some browsers on the old mark. |
 | `img/FD_SitePreview.jpg` | Owner-provided app screenshot, used directly (no derivative crop) as the photo background on `forc3designer.html`'s "Your car, your canvas." card. The card's `aspect-ratio` is set to match this file's own pixel dimensions — see "Photo cards" below. |
-| `img/FG_SitePreview.jpg` | Owner-provided FORC3 Grid screenshot (the app's "My Showroom" screen, 1259×823), copied byte-for-byte from `G:\FORC3MOD\LOCAL_forc3-grid\Screenshot_1.jpg` on 2026-09-21. Photo background of `grid.html`'s "What it does" card; the card's `aspect-ratio: 1259 / 823` is this file's real size — update it if the image is ever replaced. Same "real file, no derivative" rule as `FD_SitePreview.jpg`. |
+| `img/FG_SitePreview.jpg` | Owner-provided FORC3 Grid screenshot (the app's "My Showroom" screen, 1259×823), copied byte-for-byte from `G:\FORC3MOD\LOCAL_forc3-grid\Screenshot_1.jpg` on 2026-09-21. Photo background of `forc3grid.html`'s "What it does" card; the card's `aspect-ratio: 1259 / 823` is this file's real size — update it if the image is ever replaced. Same "real file, no derivative" rule as `FD_SitePreview.jpg`. |
 | `img/FORC3Designer_Showcase01.jpg` | Earlier app screenshot, no longer referenced by any page. Left in place rather than deleted — it's owner-provided, not generated. |
 | `video/forc3designer-demo-03.mp4` | **Currently active** owner-provided demo video (1960×1080, ~68s), used directly. Powers the "See what it does" video modal on `forc3designer.html` — see "Demo video modal" below. |
 | `video/forc3designer-demo-02.mp4` | Earlier demo video (1960×1080, ~93s), no longer referenced — superseded by `-03` on 2026-09-04. Left in place rather than deleted, same reasoning as `img/FORC3Designer_Showcase01.jpg`: it's owner-provided, not generated. |
 | `video/forc3designer-demo.mp4` | Earlier still (1960×1080, ~72s), no longer referenced — superseded by `-02` on 2026-08-31. Same "owner-provided, keep it" reasoning. If a `-04` ever supersedes `-03`, keep all the older files rather than deleting any. |
 | `favicon.ico` | Site favicon, one multi-size ICO (**16/32/64/96/128/256**). Built 2026-09-15 from the owner's hand-drawn `forc3mod_<size>.png` set in `G:\FORC3MOD\LOCAL_forc3mod-website\Graphic\v2_Icons` (that folder is outside this repo and also holds `forc3designer_`, `forc3grid_` and `gt3forc3_` sets, unused here so far). Five of the six frames are the artist's own files, packed byte-for-byte — **don't rebuild those by rescaling one PNG**, re-pack from the source set so the small sizes keep their hand-tuned pixels. **The 96 is the one exception**: it's generated (LANCZOS downscale of the 256), added 2026-09-19 because Google wants a favicon frame that's a multiple of 48px and the source set has none — see "Favicon and Google search results". If the owner ever supplies a real hand-drawn 96, swap it in and drop the generated one. Replaced the old inline `data:image/svg+xml` blue-square "3" favicon on every page. |
 | `robots.txt` | Added 2026-09-19. Allows everything and points at the sitemap — that Sitemap line is its only real job. **Never add a `Disallow` for a hidden page here**; see "Sitemap and robots.txt" below for why that backfires. |
-| `docs/GRID-CHANGELOG.md` | Authoritative source for `grid.html`'s changelog modal, added 2026-09-23. Mirrors `docs/DESIGNER-CHANGELOG.md`; see that file's counterpart section for the one rule that differs (Grid keeps intro paragraphs). |
-| `sitemap.xml` | Hand-maintained sitemap (added 2026-09-19). Lists only the four public pages; `grid.html` is deliberately out while it's `noindex`, as are the two redirect shims. See "Sitemap" below before editing it. |
+| `docs/GRID-CHANGELOG.md` | Authoritative source for `forc3grid.html`'s changelog modal, added 2026-09-23. Mirrors `docs/DESIGNER-CHANGELOG.md`; see that file's counterpart section for the one rule that differs (Grid keeps intro paragraphs). |
+| `sitemap.xml` | Hand-maintained sitemap (added 2026-09-19). Lists only the four public pages; `forc3grid.html` is deliberately out while it's `noindex`, as are the two redirect shims. See "Sitemap" below before editing it. |
 | `CNAME` | GitHub Pages custom domain config. |
 
 ## Theming system
@@ -120,7 +121,7 @@ than rewriting it from scratch.
 - `:root` defines the default **blue** theme via CSS vars (`--accent`,
   `--accent-2`, `--accent-soft`, etc.).
 - `forc3designer.html` → `body.theme-designer` → **lime** accent.
-- `grid.html` → `body.theme-grid` → **orange** accent (added 2026-09-16,
+- `forc3grid.html` → `body.theme-grid` → **orange** accent (added 2026-09-16,
   owner: "theme is orangeish this time"; the page borrowed
   `theme-designer`'s lime until then). Its "What it does" section is laid
   out to match `forc3designer.html`'s (owner, 2026-09-16: "this here should
@@ -519,7 +520,7 @@ screenshot marking the empty space under the hero buttons.
 
 ### FORC3 Grid's two hero buttons — one of them is dead until a build ships
 
-`grid.html`'s hero has **"Download the app"** and **"Open the web version"**,
+`forc3grid.html`'s hero has **"Download the app"** and **"Open the web version"**,
 both with the same trailing arrow icon (owner, 2026-09-16 then 2026-09-21;
 originally "Open FORC3 Grid" / "Paint one first", the second of which
 pointed at `forc3designer.html`). The "Runs in your browser. Chrome or
@@ -611,12 +612,12 @@ caption aligned and went with it. `.hero__source` is still used by
 ### FORC3 Grid's hero icon row and changelog (added 2026-09-21)
 
 Owner: "just like the Designer page, add the Icon and changelog next to it".
-`grid.html`'s hero now opens with the same `.hero__icon-row` as
+`forc3grid.html`'s hero now opens with the same `.hero__icon-row` as
 `forc3designer.html`: `img/grid-icon.png` plus a "Change Log" button that
 opens a `#changelog` modal. All shared CSS and the generic modal system in
 `main.js`, so there are no CSS or JS changes. Measured identical to the Designer
 row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
-`grid.html#changelog` deep-links like the Designer's, and entries are
+`forc3grid.html#changelog` deep-links like the Designer's, and entries are
 `#v0-1-1` style.
 
 - **The entry is real as of 2026-09-23**, filled from the published release
@@ -1224,7 +1225,7 @@ asked for Buy Us A Beer "under instead" in the header dropdown: **all three
 copies are now Patreon first, then Buy Us A Beer**. The header dropdown
 stacks its cards vertically (`.header__actions .nav__menu--cards {
 flex-direction: column; min-width: 0 }`); the drawer and footer copies stay
-side by side. Same on all pages including `grid.html`'s header. The
+side by side. Same on all pages including `forc3grid.html`'s header. The
 footer's toggle line (`<button ... class="nav__toggle" ...>Support us</button>`,
 no `.nav__link`) is unique per page, so anchor footer-only markup edits on
 it — the drawer copy's `.nav__menu nav__menu--cards` line is identical to
@@ -1485,9 +1486,21 @@ building a second mechanism:
 - The scroll-spy is safe here for free: it only tracks links whose `href`
   starts with `#`, and the toggle is a `<button>` with no `href` at all.
 
+#### The Grid page is `forc3grid.html`, not `forc3grid.html`
+
+Renamed 2026-09-24. The owner asked for changelog deep links at
+`https://www.forc3mod.com/forc3forc3grid.html#v0-1-1` — a URL that 404'd, because
+the page was `grid.html`. The deep-link machinery already worked; only the
+filename was off, and `forc3grid.html` is what matches `forc3designer.html`
+and `gt3forc3.html`. Renamed with `git mv`, all 11 internal links repointed
+(nav × 5, footer × 5, the homepage hero's "Get FORC3 Grid" button), sitemap
+updated, and `grid.html` left behind as a redirect shim copying
+`designer.html`'s. **Use `forc3grid.html` everywhere from now on**; the shim
+is for links already in the wild, not for new ones.
+
 #### Showing / hiding a product page — four edits, they go together
 
-**Current state (2026-09-23): `grid.html` shown, `gt3forc3.html` hidden.**
+**Current state (2026-09-23): `forc3grid.html` shown, `gt3forc3.html` hidden.**
 Grid has flipped six times; **check the live markup, never this line.**
 This flips constantly — Grid alone went linked 09-16, hidden 09-16, relinked
 09-21, hidden 09-22, relinked 09-22 — so **check the live markup, not this
@@ -1592,8 +1605,8 @@ Every page loads `css/style.css?v=N` and `js/main.js?v=N`. **When you change
 either file, bump `N` in all five pages in the same commit** — otherwise the
 version query is worse than useless, because it looks like it's handling
 cache invalidation while doing nothing. "All five" means `index.html`,
-`forc3designer.html`, `grid.html`, `gt3forc3.html`, `SupportUs.html`. An
-older "all four pages" phrasing here left `grid.html` on `style.css?v=34`
+`forc3designer.html`, `forc3grid.html`, `gt3forc3.html`, `SupportUs.html`. An
+older "all four pages" phrasing here left `forc3grid.html` on `style.css?v=34`
 while the rest reached 58, until its header was synced on 2026-09-14 —
 don't drop it from the list again. (`forc3-designer-download/index.html`
 loads the stylesheet too and is still on its own stale `?v=32`; it's a
@@ -1623,7 +1636,7 @@ from before FORC3 Grid existed.
   the grid." Four lines on desktop instead of three. Also fixed a missing
   comma after "livery painting application" while rewriting.
 - **Buttons are one per product**: "Get FORC3 Designer" (primary →
-  `forc3designer.html`) and "Get FORC3 Grid" (ghost → `grid.html`), both
+  `forc3designer.html`) and "Get FORC3 Grid" (ghost → `forc3grid.html`), both
   with the shared arrow icon. It shipped as "Meet FORC3 Grid" for a few
   minutes — reasoning being that it links to a page, not a file, and Grid's
   installer isn't published — and the owner overruled it the same day
@@ -1758,12 +1771,12 @@ from before FORC3 Grid existed.
 - **Site version label** is the `// V 0.3` text in each page's
   `.footer__bottom` (`<p class="footer__links">`) — currently 0.3 (bumped
   from 0.1 on 2026-09-10, on request). It's hand-edited, not derived from
-  anything; change it on every page at once, including `grid.html`.
+  anything; change it on every page at once, including `forc3grid.html`.
 - Keep the header and footer markup/behavior **identical** across all five
-  content pages (`index.html`, `forc3designer.html`, `grid.html`,
+  content pages (`index.html`, `forc3designer.html`, `forc3grid.html`,
   `gt3forc3.html`, `SupportUs.html`). When you change one page's
   header/footer, mirror the change to the other four in the same turn.
-  - `grid.html` was synced into this set on 2026-09-14 (owner: "sync the
+  - `forc3grid.html` was synced into this set on 2026-09-14 (owner: "sync the
     grid.html header with the other pages", then "sync the footer too") after
     drifting to old copies (plain "Support us" links, an extra tab) whose
     header ran 22px past a 1280px window. **Keep mirroring header/footer
@@ -1831,7 +1844,7 @@ first.
   changes, not when a `?v=` bump or a CSS tweak touches the file.
 - **A page is listed only while it's shown.** A noindex page in a sitemap is
   a Search Console error, so pages go in and out with the "Showing / hiding
-  a product page" checklist. As of 2026-09-22 `grid.html` is in (four round
+  a product page" checklist. As of 2026-09-22 `forc3grid.html` is in (four round
   trips so far) and `gt3forc3.html` is out.
 - **The redirect shims are excluded too** (`designer.html`,
   `forc3-designer-download/`). A sitemap is for URLs that answer 200 with
@@ -1851,7 +1864,7 @@ first.
 404 already meant — so it changed nothing about crawling.
 
 - ⚠️ **Never `Disallow` a page you want kept out of search.** It's the
-  obvious-looking move for `grid.html` and it backfires: `Disallow` blocks
+  obvious-looking move for `forc3grid.html` and it backfires: `Disallow` blocks
   **crawling**, and a page Google can't crawl is a page whose
   `<meta name="robots" content="noindex">` Google can never read. It can
   still get indexed from an external link, just with no title or
