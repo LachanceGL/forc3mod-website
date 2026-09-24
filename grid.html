@@ -190,10 +190,12 @@
 
   <!-- ===== Changelog modal =====
        Same markup as forc3designer.html's, driven by the generic modal system
-       in main.js (deep-linkable as grid.html#changelog, entries as #v0-1-0).
-       Kept to one placeholder entry on purpose: no FORC3 Grid release is
-       published yet, and the only notes that exist (the v0.1.0 draft on
-       forc3-grid-releases) predate and contradict how the app works now. -->
+       in main.js (deep-linkable as grid.html#changelog, entries as #v0-1-1).
+       Source of truth is docs/GRID-CHANGELOG.md — edit both together.
+       One entry on purpose: forc3-grid-releases has v0.1.0 and v0.1.1, but
+       v0.1.1 is cosmetic (identical app, restyled installer) and is what
+       releases/latest serves, so the site describes the app once, at the
+       version people actually download. -->
   <div class="modal-overlay" id="changelog" aria-hidden="true">
     <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="changelogTitle">
       <div class="modal__header">
@@ -201,8 +203,8 @@
         <button type="button" class="icon-btn modal__close" data-modal-close aria-label="Close changelog">&times;</button>
       </div>
       <div class="modal__body">
-        <details class="modal__entry" id="v0-1-0">
-          <summary class="modal__version"><span class="modal__version-text">v0.1.0 <span class="modal__date">// Sep 23, 2026</span></span></summary>
+        <details class="modal__entry" id="v0-1-1">
+          <summary class="modal__version"><span class="modal__version-text">v0.1.1 <span class="modal__date">// Sep 23, 2026</span></span></summary>
           <div class="modal__entry-body">
             <p>
               First beta build of FORC3 Grid // the livery <strong>manager and

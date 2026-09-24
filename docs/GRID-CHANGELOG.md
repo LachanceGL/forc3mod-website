@@ -7,8 +7,8 @@ match. Same handoff pattern as `docs/DESIGNER-CHANGELOG.md`, which is the
 file to read alongside this one; the two differ in a few places, and those
 differences are called out below rather than left to be discovered.
 
-Created 2026-09-23, on request, after v0.1.0 shipped and its entry had been
-written straight from the GitHub release. That entry is reproduced below, so
+Created 2026-09-23, on request, after the first build shipped and its entry
+had been written straight from the GitHub release. That entry is reproduced below, so
 this file and the modal start in sync.
 
 ## Source of truth: check the releases repo
@@ -61,14 +61,14 @@ opening summary paragraph, because its `###` sections speak for themselves.
 Grid's releases open by explaining *why a `.grid` exists at all* — the
 car-binding problem, and what it means for being seen online — and that
 framing is the most valuable part of the entry for someone who has never
-heard of the app. **Keep those intro paragraphs.** v0.1.0 has three.
+heard of the app. **Keep those intro paragraphs.** v0.1.1 has three.
 
 Version matches the actual GitHub release tag. Date format is `Mon D, YYYY`.
 
 On the site, entries render as `<details>/<summary>` accordions, **all
 collapsed by default** — see `CLAUDE.md`'s "Changelog modal content" section
 for the markup shape. Each entry gets its own `id` (dashes, not dots:
-`v0-1-0`), so `grid.html#v0-1-0` opens the changelog and jumps to it. Give
+`v0-1-1`), so `grid.html#v0-1-1` opens the changelog and jumps to it. Give
 every new entry a matching id when you propagate it.
 
 **Em dashes become `//`** when this text reaches the site — that is a
@@ -84,9 +84,20 @@ release has used them yet.
 
 ---
 
-## v0.1.0 // Sep 23, 2026
+## v0.1.1 // Sep 23, 2026
 
 First beta build — manage, pack, share and install AC EVO liveries
+
+⚠ **This entry is labelled v0.1.1, not v0.1.0** (owner, 2026-09-23: "0.1.0
+does not exist"). Both tags are in fact published on `forc3-grid-releases`,
+but v0.1.1 is what `releases/latest/download` serves and therefore what
+anyone downloading from this site gets. v0.1.1 is a cosmetic release — its
+own notes say the app is **identical to v0.1.0**, the changes being the
+installer's colours and icon, and a Windows description that no longer
+claimed packs are re-linked to your own car. None of that is worth a
+visitor's attention, so the site carries **one entry** describing the app, at
+the version they will actually install. Don't add a second entry recapping
+the 0.1.0 / 0.1.1 difference.
 
 First beta build of FORC3 Grid — the livery **manager and sharing** half of
 the FORC3MOD toolchain for Assetto Corsa EVO. FORC3 Designer paints a livery;

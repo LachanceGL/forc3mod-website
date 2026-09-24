@@ -17,6 +17,16 @@ explicitly rather than leaving the old entry looking still-current.
 - `grid.html`'s "Open the web version" button now opens in a new tab
   (`target="_blank" rel="noopener"`, owner) — it was the only cross-site link
   on the site without that pair.
+- **Relabelled the Grid changelog entry v0.1.0 → v0.1.1** (owner: "0.1.0 does
+  not exist"). Both tags are actually published on `forc3-grid-releases`, but
+  v0.1.1 is what `releases/latest` serves, and its own notes say the app is
+  **identical to v0.1.0** — only the installer's colours/icon and its Windows
+  description changed. So the site keeps ONE entry, at the version people
+  download, rather than adding a second that would say nothing. Entry id
+  `v0-1-0` → `v0-1-1`, so `grid.html#v0-1-0` no longer opens anything —
+  acceptable, that link was hours old and unpublished anywhere.
+  The modal's own stale HTML comment ("no release published yet") was fixed in
+  the same pass. Modal, `docs/GRID-CHANGELOG.md` and `CLAUDE.md` all updated.
 - **Created `docs/GRID-CHANGELOG.md`** (owner), the authoritative source for
   `grid.html`'s changelog modal, mirroring the Designer's. Holds the v0.1.0
   entry verbatim — a script cross-checked all 14 bullets against the rendered

@@ -604,11 +604,15 @@ opens a `#changelog` modal. All shared CSS and the generic modal system in
 `main.js`, so there are no CSS or JS changes. Measured identical to the Designer
 row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
 `grid.html#changelog` deep-links like the Designer's, and entries are
-`#v0-1-0` style.
+`#v0-1-1` style.
 
-- **The v0.1.0 entry is real as of 2026-09-23**, filled from the published
-  release notes (owner: "the .exe for downloading the FORC3 Grid app is now
-  available"). It held a "v0.1.0 // Coming soon" placeholder until then,
+- **The entry is real as of 2026-09-23**, filled from the published release
+  notes (owner: "the .exe for downloading the FORC3 Grid app is now
+  available"). It is **labelled v0.1.1** (owner, same day: "0.1.0 does not
+  exist"), which is what `releases/latest` serves. Both tags do exist on
+  GitHub — v0.1.1 is cosmetic, identical app with a restyled installer — so
+  the site keeps one entry at the version people actually download rather
+  than two, the second of which would say nothing useful. Id `v0-1-1`. It held a "v0.1.0 // Coming soon" placeholder until then,
   deliberately: the only notes that existed were on an unpublished draft
   whose text predated two of the Grid project's own findings and contradicted
   both the app and this page.
@@ -628,7 +632,8 @@ row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
   source for this modal** (created 2026-09-23, on request), the same handoff
   as the Designer's. Edit it and the modal together, in one commit. It
   carries the v0.1.0 entry verbatim, so the two start in sync; a script
-  cross-checked all 14 bullets against the rendered modal.
+  cross-checked all 14 bullets against the rendered modal. Both were
+  relabelled v0.1.0 → v0.1.1 together later that day.
 - **It deliberately differs from the Designer's doc in one rule**: that one
   forbids an opening summary paragraph, Grid's *keeps* them. Grid releases
   open by explaining why a `.grid` exists at all (the car-binding problem,
