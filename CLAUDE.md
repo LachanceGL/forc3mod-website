@@ -622,12 +622,16 @@ row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
   rather than calling it unverified. Matches this page's own copy and
   `forc3-grid`'s docs. **Still diff the release body against the Grid repo's
   current docs before copying a future release** — that gap was real once.
-- Shape: three intro paragraphs, then `<h4>In this build</h4>` and
-  `<h4>Known, and worth saying up front</h4>` over `.feature-list` bullets —
-  the Designer's entry markup exactly. The release body's trailing
-  "the website does the same job in a browser" line was dropped as
-  release-page boilerplate; the page has an "Open the web version" button.
-  Em dashes converted to `//` per the site's copy rule.
+- ⚠️ **The entry is now one sentence**: "This is the release of the FORC3
+  Grid beta." (owner, 2026-09-24: "replace the whole FORC3 Grid 0.1.1 change
+  log with simply saying this is the release of the FORC3 Grid beta"). It
+  carried the full release notes for a day — three intro paragraphs, "In this
+  build", "Known, and worth saying up front" — recoverable with
+  `git show 0160111:grid.html`, and still on the GitHub release. **Don't
+  re-expand it from the release notes**; that was deliberate, not drift.
+  Consequence: the page no longer warns about the "Unknown publisher"
+  installer prompt or the seven cars AC EVO never builds liveries for. Those
+  live only on the GitHub release now.
 - **[`docs/GRID-CHANGELOG.md`](docs/GRID-CHANGELOG.md) is the authoritative
   source for this modal** (created 2026-09-23, on request), the same handoff
   as the Designer's. Edit it and the modal together, in one commit. It

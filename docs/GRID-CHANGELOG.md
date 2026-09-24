@@ -86,65 +86,17 @@ release has used them yet.
 
 ## v0.1.1 // Sep 23, 2026
 
-First beta build — manage, pack, share and install AC EVO liveries
+The FORC3 Grid beta is out
 
-⚠ **This entry is labelled v0.1.1, not v0.1.0** (owner, 2026-09-23: "0.1.0
-does not exist"). Both tags are in fact published on `forc3-grid-releases`,
-but v0.1.1 is what `releases/latest/download` serves and therefore what
-anyone downloading from this site gets. v0.1.1 is a cosmetic release — its
-own notes say the app is **identical to v0.1.0**, the changes being the
-installer's colours and icon, and a Windows description that no longer
-claimed packs are re-linked to your own car. None of that is worth a
-visitor's attention, so the site carries **one entry** describing the app, at
-the version they will actually install. Don't add a second entry recapping
-the 0.1.0 / 0.1.1 difference.
+This is the release of the FORC3 Grid beta.
 
-First beta build of FORC3 Grid — the livery **manager and sharing** half of
-the FORC3MOD toolchain for Assetto Corsa EVO. FORC3 Designer paints a livery;
-this manages the ones you have, packs them into shareable `.grid` files, and
-installs other people's.
+*(Deliberately short, owner 2026-09-24: "replace the whole FORC3 Grid 0.1.1
+change log with simply saying this is the release of the FORC3 Grid beta".
+The long version — three intro paragraphs, "In this build" and "Known, and
+worth saying up front", all taken from the published release notes — was
+live for a day and is in git history if it is ever wanted back:
+`git show 0160111:grid.html`. The GitHub release itself still carries the
+full text.)*
 
-**Why a `.grid` and not a zip.** AC EVO binds every external livery to one
-specific car in *your own* garage, so a livery folder copied to another PC
-binds to nothing and silently does not appear. A `.grid` carries the author's
-own saved car and installs it alongside the paint, so both machines end up
-holding the same car and the livery works the way its author sees it. That is
-the whole reason this exists.
-
-**And you can be seen in it.** Two players who both install the pack see each
-other wearing the livery — tested on two machines, both driving it, both
-seeing it on the other's car. That works *because* the pack carries the
-author's car: a livery re-linked to a car you already owned is drivable, and
-invisible to everyone else.
-
-### In this build
-- Finds `Saved Games\ACE` on its own and opens straight into your showroom
-- Shows AC EVO's own render of each livery, full size from the card
-- Scans every installed livery, whoever made it, and says plainly what is
-  linked, unlinked, incomplete or foreign
-- Exports any complete livery as a `.grid`
-- Installs one by picker, drag-and-drop, double-click, or straight from
-  FORC3 Designer — every route through the same confirmations
-- Imports liveries that are not packs yet — a raw AC EVO folder, or a zip of
-  one
-- Copies a livery onto another car of the same model
-- Deleting a livery can also remove the car its pack brought with it
-- Browse, search, vote and upload on the Community Grid, rename your own
-  listings, and withdraw them
-- Warns before installing a livery for a car AC EVO does not build liveries
-  on
-- **Settings → Check for Updates** installs future versions in one click
-
-### Known, and worth saying up front
-- Windows will warn *"Unknown publisher"* — the installer is not code-signed
-  yet. More info → Run anyway.
-- **A livery does not appear until AC EVO has drawn it.** Open the car in the
-  showroom, change one feature and Apply. Help → How it works has the steps.
-- **Seven cars never build an external livery at all**, as far as testing has
-  found: Audi R8 V10 Performance, both Dallaras, Mazda RX-7 FD, Ferrari F40
-  LM, Alfa Romeo Giulia GTAm and Honda S2000 AP1. The app says so before you
-  install one.
-
-*(Dropped from the release body when propagating: the closing line pointing
-at https://grid.forc3mod.com — boilerplate here, since the page has an
-"Open the web version" button.)*
+*(Labelled v0.1.1, not v0.1.0 — both tags are published, but v0.1.1 is what
+`releases/latest/download` serves, and the app is identical in the two.)*

@@ -14,6 +14,13 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- **Gutted the Grid v0.1.1 changelog entry to one sentence** (owner: "replace
+  the whole FORC3 Grid 0.1.1 change log with simply saying this is the release
+  of the FORC3 Grid beta"). Modal and `docs/GRID-CHANGELOG.md` both. The full
+  version lasted a day; it is in git at `0160111` and on the GitHub release,
+  and the doc says so. Side effect worth noting: the site no longer mentions
+  the "Unknown publisher" installer prompt or the seven cars AC EVO won't
+  build liveries for.
 - **FORC3 Designer v0.7.0 added to the changelog** (owner: "update the FORC3
   Designer changelogs to the newest version"). Found by checking
   `forc3-designer-releases` rather than waiting to be handed text, per the
