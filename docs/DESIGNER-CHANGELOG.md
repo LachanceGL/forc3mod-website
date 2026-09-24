@@ -109,7 +109,11 @@ FORC3 Grid integration, a Layers rework, decal nudging and UV guides
   back up in one click.
 - New Edit menu, with links to your local liveries, saved cars and save files.
   ![The new Edit menu](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.7.0/NewEditLocalFolders.jpg)
-- New app icon.
+- New app icon. ![The new FORC3 Designer app icon](/img/designer-icon.png)
+  <!-- shown inline in the modal at 30px via .modal__entry-icon, not as a
+       full-width .modal__entry-media block. This one image is a repo file
+       (img/designer-icon.png, already the hero icon) rather than a release
+       asset, because the release did not ship the icon as one. -->
 - Overall UI improvements.
 
 ### Fixes

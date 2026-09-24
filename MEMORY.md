@@ -14,6 +14,14 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- Added the actual app icon beside v0.7.0's "New app icon" bullet (owner).
+  New `.modal__entry-icon` (30px, rounded) + `.modal__entry-icon-row`;
+  `style.css?v=73`. **Plain inline didn't work in this preview engine** — the
+  icon dropped to its own line despite a span wrapper and plenty of room, the
+  third inline-layout oddity logged here — so the pairing is an explicit flex
+  row, which is unambiguous in any browser. Uses the repo's own
+  `img/designer-icon.png` (the hero icon) since the release didn't ship the
+  icon as an asset.
 - Homepage hero lead: the Grid clause now mirrors the Designer one's shape
   (owner: "say it's new also") — "FORC3 Grid, our new livery manager and
   sharing tool, has just entered beta too." was "FORC3 Grid manages the

@@ -1491,3 +1491,23 @@ h1, h2, h3, h4, h5 {
 }
 .modal__entry-media-row { display: flex; gap: 8px; margin: 8px 0 4px; }
 .modal__entry-media-row .modal__entry-media { margin: 0; flex: 1 1 0; min-width: 0; }
+/* A small icon shown INLINE beside a bullet's text, for a change that is
+   itself an image — v0.7.0's "New app icon". Deliberately not
+   .modal__entry-media: that one is a full-width block screenshot, which at
+   256px of app icon would dominate the entry.
+   ⚠️ `.modal__entry-body li` is `display: flex; flex-direction: column`, so
+   the bullet's text and this icon have to sit inside ONE child <span>, and
+   that span is itself a flex row (.modal__entry-icon-row) rather than
+   relying on inline flow. Plain inline was tried first and the icon wrapped
+   to its own line even with room to spare — the same class of inline-layout
+   gap this environment has shown before (see CLAUDE.md, "Working
+   conventions"). An explicit flex row is correct in every engine, so it
+   removes the question. Copy that markup; don't drop a bare <img> after the
+   text. */
+.modal__entry-icon-row { display: flex; align-items: center; gap: 9px; }
+.modal__entry-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  flex-shrink: 0;
+}

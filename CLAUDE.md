@@ -1004,6 +1004,22 @@ body has inline images/videos, don't just take the text and drop the media.
   CLS-safe technique for a genuine `<img>` tag, as opposed to the demo's
   CSS-background photo card, which can't use attributes and needs
   `aspect-ratio` in CSS instead).
+- **A small inline icon is a separate thing from a screenshot.**
+  `.modal__entry-icon` (added 2026-09-24, owner: "theres a line with new app
+  icon, add the actual new icon next to it") renders a 30px rounded icon
+  *beside* a bullet's text, for a change that IS an image — v0.7.0's "New app
+  icon". `.modal__entry-media` would blow the same file up to full modal
+  width. The one live use points at `img/designer-icon.png`, a repo file
+  (already the page's hero icon) rather than a release asset, because the
+  release didn't ship the icon as one.
+  ⚠️ **The text and icon sit inside one `<span class="modal__entry-icon-row">`
+  that is itself `display: flex`.** Plain inline was tried first — wrapped in
+  a span, image left inline — and the icon still dropped to its own line with
+  hundreds of px of room left on the text's line. That is the same class of
+  inline-layout gap this environment has shown twice before, so rather than
+  ship on the assumption real browsers differ, the pairing is an explicit
+  flex row: correct in any engine. Measured after: icon to the right of the
+  text, vertically overlapping it, 9px gap, at 1440 and 375px.
 - **`.modal__entry-media` in `css/style.css`** is generic — `display:block;
   width:100%; height:auto;` plus the modal's usual rounded-corner/border
   treatment. `.modal__entry-media-row` is a `display:flex; gap:8px` wrapper
