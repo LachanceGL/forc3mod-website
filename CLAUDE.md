@@ -1658,8 +1658,16 @@ from before FORC3 Grid existed.
   this wording once it isn't news, the same way Designer's "now open for
   beta testing" will need revisiting at 1.0.
 - **Buttons are one per product**: "Get FORC3 Designer" (primary →
-  `forc3designer.html`) and "Get FORC3 Grid" (ghost → `forc3grid.html`), both
-  with the shared arrow icon. It shipped as "Meet FORC3 Grid" for a few
+  `forc3designer.html`) and "Get FORC3 Grid" (ghost → `forc3grid.html`), each
+  ending in **its own app icon** since 2026-09-25 (owner: "replace these
+  arrows with the respective app icons") — `img/designer-icon.png` and
+  `img/grid-icon.png` via `.btn__app-icon`, 20px with 5px rounding rather
+  than `.btn .ico`'s 16px, which muddies artwork. `alt=""` on both: the
+  label already names the product, so the icon is decorative. Every other
+  button on the site keeps the arrow — this is a per-button choice, not a new
+  default. Measured after: icons load, 20×20, after the label, no overflow,
+  and the buttons still wrap to a column between 560 and 480px exactly as
+  before. It shipped as "Meet FORC3 Grid" for a few
   minutes — reasoning being that it links to a page, not a file, and Grid's
   installer isn't published — and the owner overruled it the same day
   ("meet? Should be Get also"). The pair reads as one set now; keep both on

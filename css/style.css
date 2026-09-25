@@ -219,6 +219,18 @@ h1, h2, h3, h4, h5 {
   flex-shrink: 0;
 }
 .btn .ico { width: 16px; height: 16px; }
+/* The homepage hero's two product buttons carry their app icon instead of
+   the generic arrow (owner, 2026-09-25: "replace these arrows with the
+   respective app icons"). 20px rather than .btn .ico's 16px: these are
+   artwork, not a line glyph, and they turn muddy at 16. The rounding matches
+   how the icons read as app tiles elsewhere on the site. Other buttons keep
+   the arrow — this is a per-button choice, not a new default. */
+.btn__app-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
 .btn--primary {
   background: linear-gradient(135deg, var(--accent-2), var(--accent));
   color: #fff;

@@ -14,6 +14,11 @@ explicitly rather than leaving the old entry looking still-current.
 
 ## 2026-09-24
 
+- Homepage hero buttons: the generic arrows became the products' own app
+  icons (owner) — new `.btn__app-icon` at 20px/5px radius, `style.css?v=74`.
+  Decorative `alt=""` since the labels already name the products. Checked
+  375-1440px: both load at 20×20 after the label, no arrows left, no
+  overflow, same wrap point as before.
 - Added the actual app icon beside v0.7.0's "New app icon" bullet (owner).
   New `.modal__entry-icon` (30px, rounded) + `.modal__entry-icon-row`;
   `style.css?v=73`. **Plain inline didn't work in this preview engine** — the
