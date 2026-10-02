@@ -84,6 +84,21 @@ release has used them yet.
 
 ---
 
+## v0.2.0 // Oct 1, 2026
+
+Overall improvements
+
+Overall improvements.
+
+*(That is the entire published release body, verbatim. The repo has ~55
+commits since v0.1.1 — a takedown that can be lifted from the app, uploads
+blocked when a pack has no preview picture, equal votes broken by download
+count, an update check at launch, and a long run of Community Grid card and
+button polish — but none of it was written up in the release. Expanding the
+entry from commit messages would mean publishing notes the owner chose not
+to; flagged to them instead on 2026-10-01. If they want the detail, take it
+from the release notes once those are filled in, not from `git log`.)*
+
 ## v0.1.1 // Sep 23, 2026
 
 The FORC3 Grid beta is out
