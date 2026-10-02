@@ -33,6 +33,20 @@ explicitly rather than leaving the old entry looking still-current.
   liveries you make with it, and shares them with the grid." Still four lines
   on desktop, no overflow 375-1440px. Flagged that "new" and "just entered
   beta" will date.
+- **FORC3 Grid v0.2.0 changelog entry** (owner: "FORC3 grid has a new
+  version, update the changelog"). The published release body is two lines —
+  a title and "Overall improvements." — so that is what the entry says, in
+  both `forc3grid.html` and `docs/GRID-CHANGELOG.md`. The Grid repo had ~55
+  commits of real changes behind it; I listed them for the owner rather than
+  publishing release notes they chose not to write. Dated **Oct 1** from the
+  owner's Eastern day, not the 03:33Z UTC timestamp's Oct 2. Verified
+  `#v0-2-0` opens and expands at 1440 and 375px, and that
+  `releases/latest/download` already serves the 0.2.0 installer so neither
+  download button needed touching.
+  - Beware the browser pane reporting `innerWidth: 0`: every
+    `getBoundingClientRect()` then returns garbage, and my overflow sweep
+    "found" 5 elements both inside and outside the modal at once. Check
+    `innerWidth` before trusting any geometry from that pane.
 - **Renamed `grid.html` → `forc3grid.html`** (owner asked for changelog links
   at `https://www.forc3mod.com/forc3grid.html#v0-1-1`, a URL that 404'd — the
   deep links already worked, the filename just didn't match

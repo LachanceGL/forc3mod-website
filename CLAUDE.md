@@ -646,6 +646,24 @@ row at 1440px (64px icon, 16px gap, 37px button, same left edge as the title).
   Consequence: the page no longer warns about the "Unknown publisher"
   installer prompt or the seven cars AC EVO never builds liveries for. Those
   live only on the GitHub release now.
+- ⚠️ **v0.2.0 (Oct 1, 2026) says only "Overall improvements." — that is the
+  entire published release body, not an abbreviation of it.** Don't "finish"
+  it from the Grid repo's commit log: ~55 commits shipped between v0.1.1 and
+  v0.2.0 with real user-facing changes (a takedown can be lifted from the app,
+  a pack with no preview picture can't be uploaded, equal votes break on
+  download count, the app checks for updates at launch, the download count
+  joined the title line, plus a long run of Community Grid card/button
+  polish), and none of it was written up. Writing it up here would mean
+  publishing notes the owner chose not to write — some of those are Community
+  Grid moderation behaviour, which may be deliberately quiet. It was flagged
+  to the owner instead; expand the entry only from release notes that actually
+  say it. **General rule for both changelogs: the site's entry can be shorter
+  than the release, never longer.**
+- **Dates follow the owner's local (Eastern) day, not UTC.** v0.1.1 published
+  2026-09-23T23:15Z is "Sep 23"; v0.2.0 published 2026-10-02T03:33Z is
+  "Oct 1, 2026". A late-evening Eastern release lands on the *next* UTC day,
+  so converting from the API timestamp without shifting it dates the entry a
+  day late — v0.2.0 would have read "Oct 2" the day before it existed.
 - **[`docs/GRID-CHANGELOG.md`](docs/GRID-CHANGELOG.md) is the authoritative
   source for this modal** (created 2026-09-23, on request), the same handoff
   as the Designer's. Edit it and the modal together, in one commit. It
