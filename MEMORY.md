@@ -12,6 +12,33 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-10-03
+
+- **Split `CLAUDE.md` into `docs/`, cutting it 94%** (132,840 -> 8,337 bytes,
+  2002 -> 151 lines). The owner flagged that memory files were eating 51.3k
+  tokens of every session's context; `CLAUDE.md` was essentially all of it.
+  It tokenizes badly (~2.6 bytes/token) because it is dense with CSS
+  selectors, tables, URLs and hex colours. Same fix the FORC3 Designer repo
+  already uses: a lean auto-loaded router plus detail files read on demand.
+  - New: `docs/LAYOUT.md` (theming, logo, photo cards, hero, nav width,
+    breakpoint ladder), `docs/COMPONENTS.md` (modals, deep links, changelog
+    markup, dropdowns), `docs/INTEGRATIONS.md` (Worker, GT3 feed, download
+    buttons, Discord IDs), `docs/PLAYBOOKS.md` (gating, show/hide, cache
+    busting, working conventions), `docs/SEO.md`.
+  - **Lossless.** Split by exact line range, then verified every substantive
+    line and all 40 headings appear in a doc. The only 4 lines that moved
+    were `###`/`####` headings deliberately promoted to `##` once their
+    parent section stayed behind.
+  - `CLAUDE.md` keeps only what a session needs in its first five minutes:
+    the router table, deploy, the 8 silent-breakage rules, the verification
+    method, and the cross-repo map. Everything else is one hop away.
+  - Also fixed two lines the 2026-09-24 `grid.html` -> `forc3grid.html` sweep
+    had garbled ("not `forc3grid.html`" and `forc3forc3grid.html`).
+  - Note `MEMORY.md` (this file, 116KB) is **not** auto-loaded, so it costs
+    nothing per turn and was left alone. The one real remaining cost outside
+    this repo is `project_forc3_designer.md` (44KB) in the user's global
+    memory dir - a different project's file, loaded only on recall.
+
 ## 2026-09-24
 
 - Homepage hero buttons: the generic arrows became the products' own app
