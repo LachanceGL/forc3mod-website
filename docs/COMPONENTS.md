@@ -296,6 +296,15 @@ body has inline images/videos, don't just take the text and drop the media.
   CLS-safe technique for a genuine `<img>` tag, as opposed to the demo's
   CSS-background photo card, which can't use attributes and needs
   `aspect-ratio` in CSS instead).
+- ⚠️ **In the preview pane, these lazy images never load — that is not a
+  broken URL.** Every `<img loading="lazy">` inside the changelog modal reports
+  `complete=false`, `naturalWidth=0` there, even when scrolled into view
+  (found 2026-10-14 verifying v0.8.0; v0.7.0's long-live images showed the
+  identical state). To check a new entry's images, set `img.loading='eager'`
+  from JS first, then compare `naturalWidth`/`naturalHeight` with the
+  `width`/`height` attributes. Keep `loading="lazy"` in the markup: real
+  browsers honor it, and it stops the modal pulling a dozen screenshots on
+  page load.
 - **A small inline icon is a separate thing from a screenshot.**
   `.modal__entry-icon` (added 2026-09-24, owner: "theres a line with new app
   icon, add the actual new icon next to it") renders a 30px rounded icon

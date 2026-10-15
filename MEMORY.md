@@ -12,6 +12,23 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-10-14
+
+- **Added the FORC3 Designer v0.8.0 changelog entry** (`c7c08c3`), from the
+  release published 03:34Z on Oct 15, dated **Oct 14** (owner's Eastern
+  day). The full "What's new" carried over, nothing dropped: banners on 18
+  cars, the Stencil and Pattern tools, Reproject/Carbon/Base layers, material
+  presets, the movable toolbar and view switch, and 6 fixes. 9 clips and 6
+  screenshots hotlinked from the release, each sized from its measured pixel
+  dimensions. Doc and modal in one commit; content-only, no `?v=` bump.
+  Deploy watched to green, and `curl` confirmed the live page serves it.
+  - **Trap found while verifying:** every `loading="lazy"` image inside the
+    changelog modal reports `complete=false`, `naturalWidth=0` in the preview
+    pane, even scrolled into view. That looks like 6 broken URLs but isn't:
+    v0.7.0's images (live for weeks) show the same state, and setting
+    `loading='eager'` loaded all six with natural sizes matching their
+    `width`/`height` attributes. Recorded in `docs/COMPONENTS.md`.
+
 ## 2026-10-03
 
 - **Split `CLAUDE.md` into `docs/`, cutting it 94%** (132,840 -> 8,337 bytes,
