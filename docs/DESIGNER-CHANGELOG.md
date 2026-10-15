@@ -78,6 +78,76 @@ asset URL, don't re-host it in this repo).
 
 ---
 
+## v0.8.0 // Oct 14, 2026
+
+Banners, Stencil and Pattern tools, three new Layer types, and a movable toolbar
+
+> Note, not body copy: the release was published 2026-10-15T03:34Z, which is
+> 11:34 PM on Oct 14 in the owner's Eastern time, hence the date. Every item
+> in the release's "What's new" carried over; nothing was app-internal enough
+> to drop (unlike v0.7.0's Updater line). One asset name has a typo,
+> `NewTyeptextFonts.mp4`; that is the real URL, so leave it as is.
+
+### Changes
+- Banners: banners on 18 cars can now be painted on and exported. Cars that
+  have one are marked with a B in the car list.
+  [Video: painting a banner](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/cl_NewBanners.mp4)
+- New Tool: Stencil.
+  ![The Stencil tool](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewStencilTool.jpg)
+- New Tool: Pattern.
+  ![The Pattern tool](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewPatternTool.jpg)
+- Reproject Layer: new Layers FX function that lets you reproject a whole
+  layer somewhere else (aka move).
+  [Video: reproject layer](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/ReprojectLayer.mp4)
+- Add Carbon Layer: carbon parts can now be painted as a new Layer type and
+  will show in-game as the real EVO carbon material.
+  [Video: a carbon layer](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/cl_NewCarbonLayer.mp4)
+- Base Layer: new Layer type to import texture files as a layer, to recreate
+  a skin from external files to use as a base or anything else.
+  [Video: a base layer](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/BaseLayer.mp4)
+- Material Presets: new drop-down that sets the channels and their values for
+  a material (Chrome, Gold, Matte and more), with a Fill New Layer switch.
+  [Video: material presets](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/MaterialPresets.mp4)
+- Pattern Swatches: groups of four colors for the Pattern tool, added from
+  Suggested Palettes, the Pattern tool or four Shift+clicked swatches.
+- Paint Through: now also works with the Brush and the Stencil.
+- Type Text: now also reads the fonts installed on your PC, and the font list
+  can be searched.
+  [Video: fonts from your PC](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewTyeptextFonts.mp4)
+- Toolbar: now floats inside the viewport and can be moved.
+  [Video: the movable toolbar](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewMoveableToolbar.mp4)
+- View switch: new button to show 2D and 3D, 3D only or 2D only.
+  [Video: the view switch](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewToggleCanvas.mp4)
+- Top view: new 90 degree rotation buttons in the orthographic view.
+  ![The rotation buttons](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/OrthoTopViewNewRotates.jpg)
+- Decals: new Rotation and W / H size fields.
+  ![The Rotation and size fields](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewRotationFieldsAndSize.jpg)
+- Decals Library: now opens and closes from its tab at the bottom of the
+  3D view.
+  [Video: the Decals Library's tab](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/NewDecalLibraryToggle.mp4)
+- Layers: Copy Mask and Paste Mask, and the Layers panel can be collapsed.
+- Clearcoat: Wet Coating is now called Clearcoat, and its channels are always
+  shown in the Channels row.
+- Mask Mode: visual rework.
+  ![The new Mask Mode](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/ImprovedMaskMode.jpg)
+- Marking menu (Spacebar): new visual.
+  ![The new marking menu](https://github.com/LachanceGL/forc3-designer-releases/releases/download/v0.8.0/MarkingMenu.jpg)
+- 2D View: zoom in and out now follows the mouse cursor, and Z recenters the
+  view.
+- Unsaved changes: a dot shows when there are some, and closing the app asks
+  first.
+- Color theme: new Neutral theme, a grey, in Settings > Preferences.
+- Overall UX/UI improvements.
+
+### Fixes
+- 2D View: the lag caused by the UV guides is fixed.
+- Brush: the square brush now paints a square in the 3D view.
+- Triplanar: the preview now matches the result (layer blend mode, opacity
+  and mask), and the top and bottom are no longer a mirror image.
+- Views: Left now shows the car's left side and Right its right.
+- Duplicate Layer: now also copies Stroke, Drop Shadow and the mask.
+- Fill: fills the mask when a mask is selected.
+
 ## v0.7.0 // Sep 24, 2026
 
 FORC3 Grid integration, a Layers rework, decal nudging and UV guides
