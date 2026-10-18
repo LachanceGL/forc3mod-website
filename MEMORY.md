@@ -12,6 +12,16 @@ explicitly rather than leaving the old entry looking still-current.
 
 ---
 
+## 2026-10-18
+
+- **Homepage contact card made more compact** (`875fb3f`, owner screenshot:
+  "make this more compact"). 341px → 276px tall at desktop width (-19%), by
+  tightening card padding, field gaps, input and button padding, a 3-row
+  message box and a smaller heading. Gap above the form and below the Send
+  button's underline still match (22/22px), no overflow at 1984, 1280 or
+  375px. `style.css` → `v=75` on all five pages. Values recorded in
+  `docs/LAYOUT.md` under Design conventions.
+
 ## 2026-10-14
 
 - **Added the FORC3 Designer v0.8.0 changelog entry** (`c7c08c3`), from the

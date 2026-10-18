@@ -113,6 +113,18 @@ that took a full sweep to find.
   `.header__inner` height), matching the mobile drawer's pre-JS `top: 82px`
   fallback. The homepage contact card (`.cta`) lost its 1px outline the
   same day ("here too"); it's set apart by its `--surface` background alone.
+- **The homepage contact card was tightened on 2026-10-18** (owner, a
+  screenshot boxing it: "make this more compact"). 341px → 276px tall at a
+  1984px window: card padding `22px 40px 28px` (was `28px 48px 34px`), form
+  gap 10px (was 14), inputs `10px 14px` (was `13px 16px`), Send button
+  11px vertical padding (was `.btn--lg`'s 14), textarea `rows="3"` (was 4),
+  heading `clamp(24px, 3vw, 30px)` with a 10px margin (was 26-34px, 16px).
+  Mobile padding is `28px 22px 34px` (was `40px 28px`). The card's bottom
+  padding stays **6px more than its top** so the Send button's 6px
+  underline doesn't eat the bottom gap — measured 22px above the form and
+  22px below the underline after the change. Keep that +6 if you retune it.
+  The section band around the card (`.section`'s shared 52px) was left
+  alone, since every section uses it.
 - **Content starts exactly on the logo's left edge** on desktop
   (`min-width: 901px`), via `--content-inset: 0px` in `:root`. It was 15px
   (owner, 2026-09-12: "aligned here (with the logo) but leave like 15px"),
